@@ -276,6 +276,20 @@ a {
   margin-bottom: 0.5em;
   border-radius: 5px;
 }
+.customerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  border: #151515 solid 1px;
+  flex-wrap: nowrap;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1vh;
+}
 input, label {
   margin-bottom: 0.25em;
   padding: 0.3em;
