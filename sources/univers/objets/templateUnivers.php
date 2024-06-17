@@ -1,5 +1,5 @@
 <?php
-require ('templateUnivers.php');
+require ('sqlUnivers.php');
 
 class templateUnivers extends sqlUnivers 
 {
