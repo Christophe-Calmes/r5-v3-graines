@@ -12,6 +12,14 @@ class templateUnivers extends sqlUnivers
         $numberOfUnivers = $this->countYourUnivers($valid);
         echo '<article>Your number of Univers = '.$numberOfUnivers[0]['nbrUnivers'].' / '.$this->maxOfUnivers.'</article>';
     }
+    private function displayListOfYourUnivers ($valid) {
+        $dataUnivers = $this->listOfYourUnivers ($valid);
+        echo '<ul class="listeProfil">';
+            foreach($dataUnivers as $value) {
+                echo '<li>Name :'.$value['nameUnivers'].' - Technology Level: '.$value['nt'].'</li>';
+            }
+        echo '</ul>';
+    }
     public function addUniversForm ($idNav) {
         echo '<form class="customerForm" action="'.encodeRoutage(66).'" method="post">';
             echo '<label for="nameUnivers">Name univers :</label>';
@@ -27,7 +35,10 @@ class templateUnivers extends sqlUnivers
             echo '</select>';
             echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news univers</button>';
         echo '</form>';
+        echo '<article class="customerForm">';
         $this->numberOfUnivers(1);
+        $this->displayListOfYourUnivers (1);
+        echo '</article>';
     }
    
 }

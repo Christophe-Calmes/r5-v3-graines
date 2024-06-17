@@ -7,9 +7,19 @@ class sqlUnivers
         $this->nt = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         $this->maxOfUnivers = 6;
     }
-    protected function countYourUnivers($valid) {
+    private function checkUserID () {
         $findIdAuthor = new Controles ();
-        $idAuthor = $findIdAuthor->idUser($_SESSION);
+        return  $findIdAuthor->idUser($_SESSION);
+    }
+    protected function listOfYourUnivers ($valid) {
+        $idAuthor = $this->checkUserID ();
+        $param = [['prep'=>':idAuthor', 'variable'=>$idAuthor],
+        ['prep'=>':valid', 'variable'=>$valid]];
+        $select ="SELECT`nameUnivers`, `nt` FROM `univers` WHERE `idAuthor` = :idAuthor AND `valid` = :valid;";
+        return ActionDB::select($select, $param, 1); 
+    }
+    protected function countYourUnivers($valid) {
+        $idAuthor = $this->checkUserID ();
         $param = [['prep'=>':idAuthor', 'variable'=>$idAuthor],
                 ['prep'=>':valid', 'variable'=>$valid]];
         $select ="SELECT COUNT(`id`) AS nbrUnivers FROM `univers` WHERE `idAuthor` = :idAuthor AND `valid` = :valid;";
