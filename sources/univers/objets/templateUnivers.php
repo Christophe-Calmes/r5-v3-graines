@@ -44,7 +44,7 @@ class templateUnivers extends sqlUnivers
         $dataUnivers = $this->getOneUnivers ($idUnivers, $valid);
        
         echo '<form class="customerForm" action="'.encodeRoutage(67).'" method="post">';
-            echo '<h3>Presentation</h3>';
+            echo '<h3>Presentation of univers</h3>';
             echo '<p>Name :'.$dataUnivers[0]['nameUnivers'].'</p>
                   <p>Technology level: '.$dataUnivers[0]['nt'].'</p>';
             echo '<label for="nameUnivers">Name univers :</label>';
@@ -63,7 +63,7 @@ class templateUnivers extends sqlUnivers
         echo '</form>';
         echo '<form class="customerForm" action="'.encodeRoutage(68).'" method="post">';
         echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
-        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete univers</button>';
+        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete '.$dataUnivers[0]['nameUnivers'].'</button>';
     echo '</form>';
     }
 }
