@@ -54,4 +54,12 @@ class sqlUnivers
         $insert = "INSERT INTO `univers`(`nameUnivers`,  `nt`, `idAuthor`) VALUES (:nameUnivers, :nt, :idUser);";
         return ActionDB::access($insert, $param, 1);
     }
+    public function deleteUnivers ($param) {
+        $delete = "DELETE FROM `univers` WHERE `id`=:id AND `idAuthor`=:idUser;";
+        return ActionDB::access($delete, $param, 1);
+    }
+    public function updateUnivers ($param) {
+        $update = "UPDATE `univers` SET `nameUnivers`=:nameUnivers,`nt`=:nt WHERE `id`=:id AND `idAuthor`=:idUser;";
+        return ActionDB::access($update, $param, 1);
+    }
 }

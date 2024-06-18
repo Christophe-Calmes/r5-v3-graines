@@ -61,5 +61,9 @@ class templateUnivers extends sqlUnivers
             echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
             echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update univers</button>';
         echo '</form>';
+        echo '<form class="customerForm" action="'.encodeRoutage(68).'" method="post">';
+        echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
+        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete univers</button>';
+    echo '</form>';
     }
 }
