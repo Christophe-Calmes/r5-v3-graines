@@ -2,7 +2,7 @@
 // encodeRoutage(67)
 print_r($_POST);
 require ('../sources/univers/objets/sqlUnivers.php');
-$universObject = new sqlUnivers ();
+$universObject = new SQLUnivers ();
 $arrayKey = ['nameUnivers', 'nt', 'id'];
 $controle_POST = array();
 if(checkPostFields ($arrayKey, $_POST)) {

@@ -1,5 +1,5 @@
 <?php
-class sqlUnivers 
+class SQLUnivers 
 {
     protected $nt;
     protected $maxOfUnivers;

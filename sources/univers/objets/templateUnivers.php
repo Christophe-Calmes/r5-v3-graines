@@ -1,7 +1,7 @@
 <?php
 require ('sqlUnivers.php');
 
-class templateUnivers extends sqlUnivers 
+class TemplateUnivers extends SQLUnivers 
 {
 
     public function __construct () {
