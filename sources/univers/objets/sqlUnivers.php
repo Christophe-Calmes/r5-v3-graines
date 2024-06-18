@@ -11,11 +11,23 @@ class sqlUnivers
         $findIdAuthor = new Controles ();
         return  $findIdAuthor->idUser($_SESSION);
     }
+    protected function getOneUnivers ($idUnivers, $valid) {
+        $idAuthor = $this->checkUserID ();
+        $param = [['prep'=>':idUnivers', 'variable'=>$idUnivers],
+                    ['prep'=>':idAuthor', 'variable'=>$idAuthor],
+                    ['prep'=>':valid', 'variable'=>$valid]];
+        $select = "SELECT `id` AS `idUnivers`, `nameUnivers`, `idAuthor`, `nt`, `valid` 
+                    FROM `univers` 
+                    WHERE `id` = :idUnivers 
+                    AND `idAuthor`=:idAuthor
+                    AND `valid`=:valid;";
+        return ActionDB::select($select, $param, 1);
+    }
     protected function listOfYourUnivers ($valid) {
         $idAuthor = $this->checkUserID ();
         $param = [['prep'=>':idAuthor', 'variable'=>$idAuthor],
         ['prep'=>':valid', 'variable'=>$valid]];
-        $select ="SELECT`nameUnivers`, `nt` FROM `univers` WHERE `idAuthor` = :idAuthor AND `valid` = :valid;";
+        $select ="SELECT `id` AS `idUnivers`, `nameUnivers`, `nt` FROM `univers` WHERE `idAuthor` = :idAuthor AND `valid` = :valid ORDER BY `nameUnivers`;";
         return ActionDB::select($select, $param, 1); 
     }
     protected function countYourUnivers($valid) {

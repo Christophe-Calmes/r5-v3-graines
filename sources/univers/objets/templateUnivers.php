@@ -14,9 +14,9 @@ class templateUnivers extends sqlUnivers
     }
     private function displayListOfYourUnivers ($valid) {
         $dataUnivers = $this->listOfYourUnivers ($valid);
-        echo '<ul class="listeProfil">';
+        echo '<ul class="gallery">';
             foreach($dataUnivers as $value) {
-                echo '<li>Name :'.$value['nameUnivers'].' - Technology Level: '.$value['nt'].'</li>';
+                echo '<li class="item"><a href="'.findTargetRoute(156).'&idUnivers='.$value['idUnivers'].'">Name :'.$value['nameUnivers'].' - Technology Level: '.$value['nt'].'</a></li>';
             }
         echo '</ul>';
     }
@@ -40,5 +40,26 @@ class templateUnivers extends sqlUnivers
         $this->displayListOfYourUnivers (1);
         echo '</article>';
     }
-   
+    public function displayOneUniversUpdateForm ($idUnivers, $valid, $idNav) {
+        $dataUnivers = $this->getOneUnivers ($idUnivers, $valid);
+       
+        echo '<form class="customerForm" action="'.encodeRoutage(67).'" method="post">';
+            echo '<h3>Presentation</h3>';
+            echo '<p>Name :'.$dataUnivers[0]['nameUnivers'].'</p>
+                  <p>Technology level: '.$dataUnivers[0]['nt'].'</p>';
+            echo '<label for="nameUnivers">Name univers :</label>';
+            echo '<input id="nameUnivers" name="nameUnivers" value="'.$dataUnivers[0]['nameUnivers'].'"/>';
+            echo '<label for="nt">Level Technologique</label>';
+            echo '<select for="nt" name="nt">';
+                for ($i=0; $i <count($this->nt) ; $i++) { 
+                    echo '<option value="'.$i.'">'.$this->nt[$i].'</option>';
+                    if($i == $dataUnivers[0]['nt']) {
+                        echo '<option value="'.$i.'" selected>'.$this->nt[$i].'</option>';
+                    }
+                }
+            echo '</select>';
+            echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
+            echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update univers</button>';
+        echo '</form>';
+    }
 }
