@@ -1,5 +1,6 @@
 <?php
-class SQLFactions 
+require ('sources/univers/objets/templateUnivers.php');
+class SQLFactions extends TemplateUnivers
 {
     
 }

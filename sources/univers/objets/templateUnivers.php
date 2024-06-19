@@ -12,11 +12,24 @@ class TemplateUnivers extends SQLUnivers
         $numberOfUnivers = $this->countYourUnivers($valid);
         echo '<article>Your number of Univers = '.$numberOfUnivers[0]['nbrUnivers'].' / '.$this->maxOfUnivers.'</article>';
     }
-    private function displayListOfYourUnivers ($valid) {
+    private function displayFactionsOfOneUnivers ($dataFactions) {
+        if($dataFactions == []) {
+            echo '<p>No factions have been found in the base.</p>';
+        } else {
+            echo '<lu class="listClass">';
+            foreach ($dataFactions as  $value) {
+                echo '<li>'.$value['nomFaction'].'</li>';
+            }
+            echo '</ul>';
+        }
+    }
+    protected function displayListOfYourUnivers ($valid) {
         $dataUnivers = $this->listOfYourUnivers ($valid);
         echo '<ul class="gallery">';
             foreach($dataUnivers as $value) {
                 echo '<li class="item"><a href="'.findTargetRoute(156).'&idUnivers='.$value['idUnivers'].'">Name :'.$value['nameUnivers'].' - Technology Level: '.$value['nt'].'</a></li>';
+                $dataFactions = $this->listOfFaction ($value['idUnivers']);
+                $this->displayFactionsOfOneUnivers ($dataFactions);
             }
         echo '</ul>';
     }

@@ -37,6 +37,11 @@ class SQLUnivers
         $select ="SELECT COUNT(`id`) AS nbrUnivers FROM `univers` WHERE `idAuthor` = :idAuthor AND `valid` = :valid;";
         return ActionDB::select($select, $param, 1); 
     }
+    protected function listOfFaction ($idUnivers) {
+        $select = "SELECT `id` AS `idFaction`,`nomFaction` FROM `factions` WHERE `idUnivers` = :idUnivers AND `valid`= 1;";
+        $param = [['prep'=>':idUnivers', 'variable'=>$idUnivers]];
+        return ActionDB::select($select, $param, 1);
+    }
     public function checkNT ($nt) {
         if(in_array($nt, $this->nt)) {
             return 1;
@@ -62,4 +67,5 @@ class SQLUnivers
         $update = "UPDATE `univers` SET `nameUnivers`=:nameUnivers,`nt`=:nt WHERE `id`=:id AND `idAuthor`=:idUser;";
         return ActionDB::access($update, $param, 1);
     }
+
 }

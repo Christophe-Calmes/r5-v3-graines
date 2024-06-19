@@ -1,0 +1,49 @@
+<?php
+require('sources/factions/objets/sqlFactions.php');
+class templatesFactions extends SQLFactions
+{
+    private function selectUnivers () {
+        $dataUnivers = $this->listOfYourUnivers (1);
+        echo '<label for="idUnivers">Univers of your new faction</label>';
+        echo '<select id="idUnivers" name="idUnivers">';
+            foreach ($dataUnivers as $value) {
+                echo '<option value="'.$value['idUnivers'].'">'.$value['nameUnivers'].' - TL '.$value['nt'].'</option>';
+            }
+        echo '</select>';
+    }
+    public function formFactionPublic ($idNav) {
+        echo '<form class="customerForm" action="'.encodeRoutage(69).'" method="post">';
+        echo '<label for="nomFaction">Name Faction :</label>';
+        echo '<input id="nomFaction" name="nomFaction" placeholder="New name faction"/>';
+        $this->selectUnivers ();
+        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news faction</button>';
+        echo '</form>';
+        echo '<article class="customerForm">';
+        $this->displayListOfYourUnivers (1);
+        echo '</article>';
+    }
+    public function displayFactionAdmin ($idNav) {
+        $listOfUserUnivers = $this->listOfYourUnivers (1);
+        echo '<article class="gallery">';
+            foreach ($listOfUserUnivers as $value) {
+                echo '<div class="item"><h4>'.$value['nameUnivers'].'</h4>';
+                $listFactionOfOneUnivers = $this->listOfFaction ($value['idUnivers']);
+                echo '<ul class="listeProfil">';
+                    foreach ($listFactionOfOneUnivers as $value) {
+                        echo '<li>';
+                        echo '<form class="customerForm" action="'.encodeRoutage(70).'" method="post">';
+                        echo '<strong>'.$value['nomFaction'].'</strong>';
+                        echo '<input type="hidden" name="id" value="'.$value['idFaction'].'"/>';
+                        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>';
+                        echo '</form>';
+                        echo'</li>';
+                    }
+                echo '</ul>';
+                echo '</div>';
+
+            }
+        echo '</article>';
+        
+        
+    }
+}
