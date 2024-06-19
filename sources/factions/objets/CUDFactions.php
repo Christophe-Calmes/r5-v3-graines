@@ -21,4 +21,12 @@ class CUDFactions
         VALUES (:idUnivers, :nomFaction, :idUser);";
         ActionDB::access($insert, $param, 1);
     }
+    public function deleteOneFactionByUser ($param) {
+        $delete = "DELETE FROM `factions` WHERE `id`=:id AND `idAuthor`=:idUser;";
+        ActionDB::access($delete, $param, 1);
+    }
+    public function updateNomFactionByUser ($param) {
+       $update = "UPDATE `factions` SET `nomFaction`=:nomFaction WHERE `id` = :id AND `idAuthor` = :idUser;";
+       ActionDB::access($update, $param, 1);
+    }
 }

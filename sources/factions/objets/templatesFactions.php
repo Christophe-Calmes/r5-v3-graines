@@ -22,7 +22,14 @@ class templatesFactions extends SQLFactions
         $this->displayListOfYourUnivers (1);
         echo '</article>';
     }
-    public function displayFactionAdmin ($idNav) {
+    public function displayFactionAdmin ($idNav, $type) {
+        if($type == 0) {
+            $message = "Delete";
+            $adress = 70;
+        } else {
+            $message = "Update";
+            $adress = 71;
+        }
         $listOfUserUnivers = $this->listOfYourUnivers (1);
         echo '<article class="gallery">';
             foreach ($listOfUserUnivers as $value) {
@@ -31,10 +38,14 @@ class templatesFactions extends SQLFactions
                 echo '<ul class="listeProfil">';
                     foreach ($listFactionOfOneUnivers as $value) {
                         echo '<li>';
-                        echo '<form class="customerForm" action="'.encodeRoutage(70).'" method="post">';
+                        echo '<form class="customerForm" action="'.encodeRoutage($adress).'" method="post">';
                         echo '<strong>'.$value['nomFaction'].'</strong>';
+                        if($type == 1) {
+                            echo '<label for="nomFaction">Name Faction :</label>';
+                            echo '<input id="nomFaction" name="nomFaction" value="'.$value['nomFaction'].'"/>';
+                        }
                         echo '<input type="hidden" name="id" value="'.$value['idFaction'].'"/>';
-                        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>';
+                        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>';
                         echo '</form>';
                         echo'</li>';
                     }
@@ -43,7 +54,6 @@ class templatesFactions extends SQLFactions
 
             }
         echo '</article>';
-        
-        
     }
+
 }
