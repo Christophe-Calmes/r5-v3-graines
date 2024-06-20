@@ -33,4 +33,30 @@ Text ?
         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news special rules</button>';
         echo '</form>';
     }
+    public function displaySRTitle ($firstPage,  $RSbyPage, $typeRS) {
+        $datasRS = $this->getRS ($firstPage,  $RSbyPage, $typeRS);
+            echo '<article class="flex-center">';
+                echo '<table class="tableWebSite">';
+                    echo '<tr>';
+                        echo '<th>Name</th>';
+                        echo '<th>Price</th>';
+                        echo '<th>Display</th>';
+                    echo '</tr>';
+                    foreach ($datasRS as $value) {
+                    echo '<tr>';
+                        echo '<td>'.$value['nameSpecialRules'].'</td>';
+                        echo '<td>'.$value['price'].'</td>';
+                        echo '<td><a href="'.findTargetRoute(165).'&idRS='.$value['id'].'">Administrer</a></td>';
+                    echo '</tr>';
+                    }
+                echo '</table>';
+            echo '</article>';
+    }
+    public function setTypeRules ($typeRules) {
+        return $this->specialRulesType[$typeRules];
+    }
+    public function displayOneRSAdmin ($idRS, $idNav) {
+        $dataOneRule = $this-> getOneRS ($idRS);
+        print_r($dataOneRule);
+    }
 }

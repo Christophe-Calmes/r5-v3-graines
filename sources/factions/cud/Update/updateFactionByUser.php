@@ -1,6 +1,5 @@
 <?php
 // encodeRoutage(71)
-print_r($_POST);
 require ('../sources/factions/objets/CUDFactions.php');
 $cudAFaction = new CUDFactions ();
 $arrayKeys = ['nomFaction', 'id'];

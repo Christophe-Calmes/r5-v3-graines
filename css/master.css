@@ -180,6 +180,7 @@ a {
   flex-direction: row;
 }
 .flex-center {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -266,6 +267,24 @@ a {
   list-style: none;
   text-align: left;
 }
+/*Table website*/
+.tableWebSite {
+  border: #151515 solid 1px;
+}
+.tableWebSite th {
+  text-align: left;
+}
+
+
+
+.tableWebSite td {
+  border: #151515 solid 1px;
+  text-align: left;
+}
+.tableWebSite tr:nth-child(odd) {
+  background-color: #d6d6d6;
+}
+
 /*Formulaire*/
 .formulaireClassique {
   display: flex;
