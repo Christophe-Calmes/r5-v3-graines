@@ -3,6 +3,7 @@
 {
     protected $specialRulesType;
     protected $priceSpecialRules;
+    protected $yes;
     public function __construct () {
         $this->specialRulesType = ['Weapon', 'Miniature', 'Vehicle', 'Army list'];
         $this->priceSpecialRules = [['level'=>'Neutral', 'price'=>1.05],
@@ -12,6 +13,7 @@
                                     ['level'=>'Powerfull', 'price'=>1.5],
                                     ['level'=>'Very powerfull', 'price'=>1.75],
                                     ['level'=>'Magical technology', 'price'=>2],];
+        $this->yes = ['No', 'Yes'];
 
     }
     public function checkTypeRule ($indexTypeRule) {

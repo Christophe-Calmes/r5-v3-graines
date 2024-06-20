@@ -270,6 +270,8 @@ a {
 /*Table website*/
 .tableWebSite {
   border: #151515 solid 1px;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 .tableWebSite th {
   text-align: left;
@@ -279,10 +281,12 @@ a {
 
 .tableWebSite td {
   border: #151515 solid 1px;
-  text-align: left;
+  text-align: justify;
+  padding: 0.5em 0.5em 0.5em 0.2em;
 }
 .tableWebSite tr:nth-child(odd) {
   background-color: #d6d6d6;
+  font-weight:600;
 }
 
 /*Formulaire*/

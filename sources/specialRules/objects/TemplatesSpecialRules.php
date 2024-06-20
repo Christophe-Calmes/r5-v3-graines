@@ -55,8 +55,22 @@ Text ?
     public function setTypeRules ($typeRules) {
         return $this->specialRulesType[$typeRules];
     }
-    public function displayOneRSAdmin ($idRS, $idNav) {
+    public function displayOneRS ($idRS, $idNav) {
         $dataOneRule = $this-> getOneRS ($idRS);
-        print_r($dataOneRule);
+        echo '<article>';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<td>Type : '.$this->specialRulesType[$dataOneRule[0]['typeSpecialRules']].'</td>';
+                    echo '<td>Name : '.$dataOneRule[0]['nameSpecialRules'].'</strong></td>';
+                echo '</tr>';
+                echo '<tr>';
+                        echo '<td colspan="2">'.$dataOneRule[0]['descriptionSpecialRules'].'</td>';
+                    echo '</tr>';
+                    echo '<tr>';
+                        echo '<td>Price : '.$dataOneRule[0]['price'].'</td>';
+                        echo '<td>Valid : '.$this->yes[$dataOneRule[0]['valid']].'</td>';
+                    echo '</tr>';
+            echo '</table>';
+        echo '</article>';
     }
 }
