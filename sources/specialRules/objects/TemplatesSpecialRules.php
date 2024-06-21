@@ -46,7 +46,7 @@ Text ?
                     echo '<tr>';
                         echo '<td>'.$value['nameSpecialRules'].'</td>';
                         echo '<td>'.$value['price'].'</td>';
-                        echo '<td><a href="'.findTargetRoute(165).'&idRS='.$value['id'].'">Administrer</a></td>';
+                        echo '<td><a href="'.findTargetRoute(165).'&idRS='.$value['id'].'">Administration</a></td>';
                     echo '</tr>';
                     }
                 echo '</table>';
