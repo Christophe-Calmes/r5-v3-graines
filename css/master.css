@@ -372,7 +372,7 @@ select:disabled {
 /*Bouton lien*/
 /*publish on site*/
 /*Marquage admin*/
-.red{
+.red {
   background-color: var(--color-orange);
 }
 .formAdmin {

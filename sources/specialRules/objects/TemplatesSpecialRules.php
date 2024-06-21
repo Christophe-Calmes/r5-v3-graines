@@ -20,6 +20,43 @@ class TemplatesSpecialRules extends SQLspecialRules
            
         echo '</select>';
     }
+    private function selectValid ($state) {
+        echo '<label for="valid">valid status ?</label>';
+        echo '<select id="valid" name="valid">';
+            for ($i=0; $i <count($this->yes) ; $i++) { 
+                if($i == $state) {
+                    echo '<option value="'.$i.'" selected>'.$this->yes[$i].'</option>';
+                } else {
+                    echo '<option value="'.$i.'">'.$this->yes[$i].'</option>';
+                }
+            }
+        echo '</select>';
+    }
+    private function adminOneRS ($dataOneRule, $idNav) {
+        echo '<article>';
+            echo '<form action="'.encodeRoutage(73).'" method="post">';
+                    echo '<table class="tableWebSite">';
+                        echo '<tr>';
+                            echo '<td>Type : '; $this->selectTypeSpecialRules(); echo'</td>';
+                            echo '<td>Name : <input id="nameSpecialRules" name="nameSpecialRules" value="'.$dataOneRule[0]['nameSpecialRules'].'"/></td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                                echo '<td colspan="2"><textarea name="descriptionSpecialRules" id="descriptionSpecialRules" cols="221" rows="10">
+'.$dataOneRule[0]['descriptionSpecialRules'].'</textarea></td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>Price : '; $this->selectPriceSpecialRules (); echo'</td>';
+                                echo '<td>Valid : '; $this->selectValid ($dataOneRule[0]['valid']); echo'</td>';
+                            echo '</tr>';
+                            echo '<tr>
+                                    <td class="red" colspan="2">
+                                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update '.$dataOneRule[0]['nameSpecialRules'].'</button>
+                                    </td>
+                                </tr>';
+                    echo '</table>';
+            echo '</form>';
+        echo '</article>';
+    }
     public function formSpecialRules ($idNav) {
         echo '<form class="customerForm" action="'.encodeRoutage(72).'" method="post">';
         $this->selectTypeSpecialRules ();
@@ -72,5 +109,7 @@ Text ?
                     echo '</tr>';
             echo '</table>';
         echo '</article>';
+        $this->adminOneRS ($dataOneRule, $idNav);
     }
+
 }
