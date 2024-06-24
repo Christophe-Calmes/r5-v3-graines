@@ -35,6 +35,7 @@ class TemplatesSpecialRules extends SQLspecialRules
     private function adminOneRS ($dataOneRule, $idNav) {
         echo '<article>';
             echo '<form action="'.encodeRoutage(73).'" method="post">';
+            echo '<input type="hidden" name="idRS" value="'.$dataOneRule[0]['id'].'"/>';
                     echo '<table class="tableWebSite">';
                         echo '<tr>';
                             echo '<td>Type : '; $this->selectTypeSpecialRules(); echo'</td>';
@@ -50,11 +51,15 @@ class TemplatesSpecialRules extends SQLspecialRules
                             echo '</tr>';
                             echo '<tr>
                                     <td class="red" colspan="2">
-                                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update '.$dataOneRule[0]['nameSpecialRules'].'</button>
+                                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update '.$dataOneRule[0]['nameSpecialRules'].'</button>
+                                        </form>
+                                        <form action="'.encodeRoutage(74).'" method="post">
+                                            <input type="hidden" name="idRS" value="'.$dataOneRule[0]['id'].'"/>
+                                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete '.$dataOneRule[0]['nameSpecialRules'].'</button>
+                                        </form>
                                     </td>
                                 </tr>';
                     echo '</table>';
-            echo '</form>';
         echo '</article>';
     }
     public function formSpecialRules ($idNav) {

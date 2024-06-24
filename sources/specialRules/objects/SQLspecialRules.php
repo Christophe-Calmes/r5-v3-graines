@@ -25,6 +25,18 @@
     public function priceTransformation ($indexPrice) {
         return $this->priceSpecialRules[$indexPrice]['price'];
     }
+    public function checkYesOrNo ($index) {
+        return isset($this->yes[$index]);
+    }
+    public function checkSRexist ($idRS) {
+        $select = "SELECT COUNT(`id`) AS `nbrOfSR` FROM `specialRules` WHERE `id`=:id;";
+        $param = [['prep'=>':id', 'variable'=>$idRS]];
+        $data = ActionDB::select($select,$param, 1);
+        if($data[0]['nbrOfSR'] == 1) {
+            return true;
+        }
+        return false;
+    }
     public function insertNewSP ($param) {
         $insert = "INSERT INTO `specialRules`(`typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`) 
         VALUES (:typeSpecialRules, :nameSpecialRules, :descriptionSpecialRules, :price);";
@@ -37,6 +49,21 @@
         $param = [['prep'=>':typeSpecialRules', 'variable'=>$typeRS]];
         $data = ActionDB::select($select, $param, 1);
         return $data[0]['nbrSR'];
+    }
+    public function UpdateSR ($param) {
+        $update = "UPDATE `specialRules` 
+                    SET `typeSpecialRules`=:typeSpecialRules,
+                    `nameSpecialRules`=:nameSpecialRules,
+                    `descriptionSpecialRules`=:descriptionSpecialRules,
+                    `price`=:price,
+                    `valid`=:valid 
+                    WHERE `id`= :idRS";
+         return ActionDB::access($update, $param, 1);
+    }
+    public function DeleteSR ($param) {
+        $delete = "DELETE FROM `specialRules` WHERE `id` = :idRS;";
+        return ActionDB::access($delete, $param, 1);
+
     }
     protected function getRS ($firstPage,  $RSbyPage, $typeRS) {
         $select = "SELECT `id`, `nameSpecialRules`, `price` FROM `specialRules`
