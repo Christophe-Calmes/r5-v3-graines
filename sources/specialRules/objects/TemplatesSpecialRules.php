@@ -94,6 +94,25 @@ Text ?
                 echo '</table>';
             echo '</article>';
     }
+    public function publicDisplaySRTitle ($firstPage,  $RSbyPage, $typeRS) {
+        $datasRS = $this->getRS ($firstPage,  $RSbyPage, $typeRS);
+            echo '<article class="flex-center">';
+                echo '<table class="tableWebSite">';
+                    echo '<tr>';
+                        echo '<th>Name</th>';
+                        echo '<th>Price</th>';
+                        echo '<th>Display</th>';
+                    echo '</tr>';
+                    foreach ($datasRS as $value) {
+                    echo '<tr>';
+                        echo '<td>'.$value['nameSpecialRules'].'</td>';
+                        echo '<td>'.$value['price'].'</td>';
+                        echo '<td><a href="'.findTargetRoute(169).'&idRS='.$value['id'].'">Read</a></td>';
+                    echo '</tr>';
+                    }
+                echo '</table>';
+            echo '</article>';
+    }
     public function setTypeRules ($typeRules) {
         return $this->specialRulesType[$typeRules];
     }
@@ -115,6 +134,24 @@ Text ?
             echo '</table>';
         echo '</article>';
         $this->adminOneRS ($dataOneRule, $idNav);
+    }
+    public function PublicDisplayOneRS ($idRS, $idNav) {
+        $dataOneRule = $this-> getOneRS ($idRS);
+        echo '<article>';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<td>Type : '.$this->specialRulesType[$dataOneRule[0]['typeSpecialRules']].'</td>';
+                    echo '<td>Name : '.$dataOneRule[0]['nameSpecialRules'].'</strong></td>';
+                echo '</tr>';
+                echo '<tr>';
+                        echo '<td colspan="2">'.$dataOneRule[0]['descriptionSpecialRules'].'</td>';
+                    echo '</tr>';
+                    echo '<tr>';
+                        echo '<td>Price : '.$dataOneRule[0]['price'].'</td>';
+                        echo '<td>Valid : '.$this->yes[$dataOneRule[0]['valid']].'</td>';
+                    echo '</tr>';
+            echo '</table>';
+        echo '</article>';
     }
 
 }
