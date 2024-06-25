@@ -77,6 +77,7 @@ Text ?
     }
     public function displaySRTitle ($firstPage,  $RSbyPage, $typeRS) {
         $datasRS = $this->getRS ($firstPage,  $RSbyPage, $typeRS);
+        if(!empty($datasRS)) {
             echo '<article class="flex-center">';
                 echo '<table class="tableWebSite">';
                     echo '<tr>';
@@ -93,25 +94,40 @@ Text ?
                     }
                 echo '</table>';
             echo '</article>';
+        } else {
+            echo '<article class="flex-center">';
+                echo '<p>No data</p>';
+            echo '</article>';
+        }
+
+
     }
     public function publicDisplaySRTitle ($firstPage,  $RSbyPage, $typeRS) {
         $datasRS = $this->getRS ($firstPage,  $RSbyPage, $typeRS);
+        if(!empty($datasRS)) {
             echo '<article class="flex-center">';
-                echo '<table class="tableWebSite">';
-                    echo '<tr>';
-                        echo '<th>Name</th>';
-                        echo '<th>Price</th>';
-                        echo '<th>Display</th>';
-                    echo '</tr>';
-                    foreach ($datasRS as $value) {
-                    echo '<tr>';
-                        echo '<td>'.$value['nameSpecialRules'].'</td>';
-                        echo '<td>'.$value['price'].'</td>';
-                        echo '<td><a href="'.findTargetRoute(169).'&idRS='.$value['id'].'">Read</a></td>';
-                    echo '</tr>';
-                    }
-                echo '</table>';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<th>Name</th>';
+                    echo '<th>Price</th>';
+                    echo '<th>Display</th>';
+                echo '</tr>';
+                foreach ($datasRS as $value) {
+                echo '<tr>';
+                    echo '<td>'.$value['nameSpecialRules'].'</td>';
+                    echo '<td>'.$value['price'].'</td>';
+                    echo '<td><a href="'.findTargetRoute(169).'&idRS='.$value['id'].'">Read</a></td>';
+                echo '</tr>';
+                }
+            echo '</table>';
+        echo '</article>';
+        } else {
+            echo '<article class="flex-center">';
+                echo '<p>No data</p>';
             echo '</article>';
+        }
+
+    
     }
     public function setTypeRules ($typeRules) {
         return $this->specialRulesType[$typeRules];
