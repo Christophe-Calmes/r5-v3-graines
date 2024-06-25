@@ -290,6 +290,11 @@ a {
 }
 
 /*Formulaire*/
+#rangeValue {
+  font-weight: bolder;
+}
+
+
 .formulaireClassique {
   display: flex;
   flex-direction: column;
@@ -317,6 +322,9 @@ a {
 input, label {
   margin-bottom: 0.25em;
   padding: 0.3em;
+}
+label::first-letter {
+  text-transform: capitalize;
 }
 input, textarea {
   background-color: var(--color-chair);

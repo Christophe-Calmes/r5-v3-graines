@@ -123,3 +123,9 @@ foreach($post as $key => $value) {
 }
 return true;
 }
+function checkBool ($bool) {
+  if(($bool == 0)||($bool == 1)) {
+    return true;
+  }
+  return false;
+}
