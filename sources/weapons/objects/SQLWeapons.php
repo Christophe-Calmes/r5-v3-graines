@@ -17,8 +17,8 @@ class SQLWeapons
         return array_key_exists($indexTypePower, $this->powerType);
     }
     public function recordWeapon ($param) {
-        $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`,`spell`, `price`) 
-        VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :spell, :price);";
+        $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`, `heavy`, `spell`, `price`) 
+        VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
         return ActionDB::access($insert, $param, 1);
     }
 }

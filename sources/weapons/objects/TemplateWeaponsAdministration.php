@@ -21,6 +21,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<input id="nameWeapon" name="nameWeapon" placeholder="Name of weapon"/>';
                 $this->globalSelect ('Power of weapon','power', $this->powerType);
                 $this->globalSelect('overPower ?', 'overPower',$this->yes);
+                $this->globalSelect('Heavy weapon ?', 'heavy', $this->yes);
                 $this->globalSelect('Spell ?', 'spell',$this->yes);
                 if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
                     $this->globalSelect('Assault weapon ?', 'assault',$this->yes);
