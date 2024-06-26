@@ -12,13 +12,12 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $UpdateSR ->checkPriceRule (filter($_POST[$arrayKeys[4]])));
     array_push($controle_POST, $UpdateSR ->checkYesOrNo (filter($_POST[$arrayKeys[5]])));
 }
-if($controle_POST == [1, 1, 1, 0, 1, 1]) {
+if($controle_POST == [1, 1, 0, 0, 1, 1]) {
     $_POST['price'] = $UpdateSR->priceTransformation (filter($_POST[$arrayKeys[4]]));
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
     $UpdateSR->UpdateSR ($param);
     header('location:../index.php?message=Update special rules succes&idNav='.$idNav.'&idRS='.filter($_POST[$arrayKeys[0]]));
 } else {
-
     header('location:../index.php?message=Update special rules fail&idNav='.$idNav.'&idRS='.filter($_POST[$arrayKeys[0]]));
 } 
