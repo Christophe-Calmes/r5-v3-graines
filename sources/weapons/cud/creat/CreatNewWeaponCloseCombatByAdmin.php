@@ -19,7 +19,10 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 if($controle_POST == $mark) {
     $_POST['typeWeapon'] = 0;
     $calculatingPriceWeapon = new PriceOfWeapon ();
-    $dataWeapon = [filter($_POST['power']), filter($_POST['overPower']), filter($_POST['spell'])];
+    $dataWeapon = array();
+    for ($i=1; $i <count($arrayKeys) ; $i++) { 
+        array_push($dataWeapon, filter($_POST[$arrayKeys[$i]]));
+    }
     $_POST['price'] = $calculatingPriceWeapon->closeWeaponPrice ($dataWeapon);
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);

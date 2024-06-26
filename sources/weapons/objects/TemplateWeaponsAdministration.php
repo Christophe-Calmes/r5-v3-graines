@@ -30,7 +30,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                     echo '<input type="number" id="rateOfFire" name="rateOfFire" value="1" min="1" max="12"/>';
                     echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range :</label>';
                     echo '<input type="range" id="rangeWeapon'.$typeOfWeapon.'" value="10" name="rangeWeapon" min="0" max="120" step="2" oninput="updateRangeValue'.$typeOfWeapon.'()"/>';
-                    echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">0</span> "</div>';
+                    echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">10</span> "</div>';
                     echo '<script>
                         const updateRangeValue'.$typeOfWeapon.' = () => {
                             let rangeValue'.$typeOfWeapon.' = document.getElementById("rangeWeapon'.$typeOfWeapon.'").value;

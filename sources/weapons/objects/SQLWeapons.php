@@ -16,9 +16,26 @@ class SQLWeapons
     public function checkTypePower ($indexTypePower) {
         return array_key_exists($indexTypePower, $this->powerType);
     }
+    public function checkRateOfFire ($rtf) {
+        if(($rtf >= 1)&&($rtf <= 12)) {
+            return true;
+        }
+        return false;
+    }
+    public function checkRangeWeapon ($range) {
+        if(($range >= 0)&&($range <= 120)) {
+            return true;
+        } 
+        return false;
+    }
     public function recordWeapon ($param) {
         $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`, `heavy`, `spell`, `price`) 
         VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
+        return ActionDB::access($insert, $param, 1);
+    }
+    public function recordWeaponShooting ($param) {
+        $insert = "INSERT INTO `weapons`( `nameWeapon`, `idAuthor`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`,  `rangeWeapon`, `spell`, `price`) 
+        VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :price);";
         return ActionDB::access($insert, $param, 1);
     }
 }
