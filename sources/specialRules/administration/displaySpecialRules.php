@@ -12,8 +12,6 @@ function DisplaySpecialsRules ($specialRulesType, $idNav) {
       $firstPage = ($currentPage * $RSbyPage) - $RSbyPage;
       echo '<h4>'.$adminSpecialRules->setTypeRules($specialRulesType).' specials rules</h4>';
       $adminSpecialRules->displaySRTitle ($firstPage,  $RSbyPage, $specialRulesType );
-    
-    
       for ($page=1; $page <= $pages ; $page++ ) {
         echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';
       }

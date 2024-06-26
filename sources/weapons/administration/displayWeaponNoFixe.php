@@ -6,15 +6,15 @@
     } else {
         $currentPage = 1;
     }
-    $WeaponByPage = 2;
+    $WeaponByPage = 10;
     $nbrWeaponNoFixe = $admiWeapon->numberWeaponNoFixe ();
     $pages = ceil($nbrWeaponNoFixe/$WeaponByPage);
     $firstPage = ($currentPage * $WeaponByPage) - $WeaponByPage;
-?>
-<h4>Weapon no fixe</h4>
-<p>Page : <?=$currentPage?></p>
+        echo '<h4>Weapon no fixe</h4>';
+        echo '<p>Page : '.$currentPage.'</p>';
+    $admiWeapon->displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav);
 
-<?php
+
 for ($page=1; $page <= $pages ; $page++ ) {
     echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';
   }

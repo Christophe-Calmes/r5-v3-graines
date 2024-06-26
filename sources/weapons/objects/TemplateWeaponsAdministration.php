@@ -47,4 +47,8 @@ class TemplateWeaponsAdministration extends SQLWeapons
         echo '</article>';
        
     }
+    public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav)  {
+        $dataWeapon = $this->getWeaponNoFix ($firstPage, $WeaponByPage);
+        print_r($dataWeapon);
+    }
 }

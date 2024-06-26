@@ -54,6 +54,13 @@ class SQLWeapons
         FROM `weapons` WHERE `valid` = 1 AND `fixe` = 0;";
         $data = ActionDB::select($select, [], 1);
         return $data[0]['nbrWeaponNoFixe'];
-
+    }
+    protected function getWeaponNoFix ($firstPage, $WeaponByPage) {
+        $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
+        FROM `weapons` 
+        WHERE `fixe` = 0 
+        ORDER BY `typeWeapon`, `nameWeapon`
+        LIMIT {$firstPage}, {$WeaponByPage};";
+        return ActionDB::select($select, [], 1);
     }
 }
