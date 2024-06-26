@@ -43,4 +43,12 @@ class PriceOfWeapon
         }
         return round($price, 3);
     }
+    public function blastWeaponPrice ($arrayWeapon) {
+        $price = $this->shootingWeaponPrice ($arrayWeapon);
+        $blastSurface = [3, 13, 28, 20];
+        $blastDicePrice = [0.2, 0.4, 0.8, 1.6, 2.5];
+        /* templateType & blastDice */
+        $price = $price + ($arrayWeapon[8] * $arrayWeapon[9]);
+        return $price;
+    }
 }

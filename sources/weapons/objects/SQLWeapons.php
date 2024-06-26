@@ -16,6 +16,12 @@ class SQLWeapons
     public function checkTypePower ($indexTypePower) {
         return array_key_exists($indexTypePower, $this->powerType);
     }
+    public function checkGabaritType ($indexGabaritType) {
+        return array_key_exists($indexGabaritType, $this->gabaritType);
+    }
+    public function checkBlastDice ($indexBlastDice) {
+        return array_key_exists($indexBlastDice, $this->blastDice);
+    }
     public function checkRateOfFire ($rtf) {
         if(($rtf >= 1)&&($rtf <= 12)) {
             return true;
@@ -36,6 +42,11 @@ class SQLWeapons
     public function recordWeaponShooting ($param) {
         $insert = "INSERT INTO `weapons`( `nameWeapon`, `idAuthor`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`,  `rangeWeapon`, `spell`, `price`) 
         VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :price);";
+        return ActionDB::access($insert, $param, 1);
+    }
+    public function recordWeaponBlast ($param) {
+        $insert = "INSERT INTO `weapons`( `nameWeapon`, `idAuthor`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`,  `rangeWeapon`, `spell`, `templateType`, `blastDice`, `price`) 
+        VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :templateType, :blastDice, :price);";
         return ActionDB::access($insert, $param, 1);
     }
 }
