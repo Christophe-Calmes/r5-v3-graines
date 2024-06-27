@@ -12,7 +12,7 @@
     $firstPage = ($currentPage * $WeaponByPage) - $WeaponByPage;
         echo '<h4>Weapon no fixe</h4>';
         echo '<p>Page : '.$currentPage.'</p>';
-    $admiWeapon->displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav);
+    $admiWeapon->displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, 0);
 
 
 for ($page=1; $page <= $pages ; $page++ ) {

@@ -55,12 +55,13 @@ class SQLWeapons
         $data = ActionDB::select($select, [], 1);
         return $data[0]['nbrWeaponNoFixe'];
     }
-    protected function getWeaponNoFix ($firstPage, $WeaponByPage) {
+    protected function getWeapon ($firstPage, $WeaponByPage, $fixe) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
         FROM `weapons` 
-        WHERE `fixe` = 0 
+        WHERE `fixe` = :fixe
         ORDER BY `typeWeapon`, `nameWeapon`
         LIMIT {$firstPage}, {$WeaponByPage};";
-        return ActionDB::select($select, [], 1);
+        $param = [['prep'=>':fixe', 'variable'=>$fixe]];
+        return ActionDB::select($select, $param, 1);
     }
 }

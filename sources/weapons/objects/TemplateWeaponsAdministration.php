@@ -47,8 +47,33 @@ class TemplateWeaponsAdministration extends SQLWeapons
         echo '</article>';
        
     }
-    public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav)  {
-        $dataWeapon = $this->getWeaponNoFix ($firstPage, $WeaponByPage);
-        print_r($dataWeapon);
+    public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
+        $dataWeapon = $this->getWeapon ($firstPage, $WeaponByPage, $fixe);
+        echo '<article class="flex-center">';
+        echo '<table class="tableWebSite">';
+            echo '<tr>';
+                echo '<th>Name</th>';
+                echo '<th>Power</th>';
+                echo '<th>Type</th>';
+                echo '<th>Price</th>';
+                echo '<th>Fix</th>';
+                echo '<th>Admin</th>';
+            echo '</tr>';
+            foreach ($dataWeapon as $value) {
+                $overPower = null;
+                if($value['overPower'] == 1) {
+                    $overPower = '+';
+                }
+                echo '<tr>';
+                echo '<td>'.$value['nameWeapon'].'</td>';
+                echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
+                echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
+                echo '<td>'.$value['price'].'</td>';
+                echo '<td>'. $this->yes[$value['fixe']].'</td>';
+                echo '<td>Coming soon</td>';
+            echo '</tr>';
+            }
+        echo '</table>';
+        echo '</article>';
     }
 }
