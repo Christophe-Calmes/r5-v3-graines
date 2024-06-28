@@ -10,12 +10,40 @@ class TemplatesSpecialRules extends SQLspecialRules
             }
         echo '</select>';
     }
+    private function selectTypeSpecialRulesUpdate ($last) {
+        echo '<label for="typeSpecialRules">What type of special rule does this apply to?</label>';
+        echo '<select id="typeSpecialRules" name="typeSpecialRules">';
+            for ($i=0; $i <count($this->specialRulesType) ; $i++) { 
+               
+                if($last == $i) {
+                    echo '<option value="'.$i.'" selected>'.$this->specialRulesType[$i].'</option>';
+                } else {
+                    echo '<option value="'.$i.'">'.$this->specialRulesType[$i].'</option>';
+                }
+            }
+        echo '</select>';
+    }
     private function selectPriceSpecialRules () {
         echo '<label for="price">What type of special rule does this apply to?</label>';
         echo '<select id="price" name="price">';
  
         for ($i=0; $i <count($this->priceSpecialRules) ; $i++) { 
             echo '<option value="'.$i.'">'.$this->priceSpecialRules[$i]['level'].' - '.$this->priceSpecialRules[$i]['price'].'</option>';
+        }
+           
+        echo '</select>';
+    }
+    private function selectPriceSpecialRulesUpdate ($last) {
+        $index = array_search($last, array_column($this->priceSpecialRules, 'price'));
+        echo '<label for="price">What type of special rule does this apply to?</label>';
+        echo '<select id="price" name="price">';
+ 
+        for ($i=0; $i <count($this->priceSpecialRules) ; $i++) { 
+            if($index == $i) {
+            echo '<option value="'.$i.'" selected>'.$this->priceSpecialRules[$i]['level'].' - '.$this->priceSpecialRules[$i]['price'].'</option>';
+            } else {
+            echo '<option value="'.$i.'">'.$this->priceSpecialRules[$i]['level'].' - '.$this->priceSpecialRules[$i]['price'].'</option>';
+            }
         }
            
         echo '</select>';
@@ -38,7 +66,7 @@ class TemplatesSpecialRules extends SQLspecialRules
             echo '<input type="hidden" name="idRS" value="'.$dataOneRule[0]['id'].'"/>';
                     echo '<table class="tableWebSite">';
                         echo '<tr>';
-                            echo '<td>Type : '; $this->selectTypeSpecialRules(); echo'</td>';
+                            echo '<td>Type : '; $this->selectTypeSpecialRulesUpdate ($dataOneRule[0]['typeSpecialRules']); echo'</td>';
                             echo '<td>Name : <input id="nameSpecialRules" name="nameSpecialRules" value="'.$dataOneRule[0]['nameSpecialRules'].'"/></td>';
                         echo '</tr>';
                         echo '<tr>';
@@ -46,7 +74,7 @@ class TemplatesSpecialRules extends SQLspecialRules
 '.$dataOneRule[0]['descriptionSpecialRules'].'</textarea></td>';
                             echo '</tr>';
                             echo '<tr>';
-                                echo '<td>Price : '; $this->selectPriceSpecialRules (); echo'</td>';
+                                echo '<td>Price : '; $this->selectPriceSpecialRulesUpdate ($dataOneRule[0]['price']); echo'</td>';
                                 echo '<td>Valid : '; $this->selectValid ($dataOneRule[0]['valid']); echo'</td>';
                             echo '</tr>';
                             echo '<tr>
