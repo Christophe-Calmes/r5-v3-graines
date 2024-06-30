@@ -276,9 +276,6 @@ a {
 .tableWebSite th {
   text-align: left;
 }
-
-
-
 .tableWebSite td {
   border: #151515 solid 1px;
   text-align: justify;
@@ -288,6 +285,49 @@ a {
   background-color: #d6d6d6;
   font-weight:600;
 }
+/*Color table Weapon & Miniature & wehicle*/
+.tableCodex, td {
+  align-content: center;
+  text-align: center;
+  border: 1px solid #EDE7D1ff;
+  padding: 0.5em;
+  border-radius: none;
+}
+.tablePrinter, td {
+  margin-left: inherit;
+  border: 1px solid rgb(187, 187, 187);
+  font-size: 0.8em;
+  text-align: justify;
+}
+.printPicture {
+  height: 200px;
+}
+
+.codexGrey {
+  background-color: #949494;
+  color:#0e0d0d;
+}
+ .red {
+  background-color: #f81c1c;
+  color: #ffffff;
+  font-weight: bold;
+ }
+ .green {
+  background-color: #45b035;
+ }
+ .orange {
+  background-color: #f07338;
+ }
+ .yellow {
+  background-color: goldenrod;
+ }
+ .SRGrey {
+  background-color: #d1d1d1;
+ }
+
+/*Color table*/
+
+
 
 /*Formulaire*/
 #rangeValue {

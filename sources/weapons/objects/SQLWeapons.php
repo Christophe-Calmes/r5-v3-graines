@@ -64,4 +64,16 @@ class SQLWeapons
         $param = [['prep'=>':fixe', 'variable'=>$fixe]];
         return ActionDB::select($select, $param, 1);
     }
+    protected function getOneWeaponAdmin ($idWeapon) {
+        $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, 
+        `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, 
+        `spell`, `price`, `valid`, `fixe`, `login`
+        FROM `weapons`
+        INNER JOIN `xgyd0647_techr5`.`users` ON `xgyd0647_techr5`.`users`.`idUser` = `xgyd0647_r5business`.`weapons`.`idAuthor`
+        WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $data =  ActionDB::select($select, $param, 1);
+        return $data[0];
+
+    }
 }

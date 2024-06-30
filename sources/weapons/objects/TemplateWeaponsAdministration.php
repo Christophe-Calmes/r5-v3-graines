@@ -70,10 +70,79 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
                 echo '<td>'.$value['price'].'</td>';
                 echo '<td>'. $this->yes[$value['fixe']].'</td>';
-                echo '<td>Coming soon</td>';
+                echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">Administration</a></td>';
             echo '</tr>';
             }
         echo '</table>';
         echo '</article>';
     }
+    public function displayOneWeapon ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        $overPower = null;
+        if($dataWeapon['overPower'] == 1) {
+            $overPower = "+";
+        }
+        echo '<table class="tableCodex codexGrey">';
+            echo '<tr>';
+                echo '<td>Owner : '.$dataWeapon['login'].'</td>';
+                echo '<td>Fix weapon :  '. $this->yes[$dataWeapon['fixe']].'</td>';
+                echo '<td>Valid weapon :  '. $this->yes[$dataWeapon['valid']].'</td>';
+                echo '<td>Price :  '. $dataWeapon['price'].'</td>';
+            echo'</tr>';
+            echo'<tr>'; 
+                echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                if($dataWeapon['typeWeapon'] > 0) {
+                    $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                    echo '<tr>';
+                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                    echo'</tr>';
+                }
+                if($dataWeapon['typeWeapon'] > 1) {
+                    echo '<tr>';
+                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                    echo'</tr>';
+                }
+            
+            echo'</tr>';
+        echo '</table>';
+    }
+    public function displayOneWeaponPrinting ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        $overPower = null;
+        if($dataWeapon['overPower'] == 1) {
+            $overPower = "+";
+        }
+        echo '<table class="tableCodex codexGrey">';
+            echo'<tr>'; 
+                echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                if($dataWeapon['typeWeapon'] > 0) {
+                    $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                    echo '<tr>';
+                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                    echo'</tr>';
+                }
+                if($dataWeapon['typeWeapon'] > 1) {
+                    echo '<tr>';
+                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                    echo'</tr>';
+                }
+            
+            echo'</tr>';
+        echo '</table>';
+    }
+
 }
