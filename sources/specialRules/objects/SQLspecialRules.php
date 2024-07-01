@@ -65,6 +65,11 @@
         return ActionDB::access($delete, $param, 1);
 
     }
+    public function assignSRWeapon ($param) {
+        $insert = "INSERT INTO `specialeRulesLinkWeapon`(`idWeapon`, `idSpecialRules`) 
+        VALUES (:idWeapon, :idSpecialRules);";
+        return ActionDB::access($insert, $param, 1);
+    }
     protected function getRS ($firstPage,  $RSbyPage, $typeRS) {
         $select = "SELECT `id`, `nameSpecialRules`, `price` FROM `specialRules`
         WHERE `typeSpecialRules` = :typeSpecialRules AND `valid` = 1 
@@ -77,6 +82,29 @@
         FROM `specialRules` 
         WHERE `id` = :id;";
         $param = [['prep'=>':id', 'variable'=>$idRS]];
+        return ActionDB::select($select, $param, 1);
+    }
+    protected function getAllRSforAffectation ($typeRS, $valid, $idWeapon) {
+        $select = "SELECT `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+        FROM `specialRules` 
+        WHERE `typeSpecialRules` =  :typeSpecialRules
+        AND  `valid` = :valid
+        AND `id` NOT IN (SELECT`idSpecialRules` 
+        FROM `specialeRulesLinkWeapon` 
+        WHERE `idWeapon` = :idWeapon);";
+            $param = [
+            ['prep' => ':typeSpecialRules', 'variable' => $typeRS],
+            ['prep' => ':valid', 'variable' => $valid],
+            ['prep' => ':idWeapon', 'variable' => $idWeapon]];
+        $dataSpecialRules =  ActionDB::select($select, $param, 1);
+        return $dataSpecialRules;
+    }
+    protected function getAssignedSpecialRule ($idWeapon) {
+        $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+        FROM `specialeRulesLinkWeapon` 
+        INNER JOIN  `specialRules` ON `specialRules`.`id` =  `specialeRulesLinkWeapon`.`idSpecialRules` 
+        WHERE `idWeapon` = :idWeapon;";
+        $param = [['prep' => ':idWeapon', 'variable' => $idWeapon]];
         return ActionDB::select($select, $param, 1);
     }
 

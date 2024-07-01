@@ -34,6 +34,16 @@ class SQLWeapons
         } 
         return false;
     }
+    public function checkWeaponExist ($idWeapon) {
+        $select = "SELECT COUNT(`id`) AS `numberOfWeapon` 
+        FROM `weapons` WHERE `id` = :idWeapon;";
+         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $data = ActionDB::select($select, $param, 1);
+        if($data[0]['numberOfWeapon'] == 1) {
+            return true;
+        }
+        return false;
+    }
     public function recordWeapon ($param) {
         $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`, `heavy`, `spell`, `price`) 
         VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
@@ -55,6 +65,20 @@ class SQLWeapons
         $data = ActionDB::select($select, [], 1);
         return $data[0]['nbrWeaponNoFixe'];
     }
+    public function updateWeaponPriceSR ($idWeapon, $idSR) {
+        $paramWeapon = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $paramSR = [['prep'=>':idSR', 'variable'=>$idSR]];
+        $selectWeaponPrice = "SELECT `price` FROM `weapons` WHERE `id` = :idWeapon;";
+        $price = ActionDB::select($selectWeaponPrice, $paramWeapon, 1);
+        $priceWeapon = floatval($price[0]['price']);
+        $selectSRPrice = "SELECT `price` FROM `specialRules` WHERE `id` = :idSR;";
+        $price = ActionDB::select($selectSRPrice,  $paramSR, 1);
+        $priceSR = floatval($price[0]['price']);
+        $newPriceWeapon = $priceWeapon * $priceSR;
+        $update = "UPDATE `weapons` SET `price`= :newPrice WHERE `id` = :idWeapon;";
+        array_push($paramWeapon,['prep'=>':newPrice', 'variable'=>$newPriceWeapon ]);
+        ActionDB::access($update, $paramWeapon, 1);
+    }
     protected function getWeapon ($firstPage, $WeaponByPage, $fixe) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
         FROM `weapons` 
@@ -74,6 +98,5 @@ class SQLWeapons
         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
         $data =  ActionDB::select($select, $param, 1);
         return $data[0];
-
     }
 }

@@ -197,5 +197,55 @@ Text ?
             echo '</table>';
         echo '</article>';
     }
+    public function displaySpecialRulesForChoose ($typeRS, $valid, $idWeapon, $idNav) {
+        $dataSpecialsRules = $this->getAllRSforAffectation ($typeRS, $valid, $idWeapon);
+        echo '<article>';
+            echo '<h4 class="titleSite">Special rules assignable</h4>';
+                echo '<table class="tableWebSite">';
+        foreach ($dataSpecialsRules as $value) {
+                    echo '<tr>';
+                        echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                        echo '<td>Price : '.$value['price'].'</td>';
+                    echo '</tr>';
+                    echo '<tr>';
+                            echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                        echo '<td colspan="2"><form action="'.encodeRoutage(78).'" method="post">
+                                                <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+                                                <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
+                                                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Assign '.$value['nameSpecialRules'].'</button>           
+                                                </form>';
+                            echo'</td>';
+                        echo '</tr>';
+        }
+            echo '</table>';
+        echo '</article>';
+    }
+    public function displayAssignSpecialRules ($idWeapon, $idNav) {
+        $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
+        echo '<article>';
+        echo '<h4 class="titleSite">Special rules assigned</h4>';
+            echo '<table class="tableWebSite green">';
+        foreach ($dataSRAssigned as $value) {
+            echo '<tr>';
+                echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                echo '<td>Price : '.$value['price'].'</td>';
+            echo '</tr>';
+            echo '<tr>';
+                    echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td colspan="2"><form action="'.encodeRoutage(78).'" method="post">
+                                        <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+                                        <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
+                                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unassign '.$value['nameSpecialRules'].'</button>           
+                                        </form>';
+                    echo'</td>';
+                echo '</tr>';
+            }
+                echo '</table>';
+            echo '</article>';
+    }
 
 }
