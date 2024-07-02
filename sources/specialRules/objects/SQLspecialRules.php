@@ -70,6 +70,11 @@
         VALUES (:idWeapon, :idSpecialRules);";
         return ActionDB::access($insert, $param, 1);
     }
+    public function unassignSRWeapon ($param) {
+        $delete = "DELETE FROM `specialeRulesLinkWeapon` 
+        WHERE `idWeapon`=:idWeapon AND `idSpecialRules` =:idSpecialRules;";
+        return ActionDB::access($delete, $param, 1);
+    }
     protected function getRS ($firstPage,  $RSbyPage, $typeRS) {
         $select = "SELECT `id`, `nameSpecialRules`, `price` FROM `specialRules`
         WHERE `typeSpecialRules` = :typeSpecialRules AND `valid` = 1 

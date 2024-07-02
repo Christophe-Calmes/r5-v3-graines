@@ -236,7 +236,7 @@ Text ?
                     echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td colspan="2"><form action="'.encodeRoutage(78).'" method="post">
+                echo '<td colspan="2"><form action="'.encodeRoutage(79).'" method="post">
                                         <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
                                         <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
                                         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unassign '.$value['nameSpecialRules'].'</button>           

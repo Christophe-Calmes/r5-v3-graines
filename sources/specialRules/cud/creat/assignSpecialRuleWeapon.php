@@ -16,8 +16,9 @@ if(checkPostFields ($arrayKeys, $_POST))  {
 if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
+    print_r($param);
     $affectedNewSpecialRule -> assignSRWeapon ($param);
-    $weaponCheck ->updateWeaponPriceSR (filter($_POST[$arrayKeys[0]]), filter($_POST[$arrayKeys[1]]));
+    $weaponCheck ->updateWeaponPriceSR ($param, '+');
     header('location:../index.php?message=New special rules  success to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
 } else {
     header('location:../index.php?message=New special rules  fail to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 

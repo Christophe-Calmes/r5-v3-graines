@@ -65,20 +65,27 @@ class SQLWeapons
         $data = ActionDB::select($select, [], 1);
         return $data[0]['nbrWeaponNoFixe'];
     }
-    public function updateWeaponPriceSR ($idWeapon, $idSR) {
-        $paramWeapon = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
-        $paramSR = [['prep'=>':idSR', 'variable'=>$idSR]];
+    public function updateWeaponPriceSR ($param, $add) {
+        $paramWeapon = [$param[0]];
+        $paramSR = [$param[1]];
         $selectWeaponPrice = "SELECT `price` FROM `weapons` WHERE `id` = :idWeapon;";
         $price = ActionDB::select($selectWeaponPrice, $paramWeapon, 1);
         $priceWeapon = floatval($price[0]['price']);
-        $selectSRPrice = "SELECT `price` FROM `specialRules` WHERE `id` = :idSR;";
+        $selectSRPrice = "SELECT `price` FROM `specialRules` WHERE `id` =  :idSpecialRules;";
         $price = ActionDB::select($selectSRPrice,  $paramSR, 1);
         $priceSR = floatval($price[0]['price']);
-        $newPriceWeapon = $priceWeapon * $priceSR;
+        $newPriceWeapon = null;
+        if($add == '+') {
+            $newPriceWeapon = $priceWeapon * $priceSR;
+        } 
+        if($add == '-') {
+            $newPriceWeapon = $priceWeapon / $priceSR;
+        } 
         $update = "UPDATE `weapons` SET `price`= :newPrice WHERE `id` = :idWeapon;";
         array_push($paramWeapon,['prep'=>':newPrice', 'variable'=>$newPriceWeapon ]);
         ActionDB::access($update, $paramWeapon, 1);
     }
+
     protected function getWeapon ($firstPage, $WeaponByPage, $fixe) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
         FROM `weapons` 
