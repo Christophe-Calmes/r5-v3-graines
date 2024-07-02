@@ -20,7 +20,7 @@ if($controle_POST == $mark) {
     print_r($param);
     $UnassignSpecialRule ->unassignSRWeapon ($param);
     $weaponCheck ->updateWeaponPriceSR ($param, '-');
-    header('location:../index.php?message=New special rules  success to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
+    header('location:../index.php?message=New special rules  success to unassgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
 } else {
-    header('location:../index.php?message=New special rules  fail to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
+    header('location:../index.php?message=New special rules  fail to unassgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
 }
