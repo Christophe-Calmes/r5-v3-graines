@@ -12,6 +12,19 @@ class TemplateWeaponsAdministration extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
+    private function displayResumeSR ($idWeapon) {
+        $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
+        if(!empty($dataSR)) {
+            echo '<strong>Special rules : ';
+            foreach ($dataSR as $value) {
+                echo $value['nameSpecialRules'];
+                echo ' . ';
+            }
+            echo '</strong>';
+        } else {
+            echo '<strong> No special rule.</strong>';
+        }
+    }
     public function formCreatWeaponByAdmin ($typeOfWeapon, $idNav) {
         $adressCreat = [75, 76, 77];
         echo '<article>';
@@ -58,6 +71,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<th>Price</th>';
                 echo '<th>Fix</th>';
                 echo '<th>Admin</th>';
+                echo '<th>Delete</th>';
             echo '</tr>';
             foreach ($dataWeapon as $value) {
                 $overPower = null;
@@ -71,6 +85,12 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<td>'.$value['price'].'</td>';
                 echo '<td>'. $this->yes[$value['fixe']].'</td>';
                 echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">Administration</a></td>';
+                echo '<td>
+                    <form action="'.encodeRoutage(80).'" method="post">
+                        <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete weapon</button>
+                    </form>
+                </td>';
             echo '</tr>';
             }
         echo '</table>';
@@ -112,9 +132,11 @@ class TemplateWeaponsAdministration extends SQLWeapons
             
             echo'</tr>';
         echo '</table>';
+        $this->displayResumeSR ($idWeapon);
     }
     public function displayOneWeaponPrinting ($idWeapon) {
         $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        
         $overPower = null;
         if($dataWeapon['overPower'] == 1) {
             $overPower = "+";
@@ -143,6 +165,6 @@ class TemplateWeaponsAdministration extends SQLWeapons
             
             echo'</tr>';
         echo '</table>';
+        $this->displayResumeSR ($idWeapon);
     }
-
 }

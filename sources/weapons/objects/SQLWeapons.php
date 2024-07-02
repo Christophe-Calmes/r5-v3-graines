@@ -85,6 +85,19 @@ class SQLWeapons
         array_push($paramWeapon,['prep'=>':newPrice', 'variable'=>$newPriceWeapon ]);
         ActionDB::access($update, $paramWeapon, 1);
     }
+    public function deleteWeaponByAdmin ($param) {
+        $delete = "DELETE FROM `weapons` WHERE `id` = :idWeapon;";
+        ActionDB::access($delete, $param, 1);
+    }
+    public function getSpecialRuleOfOneWeapon ($idWeapon) {
+        $select = "SELECT `id`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid`  
+        FROM `specialeRulesLinkWeapon`
+        INNER JOIN `specialRules` ON  `specialeRulesLinkWeapon`.`idSpecialRules` = `specialRules`.`id`
+        WHERE `idWeapon` = :idWeapon
+        ORDER BY `nameSpecialRules`;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        return ActionDB::select($select, $param, 1);
+    }
 
     protected function getWeapon ($firstPage, $WeaponByPage, $fixe) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
