@@ -59,10 +59,11 @@ class SQLWeapons
         VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :templateType, :blastDice, :price);";
         return ActionDB::access($insert, $param, 1);
     }
-    public function numberWeaponNoFixe () {
+    public function numberWeaponNoFixe ($fix) {
         $select = "SELECT COUNT(`id`) AS `nbrWeaponNoFixe` 
-        FROM `weapons` WHERE `valid` = 1 AND `fixe` = 0;";
-        $data = ActionDB::select($select, [], 1);
+        FROM `weapons` WHERE `valid` = 1 AND `fixe` = :fixe;";
+        $param = [['prep'=>':fixe', 'variable'=>$fix]];
+        $data = ActionDB::select($select, $param, 1);
         return $data[0]['nbrWeaponNoFixe'];
     }
     public function updateWeaponPriceSR ($param, $add) {

@@ -1,7 +1,6 @@
 <?php
 // encodeRoutage(80)
 require('../sources/weapons/objects/SQLWeapons.php');
-print_r($_POST);
 $deleteWeapon = new SQLWeapons ();
 $arrayKeys = ['idWeapon'];
 if(checkPostFields ($arrayKeys, $_POST)) {

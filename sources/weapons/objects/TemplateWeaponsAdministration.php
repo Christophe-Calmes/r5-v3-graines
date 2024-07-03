@@ -14,16 +14,15 @@ class TemplateWeaponsAdministration extends SQLWeapons
     }
     private function displayResumeSR ($idWeapon) {
         $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
-        if(!empty($dataSR)) {
-            echo '<strong>Special rules : ';
+        $specialRules = null;
+      
             foreach ($dataSR as $value) {
-                echo $value['nameSpecialRules'];
-                echo ' . ';
+                $specialRules = $specialRules.$value['nameSpecialRules'].'.';
             }
-            echo '</strong>';
-        } else {
-            echo '<strong> No special rule.</strong>';
+        if(!empty($specialRules) ) {
+            echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
         }
+       
     }
     public function formCreatWeaponByAdmin ($typeOfWeapon, $idNav) {
         $adressCreat = [75, 76, 77];
@@ -62,46 +61,51 @@ class TemplateWeaponsAdministration extends SQLWeapons
     }
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
         $dataWeapon = $this->getWeapon ($firstPage, $WeaponByPage, $fixe);
-        $messageFix = ['Unfix', 'Details', 'View'];
-        if($fixe == 0) {
-            $messageFix = ['fix', 'Add special rules', 'Admin'];
-        }
-        echo '<article class="flex-center">';
-        echo '<table class="tableWebSite">';
-            echo '<tr>';
-                echo '<th>Name</th>';
-                echo '<th>Power</th>';
-                echo '<th>Type</th>';
-                echo '<th>Price</th>';
-                echo '<th>Fix</th>';
-                echo '<th>'.$messageFix[1].'</th>';
-                echo '<th>Delete</th>';
-            echo '</tr>';
-            foreach ($dataWeapon as $value) {
-                $overPower = null;
-                if($value['overPower'] == 1) {
-                    $overPower = '+';
-                }
-                echo '<tr>';
-                echo '<td>'.$value['nameWeapon'].'</td>';
-                echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
-                echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
-                echo '<td>'.$value['price'].'</td>';
-                echo '<td><form action="'.encodeRoutage(81).'" method="post">
-                        <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$messageFix[0].'</button>
-                    </form></td>';
-                echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">'.$messageFix[2].'</a></td>';
-                echo '<td>
-                    <form action="'.encodeRoutage(80).'" method="post">
-                        <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
-                    </form>
-                </td>';
-            echo '</tr>';
+        if(!empty( $dataWeapon)) {
+            $messageFix = ['Unfix', 'Details', 'View'];
+            if($fixe == 0) {
+                $messageFix = ['fix', 'Add special rules', 'Admin'];
             }
-        echo '</table>';
-        echo '</article>';
+            echo '<article class="flex-center">';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<th>Name</th>';
+                    echo '<th>Power</th>';
+                    echo '<th>Type</th>';
+                    echo '<th>Price</th>';
+                    echo '<th>Fix</th>';
+                    echo '<th>'.$messageFix[1].'</th>';
+                    echo '<th>Delete</th>';
+                echo '</tr>';
+                foreach ($dataWeapon as $value) {
+                    $overPower = null;
+                    if($value['overPower'] == 1) {
+                        $overPower = '+';
+                    }
+                    echo '<tr>';
+                    echo '<td>'.$value['nameWeapon'].'</td>';
+                    echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
+                    echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
+                    echo '<td>'.$value['price'].'</td>';
+                    echo '<td><form action="'.encodeRoutage(81).'" method="post">
+                            <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$messageFix[0].'</button>
+                        </form></td>';
+                    echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">'.$messageFix[2].'</a></td>';
+                    echo '<td>
+                        <form action="'.encodeRoutage(80).'" method="post">
+                            <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                        </form>
+                    </td>';
+                echo '</tr>';
+                }
+            echo '</table>';
+            echo '</article>';
+        } else {
+            echo '<p>No weapon find.</p>';
+        }
+       
     }
     public function displayOneWeapon ($idWeapon) {
         $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);

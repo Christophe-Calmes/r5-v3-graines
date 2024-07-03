@@ -224,6 +224,7 @@ Text ?
     }
     public function displayAssignSpecialRules ($idWeapon, $idNav) {
         $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
+        if(!empty($dataSRAssigned)) {
         echo '<article>';
         echo '<h4 class="titleSite">Special rules assigned</h4>';
             echo '<table class="tableWebSite green">';
@@ -246,6 +247,7 @@ Text ?
             }
                 echo '</table>';
             echo '</article>';
+        }
     }
 
 }

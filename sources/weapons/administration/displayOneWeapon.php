@@ -17,8 +17,7 @@ echo '<article class="flex-rows">';
 echo '</article>';
 echo '<article>';
 if($fix == 0) {
-    $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav);
     $dataSR->displayAssignSpecialRules ($idWeapon, $idNav);
+    $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav);
 }
-
 echo '</article>';
