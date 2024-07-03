@@ -89,6 +89,10 @@ class SQLWeapons
         $delete = "DELETE FROM `weapons` WHERE `id` = :idWeapon;";
         ActionDB::access($delete, $param, 1);
     }
+    public function fixOrNoFixWeaponByAdmin ($param) {
+        $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
+        ActionDB::access($update, $param, 1);
+    }
     public function getSpecialRuleOfOneWeapon ($idWeapon) {
         $select = "SELECT `id`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid`  
         FROM `specialeRulesLinkWeapon`

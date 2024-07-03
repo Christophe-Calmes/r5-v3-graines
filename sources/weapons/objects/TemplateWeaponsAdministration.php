@@ -62,6 +62,10 @@ class TemplateWeaponsAdministration extends SQLWeapons
     }
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
         $dataWeapon = $this->getWeapon ($firstPage, $WeaponByPage, $fixe);
+        $messageFix = ['Unfix', 'Details', 'View'];
+        if($fixe == 0) {
+            $messageFix = ['fix', 'Add special rules', 'Admin'];
+        }
         echo '<article class="flex-center">';
         echo '<table class="tableWebSite">';
             echo '<tr>';
@@ -70,7 +74,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<th>Type</th>';
                 echo '<th>Price</th>';
                 echo '<th>Fix</th>';
-                echo '<th>Admin</th>';
+                echo '<th>'.$messageFix[1].'</th>';
                 echo '<th>Delete</th>';
             echo '</tr>';
             foreach ($dataWeapon as $value) {
@@ -83,12 +87,15 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
                 echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
                 echo '<td>'.$value['price'].'</td>';
-                echo '<td>'. $this->yes[$value['fixe']].'</td>';
-                echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">Administration</a></td>';
+                echo '<td><form action="'.encodeRoutage(81).'" method="post">
+                        <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$messageFix[0].'</button>
+                    </form></td>';
+                echo '<td><a href="'.findTargetRoute(177).'&idWeapon='.$value['id'].'">'.$messageFix[2].'</a></td>';
                 echo '<td>
                     <form action="'.encodeRoutage(80).'" method="post">
                         <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete weapon</button>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
                     </form>
                 </td>';
             echo '</tr>';
@@ -107,7 +114,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 echo '<td>Owner : '.$dataWeapon['login'].'</td>';
                 echo '<td>Fix weapon :  '. $this->yes[$dataWeapon['fixe']].'</td>';
                 echo '<td>Valid weapon :  '. $this->yes[$dataWeapon['valid']].'</td>';
-                echo '<td>Price :  '. $dataWeapon['price'].'</td>';
+                echo '<td>Price :  '. round($dataWeapon['price'], 2).'</td>';
             echo'</tr>';
             echo'<tr>'; 
                 echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
@@ -132,7 +139,8 @@ class TemplateWeaponsAdministration extends SQLWeapons
             
             echo'</tr>';
         echo '</table>';
-        $this->displayResumeSR ($idWeapon);
+            $this->displayResumeSR ($idWeapon);
+            return $dataWeapon['fixe'];
     }
     public function displayOneWeaponPrinting ($idWeapon) {
         $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
