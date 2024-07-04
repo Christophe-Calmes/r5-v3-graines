@@ -29,6 +29,7 @@ if($controle_POST == $mark) {
     }
     $_POST['price'] = $calculatingPriceWeapon->closeWeaponPrice ($dataWeapon);
     $parametre = new Preparation ();
+    unset($_POST['idFaction']);
     $param = $parametre->creationPrepIdUser ($_POST);
     $creatNewWeapon->recordWeapon ($param);
     $creatNewWeapon->recordFactionOfWeapon ($param[7]['variable'], $idFaction);
