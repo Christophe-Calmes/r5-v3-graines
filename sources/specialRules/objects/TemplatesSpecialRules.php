@@ -249,5 +249,24 @@ Text ?
             echo '</article>';
         }
     }
+    public function displaySpecialRules ($idWeapon, $idNav) {
+        $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
+        if(!empty($dataSRAssigned)) {
+        echo '<article>';
+        echo '<h4 class="titleSite">Special rules assigned</h4>';
+            echo '<table class="tableWebSite green">';
+        foreach ($dataSRAssigned as $value) {
+            echo '<tr>';
+                echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                echo '<td>Price : '.$value['price'].'</td>';
+            echo '</tr>';
+            echo '<tr>';
+                    echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                echo '</tr>';
+            }
+                echo '</table>';
+            echo '</article>';
+        }
+    }
 
 }

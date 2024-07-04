@@ -19,5 +19,7 @@ echo '<article>';
 if($fix == 0) {
     $dataSR->displayAssignSpecialRules ($idWeapon, $idNav);
     $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav);
+} else {
+    $dataSR->displaySpecialRules ($idWeapon, $idNav);
 }
 echo '</article>';

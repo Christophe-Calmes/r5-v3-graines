@@ -13,6 +13,27 @@ class SQLWeapons
         $this->blastDice = ['D4', 'D6', 'D8', 'D10', 'D12'];
         $this->yes = ['No', 'Yes'];
     }
+    public function checkFactionCreatNewWeaponByUser ($idFaction) {
+        $select = "SELECT COUNT(`id`) AS `numberOfFaction` 
+        FROM `factions` 
+        WHERE `id` = :idFaction;";
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
+        $nbrFaction = ActionDB::select($select, $param, 1);
+        if($nbrFaction[0]['numberOfFaction'] != 1) {
+            return false;
+        }
+        return true;
+    }
+    public function recordFactionOfWeapon ($idUser, $idFaction) {
+        $select = "SELECT `id` FROM `weapons` WHERE `idAuthor`= :idAuthor ORDER BY `id` DESC LIMIT 1;";
+        $param = [['prep'=>':idAuthor', 'variable'=>$idUser]];
+        $idWeapon = ActionDB::select($select, $param, 1);
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction],
+                  ['prep'=>':idWeapon', 'variable'=>$idWeapon[0]['id']]];
+        $insert = "INSERT INTO `factionsLinkWeapon`(`idWeapon`, `idFaction`) 
+        VALUES (:idWeapon, :idFaction);";
+        actionDB::access($insert, $param, 1);    
+    }
     public function checkTypePower ($indexTypePower) {
         return array_key_exists($indexTypePower, $this->powerType);
     }
