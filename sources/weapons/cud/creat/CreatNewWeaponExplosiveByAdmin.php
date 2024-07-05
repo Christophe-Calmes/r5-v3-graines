@@ -28,7 +28,6 @@ if($controle_POST == $mark) {
     $_POST['typeWeapon'] = 2;
     $calculatingPriceWeapon = new PriceOfWeapon ();
     $dataWeapon = array();
-    $dataWeapon = array();
     for ($i=1; $i <count($arrayKeys) ; $i++) { 
         array_push($dataWeapon, filter($_POST[$arrayKeys[$i]]));
     }
