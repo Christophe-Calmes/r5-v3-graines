@@ -111,6 +111,13 @@ class SQLWeapons
         $delete = "DELETE FROM `weapons` WHERE `id` = :idWeapon;";
         ActionDB::access($delete, $param, 1);
     }
+    public function deleteWeaponByOwner ($param) {
+        $select = "SELECT `idFaction` FROM `factionsLinkWeapon` WHERE `idWeapon` = {$param[0]['variable']};";
+        $idFaction = ActionDB::select($select, [], 1);
+        $delete = "DELETE FROM `weapons` WHERE `id` =:idWeapon AND `idAuthor`= :idUser;";
+        ActionDB::access($delete, $param, 1);
+        return $idFaction[0]['idFaction'];
+    }
     public function fixOrNoFixWeaponByAdmin ($param) {
         $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
         ActionDB::access($update, $param, 1);
@@ -152,5 +159,15 @@ class SQLWeapons
             WHERE `idFaction` = :idFaction AND valid = 1;";
            $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
            return ActionDB::select($select, $param, 1);
+    }
+    protected function getOneWeaponByOwner ($idWeapon) {
+        $select = "SELECT `weapons`.`id` AS `idW`, `nameWeapon`,  `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `weapons`.`valid` AS `validWeapon`, `fixe`, `idFaction`, `nomFaction`, `nameUnivers`
+                    FROM `weapons`
+                    INNER JOIN `factionsLinkWeapon` ON `factionsLinkWeapon`.`idWeapon` = `weapons`.`id`
+                    INNER JOIN `factions` ON `factions`.`id` = `factionsLinkWeapon`.`idFaction`
+                    INNER JOIN `univers` ON  `univers`.`id` = `factions`.`idUnivers`
+                    WHERE  `weapons`.`id`=:idWeapon AND  `weapons`.`valid` = 1;";
+                $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+                return ActionDB::select($select, $param, 1);
     }
 }

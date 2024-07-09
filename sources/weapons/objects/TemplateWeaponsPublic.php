@@ -68,9 +68,50 @@ final class TemplateWeaponsPublic extends SQLWeapons
         $datasFaction  = $FactionsUser->getNameFaction ($idFaction);
         echo '<h3>'.$datasFaction[0]['nameUnivers'].' - Faction : '.$datasFaction[0]['nomFaction'].'</h3>';
      }
-    public function printListWeapon ($idFaction) {
+    public function printListWeapon ($idFaction, $idNav) {
         $this->printNameFaction  ($idFaction);
         $dataListWeapons = $this->getAllWeaponOfFaction ($idFaction);
-        
+        if(empty($dataListWeapons)) {
+            echo '<a href="'.findTargetRoute(179).'">Creat a new weapon ?</a>';
+        } else {
+            echo '<article class="flex-center">';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<th>Name</th>';
+                    echo '<th>Power</th>';
+                    echo '<th>Type</th>';
+                    echo '<th>Price</th>';
+                    echo '<th>Fix</th>';
+                    echo '<th>Admin</th>';
+                    echo '<th>Delete</th>';
+                echo '</tr>';
+                foreach ($dataListWeapons as $value) {
+                    $overPower = null;
+                    if($value['overPower'] == 1) {
+                        $overPower = '+';
+                    }
+                    echo '<tr>';
+                        echo '<td>'.$value['nameWeapon'].'</td>';
+                        echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
+                        echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
+                        echo '<td>'.$value['price'].'</td>';
+                        echo '<td>'.$this->yes[$value['fixe']].'</td>';
+                        echo '<td><a href="'.findTargetRoute(182).'&idWeapon='.$value['idWeapon'].'">Go</a></td>';
+                        echo '<td>
+                        <form action="'.encodeRoutage(85).'" method="post">
+                            <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                        </form>
+                    </td>';
+                echo '</tr>';
+                }
+    
+                echo '</table>';
+        }
+
+    }
+    public function printingOneWeapon ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponByOwner ($idWeapon);
+        print_r($dataWeapon);
     }
 }

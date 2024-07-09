@@ -1,3 +1,6 @@
 <?php
 // findTargetRoute(182)
-print_r($_GET);
+require('sources/weapons/objects/TemplateWeaponsPublic.php');
+$idWeapon = filter($_GET['idWeapon']);
+$displayWeapon = new TemplateWeaponsPublic ();
+$displayWeapon->printingOneWeapon ($idWeapon);
