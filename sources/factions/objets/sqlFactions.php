@@ -13,4 +13,12 @@ class SQLFactions extends TemplateUnivers
         $param = [['prep'=>':idAuthor', 'variable'=>$idAuthor]];
         return ActionDB::select($select, $param, 1);
     }
+    public function getNameFaction ($idFaction) {
+        $select = "SELECT `nomFaction`, `nameUnivers` 
+        FROM `factions`
+        INNER JOIN `univers` ON `univers`.`id` = `factions`.`idUnivers`
+        WHERE `factions`.`id` = :idFaction;";
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

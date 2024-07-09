@@ -27,23 +27,24 @@ Class PrintNavigation extends GetNavigation {
               <div class="btn-line"></div>
               <div class="btn-line"></div>
           </div>';
-    echo '<nav class="nav menu"><ul class="navigationBandeau">';
+    echo '<nav class="nav menu">
+            <ul class="navigationBandeau">';
       foreach ($variable as $value) {
         if(($value['zoneMenu'] == 0)&&($value['deroulant'] == 0)) {
           echo '<li><a href="index.php?idNav='.$value['targetRoute'].'">'.$value['nomNav'].'</a></li>';
         } else {
-          echo '<div class="dropdown">';
-          echo '<button class="buttonForm">'.$value['nomNav'].'</button>';
-          $dataTraiter  = $this->AuthenticNav ($value);
-          echo ' <div class="dropdown-child">';
-          foreach ($dataTraiter as $valeur) {
-              echo '<div><a href="index.php?idNav='.$valeur['targetRoute'].'">'.$valeur['nomNav'].'</a></div>';
-          }
-          echo '</div>';
+            echo '<div class="dropdown">';
+              echo '<button class="buttonForm">'.$value['nomNav'].'</button>';
+              $dataTraiter  = $this->AuthenticNav ($value);
+              echo ' <div class="dropdown-child">';
+              foreach ($dataTraiter as $valeur) {
+                  echo '<div><a href="index.php?idNav='.$valeur['targetRoute'].'">'.$valeur['nomNav'].'</a></div>';
+              }
+            echo '</div>';
           echo '</div>';
         }
       }
-    echo '</ul>
+      echo '</ul>
     </nav>';
     include 'javaScript/magicBurger.php';
   }

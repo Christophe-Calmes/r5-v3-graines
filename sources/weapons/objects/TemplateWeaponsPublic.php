@@ -63,5 +63,14 @@ final class TemplateWeaponsPublic extends SQLWeapons
         echo '</article>';
        
     }
-    
+    private function printNameFaction  ($idFaction) {
+        $FactionsUser = new SQLFactions ();
+        $datasFaction  = $FactionsUser->getNameFaction ($idFaction);
+        echo '<h3>'.$datasFaction[0]['nameUnivers'].' - Faction : '.$datasFaction[0]['nomFaction'].'</h3>';
+     }
+    public function printListWeapon ($idFaction) {
+        $this->printNameFaction  ($idFaction);
+        $dataListWeapons = $this->getAllWeaponOfFaction ($idFaction);
+        
+    }
 }

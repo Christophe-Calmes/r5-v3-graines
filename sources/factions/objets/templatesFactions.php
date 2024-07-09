@@ -55,5 +55,23 @@ class templatesFactions extends SQLFactions
             }
         echo '</article>';
     }
+    public function listOfUserFaction () {
+        $listOfUserUnivers = $this->listOfYourUnivers (1);
+        echo '<article class="gallery">';
+            foreach ($listOfUserUnivers as $value) {
+                echo '<div class="item"><h4>'.$value['nameUnivers'].'</h4>';
+                $listFactionOfOneUnivers = $this->listOfFaction ($value['idUnivers']);
+                echo '<ul class="listeProfil">';
+                    foreach ($listFactionOfOneUnivers as $value) {
+                        echo '<li>';
+                        echo '<strong>'.$value['nomFaction'].'</strong>';
+                        echo '<a href="'.findTargetRoute(180).'&idFaction='.$value['idFaction'].'">See all weapons</a>';
+                        echo'</li>';
+                    }
+                echo '</ul>';
+                echo '</div>';
 
+            }
+        echo '</article>';
+    }
 }
