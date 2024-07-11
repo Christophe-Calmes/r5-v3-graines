@@ -197,8 +197,12 @@ Text ?
             echo '</table>';
         echo '</article>';
     }
-    public function displaySpecialRulesForChoose ($typeRS, $valid, $idWeapon, $idNav) {
+    public function displaySpecialRulesForChoose ($typeRS, $valid, $idWeapon, $idNav, $type = 0) {
         $dataSpecialsRules = $this->getAllRSforAffectation ($typeRS, $valid, $idWeapon);
+            $adress = 78;
+        if($type = 1) {
+            $adress = 86;
+        }
         echo '<article>';
             echo '<h4 class="titleSite">Special rules assignable</h4>';
                 echo '<table class="tableWebSite">';
@@ -211,7 +215,7 @@ Text ?
                             echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
                         echo '</tr>';
                         echo '<tr>';
-                        echo '<td colspan="2"><form action="'.encodeRoutage(78).'" method="post">
+                        echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">
                                                 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
                                                 <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
                                                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Assign '.$value['nameSpecialRules'].'</button>           
@@ -222,8 +226,12 @@ Text ?
             echo '</table>';
         echo '</article>';
     }
-    public function displayAssignSpecialRules ($idWeapon, $idNav) {
+    public function displayAssignSpecialRules ($idWeapon, $idNav, $type = 0) {
         $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
+        $adress = 79;
+        if($type = 1) {
+            $adress = 87;
+        }
         if(!empty($dataSRAssigned)) {
         echo '<article>';
         echo '<h4 class="titleSite">Special rules assigned</h4>';
@@ -237,7 +245,7 @@ Text ?
                     echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td colspan="2"><form action="'.encodeRoutage(79).'" method="post">
+                echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">
                                         <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
                                         <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
                                         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unassign '.$value['nameSpecialRules'].'</button>           
@@ -249,7 +257,7 @@ Text ?
             echo '</article>';
         }
     }
-    public function displaySpecialRules ($idWeapon, $idNav) {
+    public function displaySpecialRules ($idWeapon) {
         $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
         if(!empty($dataSRAssigned)) {
         echo '<article>';

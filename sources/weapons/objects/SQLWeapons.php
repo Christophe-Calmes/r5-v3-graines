@@ -65,6 +65,18 @@ class SQLWeapons
         }
         return false;
     }
+    public function checkWeaponOwner ($idWeapon) {
+        $data['idWeapon'] = $idWeapon;
+        $parametre = new Preparation ();
+        $param = $parametre->creationPrepIdUser ($data);
+        $select = "SELECT COUNT(`id`) AS `numberOfWeapon` 
+                    FROM `weapons` 
+                    WHERE `id` = :idWeapon 
+                    AND `idAuthor` = :idUser 
+                    AND `valid` = 1;";
+        $check = ActionDB::select($select, $param, 1);
+        return $check[0]['numberOfWeapon'];
+    }
     public function recordWeapon ($param) {
         $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`, `heavy`, `spell`, `price`) 
         VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
@@ -121,6 +133,12 @@ class SQLWeapons
     public function fixOrNoFixWeaponByAdmin ($param) {
         $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
         ActionDB::access($update, $param, 1);
+    }
+    public function factionOfOneWeapon ($idWeapon) {
+        $select = "SELECT `idFaction` FROM `factionsLinkWeapon` WHERE `idWeapon` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $idFaction = ActionDB::select($select, $param, 1);
+        return $idFaction[0]['idFaction'];
     }
     public function getSpecialRuleOfOneWeapon ($idWeapon) {
         $select = "SELECT `id`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid`  

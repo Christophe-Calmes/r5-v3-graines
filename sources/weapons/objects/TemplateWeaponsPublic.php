@@ -26,6 +26,18 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
+    private function displayResumeSR ($idWeapon) {
+        $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
+        $specialRules = null;
+      
+            foreach ($dataSR as $value) {
+                $specialRules = $specialRules.$value['nameSpecialRules'].'.';
+            }
+        if(!empty($specialRules) ) {
+            echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
+        }
+       
+    }
     public function formCreatWeapon ($typeOfWeapon, $idNav) {
         
         $adressCreat = [82, 83, 84];
@@ -69,6 +81,19 @@ final class TemplateWeaponsPublic extends SQLWeapons
         echo '<h3>'.$datasFaction[0]['nameUnivers'].' - Faction : '.$datasFaction[0]['nomFaction'].'</h3>';
      }
     public function printListWeapon ($idFaction, $idNav) {
+        function fixingWeapon ($idWeapon, $fix, $idNav) {
+            if($fix) {
+                return '<form action="'.encodeRoutage(88).'" method="post">
+                <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix weapon</button>
+            </form>';
+            } else {
+                return '<form action="'.encodeRoutage(88).'" method="post">
+                <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix weapon</button>
+            </form>';
+            }
+        }
         $this->printNameFaction  ($idFaction);
         $dataListWeapons = $this->getAllWeaponOfFaction ($idFaction);
         if(empty($dataListWeapons)) {
@@ -81,8 +106,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     echo '<th>Power</th>';
                     echo '<th>Type</th>';
                     echo '<th>Price</th>';
-                    echo '<th>Fix</th>';
                     echo '<th>Admin</th>';
+                    echo '<th>Fix</th>';
                     echo '<th>Delete</th>';
                 echo '</tr>';
                 foreach ($dataListWeapons as $value) {
@@ -95,8 +120,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                         echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
                         echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
                         echo '<td>'.$value['price'].'</td>';
-                        echo '<td>'.$this->yes[$value['fixe']].'</td>';
                         echo '<td><a href="'.findTargetRoute(182).'&idWeapon='.$value['idWeapon'].'">Go</a></td>';
+                        echo '<td>'.fixingWeapon($value['idWeapon'], $value['fixe'], $idNav).'</td>';
                         echo '<td>
                         <form action="'.encodeRoutage(85).'" method="post">
                             <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
@@ -105,13 +130,81 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     </td>';
                 echo '</tr>';
                 }
-    
                 echo '</table>';
         }
-
+    }
+      public function displayOneWeapon ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        $overPower = null;
+        if($dataWeapon['overPower'] == 1) {
+            $overPower = "+";
+        }
+        echo '<table class="tableCodex codexGrey">';
+            echo '<tr>';
+                echo '<td>Owner : '.$dataWeapon['login'].'</td>';
+                echo '<td>Fix weapon :  '. $this->yes[$dataWeapon['fixe']].'</td>';
+                echo '<td>Valid weapon :  '. $this->yes[$dataWeapon['valid']].'</td>';
+                echo '<td>Price :  '. round($dataWeapon['price'], 2).'</td>';
+            echo'</tr>';
+            echo'<tr>'; 
+                echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                if($dataWeapon['typeWeapon'] > 0) {
+                    $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                    echo '<tr>';
+                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                    echo'</tr>';
+                }
+                if($dataWeapon['typeWeapon'] > 1) {
+                    echo '<tr>';
+                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                    echo'</tr>';
+                }
+            
+            echo'</tr>';
+        echo '</table>';
+            $this->displayResumeSR ($idWeapon);
+            return $dataWeapon['fixe'];
     }
     public function printingOneWeapon ($idWeapon) {
         $dataWeapon = $this->getOneWeaponByOwner ($idWeapon);
-        print_r($dataWeapon);
+        $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        $overPower = null;
+        if($dataWeapon['overPower'] == 1) {
+            $overPower = "+";
+        }
+    echo '<div class="tableWeaponCenter">';
+        echo '<table class="tableCodex codexGrey">';
+            echo'<tr>'; 
+                echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                if($dataWeapon['typeWeapon'] > 0) {
+                    $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                    echo '<tr>';
+                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                    echo'</tr>';
+                }
+                if($dataWeapon['typeWeapon'] > 1) {
+                    echo '<tr>';
+                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                    echo'</tr>';
+                }
+            
+            echo'</tr>';
+        echo '</table>';
+        $this->displayResumeSR ($idWeapon);
+    echo '</div>';
     }
 }
