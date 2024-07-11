@@ -12,6 +12,21 @@ class TemplateWeaponsAdministration extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
+    private function globalSelected ($label, $fields, $array, $selected) {
+        echo '<div class="flex-rows">';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<select id="'.$fields.'"name="'.$fields.'">';
+                for ($i=0; $i <count($array) ; $i++) { 
+                    
+                    if($selected == $i) {
+                        echo '<option value="'.$i.'" selected>'.$array[$i].'</option>';
+                    } else {
+                        echo '<option value="'.$i.'">'.$array[$i].'</option>';
+                    }
+                }
+            echo '</select>';
+        echo '</div>';
+    }
     private function displayResumeSR ($idWeapon) {
         $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
         $specialRules = null;
@@ -25,6 +40,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
        
     }
     public function formCreatWeaponByAdmin ($typeOfWeapon, $idNav) {
+        // A travailler
         $adressCreat = [75, 76, 77];
         echo '<article>';
         echo '<h4>'.$this->weaponTypes[$typeOfWeapon].' weapon</h4>';
@@ -59,6 +75,49 @@ class TemplateWeaponsAdministration extends SQLWeapons
         echo '</article>';
        
     }
+    public function formUpdateWeaponByAdmin ($idWeapon, $idNav) {
+        $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+       $adressCreat = [89, 90, 91];
+       $typeOfWeapon = $dataWeapon['typeWeapon'];
+        echo '<article>';
+         echo '<h4>Update : '.$this->weaponTypes[$dataWeapon['typeWeapon']].' weapon - '.$dataWeapon['nameWeapon'].'</h4>';
+        
+            echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$dataWeapon['typeWeapon']]).'" method="post">';
+            
+                echo '<label class="labelFirstLetter" for="nameWeapon">Name of weapons</label>';
+                echo '<input id="nameWeapon" name="nameWeapon" value="'.$dataWeapon['nameWeapon'].'"/>';
+               
+                $this->globalSelected ('Power of weapon','power', $this->powerType, $dataWeapon['power']);
+                $this->globalSelected ('overPower ?', 'overPower',$this->yes, $dataWeapon['overPower']);
+                $this->globalSelected ('Heavy weapon ?', 'heavy', $this->yes, $dataWeapon['heavy']);
+                $this->globalSelected ('Spell ?', 'spell',$this->yes, $dataWeapon['spell']);
+        
+                if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
+                    $this->globalSelected ('Assault weapon ?', 'assault',$this->yes, $dataWeapon['assault']);
+                    $this->globalSelected ('Saturation weapon ?', 'saturation',$this->yes, $dataWeapon['saturation']);
+                    echo '<label for="rateOfFire">Rate of fire :</label>';
+                    echo '<input type="number" id="rateOfFire" name="rateOfFire" value="'.$dataWeapon['rateOfFire'].'" min="1" max="12"/>';
+                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range :</label>';
+                    echo '<input type="range" id="rangeWeapon'.$typeOfWeapon.'" value="'.$dataWeapon['rangeWeapon'].'" name="rangeWeapon" min="0" max="120" step="2" oninput="updateRangeValue'.$typeOfWeapon.'()"/>';
+                    echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">'.$dataWeapon['rangeWeapon'].'</span> "</div>';
+                    echo '<script>
+                        const updateRangeValue'.$typeOfWeapon.' = () => {
+                            let rangeValue'.$typeOfWeapon.' = document.getElementById("rangeWeapon'.$typeOfWeapon.'").value;
+                            document.getElementById("rangeValue'.$typeOfWeapon.'").textContent = rangeValue'.$typeOfWeapon.';
+                        }
+                    </script>';
+                }
+                if($typeOfWeapon == 2) {
+                    $this->globalSelected ('Blast Gabarit ?', 'templateType',$this->gabaritType, $dataWeapon['templateType']);
+                    $this->globalSelected ('Blast dice ?', 'blastDice',$this->blastDice, $dataWeapon['blastDice']);
+                }
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update weapon</button>';
+            echo '</form>';
+        echo '</article>';
+       
+    }
+
+
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
         $dataWeapon = $this->getWeapon ($firstPage, $WeaponByPage, $fixe);
         if(!empty( $dataWeapon)) {
