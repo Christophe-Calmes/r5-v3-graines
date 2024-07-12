@@ -83,7 +83,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
          echo '<h4>Update : '.$this->weaponTypes[$dataWeapon['typeWeapon']].' weapon - '.$dataWeapon['nameWeapon'].'</h4>';
         
             echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$dataWeapon['typeWeapon']]).'" method="post">';
-            
+            echo 'Coucou';
                 echo '<label class="labelFirstLetter" for="nameWeapon">Name of weapons</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" value="'.$dataWeapon['nameWeapon'].'"/>';
                
@@ -111,7 +111,8 @@ class TemplateWeaponsAdministration extends SQLWeapons
                     $this->globalSelected ('Blast Gabarit ?', 'templateType',$this->gabaritType, $dataWeapon['templateType']);
                     $this->globalSelected ('Blast dice ?', 'blastDice',$this->blastDice, $dataWeapon['blastDice']);
                 }
-            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update weapon</button>';
+            echo '<input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>';
+            echo ' <button class="buttonForm green" type="submit" name="idNav" value="'.$idNav.'">Update weapon</button>';
             echo '</form>';
         echo '</article>';
        

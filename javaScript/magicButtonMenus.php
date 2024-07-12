@@ -5,7 +5,7 @@
   let open = false;
   jeckyl.addEventListener('click', function(){
     if(!open) {
-      jeckyl.innerText = "Fermer";
+      jeckyl.innerText = "Close";
       magax.style.display = "block";
       open = true;
     } else {

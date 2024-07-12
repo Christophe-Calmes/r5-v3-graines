@@ -51,4 +51,13 @@ class PriceOfWeapon
         $price = $price + ($arrayWeapon[8] * $arrayWeapon[9]);
         return $price;
     }
+    public function specialRulesPrice ($idWeapon, $rawPrice) {
+        $select = "SELECT SUM(`price`) AS `modWeaponPrice`
+                    FROM `specialeRulesLinkWeapon`
+                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                    WHERE `idWeapon` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $dataModPrice = ActionDB::select($select, $param, 1);
+        return round($dataModPrice[0]['modWeaponPrice'] + $rawPrice, 3);
+    }
 }

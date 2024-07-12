@@ -82,6 +82,17 @@ class SQLWeapons
         VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
         return ActionDB::access($insert, $param, 1);
     }
+    public function updateCloseWeapon ($param) {
+        $update = "UPDATE `weapons` SET 
+                    `nameWeapon`=:nameWeapon,
+                    `power`=:power,
+                    `overPower`=:overPower,
+                    `heavy`=:heavy,
+                    `spell`=:spell,
+                    `price`=:price 
+                    WHERE `id` = :idWeapon;";
+           return ActionDB::access($update, $param, 1);           
+    }
     public function recordWeaponShooting ($param) {
         $insert = "INSERT INTO `weapons`( `nameWeapon`, `idAuthor`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`,  `rangeWeapon`, `spell`, `price`) 
         VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :price);";
@@ -110,10 +121,10 @@ class SQLWeapons
         $priceSR = floatval($price[0]['price']);
         $newPriceWeapon = null;
         if($add == '+') {
-            $newPriceWeapon = $priceWeapon * $priceSR;
+            $newPriceWeapon = $priceWeapon + $priceSR;
         } 
         if($add == '-') {
-            $newPriceWeapon = $priceWeapon / $priceSR;
+            $newPriceWeapon = $priceWeapon - $priceSR;
         } 
         $update = "UPDATE `weapons` SET `price`= :newPrice WHERE `id` = :idWeapon;";
         array_push($paramWeapon,['prep'=>':newPrice', 'variable'=>$newPriceWeapon ]);
