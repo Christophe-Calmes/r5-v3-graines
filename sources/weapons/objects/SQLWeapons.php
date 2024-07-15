@@ -108,6 +108,24 @@ class SQLWeapons
         WHERE `id` = :idWeapon";
         return ActionDB::access($update, $param, 1);          
     }
+    public function updateExplosiveWeapon ($param) {
+        $update = "UPDATE `weapons` SET 
+        `nameWeapon`= :nameWeapon,
+        `power`=:power,
+        `overPower`=:overPower,
+        `heavy`=:heavy,
+        `assault`=:assault,
+        `saturation`=:saturation,
+        `rateOfFire`=:rateOfFire,
+        `templateType`=:templateType,
+        `rangeWeapon`=:rangeWeapon,
+        `blastDice`=:blastDice,
+        `spell`=:spell,
+        `price`=:price 
+        WHERE `id` = :idWeapon;";
+        return ActionDB::access($update, $param, 1);     
+    }
+
     public function recordWeaponShooting ($param) {
         $insert = "INSERT INTO `weapons`( `nameWeapon`, `idAuthor`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`,  `rangeWeapon`, `spell`, `price`) 
         VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :price);";

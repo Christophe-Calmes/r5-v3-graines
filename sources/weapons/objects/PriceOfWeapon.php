@@ -3,7 +3,7 @@ class PriceOfWeapon
 {
     private $power;
     public function __construct () {
-        $this->power = [1.10, 1.3, 1.6, 2, 2.5, 3.1];
+        $this->power = [1.10, 2.15, 3.3, 4.6, 6.2, 7.4];
     }
     private function baseWeaponPrice ($arrayWeapon) {
         /* Base */
