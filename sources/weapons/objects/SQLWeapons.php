@@ -6,11 +6,13 @@ class SQLWeapons
     protected $powerType;
     protected $yes;
     protected $blastDice;
+    protected $PowerBlastDice;
     public function __construct () {
         $this->weaponTypes = ['Contact', 'Shoot', 'Explosive'];
         $this->gabaritType = ['small', 'medium', 'big', 'Blast'];
         $this->powerType = ['1D', '2D', '3D', '4D', '5D', '6D'];
         $this->blastDice = ['D4', 'D6', 'D8', 'D10', 'D12'];
+        $this->PowerBlastDice = [1, 2, 3, 4, 5, 6];
         $this->yes = ['No', 'Yes'];
     }
     public function checkFactionCreatNewWeaponByUser ($idFaction) {

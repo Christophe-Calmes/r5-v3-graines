@@ -197,7 +197,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 if($dataWeapon['typeWeapon'] > 1) {
                     echo '<tr>';
                         echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                     echo'</tr>';
                 }
             
@@ -231,7 +231,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 if($dataWeapon['typeWeapon'] > 1) {
                     echo '<tr>';
                         echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Blast dice : '.$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                        echo '<td class="red" colspan="2">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                     echo'</tr>';
                 }
             

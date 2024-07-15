@@ -22,9 +22,6 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 
 }
 if($controle_POST == $mark) {
-    print_r($_POST);
-    echo '<br/>';
-    print_r($controle_POST);
     $calculatingPriceWeapon = new PriceOfWeapon ();
     $dataWeapon = array();
     for ($i=1; $i <count($arrayKeys) ; $i++) { 
@@ -34,8 +31,6 @@ if($controle_POST == $mark) {
     $_POST['price'] = $calculatingPriceWeapon->specialRulesPrice(filter($_POST[$arrayKeys[9]]), $rawPrice);
     $parametre = new Preparation ();
     $param = $parametre-> creationPrep ($_POST);
-    echo '<br/>';
-    print_r($param);
     $updateNewWeapon->updateShootingWeapon ($param);
     header('location:../index.php?message=Update weapon success to record&idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[9]]));
 } else {
