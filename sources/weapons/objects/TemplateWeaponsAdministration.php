@@ -77,13 +77,12 @@ class TemplateWeaponsAdministration extends SQLWeapons
     }
     public function formUpdateWeaponByAdmin ($idWeapon, $idNav) {
         $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
-       $adressCreat = [89, 90, 91];
-       $typeOfWeapon = $dataWeapon['typeWeapon'];
+        $adressCreat = [89, 90, 91];
+        $typeOfWeapon = $dataWeapon['typeWeapon'];
         echo '<article>';
          echo '<h4>Update : '.$this->weaponTypes[$dataWeapon['typeWeapon']].' weapon - '.$dataWeapon['nameWeapon'].'</h4>';
         
             echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$dataWeapon['typeWeapon']]).'" method="post">';
-            echo 'Coucou';
                 echo '<label class="labelFirstLetter" for="nameWeapon">Name of weapons</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" value="'.$dataWeapon['nameWeapon'].'"/>';
                

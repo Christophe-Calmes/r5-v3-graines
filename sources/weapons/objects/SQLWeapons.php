@@ -85,46 +85,92 @@ class SQLWeapons
         return ActionDB::access($insert, $param, 1);
     }
     public function updateCloseWeapon ($param) {
-        $update = "UPDATE `weapons` SET 
-                    `nameWeapon`=:nameWeapon,
-                    `power`=:power,
-                    `overPower`=:overPower,
-                    `heavy`=:heavy,
-                    `spell`=:spell,
-                    `price`=:price 
-                    WHERE `id` = :idWeapon;";
+        if(count($param) == 7) {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`=:nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon;";
+        } else {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`=:nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon AND `idAuthor`=:idUser;";
+        }
+     
            return ActionDB::access($update, $param, 1);           
     }
     public function updateShootingWeapon ($param) {
-        $update = "UPDATE `weapons` SET 
-        `nameWeapon`= :nameWeapon,
-        `power`=:power,
-        `overPower`=:overPower,
-        `heavy`=:heavy,
-        `assault`=:assault,
-        `saturation`=:saturation,
-        `rateOfFire`=:rateOfFire,
-        `rangeWeapon`=:rangeWeapon,
-        `spell`=:spell,
-        `price`=:price 
-        WHERE `id` = :idWeapon";
+        if(count($param) == 11) {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`= :nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `assault`=:assault,
+            `saturation`=:saturation,
+            `rateOfFire`=:rateOfFire,
+            `rangeWeapon`=:rangeWeapon,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon";
+        } else {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`= :nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `assault`=:assault,
+            `saturation`=:saturation,
+            `rateOfFire`=:rateOfFire,
+            `rangeWeapon`=:rangeWeapon,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon AND `idAuthor`=:idUser;";
+        }
+
         return ActionDB::access($update, $param, 1);          
     }
     public function updateExplosiveWeapon ($param) {
-        $update = "UPDATE `weapons` SET 
-        `nameWeapon`= :nameWeapon,
-        `power`=:power,
-        `overPower`=:overPower,
-        `heavy`=:heavy,
-        `assault`=:assault,
-        `saturation`=:saturation,
-        `rateOfFire`=:rateOfFire,
-        `templateType`=:templateType,
-        `rangeWeapon`=:rangeWeapon,
-        `blastDice`=:blastDice,
-        `spell`=:spell,
-        `price`=:price 
-        WHERE `id` = :idWeapon;";
+        if(count($param) == 13) {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`= :nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `assault`=:assault,
+            `saturation`=:saturation,
+            `rateOfFire`=:rateOfFire,
+            `templateType`=:templateType,
+            `rangeWeapon`=:rangeWeapon,
+            `blastDice`=:blastDice,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon;";
+        } else {
+            $update = "UPDATE `weapons` SET 
+            `nameWeapon`= :nameWeapon,
+            `power`=:power,
+            `overPower`=:overPower,
+            `heavy`=:heavy,
+            `assault`=:assault,
+            `saturation`=:saturation,
+            `rateOfFire`=:rateOfFire,
+            `templateType`=:templateType,
+            `rangeWeapon`=:rangeWeapon,
+            `blastDice`=:blastDice,
+            `spell`=:spell,
+            `price`=:price 
+            WHERE `id` = :idWeapon AND `idAuthor`=:idUser;";
+        }
+
         return ActionDB::access($update, $param, 1);     
     }
 
