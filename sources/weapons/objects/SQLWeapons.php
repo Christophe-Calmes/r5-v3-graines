@@ -34,7 +34,11 @@ class SQLWeapons
                   ['prep'=>':idWeapon', 'variable'=>$idWeapon[0]['id']]];
         $insert = "INSERT INTO `factionsLinkWeapon`(`idWeapon`, `idFaction`) 
         VALUES (:idWeapon, :idFaction);";
-        actionDB::access($insert, $param, 1);    
+        actionDB::access($insert, $param, 1);
+        /* No global weapon*/
+        $udpade = "UPDATE `weapons` SET `globalWeapon` = 0 WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon[0]['id']]];
+        actionDB::access($udpade, $param, 1);
     }
     public function checkTypePower ($indexTypePower) {
         return array_key_exists($indexTypePower, $this->powerType);
@@ -184,10 +188,11 @@ class SQLWeapons
         VALUES ( :nameWeapon, :idUser, :power, :overPower, :typeWeapon, :heavy, :assault, :saturation, :rateOfFire,  :rangeWeapon, :spell, :templateType, :blastDice, :price);";
         return ActionDB::access($insert, $param, 1);
     }
-    public function numberWeaponNoFixe ($fix) {
+    public function numberWeaponNoFixe ($fix, $global = 0) {
         $select = "SELECT COUNT(`id`) AS `nbrWeaponNoFixe` 
-        FROM `weapons` WHERE `valid` = 1 AND `fixe` = :fixe;";
-        $param = [['prep'=>':fixe', 'variable'=>$fix]];
+        FROM `weapons` WHERE `valid` = 1 AND `fixe` = :fixe AND `globalWeapon` = :globalWeapon;";
+        $param = [['prep'=>':fixe', 'variable'=>$fix],
+                    ['prep'=>':globalWeapon', 'variable'=>$global]];
         $data = ActionDB::select($select, $param, 1);
         return $data[0]['nbrWeaponNoFixe'];
     }
@@ -242,13 +247,14 @@ class SQLWeapons
         return ActionDB::select($select, $param, 1);
     }
 
-    protected function getWeapon ($firstPage, $WeaponByPage, $fixe) {
+    protected function getWeapon ($firstPage, $WeaponByPage, $fixe, $global = 1) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe` 
         FROM `weapons` 
-        WHERE `fixe` = :fixe
+        WHERE `fixe` = :fixe AND `globalWeapon` = :globalWeapon 
         ORDER BY `typeWeapon`, `nameWeapon`
         LIMIT {$firstPage}, {$WeaponByPage};";
-        $param = [['prep'=>':fixe', 'variable'=>$fixe]];
+                $param = [['prep'=>':fixe', 'variable'=>$fixe],
+                ['prep'=>':globalWeapon', 'variable'=>$global]];
         return ActionDB::select($select, $param, 1);
     }
     protected function getOneWeaponAdmin ($idWeapon) {

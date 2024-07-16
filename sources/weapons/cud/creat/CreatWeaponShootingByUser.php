@@ -37,10 +37,9 @@ if($controle_POST == $mark) {
     $parametre = new Preparation ();
     unset($_POST['idFaction']);
     $param = $parametre->creationPrepIdUser ($_POST);
-    print_r($param);
-    $creatNewWeapon->recordWeaponShooting ($param);
+    //$creatNewWeapon->recordWeaponShooting ($param);
     $creatNewWeapon->recordFactionOfWeapon ($param[11]['variable'], $idFaction);
-    header('location:../index.php?message=New weapon success to record&idNav='.$idNav);
+    //header('location:../index.php?message=New weapon success to record&idNav='.$idNav);
 } else {
-    header('location:../index.php?message=New weapon fail to record&idNav='.$idNav);
+    //header('location:../index.php?message=New weapon fail to record&idNav='.$idNav);
 }
