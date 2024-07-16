@@ -41,7 +41,6 @@ if($controle_POST == $mark) {
     unset($_POST['idFaction']);
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);
-    print_r($param);
     $creatNewWeapon->recordWeaponBlast ($param);
     $creatNewWeapon->recordFactionOfWeapon ($param[13]['variable'], $idFaction);
     header('location:../index.php?message=New weapon success to record&idNav='.$idNav);
