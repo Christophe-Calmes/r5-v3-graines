@@ -212,12 +212,19 @@ class TemplateWeaponsAdministration extends SQLWeapons
         if($dataWeapon['overPower'] == 1) {
             $overPower = "+";
         }
+        $dammage = 1;
+        if($dataWeapon['overPower']) {
+            $dammage += $dammage;
+        }
+        if($dataWeapon['heavy']) {
+            $dammage = $dammage * 2;
+        }
         echo '<table class="tableCodex codexGrey">';
             echo'<tr>'; 
                 echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                 echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
                 echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'  - Dammage/hit : '.$dammage.'</td>';
                 if($dataWeapon['typeWeapon'] > 0) {
                     $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
                     echo '<tr>';
