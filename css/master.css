@@ -190,6 +190,11 @@ a {
   justify-content: space-around;
   align-items: flex-start;
 }
+.flex-colonne-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .paddingLeft {
   padding-left: 4vw;
 }

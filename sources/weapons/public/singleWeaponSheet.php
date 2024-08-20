@@ -34,7 +34,7 @@ echo '<div>';
     $displayWeapon->printingOneWeapon ($idWeapon);
     echo '</div>';
     echo '</article>';
-    echo '<article>';
+    echo '<article class="flex-colonne-center">';
 if($fix == 0) {
     $dataSR->displayAssignSpecialRules ($idWeapon, $idNav, 1);
     $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
