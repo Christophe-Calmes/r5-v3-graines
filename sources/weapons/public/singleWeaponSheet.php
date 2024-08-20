@@ -8,9 +8,9 @@ $dataSR = new TemplatesSpecialRules ();
 echo '<article class="flex-rows">';
 echo '<div>';
 echo '<h3>Admin display</h3>';
-$fix = $displayWeapon->displayOneWeapon ($idWeapon);
+$dataFix = $displayWeapon->displayOneWeapon ($idWeapon);
 echo '<br/>';
-if($fix == 0) {
+if($dataFix[0] == 0) {
     echo'<button type="button" id="magic" class="open">Modify weapon ?</button>
     <div id="hiddenForm">';
         $displayWeapon ->formUpdateWeaponByUser ($idWeapon, $idNav);
@@ -21,7 +21,8 @@ echo'<form action="'.encodeRoutage(95).'" method="post">
 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix weapon</button>
 </form>';
-} else {
+} 
+if (($dataFix[0] == 1)&&($dataFix[1] == 0)) {
     echo'<form action="'.encodeRoutage(95).'" method="post">
     <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
     <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix weapon</button>
@@ -35,7 +36,7 @@ echo '<div>';
     echo '</div>';
     echo '</article>';
     echo '<article class="flex-colonne-center">';
-if($fix == 0) {
+if($dataFix[0] == 0) {
     $dataSR->displayAssignSpecialRules ($idWeapon, $idNav, 1);
     $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
 

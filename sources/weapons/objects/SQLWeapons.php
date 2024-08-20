@@ -260,7 +260,7 @@ class SQLWeapons
     protected function getOneWeaponAdmin ($idWeapon) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, 
         `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, 
-        `spell`, `price`, `valid`, `fixe`, `login`
+        `spell`, `price`, `valid`, `fixe`, `login`, `globalWeapon`
         FROM `weapons`
         INNER JOIN `xgyd0647_techr5`.`users` ON `xgyd0647_techr5`.`users`.`idUser` = `xgyd0647_r5business`.`weapons`.`idAuthor`
         WHERE `id` = :idWeapon;";

@@ -226,7 +226,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo'</tr>';
         echo '</table>';
             $this->displayResumeSR ($idWeapon);
-            return $dataWeapon['fixe'];
+            return [$dataWeapon['fixe'], $dataWeapon['globalWeapon']];
     }
     public function printingOneWeapon ($idWeapon) {
         $dataWeapon = $this->getOneWeaponByOwner ($idWeapon);

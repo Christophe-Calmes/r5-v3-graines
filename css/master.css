@@ -290,6 +290,19 @@ a {
   background-color: #d6d6d6;
   font-weight:600;
 }
+.tableSR {
+  border: #151515 solid 1px;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.tableSR th {
+  text-align: left;
+}
+.tableSR td {
+  border: #151515 solid 1px;
+  text-align: justify;
+  padding: 0.5em 0.5em 0.5em 0.2em;
+}
 /*Color table Weapon & Miniature & wehicle*/
 .tableCodex, td {
   align-content: center;
