@@ -532,13 +532,13 @@ select:disabled {
     padding: 0 1vw;
     max-width:100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 300px);
+    grid-template-columns: repeat(auto-fit, 500px);
     grid-gap: 5px;
     justify-content: center;
   }
 .item {
     min-height: auto;
-    min-width: auto;
+    min-width: max-content;
     padding: 0.5em;
     background: var(--color-chair);
     color: rgb(32, 32, 32);

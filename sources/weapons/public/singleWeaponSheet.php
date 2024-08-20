@@ -17,6 +17,15 @@ if($fix == 0) {
     echo '</div>';
 
 include 'javaScript/magicButtonMenus.php';
+echo'<form action="'.encodeRoutage(95).'" method="post">
+<input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix weapon</button>
+</form>';
+} else {
+    echo'<form action="'.encodeRoutage(95).'" method="post">
+    <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix weapon</button>
+    </form>';
 }
 echo '</div>';
 echo '</div>';

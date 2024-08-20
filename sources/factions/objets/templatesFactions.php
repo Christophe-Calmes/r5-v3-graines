@@ -63,10 +63,10 @@ class templatesFactions extends SQLFactions
                 $listFactionOfOneUnivers = $this->listOfFaction ($value['idUnivers']);
                 echo '<ul class="listeProfil">';
                     foreach ($listFactionOfOneUnivers as $value) {
-                        echo '<li>';
-                        echo '<strong>'.$value['nomFaction'].'</strong>';
-                        echo '<a href="'.findTargetRoute(180).'&idFaction='.$value['idFaction'].'">See all weapons</a>';
-                        echo'</li>';
+                        echo '<li>
+                                <a href="'.findTargetRoute(180).'&idFaction='.$value['idFaction'].'">See all weapons</a>
+                                <strong>'.$value['nomFaction'].'</strong>
+                            </li>';
                     }
                 echo '</ul>';
                 echo '</div>';

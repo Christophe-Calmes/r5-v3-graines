@@ -11,7 +11,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '<label class="labelFirstLetter" for="idFaction">Factions :</label>';
             echo '<select id="idFaction"name="idFaction">';
                 foreach ($dataFactions as  $value) {
-                    echo '<option value="'.$value['idFaction'].'">'.$value['namenameUnivers'].' - '.$value['nomFaction'].' - LT'.$value['nt'].'</option>';
+                    echo '<option value="'.$value['idFaction'].'">'.$value['nameUnivers'].' - '.$value['nomFaction'].' - LT'.$value['nt'].'</option>';
                 }
             echo '</select>';
         echo '</div>';

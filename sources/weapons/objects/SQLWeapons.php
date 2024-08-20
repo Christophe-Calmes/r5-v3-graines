@@ -272,7 +272,8 @@ class SQLWeapons
         $select = "SELECT `id` AS `idWeapon`, `nameWeapon`, `power`, `overPower`, `typeWeapon`, `fixe`, `price`
             FROM `factionsLinkWeapon` 
             INNER JOIN `weapons` ON `weapons`.`id` = `idWeapon` 
-            WHERE `idFaction` = :idFaction AND valid = 1;";
+            WHERE `idFaction` = :idFaction AND valid = 1
+            ORDER BY `typeWeapon`, `nameWeapon`;";
            $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
            return ActionDB::select($select, $param, 1);
     }
