@@ -12,12 +12,33 @@ class templatesMiniatures extends sqlMiniatures
             echo '</select>';
         echo '</div>';
     }
-    public function miniatureForm () {
-       //SELECT `nameMiniature`, `dc`, `dqm`, `move`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid` 
+    public function miniatureForm ($idNav) {
+       //SELECT `move`,  `namePicture`
+    echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post">';
+    echo '<h3>Creat new miniature</h3>';
+    echo '<label for="nameMiniature">Miniature name :</label>';
+    echo '<input id="nameMiniature" name="nameMiniature" placeholder="Name miniature"/>';
+    echo '<label for="move">Miniature tactical move :</label>';
+    echo '<input type="range" id="move" value="4" name="move" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+    echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D4"</div>';
+    echo '<script>
+        const updateRangeValue = () => {
+            let moveValue = document.getElementById("move").value;
+            let arrayMove = moveValue
+            document.getElementById("moveValue").textContent = moveValue;
+            document.getElementById("runValue").textContent = Math.round(moveValue * 1.45);
+        }
+    </script>';
     $this->globalSelect ('Martial quality dice', 'dqm', $this->dice, 'nameDice');
     $this->globalSelect ('Combat dice', 'dc', $this->dice, 'nameDice');
     $this->globalSelect ('Healt point', 'healtPoint', $this->healtPoint, 'healtPoint');
-    $this->globalSelect ('Save', 'armor',    $this->armour, 'nameArmour');
+    $this->globalSelect ('Save / 1D10', 'armor',    $this->armour, 'nameArmour');
+    $this->globalSelect ('Type of troop', 'typeTroop', $this->typesTroupe, 'nameTroupe');
+    $this->globalSelect ('Miniature size', 'miniatureSize', $this->miniatureSize, 'NameSize');
+    $this->globalSelect ('Fligth', 'fligt', $this->yes, 'name');
+    $this->globalSelect ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name');
+    echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
+    echo '</form>';
     }
 }
 
