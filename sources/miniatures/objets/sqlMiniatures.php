@@ -8,10 +8,10 @@ class sqlMiniatures
     protected $miniatureSize;
     protected $yes;
     public function __construct () {
-        $this->dice = [['id'=>1, 'valueDice'=> 6, 'nameDice'=> 'D6'],
-        ['id'=>2, 'valueDice'=> 8, 'nameDice'=> 'D8'],
-        ['id'=>3, 'valueDice'=> 10, 'nameDice'=> 'D10'],
-        ['id'=>4, 'valueDice'=> 12, 'nameDice'=> 'D12']];
+        $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6'],
+        ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8'],
+        ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10'],
+        ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12']];
         $this->armour = [['id'=>1, 'valueArmour' => 0.5, 'nameArmour'=> '-'],
         ['id'=>2, 'valueArmour' => 1, 'nameArmour'=> '9+'],
         ['id'=>3, 'valueArmour' => 1.30, 'nameArmour'=> '8+'],
@@ -122,25 +122,7 @@ class sqlMiniatures
     $valueTypeTroupe = $this->getTypesTroupe ($data['typeTroop']);
     $valueMiniatureSize = $this->getMiniatureSize ($data['typeTroop']);
     $coefArmor = $this->getArmour ($data['armor']);
-
-    print_r($data);
-    echo '<br/>Move';
-    print_r($valueMove);
-    echo '<br/>DQM';
-    print_r($valueDQM);
-    echo '<br/>DC';
-    print_r($valueDC);
-    echo '<br/>HealtPoint';
-    print_r($valueHealtPoint);
-    echo '<br/>Armor';
-    print_r($coefArmor);
-    echo '<br/>typeTroop';
-    print_r($valueTypeTroupe);
-    echo '<br/>miniatureSize';
-    print_r($valueMiniatureSize);
-    $result = ($valueMove + $valueDQM + $valueDC + $valueHealtPoint + $valueTypeTroupe + $valueMiniatureSize) * $coefArmor;
-    echo '<br/>miniaturePrice';
-    print_r($result);
+    $result = ($valueMove + $valueDQM  + ($valueDC * 2.2) + $valueHealtPoint + $valueTypeTroupe + $valueMiniatureSize) * $coefArmor;
      return $result;   
     }
 }
