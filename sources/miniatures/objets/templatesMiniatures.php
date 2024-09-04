@@ -13,8 +13,7 @@ class templatesMiniatures extends sqlMiniatures
         echo '</div>';
     }
     public function miniatureForm ($idNav) {
-       //SELECT `move`,  `namePicture`
-    echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post">';
+    echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post" enctype="multipart/form-data">';
     echo '<h3>Creat new miniature</h3>';
     echo '<label for="nameMiniature">Miniature name :</label>';
     echo '<input id="nameMiniature" name="nameMiniature" placeholder="Name miniature"/>';
@@ -37,6 +36,8 @@ class templatesMiniatures extends sqlMiniatures
     $this->globalSelect ('Miniature size', 'miniatureSize', $this->miniatureSize, 'NameSize');
     $this->globalSelect ('Fligth', 'fligt', $this->yes, 'name');
     $this->globalSelect ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name');
+    echo '<label for="picture">Picture of miniature ?</label>';
+    echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
     echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
     echo '</form>';
     }

@@ -96,9 +96,9 @@ function yes($data) {
     return 'Non';
   }
 }
-function controlePicture($files, $sizePicture) {
+function controlePicture($files, $sizePicture, $fieldsName) {
 $nameValuePicture = key($files);
-if(($files[$nameValuePicture]['size'] < $sizePicture) && ($files[$nameValuePicture]['error'] == 0) && ($files[$nameValuePicture]['type'] == 'image/png' ||$files[$nameValuePicture]['type'] == 'image/jpeg' || $files['picture']['type'] == 'image/webp' )) {
+if(($files[$nameValuePicture]['size'] < $sizePicture) && ($files[$nameValuePicture]['error'] == 0) && ($files[$nameValuePicture]['type'] == 'image/png' ||$files[$nameValuePicture]['type'] == 'image/jpeg' || $files[$fieldsName]['type'] == 'image/webp' )) {
   return true;
 } else {
   return false;

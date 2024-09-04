@@ -111,10 +111,16 @@ class sqlMiniatures
     public function solveMiniaturePrice ($data) {
     $result = 0;
     /* Solve move */
-    $valueMove = log($data['move']);
-    $fligth = $this->boolYes ($data['fligt']);
-    $stationnaryFligth = $this->boolYes ($data['stationnaryFligt']);
-    $valueMove = $valueMove * $fligth * $stationnaryFligth;
+    $valueMove = 0;
+    if($data['move'] > 0 ) {
+        $valueMove = log($data['move']);
+        $fligth = $this->boolYes ($data['fligt']);
+        $stationnaryFligth = $this->boolYes ($data['stationnaryFligt']);
+        $valueMove = $valueMove * $fligth * $stationnaryFligth;
+    } else {
+        $valueMove = 1;
+    }
+
     /* Solve move */
     $valueDQM = $this->getDiceValue ($data['dqm']);
     $valueDC = $this->getDiceValue ($data['dc']);
@@ -122,7 +128,7 @@ class sqlMiniatures
     $valueTypeTroupe = $this->getTypesTroupe ($data['typeTroop']);
     $valueMiniatureSize = $this->getMiniatureSize ($data['typeTroop']);
     $coefArmor = $this->getArmour ($data['armor']);
-    $result = ($valueMove + $valueDQM  + ($valueDC * 2.2) + $valueHealtPoint + $valueTypeTroupe + $valueMiniatureSize) * $coefArmor;
+    $result = ($valueMove * ($valueDQM  + ($valueDC * 2.2) + $valueHealtPoint + $valueTypeTroupe + $valueMiniatureSize)) * $coefArmor;
      return $result;   
     }
 }
