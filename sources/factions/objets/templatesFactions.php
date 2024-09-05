@@ -18,9 +18,7 @@ class templatesFactions extends SQLFactions
         $this->selectUnivers ();
         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news faction</button>';
         echo '</form>';
-        echo '<article class="customerForm">';
         $this->displayListOfYourUnivers (1);
-        echo '</article>';
     }
     public function displayFactionAdmin ($idNav, $type) {
         if($type == 0) {

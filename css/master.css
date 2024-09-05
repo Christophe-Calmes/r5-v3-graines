@@ -328,7 +328,12 @@ a {
 .printPicture {
   height: 200px;
 }
-
+.underLine {
+  text-decoration: underline;
+  font-weight: 400;
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: var(--main-radius);
+}
 .codexGrey {
   background-color: #949494;
   color:#0e0d0d;

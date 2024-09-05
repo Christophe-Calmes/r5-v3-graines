@@ -1,5 +1,6 @@
 <?php
 require('sources/miniatures/objets/sqlMiniatures.php');
+require ('sources/weapons/objects/TemplateWeaponsPublic.php');
 class templatesMiniatures extends sqlMiniatures
 {
     private function globalSelect ($label, $fields, $array, $nameFields) {
@@ -13,8 +14,10 @@ class templatesMiniatures extends sqlMiniatures
         echo '</div>';
     }
     public function miniatureForm ($idNav) {
+    $factionMiniature = new TemplateWeaponsPublic ();
     echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post" enctype="multipart/form-data">';
     echo '<h3>Creat new miniature</h3>';
+    $factionMiniature->factionSelect (); 
     echo '<label for="nameMiniature">Miniature name :</label>';
     echo '<input id="nameMiniature" name="nameMiniature" placeholder="Name miniature"/>';
     echo '<label for="move">Miniature tactical move :</label>';

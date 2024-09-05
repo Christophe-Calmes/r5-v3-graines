@@ -4,7 +4,7 @@ require('sources/factions/objets/sqlFactions.php');
 final class TemplateWeaponsPublic extends SQLWeapons
 
 {
-    private function factionSelect () {
+    public function factionSelect () {
         $FactionsUser = new SQLFactions ();
         $dataFactions = $FactionsUser->getUserFaction ();
         echo '<div class="flex-rows">';
