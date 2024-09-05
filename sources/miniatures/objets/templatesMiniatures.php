@@ -21,7 +21,7 @@ class templatesMiniatures extends sqlMiniatures
     echo '<label for="nameMiniature">Miniature name :</label>';
     echo '<input id="nameMiniature" name="nameMiniature" placeholder="Name miniature"/>';
     echo '<label for="move">Miniature tactical move :</label>';
-    echo '<input type="range" id="move" value="4" name="move" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+    echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
     echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D4"</div>';
     echo '<script>
         const updateRangeValue = () => {

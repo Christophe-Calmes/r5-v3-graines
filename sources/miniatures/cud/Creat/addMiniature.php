@@ -11,7 +11,7 @@ function intervalMove ($data) {
     return true;
 }
 $miniatureTraitement = new sqlMiniatures ();
-$arrayKeys = ['idFaction','nameMiniature', 'move', 'dqm','dc', 'healtPoint', 'armor', 'typeTroop', 'miniatureSize','fligt','stationnaryFligt', 'namePicture'];
+$arrayKeys = ['idFaction','nameMiniature', 'moving', 'dqm','dc', 'healtPoint', 'armor', 'typeTroop', 'miniatureSize','fligt','stationnaryFligt', 'namePicture'];
 $controle_POST = array();
 $mark = [1, 0];
 if(checkPostFields ($arrayKeys, $_POST)) {
@@ -32,9 +32,25 @@ if(checkPostFields ($arrayKeys, $_POST)) {
         array_push($mark, 1);
     }
 }
+
 if($controle_POST == $mark) {
     $_POST['price'] = $miniatureTraitement->solveMiniaturePrice($_POST);
     $namePicture = genToken (5).date('Y').filter($_FILES['namePicture']['name']);
-    print_r($namePicture);
+    $_POST['pictureName'] = $namePicture;
+   if(file_exists('../sources/pictures/miniaturesPictures')) {
+        if(move_uploaded_file($_FILES['namePicture']['tmp_name'], $f='../sources/pictures/miniaturesPictures/'.$namePicture)) {
+            chmod($f, 0644);
+            $_POST['pictureName'] = $namePicture;
+            $parametre = new Preparation ();
+            $param = $parametre->creationPrepIdUser ($_POST);
+            $miniatureTraitement->creatMiniaturesByUser ($param);
+            return header('location:../index.php?message=Record new miniature sucess.&idNav='.$idNav);
+        } else {
+            return header('location:../index.php?message=The target file is not found.');
+        }
+
+    } else {
+        return header('location:../index.php?message=Record error !');
+    }
 }
 

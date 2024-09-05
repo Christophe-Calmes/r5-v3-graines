@@ -112,8 +112,8 @@ class sqlMiniatures
     $result = 0;
     /* Solve move */
     $valueMove = 0;
-    if($data['move'] > 0 ) {
-        $valueMove = log($data['move']);
+    if($data['moving'] > 0 ) {
+        $valueMove = log($data['moving']);
         $fligth = $this->boolYes ($data['fligt']);
         $stationnaryFligth = $this->boolYes ($data['stationnaryFligt']);
         $valueMove = $valueMove * $fligth * $stationnaryFligth;
@@ -130,5 +130,11 @@ class sqlMiniatures
     $coefArmor = $this->getArmour ($data['armor']);
     $result = ($valueMove * ($valueDQM  + ($valueDC * 2.2) + $valueHealtPoint + $valueTypeTroupe + $valueMiniatureSize)) * $coefArmor;
      return $result;   
+    }
+    public function creatMiniaturesByUser($param) {
+        print_r($param);
+       $sqlMiniatures = "INSERT INTO `miniatures`( idFaction, nameMiniature, moving, dqm, dc, healtPoint, armor, typeTroop, miniatureSize, fligt, stationnaryFligt, price, namePicture, idAuthor) 
+        VALUES (:idFaction, :nameMiniature, :moving, :dqm, :dc, :healtPoint, :armor, :typeTroop, :miniatureSize, :fligt, :stationnaryFligt, :price, :pictureName, :idUser);";
+        ActionDB::access($sqlMiniatures, $param, 1);
     }
 }
