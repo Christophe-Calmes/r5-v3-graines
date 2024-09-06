@@ -33,10 +33,10 @@ class templatesFactions extends SQLFactions
             foreach ($listOfUserUnivers as $value) {
                 echo '<div class="item"><h4>'.$value['nameUnivers'].'</h4>';
                 $listFactionOfOneUnivers = $this->listOfFaction ($value['idUnivers']);
-                echo '<ul class="listeProfil">';
+                echo '<aside class="listeProfil">';
                     foreach ($listFactionOfOneUnivers as $value) {
-                        echo '<li>';
-                        echo '<form class="customerForm" action="'.encodeRoutage($adress).'" method="post">';
+                        echo '<div>';
+                        echo '<form class="formItem" action="'.encodeRoutage($adress).'" method="post">';
                         echo '<strong>'.$value['nomFaction'].'</strong>';
                         if($type == 1) {
                             echo '<label for="nomFaction">Name Faction :</label>';
@@ -45,9 +45,9 @@ class templatesFactions extends SQLFactions
                         echo '<input type="hidden" name="id" value="'.$value['idFaction'].'"/>';
                         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>';
                         echo '</form>';
-                        echo'</li>';
+                        echo'</div>';
                     }
-                echo '</ul>';
+                echo '</aside>';
                 echo '</div>';
 
             }

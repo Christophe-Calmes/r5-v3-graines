@@ -390,6 +390,20 @@ a {
   margin-top: 1vh;
   padding: 1em;
 }
+.formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 0.5em;
+    border-radius: 5px;
+    border: #151515 solid 1px;
+    flex-wrap: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    padding: 1em;
+}
 input, label {
   margin-bottom: 0.25em;
   padding: 0.3em;
