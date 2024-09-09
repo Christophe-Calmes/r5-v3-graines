@@ -41,18 +41,31 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
+    private function textSR ($dataSR) {
+        if(!empty($dataSR)) {
+            echo '<table>';
+            foreach ($dataSR as $value) {
+                echo '<tr>';
+                    echo '<td>'.$value['nameSpecialRules'].'</td>';
+                    echo '<td>'.$value['descriptionSpecialRules'].'</td>';
+               echo '</tr>';
+            }
+            echo '</table>';
+        }
+    }
     private function displayResumeSR ($idWeapon) {
         $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
         $specialRules = null;
-      
             foreach ($dataSR as $value) {
                 $specialRules = $specialRules.$value['nameSpecialRules'].'.';
             }
         if(!empty($specialRules) ) {
-            echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
+            //echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
+            $this->textSR($dataSR);
         }
-       
+     
     }
+
     public function formCreatWeapon ($typeOfWeapon, $idNav) {
         
         $adressCreat = [82, 83, 84];
@@ -242,32 +255,62 @@ final class TemplateWeaponsPublic extends SQLWeapons
         if($dataWeapon['heavy']) {
             $dammage = $dammage * 2;
         }
-
-    echo '<div class="tableWeaponCenter">';
-        echo '<table class="tableCodex codexGrey">';
-            echo'<tr>'; 
-                echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
-                echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
-                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
-                if($dataWeapon['typeWeapon'] > 0) {
-                    $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
-                    echo '<tr>';
-                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
-                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
-                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
-                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
-                    echo'</tr>';
+                switch ($dataWeapon['typeWeapon']) {
+                    case 0:
+                        echo '<div class="tableWeaponCenter">';
+                            echo '<table class="tableCodex codexGrey">';
+                                echo'<tr>'; 
+                                    echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                                    echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                                    echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                                    echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
+                                echo'</tr>';
+                            echo '</table>';
+                        break;
+                    case 1:
+                        $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                        echo '<div class="tableWeaponCenter">';
+                            echo '<table class="tableCodex codexGrey">';
+                                echo'<tr>'; 
+                                    echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                                    echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                                    echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                                    echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                                    echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
+                                echo '</tr>';
+                                echo '<tr>';
+                                    echo '<td colspan="2">Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                                    echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                                    echo '<td colspan="2">Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                                echo'</tr>';
+                            echo '</table>';
+                        break;
+                    case 2:
+                        $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
+                        echo '<div class="tableWeaponCenter">';
+                            echo '<table class="tableCodex codexGrey">';
+                                echo'<tr>'; 
+                                    echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
+                                    echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
+                                    echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                                    echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                                    echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
+                                echo '</tr>';
+                                echo '<tr>';
+                                    echo '<td class="orange" colspan="4">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                                    echo '<td class="red" colspan="1">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                                echo'</tr>';
+                                echo '<tr>';
+                                    echo '<td colspan="2">Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
+                                    echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                                    echo '<td colspan="2">Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                                echo'</tr>';
+                            echo '</table>';
+                        break;
+                    default:
+                        echo 'No data avaiblaible';
+                        break;
                 }
-                if($dataWeapon['typeWeapon'] > 1) {
-                    echo '<tr>';
-                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
-                    echo'</tr>';
-                }
-            
-            echo'</tr>';
-        echo '</table>';
         $this->displayResumeSR ($idWeapon);
     echo '</div>';
     }
