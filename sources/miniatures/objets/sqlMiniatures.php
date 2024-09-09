@@ -108,6 +108,18 @@ class sqlMiniatures
         }
         return 3;
     }
+    protected function getMiniatureOfOneFaction ($idFaction, $valid) {
+        $select  = "SELECT `id`, `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, 
+        `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid` 
+        FROM `miniatures` 
+        WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser
+        ORDER BY `nameMiniature`, `price`;";
+        $checkIdUser = new Controles ();
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction], 
+        ['prep'=>':valid', 'variable'=>$valid], 
+        ['prep'=>':idUser', 'variable'=> $idUser = $checkIdUser->idUser($_SESSION)]];
+        return ActionDB::select($select, $param, 1);
+    }
     public function solveMiniaturePrice ($data) {
     $result = 0;
     /* Solve move */
@@ -132,9 +144,9 @@ class sqlMiniatures
      return $result;   
     }
     public function creatMiniaturesByUser($param) {
-        print_r($param);
        $sqlMiniatures = "INSERT INTO `miniatures`( idFaction, nameMiniature, moving, dqm, dc, healtPoint, armor, typeTroop, miniatureSize, fligt, stationnaryFligt, price, namePicture, idAuthor) 
         VALUES (:idFaction, :nameMiniature, :moving, :dqm, :dc, :healtPoint, :armor, :typeTroop, :miniatureSize, :fligt, :stationnaryFligt, :price, :pictureName, :idUser);";
         ActionDB::access($sqlMiniatures, $param, 1);
     }
+
 }

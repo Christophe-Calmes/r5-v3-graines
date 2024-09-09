@@ -13,6 +13,10 @@ class templatesMiniatures extends sqlMiniatures
             echo '</select>';
         echo '</div>';
     }
+    private function getArray ($array, $index, $exitValue) {
+        $index = $index - 1;
+        return $array[$index][$exitValue];
+    }
     public function miniatureForm ($idNav) {
     $factionMiniature = new TemplateWeaponsPublic ();
     echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post" enctype="multipart/form-data">';
@@ -43,6 +47,47 @@ class templatesMiniatures extends sqlMiniatures
     echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
     echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
     echo '</form>';
+    }
+
+    public function displayMiniatureOfOneFaction ($idFaction, $valid) {
+        $dataMiniature = $this->getMiniatureOfOneFaction ($idFaction, $valid);
+        echo '<article class="flex-center">';
+        echo '<table  class="tableWebSite">';
+         echo '<tr>';
+            echo '<th>Name</th>';
+            echo '<th>Type</th>';
+            echo '<th>Miniature size</th>';
+            echo '<th>Quality martial dice</th>';
+            echo '<th>Combat dice</th>';
+            echo '<th>Move</th>';
+            echo '<th>Fligth</th>';
+            echo '<th>Healt Point</th>';
+            echo '<th>Armor</th>';
+            echo '<th>Price</th>';
+            echo '<th>Administration</th>';
+            echo '<th>Delete</th>';
+         echo '</tr>';
+         foreach ($dataMiniature as $value) {
+            $tacticalMove = $value['moving'];
+            $run = $value['moving']*1.45;
+            echo '<tr>';
+                echo '<td>'.$value['nameMiniature'].'</td>';
+                echo '<td>'.$this->getArray ($this->miniatureSize, $value['miniatureSize'], 'NameSize') .'</td>';
+                echo '<td>'.$this->getArray ($this->typesTroupe, $value['typeTroop'], 'nameTroupe') .'</td>';
+                echo '<td>'.$this->getArray ($this->dice, $value['dqm'], 'nameDice') .'</td>';
+                echo '<td>'.$this->getArray ($this->dice, $value['dc'], 'nameDice') .'</td>';
+                echo '<td>'.$tacticalMove.'"/ '.round($run).'" + 1d4"</td>';
+                echo '<td>'.$this->getArray ($this->yes, $value['fligt'], 'name') .'
+                / Stationnary : '.$this->getArray ($this->yes, $value['stationnaryFligt'], 'name') .'</td>';
+                echo '<td>'.$this->getArray ($this->healtPoint, $value['healtPoint'], 'healtPoint') .'</td>';
+                echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
+                echo '<td>'.round($value['price']).'</td>';
+                echo '<td>Coming soon</td>';
+                echo '<td>Coming soon</td>';
+         echo '</tr>';
+         }
+        echo '</table>';
+        echo '</article>';
     }
 }
 

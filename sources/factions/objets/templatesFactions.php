@@ -53,7 +53,15 @@ class templatesFactions extends SQLFactions
             }
         echo '</article>';
     }
-    public function listOfUserFaction () {
+    public function listOfUserFaction ($type) {
+        if($type == 0) {
+            $message = "See all weapons";
+            $adress = 180;
+        } else {
+            $message = "See all miniatures";
+            $adress = 187;
+        } 
+
         $listOfUserUnivers = $this->listOfYourUnivers (1);
         echo '<article class="gallery">';
             foreach ($listOfUserUnivers as $value) {
@@ -62,7 +70,7 @@ class templatesFactions extends SQLFactions
                 echo '<ul class="listeProfil">';
                     foreach ($listFactionOfOneUnivers as $value) {
                         echo '<li>
-                                <a href="'.findTargetRoute(180).'&idFaction='.$value['idFaction'].'">See all weapons</a>
+                                <a href="'.findTargetRoute($adress).'&idFaction='.$value['idFaction'].'">'.$message.'</a>
                                 <strong>'.$value['nomFaction'].'</strong>
                             </li>';
                     }
