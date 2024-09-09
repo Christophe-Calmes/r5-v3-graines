@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 12 juil. 2024 à 00:33
--- Version du serveur : 8.0.37-0ubuntu0.22.04.3
--- Version de PHP : 8.1.2-1ubuntu2.18
+-- Généré le : lun. 09 sep. 2024 à 13:03
+-- Version du serveur : 8.0.39-0ubuntu0.24.04.2
+-- Version de PHP : 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -155,7 +155,41 @@ INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`,
 (78, '::1', 59, 'Aresh', '0', '2024-07-11 16:19:25', 1),
 (79, '127.0.0.1', 1, 'Admin', '0', '2024-07-11 16:45:55', 1),
 (80, '::1', 58, 'Gestionnaire', '0', '2024-07-11 23:41:59', 1),
-(81, '127.0.0.1', 1, 'Admin', '0', '2024-07-12 00:31:09', 1);
+(81, '127.0.0.1', 1, 'Admin', '0', '2024-07-12 00:31:09', 1),
+(82, '::1', 58, 'Gestionnaire', '0', '2024-07-12 10:02:16', 1),
+(83, '::1', 58, 'Gestionnaire', '0', '2024-07-15 11:44:33', 1),
+(84, '::1', 58, 'Gestionnaire', '0', '2024-07-15 14:20:21', 1),
+(85, '::1', 58, 'Gestionnaire', '0', '2024-07-15 20:15:00', 1),
+(86, '::1', 59, 'Aresh', '0', '2024-07-15 20:27:55', 1),
+(87, '::1', 1, 'Admin', '0', '2024-07-15 21:16:39', 1),
+(88, '::1', 59, 'Aresh', '0', '2024-07-15 21:18:51', 1),
+(89, '::1', 59, 'Aresh', '0', '2024-07-16 09:31:17', 1),
+(90, '::1', 1, 'Admin', '0', '2024-07-16 09:38:48', 1),
+(91, '::1', 59, 'Aresh', '0', '2024-07-16 09:39:23', 1),
+(92, '::1', 58, 'Gestionnaire', '0', '2024-07-16 09:39:40', 1),
+(93, '::1', 59, 'Aresh', '0', '2024-07-16 10:00:35', 1),
+(94, '::1', 1, 'Admin', '0', '2024-07-16 10:21:21', 1),
+(95, '::1', 59, 'Aresh', '0', '2024-07-16 10:22:01', 1),
+(96, '::1', 1, 'Admin', '0', '2024-08-19 14:57:51', 1),
+(97, '::1', 58, 'Gestionnaire', '0', '2024-08-19 14:58:03', 1),
+(98, '::1', 59, 'Aresh', '0', '2024-08-19 15:07:22', 1),
+(99, '::1', 59, 'Aresh', '0', '2024-08-20 14:53:36', 1),
+(100, '127.0.0.1', 1, 'Admin', '0', '2024-08-20 15:26:32', 1),
+(101, '::1', 1, 'Admin', '0', '2024-09-02 11:17:09', 1),
+(102, '127.0.0.1', 1, 'Admin', '0', '2024-09-02 11:17:49', 1),
+(103, '::1', 59, 'Aresh', '0', '2024-09-02 11:18:04', 1),
+(104, '::1', 59, 'Aresh', '0', '2024-09-02 16:33:27', 1),
+(105, '127.0.0.1', 1, 'Admin', '0', '2024-09-02 16:35:27', 1),
+(106, '::1', 59, 'Aresh', '0', '2024-09-03 15:23:03', 1),
+(107, '127.0.0.1', 59, 'Aresh', '0', '2024-09-03 15:58:47', 1),
+(108, '::1', 59, 'Aresh', '0', '2024-09-03 16:02:59', 1),
+(109, '::1', 59, 'Aresh', '0', '2024-09-04 05:59:49', 1),
+(110, '::1', 59, 'Aresh', '0', '2024-09-04 13:54:15', 1),
+(111, '::1', 59, 'Aresh', '0', '2024-09-05 11:05:30', 1),
+(112, '::1', 59, 'Aresh', '0', '2024-09-05 15:53:20', 1),
+(113, '::1', 59, 'Aresh', '0', '2024-09-05 19:09:35', 1),
+(114, '::1', 59, 'Aresh', '0', '2024-09-06 10:19:48', 1),
+(115, '::1', 59, 'Aresh', '0', '2024-09-09 13:43:53', 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +219,8 @@ INSERT INTO `menuNav` (`idMenuDeroulant`, `titreMenu`) VALUES
 (22, 'Special rules'),
 (23, 'Special rules membre'),
 (24, 'Weapon Gestionnaire'),
-(25, 'Weapons Membre');
+(25, 'Weapons Membre'),
+(26, 'miniatures');
 
 -- --------------------------------------------------------
 
@@ -208,7 +243,8 @@ INSERT INTO `modules` (`id`, `module`, `valide`) VALUES
 (9, 'univers', 1),
 (10, 'Factions', 1),
 (11, 'Special Rules', 1),
-(12, 'Weapons', 1);
+(12, 'Weapons', 1),
+(13, 'Miniatures', 1);
 
 -- --------------------------------------------------------
 
@@ -288,7 +324,7 @@ INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMe
 (171, 'Vehicle', 'sources/specialRules/publics/displaySpecialRulesVehicle.php', 1, 23, 3, 1, 1, 0, '6542060055461854', 11),
 (172, 'Army list', 'sources/specialRules/publics/displaySpecialRulesArmyList.php', 1, 23, 4, 1, 1, 0, '5086545857664781', 11),
 (173, 'Weapon Gestionnaire', 'modules/navigation/erreurNav.php', 1, 0, 0, 3, 1, 24, '778L8UMd1lXMzoff', 12),
-(174, 'Weapons Membre', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 25, 'mFh53tgEEJsjujQA', 12),
+(174, 'Weapons Univers', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 25, '57068033811403485525', 12),
 (175, 'Add Weapon', 'sources/weapons/administration/formWeapon.php', 1, 24, 1, 3, 1, 0, '5117585423662607', 12),
 (176, 'Weapon no fixe', 'sources/weapons/administration/displayWeaponNoFixe.php', 1, 24, 2, 3, 1, 0, '1046536824545657', 12),
 (177, 'DisplayOneWeaponAdmin', 'sources/weapons/administration/displayOneWeapon.php', 0, 0, 0, 3, 1, 0, '0663794161145329', 12),
@@ -296,7 +332,10 @@ INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMe
 (179, 'Add weapon', 'sources/weapons/public/addWeaponPublic.php', 1, 25, 1, 1, 1, 0, '0444594487559108', 12),
 (180, 'list weapon Factions', 'sources/weapons/public/listWeaponFactions.php', 0, 0, 1, 1, 1, 0, '6891421351096506', 12),
 (181, 'Weapons of factions', 'sources/weapons/public/listFaction.php', 1, 25, 1, 1, 1, 25, '4978943442460908', 12),
-(182, 'Single weapon sheet', 'sources/weapons/public/singleWeaponSheet.php', 0, 0, 1, 1, 1, 0, '4714734841117745', 12);
+(182, 'Single weapon sheet', 'sources/weapons/public/singleWeaponSheet.php', 0, 0, 1, 1, 1, 0, '4714734841117745', 12),
+(183, 'Global Weapon', 'sources/weapons/public/globalWeapon.php', 0, 25, 3, 1, 1, 0, '4563324376485038', 12),
+(184, 'miniatures', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 26, 'eopHoO595kkjHfrU', 13),
+(185, 'Add news miniatures', 'sources/miniatures/publics/miniaturesForm.php', 1, 26, 1, 1, 1, 0, '4227463269001830', 13);
 
 -- --------------------------------------------------------
 
@@ -389,7 +428,12 @@ INSERT INTO `routageForm` (`idForm`, `chemin`, `securiter`, `valide`, `route`, `
 (88, 'sources/weapons/cud/update/fixWeaponByOwner.php', 1, 1, '33256654252642636196', 12),
 (89, 'sources/weapons/cud/update/updateWeaponCloseByAdmin.php', 3, 1, '16355437686414236246', 12),
 (90, 'sources/weapons/cud/update/updateWeaponShootingByAdmin.php', 3, 1, '79444311374125764045', 12),
-(91, 'sources/weapons/cud/update/updateWeaponExplosiveByAdmin.php', 3, 1, '69553566059764146655', 12);
+(91, 'sources/weapons/cud/update/updateWeaponExplosiveByAdmin.php', 3, 1, '69553566059764146655', 12),
+(92, 'sources/weapons/cud/update/updateWeaponCloseByOwner.php', 1, 1, '94336451582671044045', 12),
+(93, 'sources/weapons/cud/update/updateWeaponShootingByOwner.php', 1, 1, '80483754637613443454', 12),
+(94, 'sources/weapons/cud/update/updateWeaponExplosiveByOwner.php', 1, 1, '69864317455435884549', 12),
+(95, 'sources/weapons/cud/update/fixWeaponByOwnerFromWeaponSheet.php', 1, 1, '14661208068544901434', 12),
+(96, 'sources/miniatures/cud/Creat/addMiniature.php', 1, 1, '57185360456044505737', 13);
 
 -- --------------------------------------------------------
 
@@ -415,10 +459,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(1, 'bsUxXvfNS3MLoPqj', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
+(1, 'jG8ioHY5Qlh7t5z6', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
 (57, 'w2jbaXpwin', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Membre', '$2y$10$XyTgD4YJUyRXmYb5rJ7IGeCw5c..lxXVGNCEw2XdpS6GOtOfzvGfW', 1, 1, '2024-05-15 14:33:10'),
-(58, 'UT6b4UUukYfXz8h2', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
-(59, '5MLAbyzZur', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
+(58, 'zGZ5LSGJmj', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
+(59, 'BbbKOjkMBLHmo5fZ', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
 
 --
 -- Index pour les tables déchargées
@@ -500,25 +544,25 @@ ALTER TABLE `dataSite`
 -- AUTO_INCREMENT pour la table `journaux`
 --
 ALTER TABLE `journaux`
-  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT pour la table `menuNav`
 --
 ALTER TABLE `menuNav`
-  MODIFY `idMenuDeroulant` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idMenuDeroulant` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT pour la table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -530,7 +574,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `routageForm`
 --
 ALTER TABLE `routageForm`
-  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT pour la table `users`
