@@ -279,11 +279,13 @@ a {
   margin-right: 1em;
 }
 .tableWebSite th {
-  text-align: left;
+  text-align: center;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
 }
 .tableWebSite td {
   border: #151515 solid 1px;
-  text-align: justify;
+  text-align: center;
   padding: 0.5em 0.5em 0.5em 0.2em;
 }
 .tableWebSite tr:nth-child(odd) {
@@ -354,6 +356,11 @@ a {
  }
  .SRGrey {
   background-color: #d1d1d1;
+ }
+ .blue {
+  background-color: #1B384D;
+  color: #ffffff;
+  font-weight: bold;
  }
 
 /*Color table*/
@@ -876,7 +883,15 @@ nav {
   padding-left: 0.25em;
   padding-right: 0.25em;
 }
-
+.webSitePicture {
+  border-radius: var(--main-radius);
+  border: #151515 1px solid;
+}
+.webSitePrint {
+  border-radius: var(--main-radius);
+  border: #151515 1px solid;
+  filter: grayscale(100%);
+}
 
 @media only screen and (max-width: 768px) {
   .smartPhone {
