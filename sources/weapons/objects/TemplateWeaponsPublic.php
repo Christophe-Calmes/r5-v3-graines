@@ -16,6 +16,23 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
+    public function factionSelected ($idFaction) {
+        $FactionsUser = new SQLFactions ();
+        $dataFactions = $FactionsUser->getUserFaction ();
+        echo '<div class="flex-rows">';
+            echo '<label class="labelFirstLetter" for="idFaction">Factions :</label>';
+            echo '<select id="idFaction"name="idFaction">';
+                foreach ($dataFactions as  $value) {
+                    if($idFaction == $value['idFaction']) {
+                        echo '<option value="'.$value['idFaction'].'" selected>'.$value['nameUnivers'].' - '.$value['nomFaction'].' - LT'.$value['nt'].'</option>';
+                    } else {
+                        echo '<option value="'.$value['idFaction'].'">'.$value['nameUnivers'].' - '.$value['nomFaction'].' - LT'.$value['nt'].'</option>';
+                    }
+                    
+                }
+            echo '</select>';
+        echo '</div>';
+    }
     private function globalSelect ($label, $fields, $array) {
         echo '<div class="flex-rows">';
             echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';

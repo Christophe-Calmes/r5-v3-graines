@@ -13,6 +13,21 @@ class templatesMiniatures extends sqlMiniatures
             echo '</select>';
         echo '</div>';
     }
+    private function globalSelected ($label, $fields, $array, $nameFields, $selected) {
+    
+        echo '<div class="flex-rows">';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<select id="'.$fields.'"name="'.$fields.'">';
+               foreach ($array as $value) {
+                if($selected == $value['id']) {
+                    echo '<option value="'.$value['id'].'" selected>'.$value[$nameFields].'</option>';
+                } else {
+                    echo '<option value="'.$value['id'].'">'.$value[$nameFields].'</option>';
+                }
+               }
+            echo '</select>';
+        echo '</div>';
+    }
     private function getArray ($array, $index, $exitValue) {
         $index = $index - 1;
         return $array[$index][$exitValue];
@@ -148,6 +163,38 @@ class templatesMiniatures extends sqlMiniatures
             echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
         }
        
+    }
+    public function updateMiniatureByUser ($idMiniature, $valid, $idNav) {
+        $data = $this->getOneMiniature ($idMiniature, $valid);
+        $data = $data[0];
+        $factionMiniature = new TemplateWeaponsPublic ();
+        echo '<form class="customerForm" action="'.encodeRoutage(99).'" method="post" enctype="multipart/form-data">';
+        echo '<h3>Update miniature : '.$data['nameMiniature'].'</h3>';
+        $factionMiniature->factionSelected ($data['idFaction']); 
+        echo '<label for="nameMiniature">Miniature name :</label>';
+        echo '<input id="nameMiniature" name="nameMiniature" value="'.$data['nameMiniature'].'"/>';
+        echo '<label for="move">Miniature tactical move :</label>';
+        echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+        echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.round($data['moving']*1.45).'</span> " + 1D4"</div>';
+        echo '<script>
+            const updateRangeValue = () => {
+                let moveValue = document.getElementById("move").value;
+                let arrayMove = moveValue
+                document.getElementById("moveValue").textContent = moveValue;
+                document.getElementById("runValue").textContent = Math.round(moveValue * 1.45);
+            }
+        </script>';
+        $this->globalSelected ('Martial quality dice', 'dqm', $this->dice, 'nameDice', $data['dqm']);
+        $this->globalSelected ('Combat dice', 'dc', $this->dice, 'nameDice', $data['dc']);
+        $this->globalSelected ('Healt point', 'healtPoint', $this->healtPoint, 'healtPoint', $data['healtPoint']);
+        $this->globalSelected ('Save / D6', 'armor', $this->armour, 'nameArmour', $data['armor']);
+        $this->globalSelected ('Type of troop', 'typeTroop', $this->typesTroupe, 'nameTroupe', $data['typeTroop']);
+        $this->globalSelected ('Miniature size', 'miniatureSize', $this->miniatureSize, 'NameSize', $data['miniatureSize']);
+        $this->globalSelected ('Fligth', 'fligt', $this->yes, 'name', $data['fligt']);
+        $this->globalSelected ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
+        echo '<input type="hidden" name="idMiniature" value="'.$data['idMiniature'].'"/>';
+        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update miniature</button>';
+        echo '</form>';
     }
 }
 

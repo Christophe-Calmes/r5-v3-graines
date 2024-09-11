@@ -175,7 +175,7 @@ class sqlMiniatures
         return $result[0]['namePicture'];
     }
     protected function getOneMiniature ($idMiniature, $valid) {
-        $select = "SELECT `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `nomFaction`, `nameUnivers`
+        $select = "SELECT `miniatures`.`id` AS `idMiniature`,`idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `nomFaction`, `nameUnivers`
                     FROM `miniatures`
                     INNER JOIN `factions` ON `idFaction` = `factions`.`id`
                     INNER JOIN `univers` ON `idUnivers` = `univers`.`id`
@@ -192,6 +192,24 @@ class sqlMiniatures
                 $param = [['prep'=>':id', 'variable'=>$idMiniature], 
                 ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
         return ActionDB::select($select, $param, 1);
+    }
+    public function updateMiniatureStatByOwner ($param) {
+        $update ="UPDATE `miniatures` SET 
+        `idFaction`=:idFaction,
+        `nameMiniature`=:nameMiniature,
+        `dc`=:dc,
+        `dqm`=:dqm,
+        `moving`=:moving,
+        `fligt`=:fligt,
+        `stationnaryFligt`=:stationnaryFligt,
+        `miniatureSize`=:miniatureSize,
+        `typeTroop`=:typeTroop,
+        `armor`=:armor,
+        `healtPoint`=:healtPoint,
+        `price`=:price 
+        WHERE `id`= :idMiniature AND `idAuthor` = :idUser;";
+        ActionDB::access($update, $param, 1);
+        return true;
     }
 
 }
