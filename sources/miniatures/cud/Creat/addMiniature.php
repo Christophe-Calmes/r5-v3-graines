@@ -33,6 +33,9 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     }
 }
 
+print_r($controle_POST);
+echo '<br/>';
+print_r($mark);
 if($controle_POST == $mark) {
     $_POST['price'] = $miniatureTraitement->solveMiniaturePrice($_POST);
     $namePicture = genToken (5).date('Y').filter($_FILES['namePicture']['name']);
@@ -52,5 +55,9 @@ if($controle_POST == $mark) {
     } else {
         return header('location:../index.php?message=Record error !');
     }
+} else if ($controle_POST[12] == false) {
+     return header('location:../index.php?message=Format or size picture error !');
+}  else {
+    return header('location:../index.php?message=Record error !');
 }
 

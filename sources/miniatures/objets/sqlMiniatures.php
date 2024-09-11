@@ -12,22 +12,12 @@ class sqlMiniatures
         ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8'],
         ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10'],
         ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12']];
-        /*$this->armour = [['id'=>1, 'valueArmour' => 1, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 1.05, 'nameArmour'=> '10+'],
-        ['id'=>3, 'valueArmour' => 1.10, 'nameArmour'=> '9+'],
-        ['id'=>4, 'valueArmour' => 1.15, 'nameArmour'=> '8+'],
-        ['id'=>5, 'valueArmour' => 1.20, 'nameArmour'=> '7+'],
-        ['id'=>6, 'valueArmour' => 1.40, 'nameArmour'=> '6+'],
-        ['id'=>7, 'valueArmour' => 1.60, 'nameArmour'=> '5+'],
-        ['id'=>8, 'valueArmour' => 2, 'nameArmour'=> '4+'],
-        ['id'=>9, 'valueArmour' => 4, 'nameArmour'=> '3+'],
-        ['id'=>10, 'valueArmour' => 6, 'nameArmour'=> '2+'],];*/
         $this->armour = [['id'=>1, 'valueArmour' => 0.8, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 1.16, 'nameArmour'=> '6+'],
-        ['id'=>3, 'valueArmour' => 1.36, 'nameArmour'=> '5+'],
-        ['id'=>4, 'valueArmour' => 1.52, 'nameArmour'=> '4+'],
-        ['id'=>5, 'valueArmour' => 1.67, 'nameArmour'=> '3+'],
-        ['id'=>6, 'valueArmour' => 1.83, 'nameArmour'=> '2+'],];
+        ['id'=>2, 'valueArmour' => 1.15, 'nameArmour'=> '6+'],
+        ['id'=>3, 'valueArmour' => 1.40, 'nameArmour'=> '5+'],
+        ['id'=>4, 'valueArmour' => 1.50, 'nameArmour'=> '4+'],
+        ['id'=>5, 'valueArmour' => 1.70, 'nameArmour'=> '3+'],
+        ['id'=>6, 'valueArmour' => 2, 'nameArmour'=> '2+'],];
 
         $this->healtPoint = [['id'=>1, 'valueHealtPoint'=>1, 'healtPoint'=> 1],
         ['id'=>2, 'valueHealtPoint'=>2, 'healtPoint'=> 2],
@@ -39,9 +29,9 @@ class sqlMiniatures
         ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscript soldier', 'commandePoint'=>0.4],
         ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Regular soldier', 'commandePoint'=>0.6],
         ['id'=>4, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Elite soldier', 'commandePoint'=>1.2],
-        ['id'=>5, 'valueTypeTroupe'=>14, 'nameTroupe'=>'Veteran soldier', 'commandePoint'=>1.4],
-        ['id'=>6, 'valueTypeTroupe'=>10, 'nameTroupe'=>'Officer', 'commandePoint'=>2],
-        ['id'=>7, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Executive officer', 'commandePoint'=>2.4],];
+        ['id'=>5, 'valueTypeTroupe'=>16, 'nameTroupe'=>'Veteran soldier', 'commandePoint'=>1.4],
+        ['id'=>6, 'valueTypeTroupe'=>14, 'nameTroupe'=>'Officer', 'commandePoint'=>2],
+        ['id'=>7, 'valueTypeTroupe'=>18, 'nameTroupe'=>'Executive officer', 'commandePoint'=>2.4],];
         $this->miniatureSize = [['id'=>1, 'valueSize'=> 2, 'NameSize'=>'Small'],
         ['id'=>2, 'valueSize'=> 2.5, 'NameSize'=>'Standard'],
         ['id'=>3, 'valueSize'=> 4, 'NameSize'=>'Large miniature'],

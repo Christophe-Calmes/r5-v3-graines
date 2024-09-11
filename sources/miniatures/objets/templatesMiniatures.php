@@ -109,6 +109,14 @@ class templatesMiniatures extends sqlMiniatures
         $dataMiniature = $this->getOneMiniature ($idMiniature, $valid);
         $dataMiniature = $dataMiniature[0];
         $moving = $this->movingSolve ($dataMiniature['moving']);
+        $bonus = null;
+        $bonusSVG = null;
+        if($dataMiniature['typeTroop']>3) {
+            $bonus = '++';
+        }
+        if($dataMiniature['typeTroop']==5) {
+            $bonusSVG = '+';
+        }
         if(!empty($dataMiniature)) {
             echo '<article class="flex-colonne-center">';
                 echo '<h1>'.$dataMiniature['nameUnivers'].' Faction : '.$dataMiniature['nomFaction'].'</h1>';
@@ -122,10 +130,10 @@ class templatesMiniatures extends sqlMiniatures
                             echo '<td>Miniature size : '.$this->getArray ($this->miniatureSize, $dataMiniature['miniatureSize'], 'NameSize') .'</td>';
                         echo '</tr>';
                         echo '<tr>';
-                            echo '<td class="blue">DQM : '.$this->getArray ($this->dice, $dataMiniature['dqm'], 'nameDice') .'</td>';
+                            echo '<td class="blue">DQM : '.$this->getArray ($this->dice, $dataMiniature['dqm'], 'nameDice').$bonus.'</td>';
                             echo '<td class="red"> DC : '.$this->getArray ($this->dice, $dataMiniature['dc'], 'nameDice') .'</td>';
                             echo '<td class="orange">Healt point : '.$this->getArray ($this->healtPoint, $dataMiniature['healtPoint'], 'healtPoint') .'</td>';
-                            echo '<td class="codexGrey">Armour save: '.$this->getArray ( $this->armour, $dataMiniature['armor'], 'nameArmour') .' /1D10</td>';
+                            echo '<td class="codexGrey">Armour save: '.$this->getArray ( $this->armour, $dataMiniature['armor'], 'nameArmour').$bonusSVG.' /1D6</td>';
                         echo '</tr>';
                         echo '<tr class="green">';
                             echo '<td>Tactical move : '.$moving[0].' "</td>';
