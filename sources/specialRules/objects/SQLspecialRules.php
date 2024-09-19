@@ -96,7 +96,8 @@
         AND  `valid` = :valid
         AND `id` NOT IN (SELECT`idSpecialRules` 
         FROM `specialeRulesLinkWeapon` 
-        WHERE `idWeapon` = :idWeapon);";
+        WHERE `idWeapon` = :idWeapon)
+        ORDER BY `nameSpecialRules`;";
             $param = [
             ['prep' => ':typeSpecialRules', 'variable' => $typeRS],
             ['prep' => ':valid', 'variable' => $valid],

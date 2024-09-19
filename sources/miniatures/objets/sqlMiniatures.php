@@ -230,6 +230,12 @@ class sqlMiniatures
         return $nbrMiniature[0]['nbrMiniature'];
 
     }
+    public function miniatureFix ($idMiniature) {
+        $select ="SELECT `stick` FROM `miniatures` WHERE `id` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $stick = actionDB::select($select, $param, 1);
+        return $stick[0]['stick'];
+    }
     public function changeFixMiniature ($idMiniature) {
         $update = "UPDATE `miniatures` SET  `stick`= `stick` ^1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;";
         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 

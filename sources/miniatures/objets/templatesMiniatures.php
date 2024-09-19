@@ -109,7 +109,7 @@ class templatesMiniatures extends sqlMiniatures
                     / Stationnary : '.$this->getArray ($this->yes, $value['stationnaryFligt'], 'name') .'</td>';
                     echo '<td>'.$this->getArray ($this->healtPoint, $value['healtPoint'], 'healtPoint') .'</td>';
                     echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
-                    echo '<td>'.round($value['price']).' $</td>';
+                    echo '<td>'.round($value['price']).' k$</td>';
                     echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
