@@ -15,6 +15,16 @@ class SQLWeapons
         $this->PowerBlastDice = [1, 2, 3, 4, 5, 6];
         $this->yes = ['No', 'Yes'];
     }
+    protected function rateOfFire ($rateOfFire) {
+        if ($rateOfFire == 0) {
+            return 'No fire';
+        }
+        if ($rateOfFire == 1)  {
+            return ' - ';
+        } else {
+            return $rateOfFire. ' / round';
+        }
+    }
     public function checkFactionCreatNewWeaponByUser ($idFaction) {
         $select = "SELECT COUNT(`id`) AS `numberOfFaction` 
         FROM `factions` 
@@ -269,11 +279,12 @@ class SQLWeapons
         return $data[0];
     }
     protected function getAllWeaponOfFaction ($idFaction) {
-        $select = "SELECT `id` AS `idWeapon`, `nameWeapon`, `power`, `overPower`, `typeWeapon`, `fixe`, `price`
+        $select = "SELECT `id` AS `idWeapon`, `nameWeapon`, `power`, `overPower`, `typeWeapon`, `fixe`, `price`, `heavy`, 
+                    `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`
             FROM `factionsLinkWeapon` 
             INNER JOIN `weapons` ON `weapons`.`id` = `idWeapon` 
             WHERE `idFaction` = :idFaction AND valid = 1
-            ORDER BY `typeWeapon`, `nameWeapon`;";
+            ORDER BY `typeWeapon`, `nameWeapon`, `price`;";
            $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
            return ActionDB::select($select, $param, 1);
     }

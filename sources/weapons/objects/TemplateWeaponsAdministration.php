@@ -190,7 +190,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                         echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
                         echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
                         echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
-                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                        echo '<td>Rate of fire : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
                     echo'</tr>';
                 }
                 if($dataWeapon['typeWeapon'] > 1) {

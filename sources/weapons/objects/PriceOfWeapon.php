@@ -10,7 +10,7 @@ class PriceOfWeapon
         $price =  $this->power[$arrayWeapon[0]];
         /* overPower */
         if($arrayWeapon[1] == 1) {
-            $price = $price * 1.6;
+            $price = $price * 2.5;
         }
         /* Spell */
         if($arrayWeapon[3] == 1) {
@@ -33,10 +33,11 @@ class PriceOfWeapon
         }
         /* Saturation*/
         if($arrayWeapon[5] == 1) {
-            $price = $price * 1.1;
+            $price = $price * 1.2;
         }
         /* Rate of fire */
-        $price = $price + ($arrayWeapon[6]/12); 
+        //$price = $price + ($arrayWeapon[6]/12); 
+        $price = $price + ($arrayWeapon[6]/3); 
         /* range weapon */
         if($arrayWeapon[7] != 0) {
             $price += log($arrayWeapon[7]);

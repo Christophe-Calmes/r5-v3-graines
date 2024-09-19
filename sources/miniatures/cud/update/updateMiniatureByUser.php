@@ -14,7 +14,6 @@ $miniatureTraitement = new sqlMiniatures ();
 $arrayKeys = ['idFaction','nameMiniature', 'moving', 'dqm','dc', 'healtPoint', 'armor', 'typeTroop', 'miniatureSize','fligt','stationnaryFligt', 'idMiniature'];
 $controle_POST = array();
 $mark = [1, 0];
-print_r($_POST);
 if(checkPostFields ($arrayKeys, $_POST)) {
     print_r($controle_POST);
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));

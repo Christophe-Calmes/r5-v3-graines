@@ -111,9 +111,15 @@ class sqlMiniatures
         $checkIdUser = new Controles ();
         return $checkIdUser->idUser($_SESSION);
     }
+    private function getFactionForOneMiniature ($idMiniature) {
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $select = "SELECT `idFaction` FROM `miniatures` WHERE `id` = :idMiniature;";
+        $faction = ActionDB::select($select, $param, 1);
+        return $faction[0]['idFaction'];
+    }
     protected function getMiniatureOfOneFaction ($idFaction, $valid) {
         $select  = "SELECT `id`, `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, 
-        `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid` 
+        `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid`, `stick` 
         FROM `miniatures` 
         WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser
         ORDER BY `nameMiniature`, `price`;";
@@ -166,31 +172,34 @@ class sqlMiniatures
         ActionDB::access($delete, $param, 1);
         return true;
     }
-    public function getNamePicture ($idMiniature) {
+    public function getNamePictureForDelete ($idMiniature) {
         $param = [['prep'=>':id', 'variable'=>$idMiniature], 
         ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
         $select = "SELECT `namePicture` FROM `miniatures` WHERE `idAuthor` = :idUser AND `id` = :id;";
         $result = ActionDB::select($select, $param, 1);
+        $idFaction = $this->getFactionForOneMiniature ($idMiniature);
         $this->deleteMiniature($param);
-        return $result[0]['namePicture'];
+        return [$result[0]['namePicture'], $idFaction];
     }
-    protected function getOneMiniature ($idMiniature, $valid) {
+    protected function getOneMiniature ($idMiniature, $valid, $stick) {
         $select = "SELECT `miniatures`.`id` AS `idMiniature`,`idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `nomFaction`, `nameUnivers`
                     FROM `miniatures`
                     INNER JOIN `factions` ON `idFaction` = `factions`.`id`
                     INNER JOIN `univers` ON `idUnivers` = `univers`.`id`
-                    WHERE  `miniatures`.`id` = :id AND  `miniatures`.`idAuthor` = :idUser AND  `miniatures`.`valid` = :valid;";
+                    WHERE  `miniatures`.`id` = :id AND  `miniatures`.`idAuthor` = :idUser AND  `miniatures`.`valid` = :valid AND `stick`=:stick;";
               $param = [['prep'=>':id', 'variable'=>$idMiniature], 
                         ['prep'=>':idUser', 'variable'=> $this->getIdUser ()],
-                        ['prep'=>':valid', 'variable'=>$valid]];   
+                        ['prep'=>':valid', 'variable'=>$valid],
+                        ['prep'=>':stick', 'variable'=>$stick],];   
         return ActionDB::select($select, $param, 1);
     }
-    public function getOneMiniatureRow($idMiniature) {
+    public function getOneMiniatureRow($idMiniature, $stick) {
         $select = "SELECT `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, 
         `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid` 
-        FROM `miniatures` WHERE `id` = :id AND `idAuthor` = :idUser;";
+        FROM `miniatures` WHERE `id` = :id AND `idAuthor` = :idUser  AND `stick`=:stick;";
                 $param = [['prep'=>':id', 'variable'=>$idMiniature], 
-                ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
+                          ['prep'=>':idUser', 'variable'=> $this->getIdUser ()],
+                          ['prep'=>':stick', 'variable'=>$stick],];
         return ActionDB::select($select, $param, 1);
     }
     public function updateMiniatureStatByOwner ($param) {
@@ -210,6 +219,23 @@ class sqlMiniatures
         WHERE `id`= :idMiniature AND `idAuthor` = :idUser;";
         ActionDB::access($update, $param, 1);
         return true;
+    }
+    public function checkMiniatureOwner($idMiniature) {
+        $select = "SELECT COUNT(`id`) AS `nbrMiniature` 
+        FROM `miniatures` 
+        WHERE `id` = :idMiniature AND `idAuthor`=:idUser;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 
+                ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
+        $nbrMiniature = ActionDB::select($select, $param, 1);
+        return $nbrMiniature[0]['nbrMiniature'];
+
+    }
+    public function changeFixMiniature ($idMiniature) {
+        $update = "UPDATE `miniatures` SET  `stick`= `stick` ^1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 
+                    ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
+        ActionDB::access($update, $param, 1);
+        return $this->getFactionForOneMiniature ($idMiniature);
     }
 
 }

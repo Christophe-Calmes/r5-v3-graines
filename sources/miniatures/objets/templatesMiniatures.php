@@ -72,6 +72,7 @@ class templatesMiniatures extends sqlMiniatures
             echo '<article class="flex-center">';
             echo '<table  class="tableWebSite">';
              echo '<tr>';
+                echo '<th>Fix</th>';
                 echo '<th>Name</th>';
                 echo '<th>Type</th>';
                 echo '<th>Miniature size</th>';
@@ -83,12 +84,21 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<th>Armor</th>';
                 echo '<th>Price</th>';
                 echo '<th>Administration</th>';
-                echo '<th>Clone</th>';
                 echo '<th>Delete</th>';
              echo '</tr>';
              foreach ($dataMiniature as $value) {
                 $moving = $this->movingSolve ($value['moving']);
+                $fix = 'Unfix';
+                if($value['stick'] == 0) {
+                    $fix = 'Fix';
+                }
                 echo '<tr>';
+                    echo '<td>
+                        <form action="'.encodeRoutage(100).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$fix.'</button>
+                        </form>
+                    </td>';
                     echo '<td>'.$value['nameMiniature'].'</td>';
                     echo '<td>'.$this->getArray ($this->miniatureSize, $value['miniatureSize'], 'NameSize') .'</td>';
                     echo '<td>'.$this->getArray ($this->typesTroupe, $value['typeTroop'], 'nameTroupe') .'</td>';
@@ -101,10 +111,6 @@ class templatesMiniatures extends sqlMiniatures
                     echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
                     echo '<td>'.round($value['price']).' $</td>';
                     echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
-                    echo '<td> <form action="'.encodeRoutage(98).'" method="post">
-                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Cloning</button>
-                        </form></td>';
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
@@ -120,8 +126,8 @@ class templatesMiniatures extends sqlMiniatures
         echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
         
     }
-    public function displayOneMiniature ($idMiniature, $valid) {
-        $dataMiniature = $this->getOneMiniature ($idMiniature, $valid);
+    public function displayOneMiniature ($idMiniature, $valid, $stick) {
+        $dataMiniature = $this->getOneMiniature ($idMiniature, $valid, $stick);
         $dataMiniature = $dataMiniature[0];
         $moving = $this->movingSolve ($dataMiniature['moving']);
         $bonus = null;
@@ -164,8 +170,8 @@ class templatesMiniatures extends sqlMiniatures
         }
        
     }
-    public function updateMiniatureByUser ($idMiniature, $valid, $idNav) {
-        $data = $this->getOneMiniature ($idMiniature, $valid);
+    public function updateMiniatureByUser ($idMiniature, $valid, $idNav, $stick) {
+        $data =  $this->getOneMiniature ($idMiniature, $valid, $stick);
         $data = $data[0];
         $factionMiniature = new TemplateWeaponsPublic ();
         echo '<form class="customerForm" action="'.encodeRoutage(99).'" method="post" enctype="multipart/form-data">';

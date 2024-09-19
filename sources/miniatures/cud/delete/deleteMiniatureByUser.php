@@ -8,14 +8,13 @@ $mark = [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $miniatureTraitement->checkOwnerMiniature(filter($_POST[$arrayKeys[0]])));
 }
-print_r($controle_POST);
 if($mark == $controle_POST) {
-    $pictureName = $miniatureTraitement->getNamePicture (filter($_POST[$arrayKeys[0]]));
-    $pathPictureToDelete = '../sources/pictures/miniaturesPictures/'.$pictureName;
+    $pictureName = $miniatureTraitement->getNamePictureForDelete (filter($_POST[$arrayKeys[0]]));
+    $pathPictureToDelete = '../sources/pictures/miniaturesPictures/'.$pictureName[0];
     if(file_exists($pathPictureToDelete)) {
         unlink($pathPictureToDelete);
-        header('location:../index.php?message=Delete miniature');
+        header('location:../index.php?idNav='.$idNav.'&message=Delete miniature&idFaction='.$pictureName[1]);
     }
 }  else {
-    header('location:../index.php?message=Fail delete miniature');
+    header('location:../index.php?idNav='.$idNav.'&message=Fail delete miniature&idFaction='.$pictureName[1]);
 }
