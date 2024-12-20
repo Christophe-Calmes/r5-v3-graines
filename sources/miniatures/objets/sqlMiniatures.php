@@ -243,5 +243,29 @@ class sqlMiniatures
         ActionDB::access($update, $param, 1);
         return $this->getFactionForOneMiniature ($idMiniature);
     }
+    private function getRawPrice ($idMiniature) {
+        $select= "SELECT `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint` 
+        FROM `miniatures` 
+        WHERE `id` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $rawMiniature = ActionDB::select($select, $param, 1);
+        return  $this->solveMiniaturePrice ($rawMiniature[0]);
+    }
+    private function getSpecialRulesPrice ($idMiniature) {
+        $rawPrice = $this-> getRawPrice ($idMiniature);
+        $select = "SELECT SUM(`price`) AS `modMiniaturePrice`
+                    FROM `miniatureLinkSpecialRules`
+                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                    WHERE `idMiniature` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $dataModPrice = ActionDB::select($select, $param, 1);
+        return round((1+ $dataModPrice[0]['modMiniaturePrice']) * $rawPrice, 3);
+    }
+    public function updateMiniaturePrice ($idMiniature) {
+        $update = "UPDATE `miniatures` SET `price` = :NewPrice WHERE `id` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature],
+                ['prep'=>':NewPrice', 'variable'=> $this->getSpecialRulesPrice($idMiniature)]];
+        ActionDB::access($update, $param, 1);
+    }
 
 }

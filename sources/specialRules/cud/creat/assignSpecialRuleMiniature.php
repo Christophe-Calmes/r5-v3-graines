@@ -17,12 +17,10 @@ if($controle_POST == $mark) {
     
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
-    print_r($param);
-    echo '<br/> Coucou';
+    print_r($param[0]['variable']);
     $affectedNewSpecialRule -> assignSRMiniature ($param);
-    /*$weaponCheck ->updateWeaponPriceSR ($param, '+');
-    header('location:../index.php?message=New special rules  success to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
-    */
+    $miniatureCheck->updateMiniaturePrice ($param[0]['variable']);
+    header('location:../index.php?message=New special rules  success to assgin &idNav='.$idNav.'&idMiniature='.filter($_POST[$arrayKeys[0]])); 
 } else {
-    header('location:../index.php?message=New special rules  fail to assgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
+    header('location:../index.php?message=New special rules  fail to assgin &idNav='.$idNav.'&idMiniature='.filter($_POST[$arrayKeys[0]])); 
 }
