@@ -7,7 +7,7 @@
         $currentPage = 1;
     }
     $WeaponByPage = 10;
-    $nbrWeaponNoFixe = $weapons->numberWeaponNoFixe (1);
+    $nbrWeaponNoFixe = $weapons->numberWeaponNoFixe (1, 1);
     $pages = ceil($nbrWeaponNoFixe/$WeaponByPage);
     $firstPage = ($currentPage * $WeaponByPage) - $WeaponByPage;
         echo '<h4>Weapon no fix</h4>';

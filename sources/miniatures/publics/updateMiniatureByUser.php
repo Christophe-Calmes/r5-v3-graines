@@ -13,5 +13,16 @@ echo '<section class="flex-rows">';
     echo '<article>';
         $displayMiniatureForm->displayOneMiniature ($idMiniature, 1, $fixMiniature);
     echo '</article>';
+  
+    if($fixMiniature == 0) {
+        echo '</section>';
+        require ('sources/specialRules/objects/TemplatesSpecialRules.php');
+        $specialRuleForMiniature = new TemplatesSpecialRules ();
+        echo '<section class="flex-rows">';
+            echo '<article>';
+                $specialRuleForMiniature->displaySRforMiniature ($idMiniature, $idNav);
+            echo '</article>';
+        echo '</section>';
+    }
 
 echo '</section>';
