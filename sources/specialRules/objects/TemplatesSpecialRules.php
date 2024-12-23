@@ -259,6 +259,35 @@ Text ?
             echo '</article>';
     }
 
+    public function displayAssignedSRforMiniature ($idMiniature, $idNav) {
+        $dataSR = $this->getAssignedSpecialRuleMiniature ($idMiniature) ;
+        $adress = 102;
+        echo '<article>';
+        echo '<h4 class="titleSite">Special rules assignable</h4>';
+            echo '<div class="gallery">';
+            foreach ($dataSR as $value) {
+                echo '<aside class="itemSR">';
+                echo '<table class="tableWebSite">';
+                        echo '<tr>';
+                            echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                            echo '<td>Price : '.$value['price'].'</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                                echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">
+                                                    <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
+                                                    <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
+                                                    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unassign '.$value['nameSpecialRules'].'</button>           
+                                                    </form>';
+                                echo'</td>';
+                            echo '</tr>';
+                echo '</table>';
+            echo '</aside >';
+            }
+            echo '</article>';
+    }
 
     public function displayAssignSpecialRules ($idWeapon, $idNav, $type = 0) {
         $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);

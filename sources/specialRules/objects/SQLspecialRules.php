@@ -75,6 +75,11 @@
         WHERE `idWeapon`=:idWeapon AND `idSpecialRules` =:idSpecialRules;";
         return ActionDB::access($delete, $param, 1);
     }
+    public function unassignSRMiniature ($param) {
+        $delete = "DELETE FROM `miniatureLinkSpecialRules` 
+        WHERE `idMiniature` = :idMiniature AND `idSpecialRules`=:idSpecialRules;";
+        return ActionDB::access($delete, $param, 1);
+    }
     private function checkSRMiniature ($param) {
         $select = "SELECT COUNT(`idMiniature`) AS `nbrSR` FROM `miniatureLinkSpecialRules` 
         WHERE `idMiniature` = :idMiniature AND `idSpecialRules` = :idSpecialRules;";
@@ -135,6 +140,15 @@
         $dataSpecialRules = ActionDB::select($select, $param, 1);
         return $dataSpecialRules;
     }
+    protected function getAssignedSpecialRuleMiniature ($idMiniature) {
+        $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+        FROM `miniatureLinkSpecialRules`
+        INNER JOIN  `specialRules` ON `specialRules`.`id` =  `miniatureLinkSpecialRules`.`idSpecialRules` 
+        WHERE `idMiniature` = :idMiniature;";
+        $param = [['prep' => ':idMiniature', 'variable' => $idMiniature]];
+        return ActionDB::select($select, $param, 1);
+    }
+
     protected function getAssignedSpecialRule ($idWeapon) {
         $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
         FROM `specialeRulesLinkWeapon` 

@@ -33,14 +33,10 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     }
     array_push($controle_POST, $miniatureTraitement->checkOwnerMiniature(filter($_POST[$arrayKeys[11]])));
 }
-
-
 if($controle_POST == $mark) {
     $_POST['price'] = $miniatureTraitement->solveMiniaturePrice($_POST);
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);
-    echo '<br/>';
-    print_r($param);
     $miniatureTraitement->updateMiniatureStatByOwner ($param);
     return header('location:../index.php?idNav='.$idNav.'&message=Update sucess&idMiniature='.filter($_POST['idMiniature']));
  } else {

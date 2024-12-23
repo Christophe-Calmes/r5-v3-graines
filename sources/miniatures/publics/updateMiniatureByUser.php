@@ -22,6 +22,9 @@ echo '<section class="flex-rows">';
             echo '<article>';
                 $specialRuleForMiniature->displaySRforMiniature ($idMiniature, $idNav);
             echo '</article>';
+            echo '<article>';
+                $specialRuleForMiniature->displayAssignedSRforMiniature ($idMiniature, $idNav);
+            echo '</article>';
         echo '</section>';
     }
 

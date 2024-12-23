@@ -16,7 +16,6 @@ if(checkPostFields ($arrayKeys, $_POST))  {
 if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
-    print_r($param);
     $UnassignSpecialRule ->unassignSRWeapon ($param);
     $weaponCheck ->updateWeaponPriceSR ($param, '-');
     header('location:../index.php?message=New special rules  success to unassgin &idNav='.$idNav.'&idWeapon='.filter($_POST[$arrayKeys[0]])); 
