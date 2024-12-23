@@ -38,6 +38,7 @@ if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);
     $miniatureTraitement->updateMiniatureStatByOwner ($param);
+    $miniatureTraitement->updateMiniaturePrice (filter($_POST[$arrayKeys[11]]));
     return header('location:../index.php?idNav='.$idNav.'&message=Update sucess&idMiniature='.filter($_POST['idMiniature']));
  } else {
     return header('location:../index.php?idNav='.$idNav.'&message=Record error !&idMiniature='.filter($_POST['idMiniature']));
