@@ -205,6 +205,10 @@ class templatesMiniatures extends sqlMiniatures
         echo '<input type="hidden" name="idMiniature" value="'.$data['idMiniature'].'"/>';
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update miniature</button>';
         echo '</form>';
+        echo '<form action="'.encodeRoutage(103).'" method="post">
+                <input type="hidden" name="idMiniature" value="'.$data['idMiniature'].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+            </form>';
     }
 }
 
