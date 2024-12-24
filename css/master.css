@@ -273,6 +273,13 @@ a {
   text-align: left;
 }
 /*Table website*/
+.tableSpecialsRules {
+  border: #151515 solid 1px;
+}
+.tableSpecialsRules tr:nth-child(odd) {
+  background-color: #d6d6d6;
+  font-weight:600;
+}
 .tableWebSite {
   border: #151515 solid 1px;
   margin-left: 1em;

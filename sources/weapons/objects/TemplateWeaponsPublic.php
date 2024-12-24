@@ -59,16 +59,20 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</select>';
         echo '</div>';
     }
-    private function textSR ($dataSR) {
-        if(!empty($dataSR)) {
-            echo '<table>';
-            foreach ($dataSR as $value) {
+    private function textSR ($dataSRAssigned) {
+        if(!empty($dataSRAssigned)) {
+            echo '<article>';
+                echo '<table class="tableSpecialsRules green">';
+            foreach ($dataSRAssigned as $value) {
                 echo '<tr>';
-                    echo '<td>'.$value['nameSpecialRules'].'</td>';
-                    echo '<td>'.$value['descriptionSpecialRules'].'</td>';
-               echo '</tr>';
-            }
-            echo '</table>';
+                    echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                echo '</tr>';
+                echo '<tr>';
+                        echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                    echo '</tr>';
+                }
+                    echo '</table>';
+                echo '</article>';
         }
     }
     private function displayResumeSR ($idWeapon) {

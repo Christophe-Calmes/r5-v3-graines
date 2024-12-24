@@ -149,12 +149,38 @@
         return ActionDB::select($select, $param, 1);
     }
 
-    protected function getAssignedSpecialRule ($idWeapon) {
+   protected function getAssignedSpecialRule ($idWeapon) {
         $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
         FROM `specialeRulesLinkWeapon` 
         INNER JOIN  `specialRules` ON `specialRules`.`id` =  `specialeRulesLinkWeapon`.`idSpecialRules` 
         WHERE `idWeapon` = :idWeapon;";
         $param = [['prep' => ':idWeapon', 'variable' => $idWeapon]];
+        return ActionDB::select($select, $param, 1);
+    }
+    protected function getAssignedSpecialRulesGenerale ($id, $type) {
+        // $type = 0 => weapon, 1 => miniature, 2 => vehicle
+        switch ($type) {
+            case 0:
+                $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+                            FROM `specialeRulesLinkWeapon` 
+                            INNER JOIN  `specialRules` ON `specialRules`.`id` =  `specialeRulesLinkWeapon`.`idSpecialRules` 
+                            WHERE `idWeapon` = :id;";
+                break;
+            case 1:
+                $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+                            FROM `miniatureLinkSpecialRules` 
+                            INNER JOIN  `specialRules` ON `specialRules`.`id` =  `miniatureLinkSpecialRules`.`idSpecialRules` 
+                            WHERE `idMiniature` = :id;";
+            break;
+            case 2:
+                $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+                            FROM `vehicleLinkSpecialRules`
+                            INNER JOIN  `specialRules` ON `specialRules`.`id` =  `vehicleLinkSpecialRules`.`idSpecialRules` 
+                            WHERE `idVehicle` = :id;";
+                break;
+        }
+        
+        $param = [['prep' => ':id', 'variable' => $id]];
         return ActionDB::select($select, $param, 1);
     }
 

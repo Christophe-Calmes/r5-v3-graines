@@ -1,6 +1,7 @@
 <?php
 require('sources/miniatures/objets/sqlMiniatures.php');
 require ('sources/weapons/objects/TemplateWeaponsPublic.php');
+require ('sources/specialRules/objects/TemplatesSpecialRules.php');
 class templatesMiniatures extends sqlMiniatures
 {
     private function globalSelect ($label, $fields, $array, $nameFields) {
@@ -164,7 +165,10 @@ class templatesMiniatures extends sqlMiniatures
                         echo '</tr>';
                     echo '</table>';
             echo '</article>';
-
+            echo '<article>';
+                $printSpecialRules = new TemplatesSpecialRules ();
+                $printSpecialRules->displaySpecialRules ($dataMiniature['idMiniature'], 1);
+            echo '</article>';
         } else {
             echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
         }

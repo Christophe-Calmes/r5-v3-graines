@@ -320,8 +320,8 @@ Text ?
             echo '</article>';
         }
     }
-    public function displaySpecialRules ($idWeapon) {
-        $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
+    public function displaySpecialRules ($id, $type) {
+        $dataSRAssigned = $this->getAssignedSpecialRulesGenerale ($id, $type);
         if(!empty($dataSRAssigned)) {
         echo '<article>';
         echo '<h4 class="titleSite">Special rules assigned</h4>';
@@ -339,5 +339,5 @@ Text ?
             echo '</article>';
         }
     }
-
+ 
 }

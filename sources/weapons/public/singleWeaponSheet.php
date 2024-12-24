@@ -41,6 +41,6 @@ if($dataFix[0] == 0) {
     $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
 
 } else {
-    $dataSR->displaySpecialRules ($idWeapon);
+    $dataSR->displaySpecialRules ($idWeapon, 0);
 }
 echo '</article>';
