@@ -210,5 +210,6 @@ class templatesMiniatures extends sqlMiniatures
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
             </form>';
     }
+
 }
 

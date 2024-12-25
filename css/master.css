@@ -198,6 +198,11 @@ a {
 .paddingLeft {
   padding-left: 4vw;
 }
+.leftAlign {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
 
 .flex-colonne-form {
   display: flex;
@@ -323,7 +328,7 @@ a {
 .tableWeaponCenter {
   margin-top: 2vw;
   display: flex;
-  align-items: center;
+  /*align-items: center;*/
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;

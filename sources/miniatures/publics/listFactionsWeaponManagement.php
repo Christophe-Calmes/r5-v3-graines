@@ -1,4 +1,4 @@
-<h3>Speciales rules for miniatures management</h3>
+<h3>Weapons for miniatures management</h3>
 <?php
 require ('sources/factions/objets/templatesFactions.php');
 $listFactions = new templatesFactions ();

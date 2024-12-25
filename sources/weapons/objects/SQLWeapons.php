@@ -298,4 +298,11 @@ class SQLWeapons
                 $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
                 return ActionDB::select($select, $param, 1);
     }
+    protected function getWeaponByType ($typeWeapon) {
+        $select = "SELECT `id` 
+        FROM `weapons` 
+        WHERE `globalWeapon` = 1 AND `valid` = 1  AND `typeWeapon` = :typeWeapon;";
+        $param = [['prep'=>':typeWeapon', 'variable'=>$typeWeapon]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

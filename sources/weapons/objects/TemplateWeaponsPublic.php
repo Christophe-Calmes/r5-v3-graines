@@ -61,7 +61,6 @@ final class TemplateWeaponsPublic extends SQLWeapons
     }
     private function textSR ($dataSRAssigned) {
         if(!empty($dataSRAssigned)) {
-            echo '<article>';
                 echo '<table class="tableSpecialsRules green">';
             foreach ($dataSRAssigned as $value) {
                 echo '<tr>';
@@ -71,8 +70,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                         echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
                     echo '</tr>';
                 }
-                    echo '</table>';
-                echo '</article>';
+             echo '</table>';
+ 
         }
     }
     private function displayResumeSR ($idWeapon) {
@@ -274,8 +273,9 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 }
             
             echo'</tr>';
-        echo '</table>';
+     
             $this->displayResumeSR ($idWeapon);
+            echo '</table>';
             return [$dataWeapon['fixe'], $dataWeapon['globalWeapon']];
     }
     public function printingOneWeapon ($idWeapon) {
@@ -292,10 +292,11 @@ final class TemplateWeaponsPublic extends SQLWeapons
         if($dataWeapon['heavy']) {
             $dammage = $dammage * 2;
         }
+        echo '<div class="tableWeaponCenter">';
+            echo '<table class="tableCodex codexGrey">';
                 switch ($dataWeapon['typeWeapon']) {
                     case 0:
-                        echo '<div class="tableWeaponCenter">';
-                            echo '<table class="tableCodex codexGrey">';
+                
                                 echo'<tr>'; 
                                     echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                                     echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
@@ -306,8 +307,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                         break;
                     case 1:
                         $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
-                        echo '<div class="tableWeaponCenter">';
-                            echo '<table class="tableCodex codexGrey">';
+                 
                                 echo'<tr>'; 
                                     echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                                     echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
@@ -320,12 +320,11 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                     echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
                                     echo '<td colspan="2">Rate of fire : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
                                 echo'</tr>';
-                            echo '</table>';
+                           
                         break;
                     case 2:
                         $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
-                        echo '<div class="tableWeaponCenter">';
-                            echo '<table class="tableCodex codexGrey">';
+                 
                                 echo'<tr>'; 
                                     echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                                     echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
@@ -342,13 +341,15 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                     echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
                                     echo '<td colspan="2">Rate of fire : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
                                 echo'</tr>';
-                            echo '</table>';
+                          
                         break;
                     default:
                         echo 'No data avaiblaible';
                         break;
                 }
+               
         $this->displayResumeSR ($idWeapon);
+        echo '</table>';
     echo '</div>';
     }
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
@@ -377,5 +378,11 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</table>';
             echo '</article>';
        
+    }
+    public function listWeaponForChoiceUserGlobal ($typeWeapon) {
+        $dataWeapon = $this->getWeaponByType ($typeWeapon);
+        foreach ($dataWeapon as $value) {
+            $this-> printingOneWeapon ($value['id']);
+        }
     }
 }
