@@ -352,6 +352,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
         echo '</table>';
     echo '</div>';
     }
+    public function addFormWeapon ($idWeapon, $idMiniature, $idNav) {
+    echo '<form action="'.encodeRoutage(104).'" method="post">
+        <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+        <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
+        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Add weapon</button>
+    </form>';
+    }
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
         $dataWeapon = $this->getWeapon ($firstPage, $WeaponByPage, $fixe);
             echo '<article class="flex-center">';
@@ -379,10 +386,11 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</article>';
        
     }
-    public function listWeaponForChoiceUserGlobal ($typeWeapon) {
+    public function listWeaponForChoiceUserGlobal ($typeWeapon, $idMiniature, $idNav) {
         $dataWeapon = $this->getWeaponByType ($typeWeapon);
         foreach ($dataWeapon as $value) {
             $this-> printingOneWeapon ($value['id']);
+            $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
         }
     }
 }

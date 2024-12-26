@@ -15,7 +15,7 @@ $arrayKeys = ['idFaction','nameMiniature', 'moving', 'dqm','dc', 'healtPoint', '
 $controle_POST = array();
 $mark = [1, 0];
 if(checkPostFields ($arrayKeys, $_POST)) {
-    print_r($controle_POST);
+
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[1]]), 60));
     array_push($controle_POST, $checkId->controleIntegerPK(filter($_POST[$arrayKeys[2]])));

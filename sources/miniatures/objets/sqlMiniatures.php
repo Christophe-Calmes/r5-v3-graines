@@ -267,5 +267,62 @@ class sqlMiniatures
                 ['prep'=>':NewPrice', 'variable'=> $this->getSpecialRulesPrice($idMiniature)]];
         ActionDB::access($update, $param, 1);
     }
+    private function priceMiniature ($param) {
+        $selectMiniaturePrice = "SELECT `price` 
+        FROM `miniatures` 
+        WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
+        $price = ActionDB::select($selectMiniaturePrice , $param , 1);
+        return $price[0]['price'];
+    }
+    private function priceWeapon ($param) {
+        $selectWeaponPrice = "SELECT  `price` 
+        FROM `weapons` 
+        WHERE `id` = :idWeapon AND `valid` = 1 AND `fixe` = 1;";
+        $price = ActionDB::select($selectWeaponPrice, $param, 1 );
+        return $price[0]['price'];
+    }
+    private function addNewPrice ($param, $priceWeapon, $priceMiniature) {
+        $newPrice = $priceWeapon * $priceMiniature;
+        array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
+        print_r($param);
+        $updatePrice = "UPDATE `miniatures` 
+        SET `price` = :price 
+        WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
+        ActionDB::Access($updatePrice, $param, 1);
+    }
+    private function deleteNewPrice ($param, $priceWeapon, $priceMiniature) {
+        $newPrice = $priceWeapon / $priceMiniature;
+        array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
+        print_r($param);
+        $updatePrice = "UPDATE `miniatures` 
+        SET `price` = :price 
+        WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
+        ActionDB::Access($updatePrice, $param, 1);
+    }
+    private function checkAffectedWeaponOnMiniature ($param) {
+        $select = "SELECT COUNT(`idWeapon`) AS `affected` 
+                    FROM `miniatureLinkWeapons` 
+                    WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
+        $check = ActionDB::select($select, $param, 1);
+        if($check[0]['affected'] != 0) {
+            return false;
+        }
+        return true;
+   }
+    public function addWeaponOnMiniature ($param) {
+        if($this->checkAffectedWeaponOnMiniature ($param)) {
+            $paramMiniature =  [$param[1]];
+            $paramWeapon = [$param[0]];
+            $priceWeapon = $this->priceWeapon ($paramWeapon);
+            $priceMiniature = $this->priceMiniature ($paramMiniature);
+            $this->addNewPrice ($paramMiniature, $priceWeapon, $priceMiniature);
+            $insert = "INSERT INTO `miniatureLinkWeapons`(`idWeapon`, `idminiature`) 
+            VALUES (:idWeapon, :idMiniature)";
+            ActionDB::Access($insert, $param, 1);
+            return true;
+        }
+        return false;
+     
+    }
 
 }

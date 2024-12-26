@@ -34,21 +34,21 @@ echo '</article>';
                     Close combat weapon
                     </summary>
                 <h4>List Close combat weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (0) ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (0, $idMiniature, $idNav) ?> 
                 </details>
                 <details>
                     <summary class="titleSite">
                     Shooting weapon
                     </summary>
                 <h4>List Shooting weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (1) ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (1, $idMiniature, $idNav) ?> 
                 </details>
                 <details>
                     <summary class="titleSite">
                     Explosive weapon
                     </summary>
                 <h4>List Explosive weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (2) ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (2, $idMiniature, $idNav) ?> 
                 </details>
             </article>
             <article class="flex-colonne-form">
