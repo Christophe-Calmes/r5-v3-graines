@@ -236,12 +236,39 @@ class sqlMiniatures
         $stick = actionDB::select($select, $param, 1);
         return $stick[0]['stick'];
     }
+    private function eraseAllStuffOfMiniature ($idMiniature) {
+        $deleteStuffMinitature = "DELETE FROM `miniatureLinkWeapons` WHERE `idminiature` = :idminiature;";
+        $param = [['prep'=>':idminiature', 'variable'=>$idMiniature]];
+        return ActionDB::access($deleteStuffMinitature, $param, 1);
+    }
+    private function solveRawMiniaturePrice ($idMiniature) {
+        $select = "SELECT  `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint` 
+                FROM `miniatures` 
+                WHERE `id` = :idMiniature;";
+         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+         $rawMiniature = ActionDB::select($select, $param, 1);
+         $data = $rawMiniature[0];
+         return $this->solveMiniaturePrice ($data);
+
+    }
+    private function setNewPriceFixingMiniature ($idMiniature) {
+            $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+            $update ="UPDATE `miniatures` SET`price`= :price WHERE `id` = :idMiniature;";
+            array_push($param, ['prep'=>':price', 'variable'=>$this->solveRawMiniaturePrice ($idMiniature)]);
+            ActionDB::access($update, $param, 1);
+          
+    }
+
     public function changeFixMiniature ($idMiniature) {
         $update = "UPDATE `miniatures` SET  `stick`= `stick` ^1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;";
         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 
                     ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
         ActionDB::access($update, $param, 1);
+        $this->eraseAllStuffOfMiniature ($idMiniature);
+        $this->setNewPriceFixingMiniature ($idMiniature) ;
+        $this->updateMiniaturePrice ($idMiniature);
         return $this->getFactionForOneMiniature ($idMiniature);
+
     }
     private function getRawPrice ($idMiniature) {
         $select= "SELECT `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint` 

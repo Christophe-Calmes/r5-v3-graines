@@ -14,10 +14,8 @@ if(checkPostFields ($arrayKeys, $_POST))  {
     array_push($mark, 1);
 }
 if($controle_POST == $mark) {
-    
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
-    print_r($param[0]['variable']);
     $affectedNewSpecialRule -> assignSRMiniature ($param);
     $miniatureCheck->updateMiniaturePrice ($param[0]['variable']);
     header('location:../index.php?message=New special rules  success to assgin &idNav='.$idNav.'&idMiniature='.filter($_POST[$arrayKeys[0]])); 
