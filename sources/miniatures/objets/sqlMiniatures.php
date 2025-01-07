@@ -111,7 +111,7 @@ class sqlMiniatures
         $checkIdUser = new Controles ();
         return $checkIdUser->idUser($_SESSION);
     }
-    private function getFactionForOneMiniature ($idMiniature) {
+    public function getFactionForOneMiniature ($idMiniature) {
         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
         $select = "SELECT `idFaction` FROM `miniatures` WHERE `id` = :idMiniature;";
         $faction = ActionDB::select($select, $param, 1);

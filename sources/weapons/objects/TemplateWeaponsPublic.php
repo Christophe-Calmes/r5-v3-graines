@@ -393,4 +393,11 @@ final class TemplateWeaponsPublic extends SQLWeapons
             $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
         }
     }
+    public function listWeaponFactionForChoiseUser($typeWeapon, $idMiniature, $idFaction, $idNav) {
+        $dataWeapon = $this->getWeaponByTypeAndFaction ($typeWeapon, $idFaction);
+        foreach ($dataWeapon as $value) {
+            $this-> printingOneWeapon ($value['id']);
+            $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
+        }
+    }
 }

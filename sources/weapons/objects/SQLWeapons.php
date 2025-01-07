@@ -305,4 +305,13 @@ class SQLWeapons
         $param = [['prep'=>':typeWeapon', 'variable'=>$typeWeapon]];
         return ActionDB::select($select, $param, 1);
     }
+    protected function getWeaponByTypeAndFaction ($typeWeapon, $idFaction) {
+        $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`
+                    FROM `factionsLinkWeapon`
+                    INNER JOIN `weapons` ON `factionsLinkWeapon`.`idWeapon` = `weapons`.`id`
+                    WHERE `factionsLinkWeapon`.`idFaction` = :idFaction AND `globalWeapon` = 0 AND `valid` = 1  AND `typeWeapon` = :typeWeapon;";
+        $param = [['prep'=>':typeWeapon', 'variable'=>$typeWeapon],
+                    ['prep'=>':idFaction', 'variable'=>$idFaction]];
+        return ActionDB::select($select, $param, 1);
+    }
 }
