@@ -89,17 +89,31 @@ class templatesMiniatures extends sqlMiniatures
              echo '</tr>';
              foreach ($dataMiniature as $value) {
                 $moving = $this->movingSolve ($value['moving']);
-                $fix = 'Unfix';
-                if($value['stick'] == 0) {
-                    $fix = 'Fix';
-                }
+       
+        
                 echo '<tr>';
-                    echo '<td>
+                switch ($value['stick']) {
+                    case 0:
+                        echo '<td>
                         <form action="'.encodeRoutage(100).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$fix.'</button>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
                         </form>
                     </td>';
+                    break;
+                    case 1:
+                        echo '<td>
+                        <form action="'.encodeRoutage(100).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
+                        </form>
+                    </td>';
+                    break;
+                    case 2: 
+                        echo '<td><h3 class="message">In service</h3></td>';
+
+                }
+                  
                     echo '<td>'.$value['nameMiniature'].'</td>';
                     echo '<td>'.$this->getArray ($this->miniatureSize, $value['miniatureSize'], 'NameSize') .'</td>';
                     echo '<td>'.$this->getArray ($this->typesTroupe, $value['typeTroop'], 'nameTroupe') .'</td>';
@@ -111,7 +125,12 @@ class templatesMiniatures extends sqlMiniatures
                     echo '<td>'.$this->getArray ($this->healtPoint, $value['healtPoint'], 'healtPoint') .'</td>';
                     echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
                     echo '<td>'.round($value['price']).' k$</td>';
-                    echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
+                    if($value['stick'] != 2) {
+                        echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
+                    } else {
+                        echo '<td class="message notPossible">Update miniature</td>';
+                    }
+                    
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
