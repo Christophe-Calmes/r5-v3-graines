@@ -121,7 +121,19 @@ class sqlMiniatures
         $select  = "SELECT `id`, `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, 
         `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid`, `stick` 
         FROM `miniatures` 
-        WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser
+        WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser AND `stick` < 2
+        ORDER BY `nameMiniature`, `price`;";
+      
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction], 
+        ['prep'=>':valid', 'variable'=>$valid], 
+        ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
+        return ActionDB::select($select, $param, 1);
+    }
+    protected function getMiniatureOfOneFactionInService ($idFaction, $valid) {
+        $select  = "SELECT `id`, `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, 
+        `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid`, `stick` 
+        FROM `miniatures` 
+        WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser AND `stick` = 2
         ORDER BY `nameMiniature`, `price`;";
       
         $param = [['prep'=>':idFaction', 'variable'=>$idFaction], 
@@ -268,7 +280,16 @@ class sqlMiniatures
         $this->setNewPriceFixingMiniature ($idMiniature) ;
         $this->updateMiniaturePrice ($idMiniature);
         return $this->getFactionForOneMiniature ($idMiniature);
-
+    }
+    public function outOfServicingMiniature ($idMiniature) {
+        $update = "UPDATE `miniatures` SET  `stick`= 1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 
+                    ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
+        ActionDB::access($update, $param, 1);
+        $this->eraseAllStuffOfMiniature ($idMiniature);
+        $this->setNewPriceFixingMiniature ($idMiniature) ;
+        $this->updateMiniaturePrice ($idMiniature);
+        return $this->getFactionForOneMiniature ($idMiniature);
     }
     private function getRawPrice ($idMiniature) {
         $select= "SELECT `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint` 

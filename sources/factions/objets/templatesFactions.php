@@ -54,14 +54,20 @@ class templatesFactions extends SQLFactions
         echo '</article>';
     }
     public function listOfUserFaction ($type) {
-        if($type == 0) {
-            $message = "See all weapons";
-            $adress = 180;
-        } else {
-            $message = "See all miniatures";
-            $adress = 187;
-        } 
-
+        switch ($type) {
+            case 0:
+                $message = "See all weapons";
+                $adress = 180;
+                break;
+            case 1 :
+                $message = "See all miniatures";
+                $adress = 187;
+                    break;
+            case 2 :
+                $message = "See all miniatures";
+                $adress = 191;
+                    break;
+        }
         $listOfUserUnivers = $this->listOfYourUnivers (1);
         echo '<article class="gallery">';
             foreach ($listOfUserUnivers as $value) {

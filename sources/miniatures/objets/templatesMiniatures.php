@@ -89,8 +89,6 @@ class templatesMiniatures extends sqlMiniatures
              echo '</tr>';
              foreach ($dataMiniature as $value) {
                 $moving = $this->movingSolve ($value['moving']);
-       
-        
                 echo '<tr>';
                 switch ($value['stick']) {
                     case 0:
@@ -109,9 +107,6 @@ class templatesMiniatures extends sqlMiniatures
                         </form>
                     </td>';
                     break;
-                    case 2: 
-                        echo '<td><h3 class="message">In service</h3></td>';
-
                 }
                   
                     echo '<td>'.$value['nameMiniature'].'</td>';
@@ -125,12 +120,7 @@ class templatesMiniatures extends sqlMiniatures
                     echo '<td>'.$this->getArray ($this->healtPoint, $value['healtPoint'], 'healtPoint') .'</td>';
                     echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
                     echo '<td>'.round($value['price']).' k$</td>';
-                    if($value['stick'] != 2) {
-                        echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
-                    } else {
-                        echo '<td class="message notPossible">Update miniature</td>';
-                    }
-                    
+                    echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">Update miniature</a></td>';
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
@@ -141,6 +131,65 @@ class templatesMiniatures extends sqlMiniatures
              }
             echo '</table>';
             echo '</article>';
+        }
+        
+        echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
+        
+    }
+    public function displayMiniatureOfOneFactionInService ($idFaction, $valid, $idNav) {
+        $dataMiniature = $this->getMiniatureOfOneFactionInService ($idFaction, $valid);
+        
+        if(!empty($dataMiniature)) {
+            echo '<article class="flex-center">';
+            echo '<table  class="tableWebSite">';
+             echo '<tr>';
+                echo '<th>Name</th>';
+                echo '<th>Type</th>';
+                echo '<th>Miniature size</th>';
+                echo '<th>Quality martial dice</th>';
+                echo '<th>Combat dice</th>';
+                echo '<th>Move</th>';
+                echo '<th>Fligth</th>';
+                echo '<th>Healt Point</th>';
+                echo '<th>Armor</th>';
+                echo '<th>Price</th>';
+                echo '<th>View</th>';
+                echo '<th>Update</th>';
+                echo '<th>Delete</th>';
+             echo '</tr>';
+             foreach ($dataMiniature as $value) {
+                $moving = $this->movingSolve ($value['moving']);
+                echo '<tr>';
+                    echo '<td>'.$value['nameMiniature'].'</td>';
+                    echo '<td>'.$this->getArray ($this->miniatureSize, $value['miniatureSize'], 'NameSize') .'</td>';
+                    echo '<td>'.$this->getArray ($this->typesTroupe, $value['typeTroop'], 'nameTroupe') .'</td>';
+                    echo '<td>'.$this->getArray ($this->dice, $value['dqm'], 'nameDice') .'</td>';
+                    echo '<td>'.$this->getArray ($this->dice, $value['dc'], 'nameDice') .'</td>';
+                    echo '<td>'. $moving[0].'"/ '.$moving[1].'" + 1d4"</td>';
+                    echo '<td>'.$this->getArray ($this->yes, $value['fligt'], 'name') .'
+                    / Stationnary : '.$this->getArray ($this->yes, $value['stationnaryFligt'], 'name') .'</td>';
+                    echo '<td>'.$this->getArray ($this->healtPoint, $value['healtPoint'], 'healtPoint') .'</td>';
+                    echo '<td>'.$this->getArray ( $this->armour, $value['armor'], 'nameArmour') .'</td>';
+                    echo '<td>'.round($value['price']).' k$</td>';
+                    echo '<td><a href="'.findTargetRoute(188).'&idMiniature='.$value['id'].'">View datasheet</a></td>';
+                    echo '<td>
+                        <form action="'.encodeRoutage(107).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Out of service</button>
+                        </form>
+                    </td>';
+                    echo '<td>
+                        <form action="'.encodeRoutage(97).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                        </form>
+                    </td>';
+             echo '</tr>';
+             }
+            echo '</table>';
+            echo '</article>';
+        } else {
+            echo '<h4>No miniature in service</h4>';
         }
         
         echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
