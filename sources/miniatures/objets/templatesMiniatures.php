@@ -164,8 +164,6 @@ class templatesMiniatures extends sqlMiniatures
                             echo '<td>Stationnary fligth : '.$this->getArray ($this->yes, $dataMiniature['stationnaryFligt'], 'name') .'</td>';
                         echo '</tr>';
                     echo '</table>';
-            echo '</article>';
-            echo '<article>';
                 $printSpecialRules = new TemplatesSpecialRules ();
                 $printSpecialRules->displaySpecialRules ($dataMiniature['idMiniature'], 1);
             echo '</article>';

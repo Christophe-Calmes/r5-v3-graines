@@ -237,9 +237,21 @@ class SQLWeapons
         ActionDB::access($delete, $param, 1);
         return $idFaction[0]['idFaction'];
     }
+    private function WeaponAllReadyAffected ($param) {
+        $select = "SELECT COUNT(`idWeapon`) AS `affected` FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon;";
+        $isAffected = ActionDB::select($select, $param, 1);
+        if($isAffected[0]['affected'] == 0) {
+            return true;
+        }
+        return false;
+    }
     public function fixOrNoFixWeaponByAdmin ($param) {
-        $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
-        ActionDB::access($update, $param, 1);
+        if($this->WeaponAllReadyAffected ($param)) {
+            $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
+            ActionDB::access($update, $param, 1);
+            return true;
+        }
+       return false;
     }
     public function factionOfOneWeapon ($idWeapon) {
         $select = "SELECT `idFaction` FROM `factionsLinkWeapon` WHERE `idWeapon` = :idWeapon;";
@@ -309,9 +321,16 @@ class SQLWeapons
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`
                     FROM `factionsLinkWeapon`
                     INNER JOIN `weapons` ON `factionsLinkWeapon`.`idWeapon` = `weapons`.`id`
-                    WHERE `factionsLinkWeapon`.`idFaction` = :idFaction AND `globalWeapon` = 0 AND `valid` = 1  AND `typeWeapon` = :typeWeapon;";
+                    WHERE `factionsLinkWeapon`.`idFaction` = :idFaction AND `globalWeapon` = 0 AND `valid` = 1  AND `typeWeapon` = :typeWeapon AND `fixe` = 1;";
         $param = [['prep'=>':typeWeapon', 'variable'=>$typeWeapon],
                     ['prep'=>':idFaction', 'variable'=>$idFaction]];
+        return ActionDB::select($select, $param, 1);
+    }
+    protected function getWeaponOfOneMiniature ($idMiniature) {
+        $select = "SELECT `idWeapon` AS `id`
+        FROM `miniatureLinkWeapons`
+        WHERE `idminiature` = :idMiniature;";
+        $param = [['prep'=>'idMiniature', 'variable'=>$idMiniature]];
         return ActionDB::select($select, $param, 1);
     }
 }

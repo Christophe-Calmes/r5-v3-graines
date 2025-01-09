@@ -1,32 +1,20 @@
 <?php
 require ('sources/miniatures/objets/templatesMiniatures.php');
 $displayMiniatureForm = new templatesMiniatures ();
-$idMiniature = filter($_GET['idMiniature']);
-$fixMiniature = $displayMiniatureForm->miniatureFix ($idMiniature);
-echo '<section class="flex-colonne-form">';
-echo '<article>';
-$displayMiniatureForm->displayOneMiniature ($idMiniature, 1, $fixMiniature);
-//echo '<button>Lock miniature</button>';
-echo '</article>';
+    $idMiniature = filter($_GET['idMiniature']);
+    $fixMiniature = $displayMiniatureForm->miniatureFix ($idMiniature);
+    $displayMiniatureForm->displayOneMiniature ($idMiniature, 1, $fixMiniature);
     if($fixMiniature == 0) {
-        echo '<article>';
-            $displayMiniatureForm->updateMiniatureByUser ($idMiniature, 1, $idNav, $fixMiniature);
-        echo '</article>';
-        echo '</section>';
-        $specialRuleForMiniature = new TemplatesSpecialRules ();
-        echo '<section class="flex-rows">';
-            echo '<article>';
-                $specialRuleForMiniature->displaySRforMiniature ($idMiniature, $idNav);
-            echo '</article>';
-            echo '<article>';
+                $displayMiniatureForm->updateMiniatureByUser ($idMiniature, 1, $idNav, $fixMiniature);
+                $specialRuleForMiniature = new TemplatesSpecialRules ();
                 $specialRuleForMiniature->displayAssignedSRforMiniature ($idMiniature, $idNav);
-            echo '</article>';
-        echo '</section>';
+                $specialRuleForMiniature->displaySRforMiniature ($idMiniature, $idNav);
     }
     if($fixMiniature == 1) {
         $listWeapon = new TemplateWeaponsPublic ();
+        $listWeapon->displayWeaponOneMiniature ($idMiniature) ;
         ?>
-        <article class="flex-colonne-form">
+    
         <h3 class="titleSite">Global weapon</h3>
                 <details>
                     <summary class="titleSite">
@@ -76,12 +64,13 @@ echo '</article>';
                 <h4>List Explosive weapon</h4>
                 <?php $listWeapon->listWeaponFactionForChoiseUser(2, $idMiniature, $idFaction, $idNav);?>
                 </details>
-        </article>
+
         <?php
     }
-        echo '<h4>List Close combat weapon</h4>';
-        echo '<h4>List Shooting weapon</h4>';
-        echo '<h4>List Explosive weapon</h4>';
-echo '</section>';
+   
+
+
+
+
    
 

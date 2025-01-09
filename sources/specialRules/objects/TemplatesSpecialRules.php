@@ -263,7 +263,7 @@ Text ?
         $dataSR = $this->getAssignedSpecialRuleMiniature ($idMiniature) ;
         $adress = 102;
         echo '<article>';
-        echo '<h4 class="titleSite">Special rules assignable</h4>';
+        echo '<h4 class="titleSite">Special rules assigned</h4>';
             echo '<div class="gallery">';
             foreach ($dataSR as $value) {
                 echo '<aside class="itemSR">';

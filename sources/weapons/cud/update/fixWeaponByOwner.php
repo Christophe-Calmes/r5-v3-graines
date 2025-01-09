@@ -12,9 +12,13 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 if($mark == $controle_POST) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
-    $fixWeapon->fixOrNoFixWeaponByAdmin ($param);
+    $isAffected = $fixWeapon->fixOrNoFixWeaponByAdmin ($param);
     $idFaction = $fixWeapon->factionOfOneWeapon (filter($_POST[$arrayKeys[0]]));
-    header('location:../index.php?message=Fix weapon success&idNav='.$idNav.'&idFaction='.$idFaction);
+    if($isAffected) {
+        header('location:../index.php?message=Fix weapon success&idNav='.$idNav.'&idFaction='.$idFaction);
+    } else {
+        header('location:../index.php?message=Weapon is already affected&idNav='.$idNav.'&idFaction='.$idFaction);
+    }
 } else {
     header('location:../index.php?message=Fix weapon fail to record&idNav='.$idNav);
 }

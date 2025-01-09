@@ -277,6 +277,10 @@ a {
   list-style: none;
   text-align: left;
 }
+.inline {
+    display: inline-block;
+}
+}
 /*Table website*/
 .tableSpecialsRules {
   border: #151515 solid 1px;
@@ -374,6 +378,7 @@ a {
   color: #ffffff;
   font-weight: bold;
  }
+
 
 /*Color table*/
 
@@ -497,6 +502,7 @@ select:disabled {
 }
 
 /*Grid*/
+
 .adminNav {  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
