@@ -4,15 +4,21 @@ $displayMiniatureForm = new templatesMiniatures ();
     $idMiniature = filter($_GET['idMiniature']);
     $fixMiniature = $displayMiniatureForm->miniatureFix ($idMiniature);
     $displayMiniatureForm->displayOneMiniature ($idMiniature, 1, $fixMiniature);
+    
     if($fixMiniature == 0) {
                 $displayMiniatureForm->updateMiniatureByUser ($idMiniature, 1, $idNav, $fixMiniature);
                 $specialRuleForMiniature = new TemplatesSpecialRules ();
                 $specialRuleForMiniature->displayAssignedSRforMiniature ($idMiniature, $idNav);
                 $specialRuleForMiniature->displaySRforMiniature ($idMiniature, $idNav);
     }
+    if ($fixMiniature == 2) {
+        $listWeapon = new TemplateWeaponsPublic ();
+        $listWeapon->displayWeaponOneMiniature ($idMiniature, $idNav, $fixMiniature) ;
+    }
     if($fixMiniature == 1) {
         $listWeapon = new TemplateWeaponsPublic ();
-        $listWeapon->displayWeaponOneMiniature ($idMiniature, $idNav) ;
+        $listWeapon->displayWeaponOneMiniature ($idMiniature, $idNav, $fixMiniature) ;
+        $displayMiniatureForm->goodForService ($idMiniature, $idNav);
         ?>
     <article class="flex-colonne-form">
         <h3 class="titleSite">Global weapon</h3>

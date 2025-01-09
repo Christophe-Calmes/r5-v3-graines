@@ -357,5 +357,9 @@ class sqlMiniatures
         $delete = "DELETE FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
         return ActionDB::Access($delete, $param, 1);
     }
+    public function goodForServiceMiniature ($param) {
+        $update = "UPDATE `miniatures` SET `stick`= 2 WHERE `id` = :idMiniature ;";
+        return ActionDB::Access($update, $param, 1);
+    }
 
 }

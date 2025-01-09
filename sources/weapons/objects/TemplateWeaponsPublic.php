@@ -407,16 +407,17 @@ final class TemplateWeaponsPublic extends SQLWeapons
             $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
         }
     }
-    public function displayWeaponOneMiniature ($idMiniature, $idNav) {
+    public function displayWeaponOneMiniature ($idMiniature, $idNav, $fixMiniature) {
         $dataWeapon = $this->getWeaponOfOneMiniature ($idMiniature);
         echo '<ul class="inline">';
         foreach ($dataWeapon as $idWeapon) {
             echo '<li>';
             $this->printingOneWeapon ($idWeapon['id']);
-            $this->substractWeapon ($idWeapon['id'], $idMiniature, $idNav);
+            if($fixMiniature == 1) {
+                $this->substractWeapon ($idWeapon['id'], $idMiniature, $idNav);
+            }
             echo '</li>';
         }
         echo '</ul>';
-        
     }
 }

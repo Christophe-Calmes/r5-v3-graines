@@ -208,6 +208,12 @@ class templatesMiniatures extends sqlMiniatures
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
             </form>';
     }
+    public function goodForService ($idMiniature, $idNav) {
+        echo '<form action="'.encodeRoutage(106).'" method="post">
+                <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Good for service</button>
+            </form>';
+    }
 
 }
 
