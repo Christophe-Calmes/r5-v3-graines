@@ -311,16 +311,14 @@ class sqlMiniatures
     private function addNewPrice ($param, $priceWeapon, $priceMiniature) {
         $newPrice = $priceWeapon * $priceMiniature;
         array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
-        print_r($param);
         $updatePrice = "UPDATE `miniatures` 
         SET `price` = :price 
         WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
         ActionDB::Access($updatePrice, $param, 1);
     }
     private function deleteNewPrice ($param, $priceWeapon, $priceMiniature) {
-        $newPrice = $priceWeapon / $priceMiniature;
+        $newPrice = $priceMiniature / $priceWeapon ;
         array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
-        print_r($param);
         $updatePrice = "UPDATE `miniatures` 
         SET `price` = :price 
         WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
@@ -349,7 +347,15 @@ class sqlMiniatures
             return true;
         }
         return false;
-     
+    }
+    public function substractWeaponOnMiniature ($param) {
+        $paramMiniature =  [$param[1]];
+        $paramWeapon = [$param[0]];
+        $priceWeapon = $this->priceWeapon ($paramWeapon);
+        $priceMiniature = $this->priceMiniature ($paramMiniature);
+        $this->deleteNewPrice ($paramMiniature, $priceWeapon, $priceMiniature);
+        $delete = "DELETE FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
+        return ActionDB::Access($delete, $param, 1);
     }
 
 }

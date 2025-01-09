@@ -12,9 +12,9 @@ $displayMiniatureForm = new templatesMiniatures ();
     }
     if($fixMiniature == 1) {
         $listWeapon = new TemplateWeaponsPublic ();
-        $listWeapon->displayWeaponOneMiniature ($idMiniature) ;
+        $listWeapon->displayWeaponOneMiniature ($idMiniature, $idNav) ;
         ?>
-    
+    <article class="flex-colonne-form">
         <h3 class="titleSite">Global weapon</h3>
                 <details>
                     <summary class="titleSite">
@@ -39,8 +39,9 @@ $displayMiniatureForm = new templatesMiniatures ();
                 <?php  $listWeapon->listWeaponForChoiceUserGlobal (2, $idMiniature, $idNav); ?> 
                 </details>
             </article>
-            <article class="flex-colonne-form">
+            
             <?php $idFaction = $displayMiniatureForm->getFactionForOneMiniature ($idMiniature);?>
+            <article class="flex-colonne-form">
             <h3 class="titleSite">Faction weapon</h3>
                 <details>
                     <summary class="titleSite">

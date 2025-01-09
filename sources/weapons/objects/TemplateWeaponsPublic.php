@@ -352,11 +352,18 @@ final class TemplateWeaponsPublic extends SQLWeapons
         echo '</table>';
     echo '</div>';
     }
-    public function addFormWeapon ($idWeapon, $idMiniature, $idNav) {
+    private function addFormWeapon ($idWeapon, $idMiniature, $idNav) {
     echo '<form action="'.encodeRoutage(104).'" method="post">
         <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
         <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Add weapon</button>
+    </form>';
+    }
+    private function substractWeapon ($idWeapon, $idMiniature, $idNav) {
+        echo '<form action="'.encodeRoutage(105).'" method="post">
+        <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+        <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
+        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Substract weapon</button>
     </form>';
     }
     public function displayWeaponNoFix ($firstPage, $WeaponByPage, $idNav, $fixe)  {
@@ -400,12 +407,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
             $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
         }
     }
-    public function displayWeaponOneMiniature ($idMiniature) {
+    public function displayWeaponOneMiniature ($idMiniature, $idNav) {
         $dataWeapon = $this->getWeaponOfOneMiniature ($idMiniature);
         echo '<ul class="inline">';
         foreach ($dataWeapon as $idWeapon) {
             echo '<li>';
             $this->printingOneWeapon ($idWeapon['id']);
+            $this->substractWeapon ($idWeapon['id'], $idMiniature, $idNav);
             echo '</li>';
         }
         echo '</ul>';
