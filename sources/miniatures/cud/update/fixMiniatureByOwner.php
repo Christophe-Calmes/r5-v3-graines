@@ -13,5 +13,5 @@ if($mark == $controle_POST) {
     $idFaction = $miniatureTraitement->changeFixMiniature (filter($_POST[$arrayKeys[0]]));
     return header('location:../index.php?idNav='.$idNav.'&message=Fixing success !&idFaction='.$idFaction);
 } else {
-    return header('location:../index.php?idNav='.$idNav.'&message=fixing error !&idFaction='.$idFaction);
+    return header('location:../index.php?idNav='.$idNav.'&message=fixing error !');
 }

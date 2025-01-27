@@ -50,6 +50,10 @@ class TemplatesVehicles extends SQLvehicles
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
         echo '</form>';
     }
+    private function getArray ($array, $index, $exitValue) {
+        $index = $index - 1;
+        return $array[$index][$exitValue];
+    }
     public function printListVehicle ($data, $idNav) {
         //$data = ['idFaction', 'valid', 'fix'];
         $dataVehicle = $this->getVehicle ($data);
@@ -64,13 +68,14 @@ class TemplatesVehicles extends SQLvehicles
                 echo '<th>Fix</th>';
                 echo '<th>Name</th>';
                 echo '<th>Type</th>';
-                echo '<th>Miniature size</th>';
+                echo '<th>Vehicle size</th>';
                 echo '<th>Quality martial dice</th>';
                 echo '<th>Combat dice</th>';
                 echo '<th>Move</th>';
                 echo '<th>Fligth</th>';
-                echo '<th>Healt Point</th>';
+                echo '<th>Stationnary fligth</th>';
                 echo '<th>Armor</th>';
+                echo '<th>Structure Point</th>';
                 echo '<th>Price</th>';
                 echo '<th>Administration</th>';
                 echo '<th>Delete</th>';
@@ -82,7 +87,7 @@ class TemplatesVehicles extends SQLvehicles
                     case 0:
                         echo '<td>
                         <form action="'.encodeRoutage(109).'" method="post">
-                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <input type="hidden" name="idVehicle" value="'.$value['id'].'"/>
                         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
                         </form>
                     </td>';
@@ -90,24 +95,57 @@ class TemplatesVehicles extends SQLvehicles
                     case 1:
                         echo '<td>
                         <form action="'.encodeRoutage(109).'" method="post">
-                        <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
+                        <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
                         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
                         </form>
                     </td>';
                         break;
              
                 }
-
+                echo '<td>'.$value['nameVehicle'].'</td>';
+                echo '<td>'.$this->getArray($this->typeVehicle, $value['typeVehicle'], 'NameType').'</td>';
+                echo '<td>'.$this->getArray($this->sizeVehicle, $value['sizeVehicle'], 'NameSize').'</td>';
+                echo '<td>'.$this->getArray($this->dice, $value['dqm'], 'nameDice').'</td>';
+                echo '<td>'.$this->getArray($this->dice, $value['dc'], 'nameDice').'</td>';
+                echo '<td>'.$moving[0].'" / '.$moving[1].'" + 1D4 </td>';
+                echo '<td>'.$this->getArray($this->yes, $value['fligt'], 'name').'</td>';
+                echo '<td>'.$this->getArray($this->yes, $value['stationnaryFligt'], 'name').'</td>';
+                echo '<td>'.$this->getArray($this->armour, $value['armor'], 'nameArmour').'</td>';
+                echo '<td>'.$this->getArray($this->structurePoint, $value['structurePoint'], 'Structure').'</td>';
+                echo '<td>'.$value['price'].' $</td>';
+                echo '<td><a href="'.findTargetRoute(196).'&idVehicle='.$value['id'].'">Update vehicle</a></td>';
+                echo '<td>Delete</td>';
                 echo '</tr>';
             }
-
-
              echo '</table>';
              echo '</article>';
-             print_r($dataVehicle);
         }
      
 
+    }
+    public function printOneVehicle ($idVehicle) {
+        $dataVehicle = $this->getOneVehicle ($idVehicle);
+        $dataVehicle = $dataVehicle[0];
+        $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+        echo '<article class="flex-center">';
+        echo '<table  class="tableWebSite">';
+         echo '<tr>';
+            echo '<td><img src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
+            echo '<td>'.$dataVehicle['nameVehicle'].'</td>';
+            echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
+            echo '<td>DC : '.$this->getArray($this->dice, $dataVehicle['dc'], 'nameDice').'</td>';
+            echo '<td>
+                    <ul>
+                        <li>Move : '.$moving[0].'" / '.$moving[1].' " + 1D4"</li>
+                        <li>Fligth :  '.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</li>
+                        <li>Stationnary fligth : '.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</li>
+                    </ul>
+                </td>';
+            echo '<td>Structure : '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</td>';
+            echo '<td>Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
+            echo '<td>Price : '.$dataVehicle['price'].' $</td>';
+         echo '</tr>';
+        echo '</table>';
     }
 
 }

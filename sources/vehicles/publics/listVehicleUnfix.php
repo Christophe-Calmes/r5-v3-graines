@@ -3,4 +3,4 @@
 require('sources/vehicles/objets/TemplatesVehicles.php');
 $idFaction = filter($_GET['idFaction']);
 $listVehicleFaction = new TemplatesVehicles ();
-$listVehicleFaction->printListVehicle ([$idFaction, 1, 0], $idNav);
+$listVehicleFaction->printListVehicle ([$idFaction, 1], $idNav);

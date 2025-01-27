@@ -130,7 +130,7 @@ class SQLvehicles
             `nameVehicle`, 
             `dqm`, 
             `dc`, 
-            `armour`, 
+            `armor`, 
             `structurePoint`, 
             `moving`, 
             `fligt`, 
@@ -158,16 +158,57 @@ class SQLvehicles
         ActionDB::access($insert, $param, 1);
            
     }
+    public function checkVehicleOwner ($idVehicle) {
+        $idUser = new Controles ();
+        $idUser =  $idUser->idUser($_SESSION);
+        $select = "SELECT COUNT(`idAuthor`) AS `nbr` FROM `vehicle` WHERE `id`=:idVehicle AND `idAuthor` = :idUser;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle], ['prep'=>':idUser', 'variable'=>$idUser],];
+        $owner = ActionDB::select($select, $param, 1);
+        if($owner[0]['nbr'] == 1) {
+            return true;
+        }
+        return false;
+    }
     protected function getVehicle ($data) {
         $idUser = new Controles ();
         $idUser =  $idUser->idUser($_SESSION);
-        $select = "SELECT `id`, `idAuthor`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armour`, `price`, `namePicture`, `valid`, `fix` 
+        $select = "SELECT `id`, `idAuthor`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`, `price`, `namePicture`, `valid`, `fix` 
         FROM `vehicle` 
-        WHERE `idFaction` = :idFaction AND `valid`= :valid AND `fix`= :fix AND  `idAuthor` = :idUser;";
+        WHERE `idFaction` = :idFaction AND `valid`= :valid AND  `idAuthor` = :idUser;";
         $param = [['prep'=>':idFaction', 'variable'=>$data[0]], 
         ['prep'=>':valid', 'variable'=>$data[1]], 
-        ['prep'=>':fix', 'variable'=>$data[2]], 
         ['prep'=>':idUser', 'variable'=>$idUser]];
         return ActionDB::select($select, $param, 1);
+    }
+    protected function getOneVehicle ($idVehicle) {
+        $select = "SELECT `id`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`, `price`, `namePicture`, `fix` 
+        FROM `vehicle` 
+        WHERE `id` = :idVehicle AND `valid` = 1;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        return ActionDB::select($select, $param, 1);
+    }
+    private function getVehicleSolvePrice ($param) {
+        $select = "SELECT `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`  
+        FROM `vehicle` 
+        WHERE `id` = :idVehicle;";
+       
+        return ActionDB::select($select, $param, 1);
+    }
+    private function fixUnFixVehicle ($param) {
+        $update = "UPDATE `vehicle` SET `fix`=`fix`^1 WHERE `id` = :idVehicle;";
+        ActionDB::access($update, $param, 1);
+        return true;
+    }
+    private function factionVehicle ($param) {
+        $select = "SELECT `idFaction` FROM `vehicle` WHERE `id` = :idVehicle;";
+        $idFaction =  ActionDB::select($select, $param, 1);
+        return $idFaction[0]['idFaction'];
+    }
+    public function fixVehicleByOwner ($idVehicle) {
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        $dataVehicle = $this->getVehicleSolvePrice ($param);
+        $priceVehicle = $this->solveVehiclePrice( $dataVehicle[0]);
+        $this->fixUnFixVehicle ($param);
+        return $this->factionVehicle ($param);
     }
 }
