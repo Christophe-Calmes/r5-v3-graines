@@ -39,7 +39,7 @@ class templatesMiniatures extends sqlMiniatures
     echo '<h3>Creat new miniature</h3>';
     $factionMiniature->factionSelect (); 
     echo '<label for="nameMiniature">Miniature name :</label>';
-    echo '<input id="nameMiniature" name="nameMiniature" placeholder="Name miniature"/>';
+    echo '<input id="nameMiniature" name="nameMiniature" placeholder="Miniature name "/>';
     echo '<label for="move">Miniature tactical move :</label>';
     echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
     echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D4"</div>';

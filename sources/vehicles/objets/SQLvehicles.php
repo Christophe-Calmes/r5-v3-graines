@@ -1,36 +1,173 @@
 <?php
-final class SQLvehicles 
+class SQLvehicles 
 {
     protected $dice ;
-    protected $armour;
-    protected $structurePoint;
+    protected  $armour;
+    protected  $structurePoint;
     protected $sizeVehicle;
-    protected $typeVehicle;
+    protected  $typeVehicle;
     protected $yes;
     public function __construct () {
+        $this->yes = [['id'=>1, 'name'=> 'No'], ['id'=>2, 'name'=>'Yes']];
         $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6'],
         ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8'],
         ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10'],
         ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12']];
-        $this->armour = [['id'=>1, 'valueArmour' => 0.8, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 1.15, 'nameArmour'=> '6+'],
-        ['id'=>3, 'valueArmour' => 1.40, 'nameArmour'=> '5+'],
-        ['id'=>4, 'valueArmour' => 1.50, 'nameArmour'=> '4+'],
-        ['id'=>5, 'valueArmour' => 1.70, 'nameArmour'=> '3+'],
-        ['id'=>6, 'valueArmour' => 2, 'nameArmour'=> '2+'],];
-        $this->structurePoint = [['id'=>1, 'valueStructurePoint'=>1, 'StructurePoint'=> 1],
-        ['id'=>2, 'valueStructurePoint'=>2, 'healtPoint'=> 2],
-        ['id'=>3, 'valueStructurePoint'=>4, 'healtPoint'=> 4],
-        ['id'=>4, 'valueStructurePoint'=>6, 'healtPoint'=> 6],
-        ['id'=>5, 'valueStructurePoint'=>8, 'healtPoint'=> 8],
-        ['id'=>6, 'valueStructurePoint'=>10, 'healtPoint'=> 10],
-        ['id'=>7, 'valueStructurePoint'=>12, 'healtPoint'=> 12],
-        ['id'=>8, 'valueStructurePoint'=>16, 'healtPoint'=> 16],
-        ['id'=>9, 'valueStructurePoint'=>18, 'healtPoint'=> 18],
-        ['id'=>10, 'valueStructurePoint'=>20, 'healtPoint'=> 20],];
-        $this->sizeVehicle = [['id'=>1, 'valueSize'=> 2, 'NameSize'=>'Small vehicle'],
-        ['id'=>2, 'valueSize'=> 2.5, 'NameSize'=>'Standard'],
-        ['id'=>3, 'valueSize'=> 4, 'NameSize'=>'Large miniature'],
-        ['id'=>4, 'valueSize'=> 3, 'NameSize'=>'Giant']];;
+        $this->armour = [['id'=>1, 'valueArmour' => 1.15, 'nameArmour'=> 'No armour'],
+        ['id'=>2, 'valueArmour' => 1.30, 'nameArmour'=> '6+'],
+        ['id'=>3, 'valueArmour' => 1.45, 'nameArmour'=> '5+'],
+        ['id'=>4, 'valueArmour' => 1.90, 'nameArmour'=> '4+'],
+        ['id'=>5, 'valueArmour' => 4, 'nameArmour'=> '3+'],
+        ['id'=>6, 'valueArmour' => 8, 'nameArmour'=> '2+'],];
+        $this->structurePoint = [['id'=>1, 'valueStructurePoint'=>1, 'Structure'=> 1],
+        ['id'=>2, 'valueStructurePoint'=>2, 'Structure'=> 2],
+        ['id'=>3, 'valueStructurePoint'=>4, 'Structure'=> 4],
+        ['id'=>4, 'valueStructurePoint'=>6, 'Structure'=> 6],
+        ['id'=>5, 'valueStructurePoint'=>8, 'Structure'=> 8],
+        ['id'=>6, 'valueStructurePoint'=>10, 'Structure'=> 10],
+        ['id'=>7, 'valueStructurePoint'=>12, 'Structure'=> 12],
+        ['id'=>8, 'valueStructurePoint'=>16, 'Structure'=> 16],
+        ['id'=>9, 'valueStructurePoint'=>18, 'Structure'=> 18],
+        ['id'=>10, 'valueStructurePoint'=>20, 'Structure'=> 20],];
+        $this->sizeVehicle = [['id'=>1, 'valueSize'=> 4, 'NameSize'=>'Small'],
+        ['id'=>2, 'valueSize'=> 8, 'NameSize'=>'Standard'],
+        ['id'=>3, 'valueSize'=> 16, 'NameSize'=>'Large'],
+        ['id'=>4, 'valueSize'=> 32, 'NameSize'=>'Giant']];
+        $this->typeVehicle = [['id'=>1, 'valueType'=>1, 'NameType'=>'Civilian'],
+                ['id'=>2, 'valueType'=>2, 'NameType'=>'Military']];
+    }
+    public function checkYes ($id) {
+        $index = array_search($id, array_column($this->dice, 'id'));
+        if($index !== false) {
+            return true;
+        } 
+        return false;
+    }
+    public function checkDice ($id) {
+        $index = array_search($id, array_column($this->dice, 'id'));
+        if($index !== false) {
+            return true;
+        } 
+        return false;
+    }
+    private function arrayChoice ($adressArray) {
+        switch ($adressArray) {
+            case 0:
+                return [$this->armour, 'valueArmour'];
+                break;
+                case 1:
+                    return [$this->structurePoint, 'valueStructurePoint'];
+                    break;
+                    case 2:
+                        return [$this->sizeVehicle, 'valueSize'];
+                        break;
+                        case 3:
+                            return [$this->typeVehicle, 'valueType'];
+                            break;
+                                    
+            default:
+                return false;
+                break;
+        }
+    }
+    public function checkArray ($id, $array) {
+        $specificArray = $this->arrayChoice ($array);
+        if($specificArray == false) {
+            return false;
+        }
+        $index = array_search($id, array_column($specificArray[0], 'id'));
+        if($index !== false) {
+            return true;
+        }
+        return false;
+    }
+    private function boolYes ($id) {
+        if($id == 1) {
+            return 1;
+        }
+        return 3;
+    }
+    private function getDiceValue ($id) {
+        $index = array_search($id, array_column($this->dice, 'id'));
+        return $this->dice[$index]['valueDice'];
+    }
+    private function getArrayValue($adressArray, $id) {
+        $getData = $this->arrayChoice ($adressArray);
+        $array  = $getData[0];
+        $key = $getData[1];
+        $index = array_search($id, array_column($array , 'id'));
+        return $array[$index][$key];
+    }
+    public function solveVehiclePrice($data) {
+        $result = 0;
+        $valueMove = 0;
+        if($data['moving'] > 0 ) {
+            $valueMove = log($data['moving']);
+            $fligth = $this->boolYes ($data['fligt']);
+            $stationnaryFligth = $this->boolYes ($data['stationnaryFligt']);
+            $valueMove = $valueMove * $fligth * $stationnaryFligth;
+        } else {
+            $valueMove = 1;
+        }
+        $valueDQM = $this->getDiceValue($data['dqm']);
+        $valueDQM = $this->getDiceValue ($data['dqm']);
+        $valueDC = $this->getDiceValue ($data['dc']);
+        $coefArmor = $this->getArrayValue(0, $data['armor']) ;
+        $valueStruture = $this->getArrayValue(1, $data['structurePoint']) ;
+        $valueSize = $this->getArrayValue(2, $data['sizeVehicle']);
+        $valueType = $this->getArrayValue(3, $data['typeVehicle']);
+        $result = ($valueMove * ($valueDQM + ($valueDC * 2.2) + $valueType + $valueSize)) * ($coefArmor + $valueStruture); 
+        if($data['typeVehicle'] == 1) {
+           $result = $result / 2.5;
+        } 
+        return round($result, 0);
+    }
+    public function creatVehiclesByUser ($param) {
+     
+        $insert = "INSERT 
+        INTO `vehicle`( 
+            `idFaction`, 
+            `nameVehicle`, 
+            `dqm`, 
+            `dc`, 
+            `armour`, 
+            `structurePoint`, 
+            `moving`, 
+            `fligt`, 
+            `stationnaryFligt`, 
+            `sizeVehicle`, 
+            `typeVehicle`, 
+            `price`, 
+            `namePicture`, 
+            `idAuthor`) 
+        VALUES ( 
+            :idFaction, 
+            :nameVehicle, 
+            :dqm,
+            :dc, 
+            :armor, 
+            :structurePoint, 
+            :moving, 
+            :fligt, 
+            :stationnaryFligt,  
+            :sizeVehicle, 
+            :typeVehicle,
+            :price, 
+            :namePicture, 
+            :idUser );";
+        ActionDB::access($insert, $param, 1);
+           
+    }
+    protected function getVehicle ($data) {
+        $idUser = new Controles ();
+        $idUser =  $idUser->idUser($_SESSION);
+        $select = "SELECT `id`, `idAuthor`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armour`, `price`, `namePicture`, `valid`, `fix` 
+        FROM `vehicle` 
+        WHERE `idFaction` = :idFaction AND `valid`= :valid AND `fix`= :fix AND  `idAuthor` = :idUser;";
+        $param = [['prep'=>':idFaction', 'variable'=>$data[0]], 
+        ['prep'=>':valid', 'variable'=>$data[1]], 
+        ['prep'=>':fix', 'variable'=>$data[2]], 
+        ['prep'=>':idUser', 'variable'=>$idUser]];
+        return ActionDB::select($select, $param, 1);
     }
 }
