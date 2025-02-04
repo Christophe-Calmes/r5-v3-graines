@@ -158,6 +158,44 @@ class SQLvehicles
         ActionDB::access($insert, $param, 1);
            
     }
+    public function updateVehicle ($param, $picture) {
+        // $picture = bool
+        if($picture) {
+            $update = "UPDATE `vehicle` SET 
+            `nameVehicle`=:nameVehicle,
+            `idFaction`=:idFaction,
+            `sizeVehicle`=:sizeVehicle,
+            `typeVehicle`=:typeVehicle,
+            `dqm`=:dqm,
+            `dc`=:dc,
+            `moving`=:moving,
+            `fligt`=:fligt,
+            `stationnaryFligt`=:stationnaryFligt,
+            `structurePoint`=:structurePoint,
+            `armor`=:armor,
+            `price`=:price,
+            `namePicture`=:namePicture,
+            `fix`=0 
+            WHERE `id` = :idVehicle AND `idAuthor` = :idUser;";
+        } else {
+            $update = "UPDATE `vehicle` SET 
+            `nameVehicle`=:nameVehicle,
+            `idFaction`=:idFaction,
+            `sizeVehicle`=:sizeVehicle,
+            `typeVehicle`=:typeVehicle,
+            `dqm`=:dqm,
+            `dc`=:dc,
+            `moving`=:moving,
+            `fligt`=:fligt,
+            `stationnaryFligt`=:stationnaryFligt,
+            `structurePoint`=:structurePoint,
+            `armor`=:armor,
+            `price`=:price,
+            `fix`=0 
+            WHERE `id` = :idVehicle AND `idAuthor` = :idUser;";
+        }
+        ActionDB::access($update, $param, 1);
+    }
     public function checkVehicleOwner ($idVehicle) {
         $idUser = new Controles ();
         $idUser =  $idUser->idUser($_SESSION);
@@ -168,6 +206,12 @@ class SQLvehicles
             return true;
         }
         return false;
+    }
+    public function getPictureVehicleName ($idVehicle) {
+        $select = "SELECT `namePicture` FROM `vehicle` WHERE `id` = :idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        $dataNamePictureVehicle = ActionDB::select($select, $param, 1);
+        return $dataNamePictureVehicle[0]['namePicture'];
     }
     protected function getVehicle ($data) {
         $idUser = new Controles ();

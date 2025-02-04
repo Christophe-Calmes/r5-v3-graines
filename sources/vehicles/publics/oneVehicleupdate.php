@@ -3,4 +3,4 @@
 require ('sources/vehicles/objets/TemplatesVehicles.php');
 $idVehicle = filter($_GET['idVehicle']);
 $vehicleUpdate = new TemplatesVehicles ();
-$vehicleUpdate->printOneVehicle ($idVehicle);
+$vehicleUpdate->printOneVehicle ($idVehicle, $idNav);

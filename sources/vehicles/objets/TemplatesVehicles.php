@@ -16,6 +16,21 @@ class TemplatesVehicles extends SQLvehicles
             echo '</select>';
         echo '</div>';
     }
+    private function globalSelected ($label, $fields, $array, $nameFields, $selected) {
+    
+        echo '<div class="flex-rows">';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<select id="'.$fields.'"name="'.$fields.'">';
+               foreach ($array as $value) {
+                if($selected == $value['id']) {
+                    echo '<option value="'.$value['id'].'" selected>'.$value[$nameFields].'</option>';
+                } else {
+                    echo '<option value="'.$value['id'].'">'.$value[$nameFields].'</option>';
+                }
+               }
+            echo '</select>';
+        echo '</div>';
+    }
     public function formAddVehicle ($idNav) {
         // encodeRoutage(108)
         $factionMiniature = new TemplateWeaponsPublic ();
@@ -47,6 +62,40 @@ class TemplatesVehicles extends SQLvehicles
    
         echo '<label for="picture">Picture of vehicle ?</label>';
         echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
+        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
+        echo '</form>';
+    }
+    protected function formUpdateOneVehicle ($data, $idNav) {
+        $factionMiniature = new TemplateWeaponsPublic ();
+        echo '<form class="customerForm" action="'.encodeRoutage(110).'" method="post" enctype="multipart/form-data">';
+        echo '<h3>Update '.$data['nameVehicle'].' vehicle</h3>';
+        $factionMiniature->factionSelected ($data['idFaction']); 
+        echo '<label for="nameVehicle">MiniaturVehicle name :</label>';
+        echo '<input id="nameVehicle" name="nameVehicle" value="'.$data['nameVehicle'].'"/>';
+        $this->globalSelected ('Martial quality dice', 'dqm', $this->dice, 'nameDice', $data['dqm']);
+        $this->globalSelected ('Combat dice', 'dc', $this->dice, 'nameDice', $data['dc']);
+        $this->globalSelected ('Save / D6', 'armor',    $this->armour, 'nameArmour', $data['armor']);
+        $this->globalSelected ('Structure point', 'structurePoint', $this->structurePoint, 'Structure', $data['structurePoint']);
+        $this->globalSelected ('Size of vehicle', 'sizeVehicle', $this->sizeVehicle, 'NameSize', $data['sizeVehicle']);
+        $this->globalSelected ('type of vehicle', 'typeVehicle', $this->typeVehicle, 'NameType', $data['typeVehicle']);
+        echo '<label for="move">Vehicle tactical move :</label>';
+        echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+        echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D6"</div>';
+        echo '<script>
+            const updateRangeValue = () => {
+                let moveValue = document.getElementById("move").value;
+                let arrayMove = moveValue
+                document.getElementById("moveValue").textContent = moveValue;
+                document.getElementById("runValue").textContent = Math.round(moveValue * 2);
+            }
+        </script>';
+        $this->globalSelect ('Fligth', 'fligt', $this->yes, 'name');
+        $this->globalSelect ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name');
+  
+   
+        echo '<label for="picture">Picture of vehicle ?</label>';
+        echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
+        echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
         echo '</form>';
     }
@@ -123,17 +172,26 @@ class TemplatesVehicles extends SQLvehicles
      
 
     }
-    public function printOneVehicle ($idVehicle) {
+    public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);
         $dataVehicle = $dataVehicle[0];
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
         echo '<article class="flex-center">';
         echo '<table  class="tableWebSite">';
-         echo '<tr>';
-            echo '<td><img src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
-            echo '<td>'.$dataVehicle['nameVehicle'].'</td>';
+        echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
+         echo '<tr rowspan="2">';
+           
+            echo '<td colspan="3">
+            <img src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
+        echo '</tr>';
+        echo '<tr>';
+           
             echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
             echo '<td>DC : '.$this->getArray($this->dice, $dataVehicle['dc'], 'nameDice').'</td>';
+            echo '<td>Price : '.$dataVehicle['price'].' $<br/>
+                        Type : '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</td>';
+            echo '</tr>';
+            echo '<tr>';
             echo '<td>
                     <ul>
                         <li>Move : '.$moving[0].'" / '.$moving[1].' " + 1D4"</li>
@@ -142,10 +200,16 @@ class TemplatesVehicles extends SQLvehicles
                     </ul>
                 </td>';
             echo '<td>Structure : '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</td>';
-            echo '<td>Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
-            echo '<td>Price : '.$dataVehicle['price'].' $</td>';
+            echo '<td colspan="2">Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
+          
          echo '</tr>';
         echo '</table>';
+        echo '</article>';
+        echo '<article>';
+        if($dataVehicle['fix'] == 0) {
+            $this->formUpdateOneVehicle ($dataVehicle, $idNav);
+        }  
+        echo '</article>';
     }
 
 }
