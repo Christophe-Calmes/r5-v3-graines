@@ -12,7 +12,7 @@ $mark = array();
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));
     array_push($mark, 1);
-    array_push($controle_POST, $checkId->controleIntegerPK(filter($_POST[$arrayKeys[8]])));
+    array_push($controle_POST, $addVehicle->controleMovingVehicle(filter($_POST[$arrayKeys[8]])));
     array_push($mark, 1);
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[1]]), 60));
     array_push($mark, 0);

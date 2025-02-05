@@ -382,5 +382,11 @@ class sqlMiniatures
         $update = "UPDATE `miniatures` SET `stick`= 2 WHERE `id` = :idMiniature ;";
         return ActionDB::Access($update, $param, 1);
     }
+    public function controleMovingMiniature ($moving) {
+        if(($moving >=0)&&($moving <=12)) {
+            return true;
+        }
+        return false;
+    }
 
 }

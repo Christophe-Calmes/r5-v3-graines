@@ -13,7 +13,7 @@ $picture = false;
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));
     array_push($mark, 1);
-    array_push($controle_POST, $checkId->controleIntegerPK(filter($_POST[$arrayKeys[8]])));
+    array_push($controle_POST, $updateVehicle->controleMovingVehicle(filter($_POST[$arrayKeys[8]])));
     array_push($mark, 1);
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[1]]), 60));
     array_push($mark, 0);
@@ -63,7 +63,6 @@ if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST, $picture);
     $updateVehicle->updateVehicle ($param, $picture);
-    // &idVehicle=5
     return header('location:../index.php?message=Update vehicle success.&idNav='.$idNav.'&idVehicle='.filter($_POST[$arrayKeys[11]]));
     } else {
     return header('location:../index.php?message=Update vehicle fail.&idNav='.$idNav.'&idVehicle='.filter($_POST[$arrayKeys[11]]));

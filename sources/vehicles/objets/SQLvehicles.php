@@ -255,4 +255,10 @@ class SQLvehicles
         $this->fixUnFixVehicle ($param);
         return $this->factionVehicle ($param);
     }
+    public function controleMovingVehicle ($moving) {
+        if(($moving >= 0)&&($moving <=18)) {
+            return true;
+        }
+        return false;
+    }
 }

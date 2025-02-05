@@ -47,7 +47,7 @@ class TemplatesVehicles extends SQLvehicles
         $this->globalSelect('type of vehicle', 'typeVehicle', $this->typeVehicle, 'NameType');
         echo '<label for="move">Vehicle tactical move :</label>';
         echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
-        echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D6"</div>';
+        echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">8</span> " + 1D6"</div>';
         echo '<script>
             const updateRangeValue = () => {
                 let moveValue = document.getElementById("move").value;
@@ -79,8 +79,8 @@ class TemplatesVehicles extends SQLvehicles
         $this->globalSelected ('Size of vehicle', 'sizeVehicle', $this->sizeVehicle, 'NameSize', $data['sizeVehicle']);
         $this->globalSelected ('type of vehicle', 'typeVehicle', $this->typeVehicle, 'NameType', $data['typeVehicle']);
         echo '<label for="move">Vehicle tactical move :</label>';
-        echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
-        echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">6</span> " + 1D6"</div>';
+        echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+        echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.$this->movingSolveVehicle ($data['moving'])[1].'</span> " + 1D6"</div>';
         echo '<script>
             const updateRangeValue = () => {
                 let moveValue = document.getElementById("move").value;
@@ -89,10 +89,8 @@ class TemplatesVehicles extends SQLvehicles
                 document.getElementById("runValue").textContent = Math.round(moveValue * 2);
             }
         </script>';
-        $this->globalSelect ('Fligth', 'fligt', $this->yes, 'name');
-        $this->globalSelect ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name');
-  
-   
+        $this->globalSelected ('Fligth', 'fligt', $this->yes, 'name', $data['fligt']);
+        $this->globalSelected ('Stationnary fligth', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
         echo '<label for="picture">Picture of vehicle ?</label>';
         echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
         echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';

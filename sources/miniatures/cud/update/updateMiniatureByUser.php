@@ -18,7 +18,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[1]]), 60));
-    array_push($controle_POST, $checkId->controleIntegerPK(filter($_POST[$arrayKeys[2]])));
+    array_push($controle_POST, $miniatureTraitement->controleMovingMiniature(filter($_POST[$arrayKeys[2]])));
     array_push($controle_POST, intervalMove(filter($_POST[$arrayKeys[2]])));
     array_push($controle_POST, $miniatureTraitement->checkDice (filter($_POST[$arrayKeys[3]])));
     array_push($controle_POST, $miniatureTraitement->checkDice (filter($_POST[$arrayKeys[4]])));
