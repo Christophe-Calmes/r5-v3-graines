@@ -66,9 +66,16 @@ class TemplatesVehicles extends SQLvehicles
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
         echo '</form>';
     }
+    private function fixVehicleDataSheet ($idVehicle, $idNav) {
+        echo '<form class="flex-center" action="'.encodeRoutage(113).'" method="post">
+        <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+        </form>';
+    }
     protected function formUpdateOneVehicle ($data, $idNav) {
         $factionMiniature = new TemplateWeaponsPublic ();
-        echo '<form class="customerForm" action="'.encodeRoutage(110).'" method="post" enctype="multipart/form-data">';
+        //$this->fixVehicleDataSheet ($data['id'], $idNav);
+        echo '<form class="customerForm"  action="'.encodeRoutage(110).'" method="post" enctype="multipart/form-data">';
         echo '<h3>Update '.$data['nameVehicle'].' vehicle</h3>';
         $factionMiniature->factionSelected ($data['idFaction']); 
         echo '<label for="nameVehicle">MiniaturVehicle name :</label>';
@@ -97,6 +104,8 @@ class TemplatesVehicles extends SQLvehicles
         echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
         echo '</form>';
+        
+        
     }
     private function getArray ($array, $index, $exitValue) {
         $index = $index - 1;
@@ -177,10 +186,16 @@ class TemplatesVehicles extends SQLvehicles
         echo '<table  class="tableWebSite">';
         echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
          echo '<tr rowspan="2">';
-           
             echo '<td colspan="3">
             <img src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
         echo '</tr>';
+        if($dataVehicle['fix'] == 0) {
+            echo '<tr>';
+                echo '<td colspan="3">';
+                    $this->fixVehicleDataSheet ($dataVehicle['id'], $idNav);
+                echo '</td>';
+            echo '</tr>';
+        }
         echo '<tr>';
            
             echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
@@ -214,5 +229,6 @@ class TemplatesVehicles extends SQLvehicles
             
         }
     }
+
 
 }
