@@ -258,6 +258,36 @@ Text ?
             }
             echo '</article>';
     }
+    public function displaySRforVehicle ($idVehicle, $idNav) {
+        $dataSR = $this->getAllRSforAffectationVehicle ($idVehicle);
+        $adress = 111;
+        echo '<article>';
+        echo '<h4 class="titleSite">Special rules assignable</h4>';
+            echo '<div class="gallery">';
+            foreach ($dataSR as $value) {
+                echo '<aside class="itemSR">';
+                echo '<table class="tableWebSite">';
+                        echo '<tr>';
+                            echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                            echo '<td>Price : '.$value['price'].'</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                                echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">
+                                                    <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+                                                    <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
+                                                    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Assign '.$value['nameSpecialRules'].'</button>           
+                                                    </form>';
+                                echo'</td>';
+                            echo '</tr>';
+                echo '</table>';
+            echo '</aside >';
+            }
+            echo '</article>';
+    }
+
 
     public function displayAssignedSRforMiniature ($idMiniature, $idNav) {
         $dataSR = $this->getAssignedSpecialRuleMiniature ($idMiniature) ;
@@ -288,6 +318,36 @@ Text ?
             }
             echo '</article>';
     }
+    public function displayAssignedSRforVehicle ($idVehicle, $idNav) {
+        $dataSR = $this->getAssignedSpecialRuleVehicle ($idVehicle) ;
+        $adress = 112;
+        echo '<article>';
+        echo '<h4 class="titleSite">Special rules assigned</h4>';
+            echo '<div class="gallery">';
+            foreach ($dataSR as $value) {
+                echo '<aside class="itemSR">';
+                echo '<table class="tableWebSite">';
+                        echo '<tr>';
+                            echo '<td>Name : '.$value['nameSpecialRules'].'</strong></td>';
+                            echo '<td>Price : '.$value['price'].'</td>';
+                        echo '</tr>';
+                        echo '<tr>';
+                                echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">
+                                                    <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+                                                    <input type="hidden" name="idSpecialRules" value="'.$value['idSpecialRule'].'"/>
+                                                    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unassign '.$value['nameSpecialRules'].'</button>           
+                                                    </form>';
+                                echo'</td>';
+                            echo '</tr>';
+                echo '</table>';
+            echo '</aside >';
+            }
+            echo '</article>';
+    }
+
 
     public function displayAssignSpecialRules ($idWeapon, $idNav, $type = 0) {
         $dataSRAssigned = $this->getAssignedSpecialRule ($idWeapon);
@@ -320,6 +380,7 @@ Text ?
             echo '</article>';
         }
     }
+    
     public function displaySpecialRules ($id, $type) {
         $dataSRAssigned = $this->getAssignedSpecialRulesGenerale ($id, $type);
         if(!empty($dataSRAssigned)) {

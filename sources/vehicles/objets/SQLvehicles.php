@@ -1,4 +1,5 @@
 <?php
+
 class SQLvehicles 
 {
     protected $dice ;
@@ -248,11 +249,20 @@ class SQLvehicles
         $idFaction =  ActionDB::select($select, $param, 1);
         return $idFaction[0]['idFaction'];
     }
+    private function resetAllSRVehicle ($param) {
+        $delete = "DELETE FROM `vehicleLinkSpecialRules` WHERE `idVehicle` = :idVehicle;";
+        ActionDB::access($delete, $param, 1);
+        //$dataVehicle = $this->getVehicleSolvePrice ($param);
+        //$price = $this->solveVehiclePrice($dataVehicle);
+        //$this->recordNewPrice ($param[0]['variable'], $price);
+    }
+
     public function fixVehicleByOwner ($idVehicle) {
         $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
         $dataVehicle = $this->getVehicleSolvePrice ($param);
         $priceVehicle = $this->solveVehiclePrice( $dataVehicle[0]);
         $this->fixUnFixVehicle ($param);
+        $this->resetAllSRVehicle ($param);
         return $this->factionVehicle ($param);
     }
     public function controleMovingVehicle ($moving) {
@@ -260,5 +270,35 @@ class SQLvehicles
             return true;
         }
         return false;
+    }
+    private function getVehicleDirectPrice ($idVehicle) {
+        $select = "SELECT `price` FROM `vehicle` WHERE `id` = :idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        $dataPrice = ActionDB::select($select, $param, 1);
+        return $dataPrice[0]['price'];
+    }
+    private function getSRVehiclePrice ($idSR) {
+        $select = "SELECT  `price` FROM `specialRules` WHERE `id` = :idSpecialRule;";
+        $param = [['prep'=>':idSpecialRule', 'variable'=>$idSR]];
+        $dataPriceSR = ActionDB::select($select, $param, 1);
+        return $dataPriceSR[0]['price'];
+    }
+    private function recordNewPrice ($idVehicle, $price) {
+        $update = "UPDATE `vehicle` SET `price`= :price WHERE `id`=:idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle], 
+        ['prep'=>':price', 'variable'=>$price]];
+        ActionDB::access($update, $param, 1);
+    }
+    public function updateVehiclePrice ($param, $type) {
+        // $type = true => add, false => substract
+        $newPrice = 0;
+        $vehiclePrice = $this->getVehicleDirectPrice($param[0]['variable']);
+        $priceSR = $this->getSRVehiclePrice ($param[1]['variable']);
+        if($type) {
+            $newPrice = (1+$priceSR) * $vehiclePrice;
+        } else {
+            $newPrice = $vehiclePrice/(1+$priceSR);
+        }
+        $this->recordNewPrice ($param[0]['variable'], round($newPrice, 0));
     }
 }

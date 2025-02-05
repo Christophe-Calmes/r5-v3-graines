@@ -148,6 +148,14 @@
         $param = [['prep' => ':idMiniature', 'variable' => $idMiniature]];
         return ActionDB::select($select, $param, 1);
     }
+    protected function getAssignedSpecialRuleVehicle ($idVehicle) {
+        $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+        FROM `vehicleLinkSpecialRules`
+        INNER JOIN  `specialRules` ON `specialRules`.`id` =  `vehicleLinkSpecialRules`.`idSpecialRules` 
+        WHERE `idVehicle` = :idVehicle;";
+        $param = [['prep' => ':idVehicle', 'variable' => $idVehicle]];
+        return ActionDB::select($select, $param, 1);
+    }
 
    protected function getAssignedSpecialRule ($idWeapon) {
         $select = "SELECT  `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
@@ -183,5 +191,38 @@
         $param = [['prep' => ':id', 'variable' => $id]];
         return ActionDB::select($select, $param, 1);
     }
-
+    protected function getAllRSforAffectationVehicle ($idVehicle) {
+        $select ="SELECT `id` AS `idSpecialRule`, `typeSpecialRules`, `nameSpecialRules`, `descriptionSpecialRules`, `price`, `valid` 
+        FROM `specialRules`
+        WHERE `typeSpecialRules` = 2 
+        AND `valid`= 1 
+        AND `id` NOT IN (SELECT `idSpecialRules` 
+        FROM `vehicleLinkSpecialRules`
+        WHERE `idVehicle` = :idVehicle) 
+        ORDER BY  `nameSpecialRules`;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        return ActionDB::select($select, $param, 1);
+    }
+    private function checkSRexistForVehicle ($param) {
+        $select = "SELECT COUNT(`idVehicle`) AS `nbr` FROM `vehicleLinkSpecialRules` WHERE `idVehicle`=:idVehicle AND `idSpecialRules`=:idSpecialRules;";
+        $count = ActionDB::select($select, $param, 1);
+        if($count[0]['nbr'] >0) {
+            return false;
+        }
+        return true;
+    }
+    public function creatSRVehicle ($param) {
+        if($this->checkSRexistForVehicle ($param)) {
+            $insert = "INSERT INTO `vehicleLinkSpecialRules`
+            (`idVehicle`, `idSpecialRules`) 
+            VALUES (:idVehicle, :idSpecialRules);";
+            ActionDB::access($insert, $param, 1);
+            return true;
+        }
+        return false;
+    }
+    public function deleteSRVehicle ($param) {
+            $delete = "DELETE FROM `vehicleLinkSpecialRules` WHERE `idVehicle` = :idVehicle AND `idSpecialRules`=:idSpecialRules;";
+            ActionDB::access($delete, $param, 1);
+    }
 }

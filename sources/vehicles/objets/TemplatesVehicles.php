@@ -1,6 +1,7 @@
 <?php
 require ('sources/vehicles/objets/SQLvehicles.php');
 require ('sources/weapons/objects/TemplateWeaponsPublic.php');
+require ('sources/specialRules/objects/TemplatesSpecialRules.php');
 class TemplatesVehicles extends SQLvehicles 
 {
     private function movingSolveVehicle ($move) {
@@ -167,8 +168,6 @@ class TemplatesVehicles extends SQLvehicles
              echo '</table>';
              echo '</article>';
         }
-     
-
     }
     public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);
@@ -208,6 +207,12 @@ class TemplatesVehicles extends SQLvehicles
             $this->formUpdateOneVehicle ($dataVehicle, $idNav);
         }  
         echo '</article>';
+        if($dataVehicle['fix'] == 1) {
+            $SR = new TemplatesSpecialRules ();
+            $SR->displayAssignedSRforVehicle ($dataVehicle['id'], $idNav);
+            $SR->displaySRforVehicle ($dataVehicle['id'], $idNav);
+            
+        }
     }
 
 }
