@@ -171,7 +171,10 @@ class TemplatesVehicles extends SQLvehicles
                 echo '<td>'.$this->getArray($this->structurePoint, $value['structurePoint'], 'Structure').'</td>';
                 echo '<td>'.$value['price'].' $</td>';
                 echo '<td><a href="'.findTargetRoute(196).'&idVehicle='.$value['id'].'">Update vehicle</a></td>';
-                echo '<td>Delete</td>';
+                echo '<td><form action="'.encodeRoutage(114).'" method="post">
+                        <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                        </form></td>';
                 echo '</tr>';
             }
              echo '</table>';

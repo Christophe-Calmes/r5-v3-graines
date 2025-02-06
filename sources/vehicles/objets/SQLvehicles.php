@@ -252,9 +252,6 @@ class SQLvehicles
     private function resetAllSRVehicle ($param) {
         $delete = "DELETE FROM `vehicleLinkSpecialRules` WHERE `idVehicle` = :idVehicle;";
         ActionDB::access($delete, $param, 1);
-        //$dataVehicle = $this->getVehicleSolvePrice ($param);
-        //$price = $this->solveVehiclePrice($dataVehicle);
-        //$this->recordNewPrice ($param[0]['variable'], $price);
     }
 
     public function fixVehicleByOwner ($idVehicle) {
@@ -300,5 +297,10 @@ class SQLvehicles
             $newPrice = $vehiclePrice/(1+$priceSR);
         }
         $this->recordNewPrice ($param[0]['variable'], round($newPrice, 0));
+    }
+    public function deleteVehicleByOwner($idVehicle) {
+        $delete="DELETE FROM `vehicle` WHERE `id` = :idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        ActionDB::access($delete, $param, 1);
     }
 }
