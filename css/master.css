@@ -35,7 +35,7 @@
   --main-background-navBar: #d6d6d6;
   --color-select: #1A8921ff;
   --color-selected: #f0f0f0;
-  --main-border: none;
+  --main-border: 1px solid #817f7f;
   --main-radius:20px;
   --main-radiusInput: 5px;
   --main-color: rgb(29, 29, 29);
@@ -302,6 +302,16 @@ a {
   border: #151515 solid 1px;
   margin-left: 1em;
   margin-right: 1em;
+  width: 90%;
+}
+.tableWebVehicle {
+  border: var(--main-border);
+  margin-left: 1em;
+  margin-right: 1em;
+  width: auto;
+}
+.tableWebVehicle td {
+  text-align: center;
 }
 .tableWebSite th {
   text-align: center;
@@ -310,8 +320,8 @@ a {
 }
 .tableWebSite td {
   border: #151515 solid 1px;
-  text-align: center;
-  padding: 0.5em 0.5em 0.5em 0.2em;
+  text-align: left;
+  padding: 1em 0.5em 0.5em 0.5em;
 }
 .tableWebSite tr:nth-child(odd) {
   background-color: #d6d6d6;
@@ -351,6 +361,9 @@ a {
   border: 1px solid rgb(187, 187, 187);
   font-size: 0.8em;
   text-align: justify;
+}
+.srTableStyle {
+  text-align: left;
 }
 .printPicture {
   height: 200px;
@@ -507,7 +520,8 @@ select:disabled {
 /*IMG*/
 .imgCarouselAuto {
   border-radius: var(--main-radius);
-  width: 60vw;
+  border: var(--main-border);
+  width: auto;
 }
 
 /*Grid*/
@@ -620,14 +634,16 @@ select:disabled {
     border: var(--color-blueOneChair) solid 1px;
   }
 .itemSR {
+  display: flex;
   min-height: auto;
   padding: 0.5em;
   background: var(--color-chair);
   color: rgb(32, 32, 32);
   border-radius: var(--main-radiusInput);
+  border:var(--main-border);
   align-items: center;
   justify-content: center;
-  border: var(--color-blueOneChair) solid 1px;
+  /*border: var(--color-blueOneChair) solid 1px;*/
 }
 /*Variable CSS boutton*/
 
@@ -645,6 +661,8 @@ button {
   cursor: var(--main-cursor);
   margin: var(--main-marginButton);
 }
+
+
 a {
   background-color: var(--main-background-color);
   border: var(--main-border);

@@ -262,6 +262,11 @@ class SQLvehicles
         $this->resetAllSRVehicle ($param);
         return $this->factionVehicle ($param);
     }
+    public function equipVehicle ($idVehicle) {
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        $update = "UPDATE `vehicle` SET `fix`= 2 WHERE `id` = :idVehicle;";
+        ActionDB::access($update, $param, 1);
+    }
     public function controleMovingVehicle ($moving) {
         if(($moving >= 0)&&($moving <=18)) {
             return true;
@@ -302,5 +307,19 @@ class SQLvehicles
         $delete="DELETE FROM `vehicle` WHERE `id` = :idVehicle;";
         $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
         ActionDB::access($delete, $param, 1);
+    }
+    private function updateVehiclePriceAddWeapon ($idVehicle, $weaponPrice) {
+        $price = $this->getVehicleDirectPrice ($idVehicle);
+        $newPrice = $price * $weaponPrice;
+        $update = "UPDATE `vehicle` SET `price` = :price WHERE `id` = :idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle], 
+        ['prep'=>':price', 'variable'=>round($newPrice, 0)]];
+        ActionDB::access($update, $param, 1);
+    }
+    public function addWeaponOnVehicle ($param, $weaponPrice) {
+        $insert = "INSERT INTO `vehicleLinkWeapon`(`idVehicle`, `idWeapon`) VALUES (:idVehicle, :idWeapon);";
+        ActionDB::access($insert, $param, 1);
+        print_r($param[1]['variable']);
+        $this->updateVehiclePriceAddWeapon ($param[1]['variable'], $weaponPrice);
     }
 }

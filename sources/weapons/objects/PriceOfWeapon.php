@@ -46,7 +46,8 @@ class PriceOfWeapon
     }
     public function blastWeaponPrice ($arrayWeapon) {
         $price = $this->shootingWeaponPrice ($arrayWeapon);
-        $blastSurface = [3, 13, 28, 20];
+        $blastSurface = [0.78, 3.14, 7.07, 10.89, 12.57, 19.63];
+        ['1"(BA)', '2"(BA)', '3"(BA / GW)', 'Blast(GW)', '4"(BA)', '5"(GW)'];
         $blastDicePrice = [0.2, 0.4, 0.8, 1.6, 2.5];
         /* templateType & blastDice */
         $price = $price + ($arrayWeapon[8] * $arrayWeapon[9]);

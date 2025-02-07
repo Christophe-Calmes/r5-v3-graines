@@ -28,21 +28,21 @@ $displayMiniatureForm = new templatesMiniatures ();
                  
                     </summary>
                 <h4>List Close combat weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (0, $idMiniature, $idNav) ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (0, $idMiniature, $idNav, false) ?> 
                 </details>
                 <details>
                     <summary class="titleSite">
                     Shooting weapon
                     </summary>
                 <h4>List Shooting weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (1, $idMiniature, $idNav); ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (1, $idMiniature, $idNav, false); ?> 
                 </details>
                 <details>
                     <summary class="titleSite">
                     Explosive weapon
                     </summary>
                 <h4>List Explosive weapon</h4>
-                <?php  $listWeapon->listWeaponForChoiceUserGlobal (2, $idMiniature, $idNav); ?> 
+                <?php  $listWeapon->listWeaponForChoiceUserGlobal (2, $idMiniature, $idNav, false); ?> 
                 </details>
             </article>
             

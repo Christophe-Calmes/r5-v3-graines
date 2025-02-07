@@ -272,7 +272,7 @@ Text ?
                             echo '<td>Price : '.$value['price'].'</td>';
                         echo '</tr>';
                         echo '<tr>';
-                                echo '<td colspan="2">'.$value['descriptionSpecialRules'].'</td>';
+                                echo '<td class="srTableStyle" colspan="2">'.$value['descriptionSpecialRules'].'</td>';
                             echo '</tr>';
                             echo '<tr>';
                             echo '<td colspan="2"><form action="'.encodeRoutage($adress).'" method="post">

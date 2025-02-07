@@ -9,7 +9,7 @@ class SQLWeapons
     protected $PowerBlastDice;
     public function __construct () {
         $this->weaponTypes = ['Contact', 'Shoot', 'Explosive'];
-        $this->gabaritType = ['small', 'medium', 'big', 'Blast'];
+        $this->gabaritType = ['1"(BA)', '2"(BA)', '3"(BA / GW)', 'Blast(GW)', '4"(BA)', '5"(GW)'];
         $this->powerType = ['1D', '2D', '3D', '4D', '5D', '6D'];
         $this->blastDice = ['D4', 'D6', 'D8', 'D10', 'D12'];
         $this->PowerBlastDice = [1, 2, 3, 4, 5, 6];
@@ -332,5 +332,11 @@ class SQLWeapons
         WHERE `idminiature` = :idMiniature;";
         $param = [['prep'=>'idMiniature', 'variable'=>$idMiniature]];
         return ActionDB::select($select, $param, 1);
+    }
+    public function getPriceWeapon ($idWeapon) {
+        $param = [['prep'=>'idWeapon', 'variable'=>$idWeapon]];
+        $select = "SELECT `price` FROM `weapons` WHERE `id` = :idWeapon AND `valid` = 1 AND `fixe` = 1;";
+        $price = ActionDB::select($select, $param, 1);
+        return $price[0]['price'];
     }
 }

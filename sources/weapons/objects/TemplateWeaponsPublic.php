@@ -359,6 +359,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Add weapon</button>
     </form>';
     }
+    private function addFormWeaponVehicle ($idWeapon, $idVehicle, $idNav) {
+        echo '<form action="'.encodeRoutage(116).'" method="post">
+            <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+            <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Add weapon</button>
+        </form>';
+        }
     private function substractWeapon ($idWeapon, $idMiniature, $idNav) {
         echo '<form action="'.encodeRoutage(105).'" method="post">
         <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
@@ -393,11 +400,17 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</article>';
        
     }
-    public function listWeaponForChoiceUserGlobal ($typeWeapon, $idMiniature, $idNav) {
+
+    public function listWeaponForChoiceUserGlobal ($typeWeapon, $id, $idNav, $vehicle) {
         $dataWeapon = $this->getWeaponByType ($typeWeapon);
         foreach ($dataWeapon as $value) {
             $this-> printingOneWeapon ($value['id']);
-            $this->addFormWeapon ($value['id'], $idMiniature, $idNav);
+            if(!$vehicle) {
+                $this->addFormWeapon ($value['id'], $id, $idNav);
+            } else {
+                $this->addFormWeaponVehicle ($value['id'], $id, $idNav);
+            }
+            
         }
     }
     public function listWeaponFactionForChoiseUser($typeWeapon, $idMiniature, $idFaction, $idNav) {

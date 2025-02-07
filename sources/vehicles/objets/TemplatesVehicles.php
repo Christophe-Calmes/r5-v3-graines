@@ -72,6 +72,12 @@ class TemplatesVehicles extends SQLvehicles
         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
         </form>';
     }
+    private function equiqVehicleDataSheet ($idVehicle, $idNav) {
+        echo '<form class="flex-center" action="'.encodeRoutage(115).'" method="post">
+        <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Equip weapon</button>
+        </form>';
+    }
     protected function formUpdateOneVehicle ($data, $idNav) {
         $factionMiniature = new TemplateWeaponsPublic ();
         //$this->fixVehicleDataSheet ($data['id'], $idNav);
@@ -110,6 +116,12 @@ class TemplatesVehicles extends SQLvehicles
     private function getArray ($array, $index, $exitValue) {
         $index = $index - 1;
         return $array[$index][$exitValue];
+    }
+    private function formDeleteVehicleByOwner ($idVehicle, $idNav) {
+       echo '<td><form action="'.encodeRoutage(114).'" method="post">
+                        <input type="hidden" name="idVehicle"  value="'.$idVehicle.'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                        </form></td>';
     }
     public function printListVehicle ($data, $idNav) {
         //$data = ['idFaction', 'valid', 'fix'];
@@ -157,6 +169,13 @@ class TemplatesVehicles extends SQLvehicles
                         </form>
                     </td>';
                         break;
+                    case 2:
+                        echo '<td>
+                        <form action="'.encodeRoutage(109).'" method="post">
+                        <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unequip</button>
+                        </form>
+                    </td>';
              
                 }
                 echo '<td>'.$value['nameVehicle'].'</td>';
@@ -171,39 +190,80 @@ class TemplatesVehicles extends SQLvehicles
                 echo '<td>'.$this->getArray($this->structurePoint, $value['structurePoint'], 'Structure').'</td>';
                 echo '<td>'.$value['price'].' $</td>';
                 echo '<td><a href="'.findTargetRoute(196).'&idVehicle='.$value['id'].'">Update vehicle</a></td>';
-                echo '<td><form action="'.encodeRoutage(114).'" method="post">
-                        <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
-                        </form></td>';
+                $this->formDeleteVehicleByOwner ($value['id'], $idNav);
                 echo '</tr>';
             }
              echo '</table>';
              echo '</article>';
         }
     }
+    private function listVehicleChoiceGlobalWeapon ($idVehicle, $idNav) {
+        $listWeapon = new TemplateWeaponsPublic ();
+        echo ' <article class="flex-colonne-form">';
+            echo '<details>';
+            echo '<summary class="titleSite">
+            Close combat weapon
+         
+            </summary>
+                 <h4>List Close combat weapon</h4>';
+                 $listWeapon->listWeaponForChoiceUserGlobal (0, $idVehicle, $idNav, true);
+            echo '</details>';
+        echo '</article>';
+        echo ' <article class="flex-colonne-form">';
+            echo '<details>';
+            echo '<summary class="titleSite">
+            Shooting weapon
+         
+            </summary>
+                 <h4>List shooting weapon</h4>';
+                 $listWeapon->listWeaponForChoiceUserGlobal (1, $idVehicle, $idNav, true);
+            echo '</details>';
+        echo '</article>';
+        echo ' <article class="flex-colonne-form">';
+        echo '<details>';
+        echo '<summary class="titleSite">
+        Explosive weapon
+     
+        </summary>
+             <h4>List explosive weapon</h4>';
+             $listWeapon->listWeaponForChoiceUserGlobal (2, $idVehicle, $idNav, true);
+        echo '</details>';
+    echo '</article>';
+    }
+
+
     public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);
         $dataVehicle = $dataVehicle[0];
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
         echo '<article class="flex-center">';
-        echo '<table  class="tableWebSite">';
+        echo '<table  class="tableWebVehicle">';
         echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
          echo '<tr rowspan="2">';
-            echo '<td colspan="3">
-            <img src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
+            echo '<td colspan="4">
+            <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
         echo '</tr>';
         if($dataVehicle['fix'] == 0) {
             echo '<tr>';
                 echo '<td colspan="3">';
                     $this->fixVehicleDataSheet ($dataVehicle['id'], $idNav);
+                    $this->formDeleteVehicleByOwner ($dataVehicle['id'], $idNav);
                 echo '</td>';
             echo '</tr>';
+        }
+        if($dataVehicle['fix']==1) {
+            echo '<tr>';
+            echo '<td colspan="3">';
+                $this->equiqVehicleDataSheet ($dataVehicle['id'], $idNav);
+                $this->formDeleteVehicleByOwner ($dataVehicle['id'], $idNav);
+            echo '</td>';
+        echo '</tr>';
         }
         echo '<tr>';
            
             echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
             echo '<td>DC : '.$this->getArray($this->dice, $dataVehicle['dc'], 'nameDice').'</td>';
-            echo '<td>Price : '.$dataVehicle['price'].' $<br/>
+            echo '<td colspan="2">Price : '.$dataVehicle['price'].' $<br/>
                         Type : '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</td>';
             echo '</tr>';
             echo '<tr>';
@@ -230,6 +290,9 @@ class TemplatesVehicles extends SQLvehicles
             $SR->displayAssignedSRforVehicle ($dataVehicle['id'], $idNav);
             $SR->displaySRforVehicle ($dataVehicle['id'], $idNav);
             
+        }
+        if($dataVehicle['fix'] == 2) {
+            $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
         }
     }
 
