@@ -54,14 +54,14 @@ $displayMiniatureForm = new templatesMiniatures ();
                     Close combat weapon
                     </summary>
             <h4>List Close combat weapon</h4>
-            <?php $listWeapon->listWeaponFactionForChoiseUser(0, $idMiniature, $idFaction, $idNav);?>
+            <?php $listWeapon->listWeaponFactionForChoiseUser(0, $idMiniature, $idFaction, $idNav, false);?>
                 </details>
                 <details>
                     <summary class="titleSite">
                     Shooting weapon
                     </summary>
                     <h4>List Shooting weapon</h4>
-                    <?php $listWeapon->listWeaponFactionForChoiseUser(1, $idMiniature, $idFaction, $idNav);?>
+                    <?php $listWeapon->listWeaponFactionForChoiseUser(1, $idMiniature, $idFaction, $idNav, false);?>
 
                 </details>
             <details>
@@ -69,7 +69,7 @@ $displayMiniatureForm = new templatesMiniatures ();
                     Explosive weapon
                     </summary>
                 <h4>List Explosive weapon</h4>
-                <?php $listWeapon->listWeaponFactionForChoiseUser(2, $idMiniature, $idFaction, $idNav);?>
+                <?php $listWeapon->listWeaponFactionForChoiseUser(2, $idMiniature, $idFaction, $idNav, false);?>
                 </details>
 
         <?php

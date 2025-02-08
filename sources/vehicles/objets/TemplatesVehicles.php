@@ -199,6 +199,7 @@ class TemplatesVehicles extends SQLvehicles
     }
     private function listVehicleChoiceGlobalWeapon ($idVehicle, $idNav) {
         $listWeapon = new TemplateWeaponsPublic ();
+        echo '<h2>Global Weapon</h2>';
         echo ' <article class="flex-colonne-form">';
             echo '<details>';
             echo '<summary class="titleSite">
@@ -229,6 +230,24 @@ class TemplatesVehicles extends SQLvehicles
              $listWeapon->listWeaponForChoiceUserGlobal (2, $idVehicle, $idNav, true);
         echo '</details>';
     echo '</article>';
+    }
+    private function listVehicleChoiceFactionWeapon ($idVehicle, $idNav, $idFaction)  {
+        $listWeapon = new TemplateWeaponsPublic ();
+        echo '<h2>Faction Weapon</h2>';
+        $weaponName = ['combat weapon', 'Shooting weapon',  'Explosive weapon'];
+        for ($i=0; $i <=2 ; $i++) { 
+            echo ' <article class="flex-colonne-form">';
+            echo '<details>';
+            echo '<summary class="titleSite">
+            '.$weaponName[$i].' weapon
+            </summary>
+                    <h4>List '.$weaponName[$i].' weapon</h4>';
+                    $listWeapon->listWeaponFactionForChoiseUser ($i, $idVehicle, $idFaction, $idNav, true);
+                echo '</details>';
+            echo '</article>';
+        }
+      
+     
     }
 
 
@@ -293,6 +312,7 @@ class TemplatesVehicles extends SQLvehicles
         }
         if($dataVehicle['fix'] == 2) {
             $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
+            $this->listVehicleChoiceFactionWeapon ($dataVehicle['id'], $idNav, $dataVehicle['idFaction']);
         }
     }
 
