@@ -645,6 +645,18 @@ select:disabled {
   justify-content: center;
   /*border: var(--color-blueOneChair) solid 1px;*/
 }
+.itemWeapon {
+    min-height: auto;
+    min-width: auto;
+    padding: 0.5em;
+    background: var(--color-chair);
+    color: rgb(32, 32, 32);
+    border-radius: var(--main-radiusInput);
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    border: var(--color-blueOneChair) solid 1px;
+}
 /*Variable CSS boutton*/
 
 /*Fin Maitre boutton*/

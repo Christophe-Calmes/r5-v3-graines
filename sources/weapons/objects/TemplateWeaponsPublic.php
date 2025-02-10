@@ -438,4 +438,20 @@ final class TemplateWeaponsPublic extends SQLWeapons
         }
         echo '</ul>';
     }
+    private function deleteWeaponVehicle ($idVehicle, $idWeapon, $idNav) {
+        echo '<form action="'.encodeRoutage(117).'" method="post">
+        <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
+        <input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete affected weapon</button>
+    </form>';
+    }
+    public function printVehicleWeaponUpdate ($idVehicle, $idNav) {
+        $idsWeaponOfVehicle = $this->getWeaponOfOnVehicleUpdate ($idVehicle);
+        foreach ($idsWeaponOfVehicle as $value) {
+            echo '<div class="itemWeapon">';
+            $this->printingOneWeapon ($value['idWeapon']);
+            $this->deleteWeaponVehicle ($idVehicle, $value['idWeapon'], $idNav);
+            echo '</div>';
+        }
+    }
 }

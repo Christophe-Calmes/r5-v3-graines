@@ -25,6 +25,19 @@ class SQLWeapons
             return $rateOfFire. ' / round';
         }
     }
+    protected function getWeaponOfOneVehiclePrintDataSheet ($idVehicle) {
+        $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`, `globalWeapon` 
+                    FROM `vehicleLinkWeapon` 
+                    INNER JOIN `weapons`ON `idWeapon` = `id`
+                    WHERE `idVehicle` = :idVehicle;";
+            $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+            return ActionDB::select($select, $param, 1);
+    }
+    protected function getWeaponOfOnVehicleUpdate ($idVehicle) {
+        $select = "SELECT `idWeapon` FROM `vehicleLinkWeapon` WHERE `idVehicle` = :idVehicle;";
+        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
+        return ActionDB::select($select, $param, 1);
+    }
     public function checkFactionCreatNewWeaponByUser ($idFaction) {
         $select = "SELECT COUNT(`id`) AS `numberOfFaction` 
         FROM `factions` 

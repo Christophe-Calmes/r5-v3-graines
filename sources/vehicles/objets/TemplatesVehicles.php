@@ -108,10 +108,8 @@ class TemplatesVehicles extends SQLvehicles
         echo '<label for="picture">Picture of vehicle ?</label>';
         echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
         echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';
-        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat new miniature</button>';
+        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update new vehicle</button>';
         echo '</form>';
-        
-        
     }
     private function getArray ($array, $index, $exitValue) {
         $index = $index - 1;
@@ -134,7 +132,7 @@ class TemplatesVehicles extends SQLvehicles
             echo '<article class="flex-center">';
             echo '<table  class="tableWebSite">';
              echo '<tr>';
-                echo '<th>Fix</th>';
+                echo '<th>Step</th>';
                 echo '<th>Name</th>';
                 echo '<th>Type</th>';
                 echo '<th>Vehicle size</th>';
@@ -171,11 +169,21 @@ class TemplatesVehicles extends SQLvehicles
                         break;
                     case 2:
                         echo '<td>
-                        <form action="'.encodeRoutage(109).'" method="post">
+                        <form action="'.encodeRoutage(118).'" method="post">
                         <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unequip</button>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Actice service</button>
                         </form>
                     </td>';
+                    break;
+                    case 3:
+                    echo '<td>
+                    <form action="'.encodeRoutage(119).'" method="post">
+                        <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Not active service</button>
+                        </form>
+
+                    </td>';
+                    break;
              
                 }
                 echo '<td>'.$value['nameVehicle'].'</td>';
@@ -249,12 +257,21 @@ class TemplatesVehicles extends SQLvehicles
       
      
     }
+    private function listOfVehicleWeapon ($idVehicle, $idNav) {
+        $dataWeaponVehicle = new TemplateWeaponsPublic ();
+        echo '<h3>List of affected weapon</h3>';
+        echo '<article class="gallery">';
+            $dataWeaponVehicle->printVehicleWeaponUpdate ($idVehicle, $idNav);
+        echo '</article>';
+
+    }
 
 
     public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);
         $dataVehicle = $dataVehicle[0];
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+
         echo '<article class="flex-center">';
         echo '<table  class="tableWebVehicle">';
         echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
@@ -311,6 +328,7 @@ class TemplatesVehicles extends SQLvehicles
             
         }
         if($dataVehicle['fix'] == 2) {
+            $this->listOfVehicleWeapon ($dataVehicle['id'], $idNav);
             $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
             $this->listVehicleChoiceFactionWeapon ($dataVehicle['id'], $idNav, $dataVehicle['idFaction']);
         }

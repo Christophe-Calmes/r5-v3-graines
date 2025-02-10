@@ -244,6 +244,17 @@ class SQLvehicles
         ActionDB::access($update, $param, 1);
         return true;
     }
+    public function InServiceVehicleByOwner ($param) {
+        $update = "UPDATE `vehicle` SET `fix`=3 WHERE `id` = :idVehicle;";
+        ActionDB::access($update, $param, 1);
+        return $this->factionVehicle ($param);
+    }
+    public function NotInServiceVehicleByOwner($param) {
+        $update = "UPDATE `vehicle` SET `fix`=1 WHERE `id` = :idVehicle;";
+        ActionDB::access($update, $param, 1);
+        return $this->factionVehicle ($param);
+    }
+
     private function factionVehicle ($param) {
         $select = "SELECT `idFaction` FROM `vehicle` WHERE `id` = :idVehicle;";
         $idFaction =  ActionDB::select($select, $param, 1);
@@ -319,7 +330,21 @@ class SQLvehicles
     public function addWeaponOnVehicle ($param, $weaponPrice) {
         $insert = "INSERT INTO `vehicleLinkWeapon`(`idVehicle`, `idWeapon`) VALUES (:idVehicle, :idWeapon);";
         ActionDB::access($insert, $param, 1);
-        print_r($param[1]['variable']);
         $this->updateVehiclePriceAddWeapon ($param[1]['variable'], $weaponPrice);
+    }
+    private function unequipWeaponVehicle ($param) {
+        array_pop($param);
+        $delete = "DELETE FROM `vehicleLinkWeapon` 
+        WHERE `idVehicle` = :idVehicle AND `idWeapon`=:idWeapon;";
+        ActionDB::access($delete, $param, 1);
+        return true;
+    }
+
+    public function substractWeaponVehicle ($param) {
+        $vhehiclePrice =  $this->getVehicleDirectPrice($param[1]['variable']);
+        $newPrice =   $vhehiclePrice / $param[2]['variable'];
+        $this->recordNewPrice ($param[1]['variable'], round($newPrice, 0));
+        $this->unequipWeaponVehicle ($param);
+        return true;
     }
 }

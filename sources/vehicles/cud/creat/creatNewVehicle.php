@@ -34,8 +34,6 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($mark, 1);
     array_push($controle_POST, $addVehicle->checkArray ($_POST[$arrayKeys[7]], 3));
     array_push($mark, 1);
-
-
 }
 
 if($controle_POST == $mark) {
