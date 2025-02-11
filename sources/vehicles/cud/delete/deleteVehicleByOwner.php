@@ -2,7 +2,6 @@
 // encodeRoutage(114)
 require ('../sources/vehicles/objets/SQLvehicles.php');
 $deleteVehicle = new SQLvehicles ();
-print_r($_POST);
 $arrayKeys = ['idVehicle'];
 $controle_POST = array();
 $mark = array();

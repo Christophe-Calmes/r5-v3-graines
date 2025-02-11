@@ -352,4 +352,13 @@ class SQLWeapons
         $price = ActionDB::select($select, $param, 1);
         return $price[0]['price'];
     }
+    protected function getWeaponOfOneVehicle($idVehicle) {
+        $select = "SELECT `idWeapon`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, 
+        `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`, 
+        `globalWeapon`  FROM `vehicleLinkWeapon` 
+        INNER JOIN `weapons` ON `id` = `idWeapon`
+        WHERE `idVehicle` = :idVehicle;";
+             $param = [['prep'=>'idVehicle', 'variable'=>$idVehicle]];
+             return ActionDB::select($select, $param, 1);
+    }
 }

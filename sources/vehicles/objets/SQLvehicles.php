@@ -10,10 +10,10 @@ class SQLvehicles
     protected $yes;
     public function __construct () {
         $this->yes = [['id'=>1, 'name'=> 'No'], ['id'=>2, 'name'=>'Yes']];
-        $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6'],
-        ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8'],
-        ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10'],
-        ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12']];
+        $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6', 'faces'=>6],
+        ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8', 'faces'=>8],
+        ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10', 'faces'=>10],
+        ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12', 'faces'=>12]];
         $this->armour = [['id'=>1, 'valueArmour' => 1.15, 'nameArmour'=> 'No armour'],
         ['id'=>2, 'valueArmour' => 1.30, 'nameArmour'=> '6+'],
         ['id'=>3, 'valueArmour' => 1.45, 'nameArmour'=> '5+'],

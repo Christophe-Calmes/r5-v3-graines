@@ -277,6 +277,10 @@ a {
 .open{
   width: 15vw;
 }
+.listRow {
+  display: inline-block;
+}
+
 
 .listClass {
   list-style: none;
@@ -959,6 +963,133 @@ nav {
   border: #151515 1px solid;
   filter: grayscale(100%);
 }
+/*GRID*/
+.printVehicle { 
+  width: 100%;
+  background-color: var(--main-background-navBar);
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Picture Name Type DQM Structure Armor Move"
+}
+
+
+.Picture { grid-area: Picture; }
+
+.Name { 
+  grid-area: Name;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+}
+  
+.titlePrintDataSheet {
+  font-weight: 500;
+  text-align: left;
+  font-size: 1.5em;
+}
+.Type { 
+  grid-area: Type;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  }
+
+.DQM { grid-area: DQM;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  }
+
+.Structure { grid-area: Structure;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  }
+
+.Armor { grid-area: Armor;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  }
+
+.Move { grid-area: Move;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  }
+
+.SpecialRules {  
+  display: flex;
+  width: fit-content;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  background-color: var(--main-background-navBar);
+  padding: 0.5em;
+}
+
+.NameRS {   
+  border: var(--main-border);
+    border-radius: var(--main-radius);
+    padding: 0.6em;
+    margin: 0.2em auto;
+    align-content: center;
+  
+}
+.TextRS {  
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  padding: 0.6em;
+  margin: 0.2em auto;
+  align-content: center;
+ 
+}
+
+.dataSheetWeapon {
+  width: fit-content;
+  display: flex;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  background-color: var(--main-background-navBar);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  margin-bottom: 0.5em;
+  }
+  .dataSheetWeapon div {
+    border: var(--main-border);
+    border-radius: var(--main-radius);
+    padding: 0.6em;
+    margin: 0.2em auto;
+    align-content: center;
+  }
+  
+
+
+
+
+
+/*GRID*/
+
+
 
 @media only screen and (max-width: 768px) {
   .smartPhone {

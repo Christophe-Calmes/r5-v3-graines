@@ -333,7 +333,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                     echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
                                 echo '</tr>';
                                 echo '<tr>';
-                                    echo '<td class="orange" colspan="4">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                                    echo '<td class="orange" colspan="4">Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
                                     echo '<td class="red" colspan="1">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                                 echo'</tr>';
                                 echo '<tr>';
@@ -453,5 +453,66 @@ final class TemplateWeaponsPublic extends SQLWeapons
             $this->deleteWeaponVehicle ($idVehicle, $value['idWeapon'], $idNav);
             echo '</div>';
         }
+    }
+    public function printVehicleWeaponDatasheet ($idVehicle, $face) {
+        $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
+        if($dataListWeapons) {
+            echo '<h4>Weapon vehicle</h4>';
+            foreach ($dataListWeapons  as $dataWeapon) {
+    
+                $overPower = null;
+                $damage = 1;
+                if($dataWeapon['overPower'] == 1) {
+                    $overPower = "+";
+                }
+                if($dataWeapon['overPower']) {
+                    $damage += $damage;
+                }
+                if($dataWeapon['heavy']) {
+                    $damage = $damage * 2;
+                }
+    
+                switch ($dataWeapon['typeWeapon']) {
+                    case 0:
+                        echo '<div class="dataSheetWeapon">
+                        <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                        <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
+                        <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+                        <div> Damage '.$damage.'</div>
+                    </div>';
+                        break;
+                    case 1:
+                        echo '<div class="dataSheetWeapon">
+                        <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                        <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
+                        <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+                        <div> Damage '.$damage.'</div>
+                        <div > Range : '.$dataWeapon['rangeWeapon'].'</div>
+                    </div>';
+                        break;
+                    case 2:
+                        echo '<div class="dataSheetWeapon">
+                            <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                            <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
+                            <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+                            <div> Damage '.$damage.'</div>
+                            <div > Range : '.$dataWeapon['rangeWeapon'].'</div>
+                            <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
+                            <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
+                            <div> Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
+                        </div>';
+                        break;
+    
+                }
+    
+        }
+        
+      
+
+            /*echo '<div class="NameRSWeapon"></div>
+            <div class="TextRSWeapon"></div>';
+            echo '</div>';*/
+        }
+       
     }
 }

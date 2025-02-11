@@ -265,74 +265,112 @@ class TemplatesVehicles extends SQLvehicles
         echo '</article>';
 
     }
+    public function printingOnServiceOneVehicle ($dataVehicle) {
+        //print_r($dataVehicle);
+        $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+        echo '<div class="printVehicle">
+                <div class="Picture"><img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></div>
+                <div class="Name"><div class="titlePrintDataSheet">Name</div>
+                <div>'.$dataVehicle['nameVehicle'].'</div>
+                <div class="titlePrintDataSheet">Price</div><div>'.$dataVehicle['price'].' $</div>    
+                </div>
+                <div class="Type"><div class="titlePrintDataSheet">Type</div>
+                <div> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div></div>
+                <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
+                <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div>'.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</div></div>
+                <div class="Armor"><div class="titlePrintDataSheet">Svg</div><div>'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
+                <div class="Move">
+                    <div class="titlePrintDataSheet">Move</div>
+                    <div>
+                    <ul class="listClass ">
+                        <li><strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
+                        <li>Fligth :  <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></li>
+                        <li>Stationnary fligth : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'<strong></li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+                </div>';
+               
+                $specialRulesVehicle = new TemplatesSpecialRules ();
+                
+                $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);
+                $listWeapon = new TemplateWeaponsPublic ();
+                $face = $this->getArray($this->dice, $dataVehicle['dc'], 'faces');
+                $listWeapon->printVehicleWeaponDatasheet ($dataVehicle['id'],  $face);
+                
+    }
 
 
     public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);
         $dataVehicle = $dataVehicle[0];
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
-
-        echo '<article class="flex-center">';
-        echo '<table  class="tableWebVehicle">';
-        echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
-         echo '<tr rowspan="2">';
-            echo '<td colspan="4">
-            <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
-        echo '</tr>';
-        if($dataVehicle['fix'] == 0) {
-            echo '<tr>';
+        if($dataVehicle['fix']<3) {
+            echo '<article class="flex-center">';
+            echo '<table  class="tableWebVehicle">';
+            echo '<caption><h4>'.$dataVehicle['nameVehicle'].'</h4></caption>';
+            echo '<tr rowspan="2">';
+                echo '<td colspan="4">
+                <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></td>';
+            echo '</tr>';
+            if($dataVehicle['fix'] == 0) {
+                echo '<tr>';
+                    echo '<td colspan="3">';
+                        $this->fixVehicleDataSheet ($dataVehicle['id'], $idNav);
+                        $this->formDeleteVehicleByOwner ($dataVehicle['id'], $idNav);
+                    echo '</td>';
+                echo '</tr>';
+            }
+            if($dataVehicle['fix']==1) {
+                echo '<tr>';
                 echo '<td colspan="3">';
-                    $this->fixVehicleDataSheet ($dataVehicle['id'], $idNav);
+                    $this->equiqVehicleDataSheet ($dataVehicle['id'], $idNav);
                     $this->formDeleteVehicleByOwner ($dataVehicle['id'], $idNav);
                 echo '</td>';
             echo '</tr>';
-        }
-        if($dataVehicle['fix']==1) {
+            }
             echo '<tr>';
-            echo '<td colspan="3">';
-                $this->equiqVehicleDataSheet ($dataVehicle['id'], $idNav);
-                $this->formDeleteVehicleByOwner ($dataVehicle['id'], $idNav);
-            echo '</td>';
-        echo '</tr>';
-        }
-        echo '<tr>';
-           
-            echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
-            echo '<td>DC : '.$this->getArray($this->dice, $dataVehicle['dc'], 'nameDice').'</td>';
-            echo '<td colspan="2">Price : '.$dataVehicle['price'].' $<br/>
-                        Type : '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>
-                    <ul>
-                        <li>Move : '.$moving[0].'" / '.$moving[1].' " + 1D4"</li>
-                        <li>Fligth :  '.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</li>
-                        <li>Stationnary fligth : '.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</li>
-                    </ul>
-                </td>';
-            echo '<td>Structure : '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</td>';
-            echo '<td colspan="2">Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
-          
-         echo '</tr>';
-        echo '</table>';
-        echo '</article>';
-        echo '<article>';
-        if($dataVehicle['fix'] == 0) {
-            $this->formUpdateOneVehicle ($dataVehicle, $idNav);
-        }  
-        echo '</article>';
-        if($dataVehicle['fix'] == 1) {
-            $SR = new TemplatesSpecialRules ();
-            $SR->displayAssignedSRforVehicle ($dataVehicle['id'], $idNav);
-            $SR->displaySRforVehicle ($dataVehicle['id'], $idNav);
             
+                echo '<td>DQM : '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</td>';
+                echo '<td>DC : '.$this->getArray($this->dice, $dataVehicle['dc'], 'nameDice').'</td>';
+                echo '<td colspan="2">Price : '.$dataVehicle['price'].' $<br/>
+                            Type : '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td>
+                        <ul>
+                            <li>Move : '.$moving[0].'" / '.$moving[1].' " + 1D4"</li>
+                            <li>Fligth :  '.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</li>
+                            <li>Stationnary fligth : '.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</li>
+                        </ul>
+                    </td>';
+                echo '<td>Structure : '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</td>';
+                echo '<td colspan="2">Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
+            
+            echo '</tr>';
+            echo '</table>';
+            echo '</article>';
+            echo '<article>';
+            if($dataVehicle['fix'] == 0) {
+                $this->formUpdateOneVehicle ($dataVehicle, $idNav);
+            }  
+            echo '</article>';
+            if($dataVehicle['fix'] == 1) {
+                $SR = new TemplatesSpecialRules ();
+                $SR->displayAssignedSRforVehicle ($dataVehicle['id'], $idNav);
+                $SR->displaySRforVehicle ($dataVehicle['id'], $idNav);
+                
+            }
+            if($dataVehicle['fix'] == 2) {
+                $this->listOfVehicleWeapon ($dataVehicle['id'], $idNav);
+                $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
+                $this->listVehicleChoiceFactionWeapon ($dataVehicle['id'], $idNav, $dataVehicle['idFaction']);
+            }
         }
-        if($dataVehicle['fix'] == 2) {
-            $this->listOfVehicleWeapon ($dataVehicle['id'], $idNav);
-            $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
-            $this->listVehicleChoiceFactionWeapon ($dataVehicle['id'], $idNav, $dataVehicle['idFaction']);
+        else {
+            $this->printingOnServiceOneVehicle ($dataVehicle);
         }
     }
-
 
 }

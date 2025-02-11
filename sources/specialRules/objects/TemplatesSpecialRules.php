@@ -400,5 +400,22 @@ Text ?
             echo '</article>';
         }
     }
+    public function printSpecialRulesVehicle ($idVehicle) {
+        $dataRSforVehicle = $this->getAssignedSpecialRuleVehicle ($idVehicle);
+         if(!empty($dataRSforVehicle)) {
+            echo '<h4>Special rules vehicle</h4>';
+            foreach($dataRSforVehicle as $value) {
+
+                echo'<ul class="SpecialRules">
+                        <li class="NameRS">'.$value['nameSpecialRules'].'</li>
+                        <li class="TextRS">'.$value['descriptionSpecialRules'].'</li>
+                     </ul>';
+                }
+         } else {
+            echo '<h4>No special rules vehicle</h4>';
+         }
+  
+        //echo '</div>';
+    }
  
 }
