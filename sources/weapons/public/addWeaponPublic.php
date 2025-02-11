@@ -6,23 +6,23 @@ $formWeapon = new TemplateWeaponsPublic ();
     <h3 class="titleSite">Add new weapon forms</h3>
     <details>
         <summary class="titleSite">
-            Close combat weapon
+            Armes de mêlée
         </summary>
-        <h4>Form Close combat weapon</h4>
+        <h4>Ajouter une armes de mêlée</h4>
         <?php $formWeapon->formCreatWeapon (0, $idNav) ?>
     </details>
     <details>
         <summary class="titleSite">
-            Shooting weapon
+            Arme de tir
         </summary>
-        <h4>Form Shooting weapon</h4>
+        <h4>Ajouter une arme de tir</h4>
         <?php $formWeapon->formCreatWeapon (1, $idNav) ?>
     </details>
     <details>
         <summary class="titleSite">
-            Explosive weapon
+            Arme explosive
         </summary>
-        <h4>Form Explosive weapon</h4>
+        <h4>Ajouter une arme explosive</h4>
         <?php $formWeapon->formCreatWeapon (2, $idNav) ?>
     </details>
 </article>

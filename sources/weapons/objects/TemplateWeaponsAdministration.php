@@ -35,7 +35,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                 $specialRules = $specialRules.$value['nameSpecialRules'].'.';
             }
         if(!empty($specialRules) ) {
-            echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
+            echo '<strong>Règle spéciale : '.substr($specialRules,0,-1).'</strong>';
         }
        
     }
@@ -43,20 +43,20 @@ class TemplateWeaponsAdministration extends SQLWeapons
         // A travailler
         $adressCreat = [75, 76, 77];
         echo '<article>';
-        echo '<h4>'.$this->weaponTypes[$typeOfWeapon].' weapon</h4>';
+        echo '<h4>Arme de '.$this->weaponTypes[$typeOfWeapon].'</h4>';
             echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$typeOfWeapon]).'" method="post">';
-                echo '<label class="labelFirstLetter" for="nameWeapon">Name of weapons</label>';
+                echo '<label class="labelFirstLetter" for="nameWeapon">Nom</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" placeholder="Name of weapon"/>';
-                $this->globalSelect ('Power of weapon','power', $this->powerType);
-                $this->globalSelect('overPower ?', 'overPower',$this->yes);
-                $this->globalSelect('Heavy weapon ?', 'heavy', $this->yes);
-                $this->globalSelect('Spell ?', 'spell',$this->yes);
+                $this->globalSelect ('Puissance','power', $this->powerType);
+                $this->globalSelect('Surpuissance ?', 'overPower',$this->yes);
+                $this->globalSelect('Arme lourde ?', 'heavy', $this->yes);
+                $this->globalSelect('Sort ?', 'spell',$this->yes);
                 if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
-                    $this->globalSelect('Assault weapon ?', 'assault',$this->yes);
-                    $this->globalSelect('Saturation weapon ?', 'saturation',$this->yes);
-                    echo '<label for="rateOfFire">Rate of fire :</label>';
+                    $this->globalSelect('Assaut ?', 'assault',$this->yes);
+                    $this->globalSelect('Saturation ?', 'saturation',$this->yes);
+                    echo '<label for="rateOfFire">Cadence de tir</label>';
                     echo '<input type="number" id="rateOfFire" name="rateOfFire" value="1" min="1" max="12"/>';
-                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range :</label>';
+                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Portée</label>';
                     echo '<input type="range" id="rangeWeapon'.$typeOfWeapon.'" value="10" name="rangeWeapon" min="0" max="120" step="2" oninput="updateRangeValue'.$typeOfWeapon.'()"/>';
                     echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">10</span> "</div>';
                     echo '<script>
@@ -67,10 +67,10 @@ class TemplateWeaponsAdministration extends SQLWeapons
                     </script>';
                 }
                 if($typeOfWeapon == 2) {
-                    $this->globalSelect('Blast Gabarit ?', 'templateType',$this->gabaritType);
-                    $this->globalSelect('Blast dice ?', 'blastDice',$this->blastDice);
+                    $this->globalSelect('Gabarit ?', 'templateType',$this->gabaritType);
+                    $this->globalSelect('Dé de puissance ?', 'blastDice',$this->blastDice);
                 }
-            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat weapon</button>';
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
             echo '</form>';
         echo '</article>';
        
@@ -80,23 +80,23 @@ class TemplateWeaponsAdministration extends SQLWeapons
         $adressCreat = [89, 90, 91];
         $typeOfWeapon = $dataWeapon['typeWeapon'];
         echo '<article>';
-         echo '<h4>Update : '.$this->weaponTypes[$dataWeapon['typeWeapon']].' weapon - '.$dataWeapon['nameWeapon'].'</h4>';
+         echo '<h4>Mettre à jour : arme de '.$this->weaponTypes[$dataWeapon['typeWeapon']].' - '.$dataWeapon['nameWeapon'].'</h4>';
         
             echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$dataWeapon['typeWeapon']]).'" method="post">';
-                echo '<label class="labelFirstLetter" for="nameWeapon">Name of weapons</label>';
+                echo '<label class="labelFirstLetter" for="nameWeapon">Nom</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" value="'.$dataWeapon['nameWeapon'].'"/>';
                
-                $this->globalSelected ('Power of weapon','power', $this->powerType, $dataWeapon['power']);
-                $this->globalSelected ('overPower ?', 'overPower',$this->yes, $dataWeapon['overPower']);
-                $this->globalSelected ('Heavy weapon ?', 'heavy', $this->yes, $dataWeapon['heavy']);
-                $this->globalSelected ('Spell ?', 'spell',$this->yes, $dataWeapon['spell']);
+                $this->globalSelected ('Puissance','power', $this->powerType, $dataWeapon['power']);
+                $this->globalSelected ('Surpuissance ?', 'overPower',$this->yes, $dataWeapon['overPower']);
+                $this->globalSelected ('Arme lourde ?', 'heavy', $this->yes, $dataWeapon['heavy']);
+                $this->globalSelected ('Sort ?', 'spell',$this->yes, $dataWeapon['spell']);
         
                 if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
-                    $this->globalSelected ('Assault weapon ?', 'assault',$this->yes, $dataWeapon['assault']);
-                    $this->globalSelected ('Saturation weapon ?', 'saturation',$this->yes, $dataWeapon['saturation']);
-                    echo '<label for="rateOfFire">Rate of fire :</label>';
+                    $this->globalSelected ('Assaut ?', 'assault',$this->yes, $dataWeapon['assault']);
+                    $this->globalSelected ('Saturation ?', 'saturation',$this->yes, $dataWeapon['saturation']);
+                    echo '<label for="rateOfFire">Cadence de tir</label>';
                     echo '<input type="number" id="rateOfFire" name="rateOfFire" value="'.$dataWeapon['rateOfFire'].'" min="1" max="12"/>';
-                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range :</label>';
+                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Portée</label>';
                     echo '<input type="range" id="rangeWeapon'.$typeOfWeapon.'" value="'.$dataWeapon['rangeWeapon'].'" name="rangeWeapon" min="0" max="120" step="2" oninput="updateRangeValue'.$typeOfWeapon.'()"/>';
                     echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">'.$dataWeapon['rangeWeapon'].'</span> "</div>';
                     echo '<script>
@@ -111,7 +111,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                     $this->globalSelected ('Blast dice ?', 'blastDice',$this->blastDice, $dataWeapon['blastDice']);
                 }
             echo '<input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>';
-            echo ' <button class="buttonForm green" type="submit" name="idNav" value="'.$idNav.'">Update weapon</button>';
+            echo ' <button class="buttonForm green" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
             echo '</form>';
         echo '</article>';
        
@@ -128,13 +128,13 @@ class TemplateWeaponsAdministration extends SQLWeapons
             echo '<article class="flex-center">';
             echo '<table class="tableWebSite">';
                 echo '<tr>';
-                    echo '<th>Name</th>';
-                    echo '<th>Power</th>';
+                    echo '<th>Nom</th>';
+                    echo '<th>Puissance</th>';
                     echo '<th>Type</th>';
-                    echo '<th>Price</th>';
+                    echo '<th>Prix</th>';
                     echo '<th>Fix</th>';
                     echo '<th>'.$messageFix[1].'</th>';
-                    echo '<th>Delete</th>';
+                    echo '<th>Effacer</th>';
                 echo '</tr>';
                 foreach ($dataWeapon as $value) {
                     $overPower = null;
@@ -154,7 +154,7 @@ class TemplateWeaponsAdministration extends SQLWeapons
                     echo '<td>
                         <form action="'.encodeRoutage(80).'" method="post">
                             <input type="hidden" name="idWeapon" value="'.$value['id'].'"/>
-                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
                         </form>
                     </td>';
                 echo '</tr>';
@@ -174,29 +174,29 @@ class TemplateWeaponsAdministration extends SQLWeapons
         }
         echo '<table class="tableCodex codexGrey">';
             echo '<tr>';
-                echo '<td>Owner : '.$dataWeapon['login'].'</td>';
-                echo '<td>Fix weapon :  '. $this->yes[$dataWeapon['fixe']].'</td>';
-                echo '<td>Valid weapon :  '. $this->yes[$dataWeapon['valid']].'</td>';
-                echo '<td>Price :  '. round($dataWeapon['price'], 2).'</td>';
+                echo '<td>Propriétaire : '.$dataWeapon['login'].'</td>';
+                echo '<td>Fix :  '. $this->yes[$dataWeapon['fixe']].'</td>';
+                echo '<td>Valid :  '. $this->yes[$dataWeapon['valid']].'</td>';
+                echo '<td>Prix :  '. round($dataWeapon['price'], 2).'</td>';
             echo'</tr>';
             echo'<tr>'; 
                 echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                 echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
-                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
+                echo '<td>Lourde : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.'</td>';
                 if($dataWeapon['typeWeapon'] > 0) {
                     $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
                     echo '<tr>';
-                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
-                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
-                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
-                        echo '<td>Rate of fire : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
+                        echo '<td class="green">Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assaut : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
                     echo'</tr>';
                 }
                 if($dataWeapon['typeWeapon'] > 1) {
                     echo '<tr>';
-                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                        echo '<td class="orange" colspan="2">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                     echo'</tr>';
                 }
             
@@ -223,21 +223,21 @@ class TemplateWeaponsAdministration extends SQLWeapons
             echo'<tr>'; 
                 echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                 echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
-                echo '<td>Heavy : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                echo '<td class="red">Power : '.$this->powerType[$dataWeapon['power']].$overPower.'  - Dammage/hit : '.$dammage.'</td>';
+                echo '<td>Lourde : '. $this->yes[$dataWeapon['heavy']].'</td>';
+                echo '<td class="red">Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.'  - Dammage/hit : '.$dammage.'</td>';
                 if($dataWeapon['typeWeapon'] > 0) {
                     $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
                     echo '<tr>';
-                        echo '<td class="green">Range : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
-                        echo '<td>Assault : '. $this->yes[$dataWeapon['assault']].'</td>';
-                        echo '<td>Saturation weapon : '. $this->yes[$dataWeapon['saturation']].'</td>';
-                        echo '<td>Rate of fire : '. $dataWeapon['rateOfFire'].'/ round</td>';
+                        echo '<td class="green">Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Assaut : '. $this->yes[$dataWeapon['assault']].'</td>';
+                        echo '<td>Saturation : '. $this->yes[$dataWeapon['saturation']].'</td>';
+                        echo '<td>Cadence de tir : '. $dataWeapon['rateOfFire'].'/ round</td>';
                     echo'</tr>';
                 }
                 if($dataWeapon['typeWeapon'] > 1) {
                     echo '<tr>';
-                        echo '<td class="orange" colspan="2">Template type : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                        echo '<td class="orange" colspan="2">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td class="red" colspan="2">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                     echo'</tr>';
                 }
             

@@ -13,7 +13,7 @@ class SQLWeapons
         $this->powerType = ['1D', '2D', '3D', '4D', '5D', '6D'];
         $this->blastDice = ['D4', 'D6', 'D8', 'D10', 'D12'];
         $this->PowerBlastDice = [1, 2, 3, 4, 5, 6];
-        $this->yes = ['No', 'Yes'];
+        $this->yes = ['Non', 'Oui'];
     }
     protected function rateOfFire ($rateOfFire) {
         if ($rateOfFire == 0) {

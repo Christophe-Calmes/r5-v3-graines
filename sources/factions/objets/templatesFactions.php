@@ -4,7 +4,7 @@ class templatesFactions extends SQLFactions
 {
     private function selectUnivers () {
         $dataUnivers = $this->listOfYourUnivers (1);
-        echo '<label for="idUnivers">Univers of your new faction</label>';
+        echo '<label for="idUnivers">Nouvelle faction</label>';
         echo '<select id="idUnivers" name="idUnivers">';
             foreach ($dataUnivers as $value) {
                 echo '<option value="'.$value['idUnivers'].'">'.$value['nameUnivers'].' - TL '.$value['nt'].'</option>';
@@ -13,7 +13,7 @@ class templatesFactions extends SQLFactions
     }
     public function formFactionPublic ($idNav) {
         echo '<form class="customerForm" action="'.encodeRoutage(69).'" method="post">';
-        echo '<label for="nomFaction">Name Faction :</label>';
+        echo '<label for="nomFaction">Nom de faction</label>';
         echo '<input id="nomFaction" name="nomFaction" placeholder="New name faction"/>';
         $this->selectUnivers ();
         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news faction</button>';
@@ -22,10 +22,10 @@ class templatesFactions extends SQLFactions
     }
     public function displayFactionAdmin ($idNav, $type) {
         if($type == 0) {
-            $message = "Delete";
+            $message = "Effacer";
             $adress = 70;
         } else {
-            $message = "Update";
+            $message = "Mettre à jour";
             $adress = 71;
         }
         $listOfUserUnivers = $this->listOfYourUnivers (1);
@@ -39,7 +39,7 @@ class templatesFactions extends SQLFactions
                         echo '<form class="formItem" action="'.encodeRoutage($adress).'" method="post">';
                         echo '<strong>'.$value['nomFaction'].'</strong>';
                         if($type == 1) {
-                            echo '<label for="nomFaction">Name Faction :</label>';
+                            echo '<label for="nomFaction">Nom de faction</label>';
                             echo '<input id="nomFaction" name="nomFaction" value="'.$value['nomFaction'].'"/>';
                         }
                         echo '<input type="hidden" name="id" value="'.$value['idFaction'].'"/>';
@@ -56,19 +56,19 @@ class templatesFactions extends SQLFactions
     public function listOfUserFaction ($type) {
         switch ($type) {
             case 0:
-                $message = "See all weapons";
+                $message = "Voir toute les armes";
                 $adress = 180;
                 break;
             case 1 :
-                $message = "See all miniatures";
+                $message = "Voir toute les figurines";
                 $adress = 187;
                     break;
             case 2 :
-                $message = "See all miniatures";
+                $message = "Voir toute les figurines";
                 $adress = 191;
                     break;
             case 3 :
-                $message = "See all vehicles";
+                $message = "Voir toute les vehicules";
                 $adress = 195;
                     break;
         }

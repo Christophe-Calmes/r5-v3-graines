@@ -7,7 +7,7 @@ $displayWeapon = new TemplateWeaponsPublic ();
 $dataSR = new TemplatesSpecialRules ();
 echo '<article class="flex-rows">';
 echo '<div>';
-echo '<h3>Admin display</h3>';
+echo '<h3>Administration et affichage</h3>';
 $dataFix = $displayWeapon->displayOneWeapon ($idWeapon);
 echo '<br/>';
 if($dataFix[0] == 0) {
@@ -19,19 +19,19 @@ if($dataFix[0] == 0) {
 include 'javaScript/magicButtonMenus.php';
 echo'<form action="'.encodeRoutage(95).'" method="post">
 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix weapon</button>
+<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
 </form>';
 } 
 if (($dataFix[0] == 1)&&($dataFix[1] == 0)) {
     echo'<form action="'.encodeRoutage(95).'" method="post">
     <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix weapon</button>
+    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
     </form>';
 }
 echo '</div>';
 echo '</div>';
 echo '<div>';
-    echo '<h3>Printing display</h3>';
+    echo '<h3>Afficher la fiche</h3>';
     $displayWeapon->printingOneWeapon ($idWeapon);
     echo '</div>';
     echo '</article>';
