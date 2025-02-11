@@ -526,6 +526,7 @@ select:disabled {
   border-radius: var(--main-radius);
   border: var(--main-border);
   width: auto;
+  height: 100%;
 }
 
 /*Grid*/
@@ -971,11 +972,11 @@ nav {
   border-radius: var(--main-radius);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 15vh;
   gap: 0px 0px;
   grid-auto-flow: row;
-  grid-template-areas:
-    "Picture Name Type DQM Structure Armor Move"
+  grid-template-areas: "Picture Name Type DQM Structure Armor Move";
+  font-size: 0.8em;
 }
 
 
@@ -990,12 +991,35 @@ nav {
   justify-content: space-around;
   align-items: center; 
 }
-  
+.centerDatasheet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dataSheetBox {
+  border:var(--main-border);
+  border-radius: var(--main-radius);
+  padding: 0.5em;
+  width: 70%;
+  font-size: 0.8em;
+}
 .titlePrintDataSheet {
   font-weight: 500;
   text-align: left;
   font-size: 1.5em;
 }
+.flex-StructurePoints {
+  display: flex;
+  align-items: center;
+}
+.checkbox-no-Reactive {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  margin: 2px;
+}
+
+
 .Type { 
   grid-area: Type;
   border: var(--main-border);
@@ -1060,6 +1084,7 @@ nav {
   padding: 0.6em;
   margin: 0.2em auto;
   align-content: center;
+  text-align: justify;
  
 }
 

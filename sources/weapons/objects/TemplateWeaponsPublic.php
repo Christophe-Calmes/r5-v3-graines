@@ -86,6 +86,28 @@ final class TemplateWeaponsPublic extends SQLWeapons
         }
      
     }
+    private function displayResumeSRDataSheet ($idWeapon) {
+        $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
+        $specialRules = null;
+            foreach ($dataSR as $value) {
+                $specialRules = $specialRules.$value['nameSpecialRules'].'.';
+            }
+        if(!empty($specialRules) ) {
+            //echo '<strong>Special rules : '.substr($specialRules,0,-1).'</strong>';
+            //$this->textSR($dataSR);
+            if(!empty($dataSR)) {
+            foreach ($dataSR as $value) {
+                    echo'<ul class="SpecialRules">
+                    <li class="NameRS">'.$value['nameSpecialRules'].'</li>
+                    <li class="TextRS">'.$value['descriptionSpecialRules'].'</li>
+                 </ul>';
+                }
+            } else {
+                echo '<h4>No special rule for the weapon</h4>';
+            }
+        }
+     
+    }
 
     public function formCreatWeapon ($typeOfWeapon, $idNav) {
         
@@ -457,61 +479,57 @@ final class TemplateWeaponsPublic extends SQLWeapons
     public function printVehicleWeaponDatasheet ($idVehicle, $face) {
         $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
         if($dataListWeapons) {
-            echo '<h4>Weapon vehicle</h4>';
-            foreach ($dataListWeapons  as $dataWeapon) {
-    
-                $overPower = null;
-                $damage = 1;
-                if($dataWeapon['overPower'] == 1) {
-                    $overPower = "+";
-                }
-                if($dataWeapon['overPower']) {
-                    $damage += $damage;
-                }
-                if($dataWeapon['heavy']) {
-                    $damage = $damage * 2;
-                }
-    
-                switch ($dataWeapon['typeWeapon']) {
-                    case 0:
-                        echo '<div class="dataSheetWeapon">
-                        <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
-                        <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
-                        <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                        <div> Damage '.$damage.'</div>
-                    </div>';
-                        break;
-                    case 1:
-                        echo '<div class="dataSheetWeapon">
-                        <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
-                        <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
-                        <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                        <div> Damage '.$damage.'</div>
-                        <div > Range : '.$dataWeapon['rangeWeapon'].'</div>
-                    </div>';
-                        break;
-                    case 2:
-                        echo '<div class="dataSheetWeapon">
+            echo '<article class="dataSheetBox">';
+                echo '<h4>Weapon vehicle</h4>';
+                foreach ($dataListWeapons  as $dataWeapon) {
+        
+                    $overPower = null;
+                    $damage = 1;
+                    if($dataWeapon['overPower'] == 1) {
+                        $overPower = "+";
+                    }
+                    if($dataWeapon['overPower']) {
+                        $damage += $damage;
+                    }
+                    if($dataWeapon['heavy']) {
+                        $damage = $damage * 2;
+                    }
+        
+                    switch ($dataWeapon['typeWeapon']) {
+                        case 0:
+                            echo '<div class="dataSheetWeapon">
+                            <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                            <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
+                            <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+                            <div> Damage '.$damage.'</div>
+                        </div>';
+                            break;
+                        case 1:
+                            echo '<div class="dataSheetWeapon">
                             <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
                             <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
                             <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
                             <div> Damage '.$damage.'</div>
                             <div > Range : '.$dataWeapon['rangeWeapon'].'</div>
-                            <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
-                            <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
-                            <div> Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
                         </div>';
-                        break;
-    
-                }
-    
-        }
+                            break;
+                        case 2:
+                            echo '<div class="dataSheetWeapon">
+                                <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                                <div> Heavy : '. $this->yes[$dataWeapon['heavy']].'</div>
+                                <div> Power : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+                                <div> Damage '.$damage.'</div>
+                                <div > Range : '.$dataWeapon['rangeWeapon'].'</div>
+                                <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
+                                <div> Gabarit type : '.$this->gabaritType[$dataWeapon['templateType']].'</div>
+                                <div> Blast dice : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
+                            </div>';
+                            break;
         
-      
-
-            /*echo '<div class="NameRSWeapon"></div>
-            <div class="TextRSWeapon"></div>';
-            echo '</div>';*/
+                    }
+                    $this->displayResumeSRDataSheet ($dataWeapon['idWeapon']);
+        }
+        echo '</article>';
         }
        
     }

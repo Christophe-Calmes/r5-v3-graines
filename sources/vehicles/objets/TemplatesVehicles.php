@@ -149,6 +149,7 @@ class TemplatesVehicles extends SQLvehicles
              echo '</tr>';
             foreach($dataVehicle as $value) {
                 $moving = $this->movingSolveVehicle($value['moving']);
+                $message = 'Update vehicle';
                 echo '<tr>';
                 switch ($value['fix']) {
                     case 0:
@@ -158,6 +159,7 @@ class TemplatesVehicles extends SQLvehicles
                         <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
                         </form>
                     </td>';
+                        
                         break;
                     case 1:
                         echo '<td>
@@ -183,6 +185,7 @@ class TemplatesVehicles extends SQLvehicles
                         </form>
 
                     </td>';
+                    $message = 'Datasheet vehicle';
                     break;
              
                 }
@@ -197,7 +200,7 @@ class TemplatesVehicles extends SQLvehicles
                 echo '<td>'.$this->getArray($this->armour, $value['armor'], 'nameArmour').'</td>';
                 echo '<td>'.$this->getArray($this->structurePoint, $value['structurePoint'], 'Structure').'</td>';
                 echo '<td>'.$value['price'].' $</td>';
-                echo '<td><a href="'.findTargetRoute(196).'&idVehicle='.$value['id'].'">Update vehicle</a></td>';
+                echo '<td><a href="'.findTargetRoute(196).'&idVehicle='.$value['id'].'">'.$message.'</a></td>';
                 $this->formDeleteVehicleByOwner ($value['id'], $idNav);
                 echo '</tr>';
             }
@@ -265,9 +268,19 @@ class TemplatesVehicles extends SQLvehicles
         echo '</article>';
 
     }
+
+    private function StructurePoint ($structure) {
+        echo '<article class="flex-StructurePoints"><h4>Structure points</h4>';
+            for ($i=0; $i < $structure ; $i++) { 
+                echo '<div class="checkbox-no-Reactive"></div>';
+            }
+        echo '</article>';
+    }
     public function printingOnServiceOneVehicle ($dataVehicle) {
-        //print_r($dataVehicle);
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+        $structurePoint = $this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure');
+        echo '<section class="centerDatasheet">';
+        echo '<article class="dataSheetBox">';
         echo '<div class="printVehicle">
                 <div class="Picture"><img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></div>
                 <div class="Name"><div class="titlePrintDataSheet">Name</div>
@@ -277,7 +290,7 @@ class TemplatesVehicles extends SQLvehicles
                 <div class="Type"><div class="titlePrintDataSheet">Type</div>
                 <div> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div></div>
                 <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
-                <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div>'.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</div></div>
+                <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div>'.$structurePoint.'</div></div>
                 <div class="Armor"><div class="titlePrintDataSheet">Svg</div><div>'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
                 <div class="Move">
                     <div class="titlePrintDataSheet">Move</div>
@@ -298,7 +311,10 @@ class TemplatesVehicles extends SQLvehicles
                 $listWeapon = new TemplateWeaponsPublic ();
                 $face = $this->getArray($this->dice, $dataVehicle['dc'], 'faces');
                 $listWeapon->printVehicleWeaponDatasheet ($dataVehicle['id'],  $face);
-                
+                $this->StructurePoint ($structurePoint);
+      echo '</article>';
+     
+      echo '</section>';      
     }
 
 
