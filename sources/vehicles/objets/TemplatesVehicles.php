@@ -209,41 +209,23 @@ class TemplatesVehicles extends SQLvehicles
     }
     private function listVehicleChoiceGlobalWeapon ($idVehicle, $idNav) {
         $listWeapon = new TemplateWeaponsPublic ();
-        echo '<h2>Arme globale</h2>';
-        echo ' <article class="flex-colonne-form">';
+        echo '<h2>Armes de faction</h2>';
+        $weaponName = [' contact', 'tir',  'souffle'];
+        for ($i=0; $i <=2 ; $i++) { 
+            echo ' <article class="flex-colonne-form">';
             echo '<details>';
             echo '<summary class="titleSite">
-            Armes de contact
-         
+            Armes de '.$weaponName[$i].'
             </summary>
-                 <h4>Liste armes de contact</h4>';
-                 $listWeapon->listWeaponForChoiceUserGlobal (0, $idVehicle, $idNav, true);
-            echo '</details>';
-        echo '</article>';
-        echo ' <article class="flex-colonne-form">';
-            echo '<details>';
-            echo '<summary class="titleSite">
-            Armes de tir
-         
-            </summary>
-                 <h4>Liste armes de tir</h4>';
-                 $listWeapon->listWeaponForChoiceUserGlobal (1, $idVehicle, $idNav, true);
-            echo '</details>';
-        echo '</article>';
-        echo ' <article class="flex-colonne-form">';
-        echo '<details>';
-        echo '<summary class="titleSite">
-        Armes de souffle
-     
-        </summary>
-             <h4>Liste armes de souffle</h4>';
-             $listWeapon->listWeaponForChoiceUserGlobal (2, $idVehicle, $idNav, true);
-        echo '</details>';
-    echo '</article>';
+                    <h4>Liste armes de'.$weaponName[$i].' </h4>';
+                    $listWeapon->listWeaponForChoiceUserGlobal ($i, $idVehicle, $idNav, true);
+                echo '</details>';
+            echo '</article>';
+        }
     }
     private function listVehicleChoiceFactionWeapon ($idVehicle, $idNav, $idFaction)  {
         $listWeapon = new TemplateWeaponsPublic ();
-        echo '<h2>Faction Weapon</h2>';
+        echo '<h2>Armes de faction</h2>';
         $weaponName = [' contact', 'tir',  'souffle'];
         for ($i=0; $i <=2 ; $i++) { 
             echo ' <article class="flex-colonne-form">';
@@ -305,7 +287,6 @@ class TemplatesVehicles extends SQLvehicles
                 </div>';
                 $this->StructurePoint ($structurePoint);
                 $specialRulesVehicle = new TemplatesSpecialRules ();
-                
                 $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);
                 $listWeapon = new TemplateWeaponsPublic ();
                 $face = $this->getArray($this->dice, $dataVehicle['dc'], 'faces');

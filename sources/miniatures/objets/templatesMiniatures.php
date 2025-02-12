@@ -154,7 +154,7 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<th>PdV</th>';
                 echo '<th>Sauvegarde</th>';
                 echo '<th>Prix</th>';
-                echo '<th>VVoir</th>';
+                echo '<th>Voir</th>';
                 echo '<th>Mettre à jour</th>';
                 echo '<th>Effacer</th>';
              echo '</tr>';
@@ -239,7 +239,63 @@ class templatesMiniatures extends sqlMiniatures
         } else {
             echo '<article><a href="'.findTargetRoute(185).'">Ajouter une nouvelle figurine</a></article>';
         }
-       
+    }
+    public function displayOneMiniatureDatasheet ($idMiniature, $valid, $stick) {
+        $dataMiniature = $this->getOneMiniature ($idMiniature, $valid, $stick);
+        $dataMiniature = $dataMiniature[0];
+        $moving = $this->movingSolve ($dataMiniature['moving']);
+        $bonus = null;
+        $bonusSVG = null;
+        if($dataMiniature['typeTroop']>3) {
+            $bonus = '++';
+        }
+        if($dataMiniature['typeTroop']==5) {
+            $bonusSVG = '+';
+        }
+        echo '<section class="centerDatasheet">';
+            echo '<article class="dataSheetBox">';
+                echo '<div class="printVehicle">';
+                echo '<div class="Picture">
+                        <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataMiniature['namePicture'].'" alt="'.$dataMiniature['nameMiniature'].'"/>
+                        </div>';
+                echo '<div class="Name">
+                        <div class="titlePrintDataSheet">Nom</div>
+                        <div class="dataSheetInfoPrint">'.$dataMiniature['nameMiniature'].'
+                    </div>
+                    <div class="titlePrintDataSheet">Prix</div>
+                        <div class="dataSheetInfoPrint">'.round($dataMiniature['price'], 0).' $</div>    
+                </div>';
+                echo '<div class="Type">
+                        <div class="titlePrintDataSheet">Type</div>
+                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->typesTroupe, $dataMiniature['typeTroop'], 'nameTroupe').'</div>
+                    </div>';
+                echo '<div class="DQM"><div class="titlePrintDataSheet">DQM</div>
+                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataMiniature['dqm'], 'nameDice').$bonus.'</div>
+                     </div>';
+                echo '<div class="Structure"><div class="titlePrintDataSheet">Point de vie </div><div class="dataSheetInfoPrint">'.$this->getArray($this->healtPoint, $dataMiniature['healtPoint'], 'healtPoint').'</div></div>';   
+                
+                echo '<div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div>
+                        <div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataMiniature['armor'], 'nameArmour').$bonusSVG.'</div>
+                    </div>';
+                echo '               <div class="Move">
+                    <div class="titlePrintDataSheet">Mouvement</div>
+                    <div class="dataSheetInfoPrint">
+                    <ul class="listClass">
+                        <li><strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
+                        <li>Vol :  <strong>'.$this->getArray($this->yes, $dataMiniature['fligt'], 'name').'</strong></li>
+                        <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataMiniature['stationnaryFligt'], 'name').'<strong></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </div>
+                    </div>';
+            $specialRulesVehicle = new TemplatesSpecialRules ();
+            $specialRulesVehicle->printSpecialRulesMiniature ($idMiniature);
+            $listWeapon = new TemplateWeaponsPublic ();
+            $face = $this->getArray($this->dice, $dataMiniature['dc'], 'faces');
+            $listWeapon->printMiniatureWeaponDatasheet ($idMiniature, $face);
+            echo '</article>';
+        echo '</section>';
     }
     public function updateMiniatureByUser ($idMiniature, $valid, $idNav, $stick) {
         $data =  $this->getOneMiniature ($idMiniature, $valid, $stick);
@@ -282,6 +338,39 @@ class templatesMiniatures extends sqlMiniatures
                 <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Bon pour le service</button>
             </form>';
+    }
+    public function listMiniatureChoiceGlobalWeapon ($idMiniature, $idNav)  {
+        $listWeapon = new TemplateWeaponsPublic ();
+        echo '<h2>Armes globale</h2>';
+        $weaponName = [' contact', 'tir',  'souffle'];
+        for ($i=0; $i <=2 ; $i++) { 
+            echo ' <article class="flex-colonne-form">';
+            echo '<details>';
+            echo '<summary class="titleSite">
+            Armes de '.$weaponName[$i].'
+            </summary>
+                    <h4>Liste armes de'.$weaponName[$i].' </h4>';
+                    $listWeapon->listWeaponForChoiceUserGlobal ($i, $idMiniature, $idNav, false);
+                echo '</details>';
+            echo '</article>';
+        }
+    }
+
+    public function listMiniatureChoiceFactionWeapon ($idMiniature, $idNav, $idFaction)  {
+        $listWeapon = new TemplateWeaponsPublic ();
+        echo '<h2>Armes de faction</h2>';
+        $weaponName = [' contact', 'tir',  'souffle'];
+        for ($i=0; $i <=2 ; $i++) { 
+            echo ' <article class="flex-colonne-form">';
+            echo '<details>';
+            echo '<summary class="titleSite">
+            Armes de '.$weaponName[$i].'
+            </summary>
+                    <h4>Liste armes de'.$weaponName[$i].' </h4>';
+                    $listWeapon->listWeaponFactionForChoiseUser ($i, $idMiniature, $idFaction, $idNav, false);
+                echo '</details>';
+            echo '</article>';
+        }
     }
 
 }

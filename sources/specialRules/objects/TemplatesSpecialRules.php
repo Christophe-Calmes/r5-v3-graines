@@ -400,6 +400,24 @@ Texte ?
             echo '</article>';
         }
     }
+    public function printSpecialRulesMiniature ($idMiniature) {
+        $dataSRAssigned = $this->getAssignedSpecialRulesGenerale ($idMiniature, 1);
+        if(!empty($dataSRAssigned)) {
+            echo '<aside class="borderDataSheetWeapon">';
+            echo '<h3>Règles spéciales</h3>';
+            foreach($dataSRAssigned as $value) {
+                echo'<ul class="SpecialRules">
+                    <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
+                    <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
+                 </ul>';
+                }
+            echo '</aside>';
+        } else {
+            echo '<h4>Pas de règles spéciales</h4>';
+        }
+    }
+
+
     public function printSpecialRulesVehicle ($idVehicle) {
         $dataRSforVehicle = $this->getAssignedSpecialRuleVehicle ($idVehicle);
          if(!empty($dataRSforVehicle)) {

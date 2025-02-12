@@ -8,35 +8,34 @@ class sqlMiniatures
     protected $miniatureSize;
     protected $yes;
     public function __construct () {
-        $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6'],
-        ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8'],
-        ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10'],
-        ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12']];
+        $this->dice = [['id'=>1, 'valueDice'=> 2, 'nameDice'=> 'D6', 'faces'=>6],
+        ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8', 'faces'=>8],
+        ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10', 'faces'=>10],
+        ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12', 'faces'=>12]];
         $this->armour = [['id'=>1, 'valueArmour' => 0.8, 'nameArmour'=> 'No armour'],
         ['id'=>2, 'valueArmour' => 1.15, 'nameArmour'=> '6+'],
         ['id'=>3, 'valueArmour' => 1.40, 'nameArmour'=> '5+'],
         ['id'=>4, 'valueArmour' => 1.50, 'nameArmour'=> '4+'],
         ['id'=>5, 'valueArmour' => 1.70, 'nameArmour'=> '3+'],
         ['id'=>6, 'valueArmour' => 2, 'nameArmour'=> '2+'],];
-
         $this->healtPoint = [['id'=>1, 'valueHealtPoint'=>1, 'healtPoint'=> 1],
         ['id'=>2, 'valueHealtPoint'=>2, 'healtPoint'=> 2],
         ['id'=>3, 'valueHealtPoint'=> 4, 'healtPoint'=> 3],
         ['id'=>4, 'valueHealtPoint'=> 8, 'healtPoint'=> 4],
         ['id'=>5, 'valueHealtPoint'=> 16, 'healtPoint'=> 5],
         ['id'=>6, 'valueHealtPoint'=> 32, 'healtPoint'=> 6],];
-        $this->typesTroupe = [['id'=>1, 'valueTypeTroupe'=>1, 'nameTroupe'=>'Civilian', 'commandePoint'=>0.10],
-        ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscript soldier', 'commandePoint'=>0.4],
-        ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Regular soldier', 'commandePoint'=>0.6],
-        ['id'=>4, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Elite soldier', 'commandePoint'=>1.2],
-        ['id'=>5, 'valueTypeTroupe'=>16, 'nameTroupe'=>'Veteran soldier', 'commandePoint'=>1.4],
+        $this->typesTroupe = [['id'=>1, 'valueTypeTroupe'=>1, 'nameTroupe'=>'Civile', 'commandePoint'=>0.10],
+        ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscrit', 'commandePoint'=>0.4],
+        ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Régulier', 'commandePoint'=>0.6],
+        ['id'=>4, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Elite', 'commandePoint'=>1.2],
+        ['id'=>5, 'valueTypeTroupe'=>16, 'nameTroupe'=>'Vétéran', 'commandePoint'=>1.4],
         ['id'=>6, 'valueTypeTroupe'=>14, 'nameTroupe'=>'Officer', 'commandePoint'=>2],
-        ['id'=>7, 'valueTypeTroupe'=>18, 'nameTroupe'=>'Executive officer', 'commandePoint'=>2.4],];
-        $this->miniatureSize = [['id'=>1, 'valueSize'=> 2, 'NameSize'=>'Small'],
+        ['id'=>7, 'valueTypeTroupe'=>18, 'nameTroupe'=>'Officier suppérieur', 'commandePoint'=>2.4],];
+        $this->miniatureSize = [['id'=>1, 'valueSize'=> 2, 'NameSize'=>'Petit'],
         ['id'=>2, 'valueSize'=> 2.5, 'NameSize'=>'Standard'],
-        ['id'=>3, 'valueSize'=> 4, 'NameSize'=>'Large miniature'],
-        ['id'=>4, 'valueSize'=> 3, 'NameSize'=>'Giant']];
-        $this->yes = [['id'=>1, 'name'=> 'No'], ['id'=>2, 'name'=>'Yes']];
+        ['id'=>3, 'valueSize'=> 4, 'NameSize'=>'Grande'],
+        ['id'=>4, 'valueSize'=> 3, 'NameSize'=>'Géant']];
+        $this->yes = [['id'=>1, 'name'=> 'Non'], ['id'=>2, 'name'=>'Oui']];
     }
 
     public function checkYes ($id) {

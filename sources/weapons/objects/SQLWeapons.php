@@ -361,4 +361,11 @@ class SQLWeapons
              $param = [['prep'=>'idVehicle', 'variable'=>$idVehicle]];
              return ActionDB::select($select, $param, 1);
     }
+    protected function getWeaponOfOneDataSheetMiniature ($idMiniature) {
+        $select = "SELECT `id` AS `idWeapon`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`, `globalWeapon`  FROM `miniatureLinkWeapons` 
+                    INNER JOIN `weapons` ON `id` = `idWeapon`
+                    WHERE `idminiature` = :idminiature;";
+            $param = [['prep'=>':idminiature', 'variable'=>$idMiniature]];
+            return ActionDB::select($select, $param, 1);    
+    }
 }

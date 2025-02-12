@@ -43,9 +43,10 @@ class TemplateUnivers extends SQLUnivers
             echo '<label for="nt">Niveau Technologique (NT)</label>';
             echo '<select for="nt" name="nt">';
                 for ($i=0; $i <count($this->nt) ; $i++) { 
-                    echo '<option value="'.$i.'">'.$this->nt[$i].'</option>';
                     if($i == 8) {
-                        echo '<option value="'.$i.'" selected>'.$this->nt[$i].'</option>';
+                        echo '<option value="'.$i.'" selected>8</option>';
+                    } else {
+                        echo '<option value="'.$i.'">'.$i.'</option>';
                     }
                 }
             echo '</select>';
