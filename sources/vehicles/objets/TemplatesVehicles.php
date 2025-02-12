@@ -303,14 +303,14 @@ class TemplatesVehicles extends SQLvehicles
                 </div>
                 </div>
                 </div>';
-               
+                $this->StructurePoint ($structurePoint);
                 $specialRulesVehicle = new TemplatesSpecialRules ();
                 
                 $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);
                 $listWeapon = new TemplateWeaponsPublic ();
                 $face = $this->getArray($this->dice, $dataVehicle['dc'], 'faces');
                 $listWeapon->printVehicleWeaponDatasheet ($dataVehicle['id'],  $face);
-                $this->StructurePoint ($structurePoint);
+                
       echo '</article>';
      
       echo '</section>';      

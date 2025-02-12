@@ -15,7 +15,7 @@ if($mark == $controle_POST) {
     $parametre = new preparation ();
     $param= $parametre->creationPrep ($_POST);
     $vehicleMiniatureTraitement->InServiceVehicleByOwner ($param);
-    return header('location:../index.php?idNav='.$idNav.'&message=Fixing success !&idVehicle='.filter($_POST[$arrayKeys[0]]));
+    return header('location:../index.php?idNav='.$idNav.'&message=Vehicule en service !&idVehicle='.filter($_POST[$arrayKeys[0]]));
 } else {
     return header('location:../index.php?idNav='.$idNav.'&message=fixing error');
 }
