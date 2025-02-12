@@ -156,6 +156,11 @@ a {
  .down {
   margin-top: 15vh;
  }
+ .borderDataSheetWeapon {
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  padding: 0.5em;
+ }
 
 /*Flex*/
 .hoursOfShopping {
@@ -1011,8 +1016,18 @@ nav {
   text-align: left;
   font-size: 1.5em;
 }
-.titlePrintDataSheet div {
-  color:#4f8b36;
+.dataSheetInfoPrint  {
+  padding-right: 0.2em;
+  font-size: 1.5em;
+}
+.fontWeigth {
+  font-weight: bold;
+}
+.margingLeft {
+  margin-left: 0.5em;
+}
+.fontSize {
+  font-size: 1em;
 }
 .flex-StructurePoints {
   display: flex;
@@ -1076,7 +1091,7 @@ nav {
   border: var(--main-border);
   border-radius: var(--main-radius);
   background-color: var(--main-background-navBar);
-  padding: 0.5em;
+  /*padding: 0.5em;*/
 }
 
 .NameRS {   

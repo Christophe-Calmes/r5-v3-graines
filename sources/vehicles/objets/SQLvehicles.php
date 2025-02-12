@@ -249,11 +249,8 @@ class SQLvehicles
         ActionDB::access($update, $param, 1);
         return $this->factionVehicle ($param);
     }
-    public function NotInServiceVehicleByOwner($param) {
-        $update = "UPDATE `vehicle` SET `fix`=1 WHERE `id` = :idVehicle;";
-        ActionDB::access($update, $param, 1);
-        return $this->factionVehicle ($param);
-    }
+
+
 
     private function factionVehicle ($param) {
         $select = "SELECT `idFaction` FROM `vehicle` WHERE `id` = :idVehicle;";
@@ -346,5 +343,25 @@ class SQLvehicles
         $this->recordNewPrice ($param[1]['variable'], round($newPrice, 0));
         $this->unequipWeaponVehicle ($param);
         return true;
+    }
+    private function cleanSRVehicle ($param) {
+        $delete = "DELETE FROM `vehicleLinkSpecialRules` WHERE `idVehicle` = :idVehicle;";
+        ActionDB::access($delete, $param, 1);
+        return true;
+    }
+    private function cleanWeaponVehicle ($param) {
+        $delete = "DELETE FROM `vehicleLinkWeapon` WHERE `idVehicle` = :idVehicle;";
+        ActionDB::access($delete, $param, 1);
+        return true;
+    }
+    public function NotInServiceVehicleByOwner($param) {
+        $dataVehicle = $this->getVehicleSolvePrice ($param);
+        $newPrice = $this->solveVehiclePrice($dataVehicle[0]);
+        $this->recordNewPrice ($param[0]['variable'], $newPrice);
+        $this->cleanSRVehicle ($param);
+        $this->cleanWeaponVehicle ($param);
+        $update = "UPDATE `vehicle` SET `fix`=1 WHERE `id` = :idVehicle;";
+        ActionDB::access($update, $param, 1);
+        return $this->factionVehicle ($param);
     }
 }

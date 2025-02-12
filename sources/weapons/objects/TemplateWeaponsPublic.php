@@ -94,9 +94,9 @@ final class TemplateWeaponsPublic extends SQLWeapons
         if(!empty($specialRules) ) {
             if(!empty($dataSR)) {
             foreach ($dataSR as $value) {
-                    echo'<ul class="SpecialRules">
-                    <li class="NameRS">'.$value['nameSpecialRules'].'</li>
-                    <li class="TextRS">'.$value['descriptionSpecialRules'].'</li>
+            echo'<ul class="SpecialRules">
+                    <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
+                    <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
                  </ul>';
                 }
             } else {
@@ -476,10 +476,10 @@ final class TemplateWeaponsPublic extends SQLWeapons
     public function printVehicleWeaponDatasheet ($idVehicle, $face) {
         $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
         if($dataListWeapons) {
-            echo '<article class="dataSheetBox">';
-                echo '<h4>Armes du véhicule</h4>';
+            echo '<article>';
+                echo '<h3>Armes du véhicule</h3>';
                 foreach ($dataListWeapons  as $dataWeapon) {
-        
+                    echo '<aside class="borderDataSheetWeapon">';
                     $overPower = null;
                     $damage = 1;
                     if($dataWeapon['overPower'] == 1) {
@@ -495,7 +495,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     switch ($dataWeapon['typeWeapon']) {
                         case 0:
                             echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
                             <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
                             <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
                             <div>Dommage '.$damage.'</div>
@@ -503,20 +503,20 @@ final class TemplateWeaponsPublic extends SQLWeapons
                             break;
                         case 1:
                             echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
                             <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
                             <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
                             <div>Dommage '.$damage.'</div>
-                            <div>Portée : '.$dataWeapon['rangeWeapon'].'</div>
+                            <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
                         </div>';
                             break;
                         case 2:
                             echo '<div class="dataSheetWeapon">
-                                <div class="titlePrintDataSheet">'.$dataWeapon['nameWeapon'].'</div>
+                                <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
                                 <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
                                 <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
                                 <div>Dommage '.$damage.'</div>
-                                <div>Portée: '.$dataWeapon['rangeWeapon'].'</div>
+                                <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>
                                 <div>Gabarit: '.$this->gabaritType[$dataWeapon['templateType']].'</div>
                                 <div>Dé de souffle: '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
                             </div>';
@@ -524,6 +524,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
         
                     }
                     $this->displayResumeSRDataSheet ($dataWeapon['idWeapon']);
+            echo '</aside>';
         }
         echo '</article>';
         }

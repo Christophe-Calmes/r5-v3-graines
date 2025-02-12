@@ -403,14 +403,16 @@ Texte ?
     public function printSpecialRulesVehicle ($idVehicle) {
         $dataRSforVehicle = $this->getAssignedSpecialRuleVehicle ($idVehicle);
          if(!empty($dataRSforVehicle)) {
-            echo '<h4>Règles spéciales du véhicule </h4>';
+            
+            echo '<aside class="borderDataSheetWeapon">';
+            echo '<h3>Règles spéciales du véhicule </h3>';
             foreach($dataRSforVehicle as $value) {
-
                 echo'<ul class="SpecialRules">
-                        <li class="NameRS">'.$value['nameSpecialRules'].'</li>
-                        <li class="TextRS">'.$value['descriptionSpecialRules'].'</li>
-                     </ul>';
+                    <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
+                    <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
+                 </ul>';
                 }
+            echo '</aside>';
          } else {
             echo '<h4>Pas de règles spéciales</h4>';
          }

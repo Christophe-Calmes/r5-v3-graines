@@ -122,7 +122,6 @@ class TemplatesVehicles extends SQLvehicles
                         </form></td>';
     }
     public function printListVehicle ($data, $idNav) {
-        //$data = ['idFaction', 'valid', 'fix'];
         $dataVehicle = $this->getVehicle ($data);
         
         if(empty($dataVehicle)) {
@@ -284,18 +283,18 @@ class TemplatesVehicles extends SQLvehicles
         echo '<div class="printVehicle">
                 <div class="Picture"><img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></div>
                 <div class="Name"><div class="titlePrintDataSheet">Nom</div>
-                <div>'.$dataVehicle['nameVehicle'].'</div>
-                <div class="titlePrintDataSheet">Prix</div><div>'.$dataVehicle['price'].' $</div>    
+                <div class="dataSheetInfoPrint">'.$dataVehicle['nameVehicle'].'</div>
+                <div class="titlePrintDataSheet">Prix</div><div class="dataSheetInfoPrint">'.$dataVehicle['price'].' $</div>    
                 </div>
                 <div class="Type"><div class="titlePrintDataSheet">Type</div>
-                <div> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div></div>
-                <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
-                <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div>'.$structurePoint.'</div></div>
-                <div class="Armor"><div class="titlePrintDataSheet">Svg</div><div>'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
+                <div class="dataSheetInfoPrint"> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div></div>
+                <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
+                <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div class="dataSheetInfoPrint">'.$structurePoint.'</div></div>
+                <div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div><div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
                 <div class="Move">
                     <div class="titlePrintDataSheet">Mouvement</div>
-                    <div>
-                    <ul class="listClass ">
+                    <div class="dataSheetInfoPrint">
+                    <ul class="listClass">
                         <li><strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
                         <li>Vol :  <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></li>
                         <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'<strong></li>
@@ -362,7 +361,7 @@ class TemplatesVehicles extends SQLvehicles
                         </ul>
                     </td>';
                 echo '<td>PdS : '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</td>';
-                echo '<td colspan="2">Svg : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
+                echo '<td colspan="2">Sauvegarde : '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</td>';
             
             echo '</tr>';
             echo '</table>';
@@ -379,9 +378,14 @@ class TemplatesVehicles extends SQLvehicles
                 
             }
             if($dataVehicle['fix'] == 2) {
+                echo ' <form action="'.encodeRoutage(120).'" method="post">
+                        <input type="hidden" name="idVehicle"  value="'.$dataVehicle['id'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre en service actif</button>
+                        </form>';
                 $this->listOfVehicleWeapon ($dataVehicle['id'], $idNav);
                 $this->listVehicleChoiceGlobalWeapon ($dataVehicle['id'], $idNav);
                 $this->listVehicleChoiceFactionWeapon ($dataVehicle['id'], $idNav, $dataVehicle['idFaction']);
+           
             }
         }
         else {
