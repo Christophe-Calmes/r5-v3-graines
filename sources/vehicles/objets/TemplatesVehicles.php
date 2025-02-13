@@ -9,7 +9,7 @@ class TemplatesVehicles extends SQLvehicles
     }
     private function globalSelect ($label, $fields, $array, $nameFields) {
         echo '<div class="flex-rows">';
-            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                 foreach ($array as $value) {
                     echo '<option value="'.$value['id'].'">'.$value[$nameFields].'</option>';
@@ -20,7 +20,7 @@ class TemplatesVehicles extends SQLvehicles
     private function globalSelected ($label, $fields, $array, $nameFields, $selected) {
     
         echo '<div class="flex-rows">';
-            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                foreach ($array as $value) {
                 if($selected == $value['id']) {
@@ -39,7 +39,7 @@ class TemplatesVehicles extends SQLvehicles
         echo '<h3>Nouveau véhicule</h3>';
         $factionMiniature->factionSelect ();
         echo '<label for="nameVehicle">Nom</label>';
-        echo '<input id="nameVehicle" name="nameVehicle" placeholder="Vehicle name"/>';
+        echo '<input id="nameVehicle" name="nameVehicle" placeholder="Nom du véhicule"/>';
         $this->globalSelect ('DQM', 'dqm', $this->dice, 'nameDice');
         $this->globalSelect ('DC', 'dc', $this->dice, 'nameDice');
         $this->globalSelect ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour');
