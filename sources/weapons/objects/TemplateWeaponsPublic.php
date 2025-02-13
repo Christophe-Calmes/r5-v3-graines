@@ -473,65 +473,39 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</div>';
         }
     }
-    public function printVehicleWeaponDatasheet ($idVehicle, $face) {
-        $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
-        if($dataListWeapons) {
-            echo '<article>';
-                echo '<h3>Armes du véhicule</h3>';
-                foreach ($dataListWeapons  as $dataWeapon) {
-                    echo '<aside class="borderDataSheetWeapon">';
-                    $overPower = null;
-                    $damage = 1;
-                    if($dataWeapon['overPower'] == 1) {
-                        $overPower = "+";
-                    }
-                    if($dataWeapon['overPower']) {
-                        $damage += $damage;
-                    }
-                    if($dataWeapon['heavy']) {
-                        $damage = $damage * 2;
-                    }
-        
-                    switch ($dataWeapon['typeWeapon']) {
-                        case 0:
-                            echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                            <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                            <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                            <div>Dommage '.$damage.'</div>
-                        </div>';
-                            break;
-                        case 1:
-                            echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                            <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                            <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                            <div>Dommage '.$damage.'</div>
-                            <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
-                        </div>';
-                            break;
-                        case 2:
-                            echo '<div class="dataSheetWeapon">
-                                <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                                <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                                <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                                <div>Dommage '.$damage.'</div>
-                                <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>
-                                <div>Gabarit: '.$this->gabaritType[$dataWeapon['templateType']].'</div>
-                                <div>Dé de souffle: '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
-                            </div>';
-                            break;
-        
-                    }
-                    $this->displayResumeSRDataSheet ($dataWeapon['idWeapon']);
-            echo '</aside>';
-        }
-        echo '</article>';
-        }
-       
+    private function closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face) {
+        echo '<div class="dataSheetWeapon">
+        <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
+        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+        <div>Dommage '.$damage.'</div>
+    </div>';
     }
-    public function printMiniatureWeaponDatasheet ($idMiniature, $face) {
-        $dataListWeapons = $this->getWeaponOfOneDataSheetMiniature ($idMiniature);
+    private function shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face) {
+        echo '<div class="dataSheetWeapon">
+        <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
+        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+        <div>Dommage '.$damage.'</div>
+        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
+        <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
+        <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
+    </div>';
+    }
+    private function explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face) {
+        echo '<div class="dataSheetWeapon">
+        <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
+        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
+        <div>Dommage '.$damage.'</div>
+        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
+        <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
+        <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>  
+        <div>Gabarit: '.$this->gabaritType[$dataWeapon['templateType']].'</div>
+        <div>Dé de souffle: '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
+    </div>';
+    }
+    private function displayWeaponDatasheet ($dataListWeapons, $face) {
         if($dataListWeapons) {
             echo '<article>';
                 echo '<h3>Armes</h3>';
@@ -552,32 +526,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
         
                     switch ($dataWeapon['typeWeapon']) {
                         case 0:
-                            echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                            <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                            <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                            <div>Dommage '.$damage.'</div>
-                        </div>';
+                            $this->closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face);
                             break;
                         case 1:
-                            echo '<div class="dataSheetWeapon">
-                            <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                            <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                            <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                            <div>Dommage '.$damage.'</div>
-                            <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
-                        </div>';
+                            $this->shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face);
                             break;
                         case 2:
-                            echo '<div class="dataSheetWeapon">
-                                <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-                                <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
-                                <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-                                <div>Dommage '.$damage.'</div>
-                                <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>
-                                <div>Gabarit: '.$this->gabaritType[$dataWeapon['templateType']].'</div>
-                                <div>Dé de souffle: '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
-                            </div>';
+                           $this->explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face);
                             break;
         
                     }
@@ -586,6 +541,15 @@ final class TemplateWeaponsPublic extends SQLWeapons
         }
         echo '</article>';
         }
+    }
+    public function printVehicleWeaponDatasheet ($idVehicle, $face) {
+        $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
+        $this->displayWeaponDatasheet ($dataListWeapons, $face);
+       
+    }
+    public function printMiniatureWeaponDatasheet ($idMiniature, $face) {
+        $dataListWeapons = $this->getWeaponOfOneDataSheetMiniature ($idMiniature);
+        $this->displayWeaponDatasheet ($dataListWeapons, $face);
        
     }
 }
