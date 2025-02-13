@@ -106,6 +106,12 @@ class SQLWeapons
         $check = ActionDB::select($select, $param, 1);
         return $check[0]['numberOfWeapon'];
     }
+    public function checkGlobalWeapon ($idWeapon) {
+        $select = "SELECT  `globalWeapon` FROM `weapons` WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $check = ActionDB::select($select, $param, 1);
+        return $check[0]['globalWeapon'];
+    }
     public function recordWeapon ($param) {
         $insert = "INSERT INTO `weapons`(`nameWeapon`, `idAuthor`,  `power`, `overPower`, `typeWeapon`, `heavy`, `spell`, `price`) 
         VALUES (:nameWeapon, :idUser,  :power, :overPower, :typeWeapon, :heavy, :spell, :price);";
@@ -367,5 +373,14 @@ class SQLWeapons
                     WHERE `idminiature` = :idminiature;";
             $param = [['prep'=>':idminiature', 'variable'=>$idMiniature]];
             return ActionDB::select($select, $param, 1);    
+    }
+    protected function getOneWeaponForDataSheet ($idWeapon) {
+        $select = "SELECT `id` AS `idWeapon` , `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, `spell`, `price`, `valid`, `fixe`, `globalWeapon` 
+        FROM `weapons` 
+        WHERE `id` = :idWeapon; AND `idAuthor` = :idUser;";
+        $checkUser = new Controles ();
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon],
+                ['prep'=>':idUser', 'variable'=>$checkUser->idUser($_SESSION)]];
+        return ActionDB::select($select, $param, 1);      
     }
 }

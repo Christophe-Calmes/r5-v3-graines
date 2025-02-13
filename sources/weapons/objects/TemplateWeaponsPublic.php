@@ -552,4 +552,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
         $this->displayWeaponDatasheet ($dataListWeapons, $face);
        
     }
+    public function printOneWeaponDatasheet ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponForDataSheet ($idWeapon);
+        $this->displayWeaponDatasheet ($dataWeapon, null);
+    }
 }
