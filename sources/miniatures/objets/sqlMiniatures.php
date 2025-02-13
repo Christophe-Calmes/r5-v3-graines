@@ -39,7 +39,7 @@ class sqlMiniatures
     }
 
     public function checkYes ($id) {
-        $index = array_search($id, array_column($this->dice, 'id'));
+        $index = array_search($id, array_column($this->yes, 'id'));
         if($index !== false) {
             return true;
         } 

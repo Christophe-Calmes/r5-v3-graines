@@ -1,5 +1,5 @@
-<h3>Liste des véhicules</h3>
+<h3>Listes de compagnies</h3>
 <?php
 require ('sources/factions/objets/templatesFactions.php');
 $listFactions = new templatesFactions ();
-$listFactions->listOfUserFaction (3);
+$listFactions->listOfUserFaction (4);

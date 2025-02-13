@@ -71,6 +71,11 @@ class templatesFactions extends SQLFactions
                 $message = "Voir toute les vehicules";
                 $adress = 195;
                     break;
+            case 4 : 
+                $message = "Voir toute les compagnies";
+                $adress = 199;
+
+                break;
         }
         $listOfUserUnivers = $this->listOfYourUnivers (1);
         echo '<article class="gallery">';

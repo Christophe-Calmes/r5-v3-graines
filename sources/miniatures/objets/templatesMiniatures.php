@@ -133,7 +133,7 @@ class templatesMiniatures extends sqlMiniatures
             echo '</article>';
         }
         
-        echo '<article><a href="'.findTargetRoute(185).'">Add news miniature</a></article>';
+        echo '<article><a href="'.findTargetRoute(185).'">Ajouter une nouvelle figurine</a></article>';
         
     }
     public function displayMiniatureOfOneFactionInService ($idFaction, $valid, $idNav) {
