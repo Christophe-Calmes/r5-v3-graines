@@ -29,4 +29,12 @@ class CUDFactions
        $update = "UPDATE `factions` SET `nomFaction`=:nomFaction WHERE `id` = :id AND `idAuthor` = :idUser;";
        ActionDB::access($update, $param, 1);
     }
+    public function factionOwner ($idFaction) {
+        $idUser = new Controles ();
+        $select = "SELECT COUNT(`id`) AS `nbrFaction` FROM `factions` WHERE `id` = :idFaction AND `idAuthor`= :idUser;";
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction],
+        ['prep'=>':idUser', 'variable'=>$idUser->idUser($_SESSION)]];
+        $check = ActionDB::select($select, $param, 1);
+        return $check[0]['nbrFaction'];
+    }
 }

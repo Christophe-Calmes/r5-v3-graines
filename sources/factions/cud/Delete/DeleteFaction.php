@@ -7,7 +7,6 @@ $arrayKey = ['id'];
 if(checkPostFields ($arrayKey, $_POST)) {
     array_push($controles_POST, $checkId->controleIntegerPK(filter($_POST[$arrayKey[0]])));
 }
-print_r($controles_POST);
 if ($controles_POST == [1]) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);

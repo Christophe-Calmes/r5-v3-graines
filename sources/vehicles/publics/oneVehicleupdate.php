@@ -3,4 +3,16 @@
 require ('sources/vehicles/objets/TemplatesVehicles.php');
 $idVehicle = filter($_GET['idVehicle']);
 $vehicleUpdate = new TemplatesVehicles ();
-$vehicleUpdate->printOneVehicle ($idVehicle, $idNav);
+switch ($vehicleUpdate->checkVehicleOwner ($idVehicle)) {
+    case 1:
+        $vehicleUpdate->printOneVehicle ($idVehicle, $idNav);
+        break;
+    
+    default:
+         header('location:index.php?message=Navigation error !');
+        break;
+}
+
+
+
+

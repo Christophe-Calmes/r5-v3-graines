@@ -181,21 +181,14 @@ Texte ?
     }
     public function PublicDisplayOneRS ($idRS, $idNav) {
         $dataOneRule = $this-> getOneRS ($idRS);
-        echo '<article>';
-            echo '<table class="tableWebSite">';
-                echo '<tr>';
-                    echo '<td>Type : '.$this->specialRulesType[$dataOneRule[0]['typeSpecialRules']].'</td>';
-                    echo '<td>Nom : '.$dataOneRule[0]['nameSpecialRules'].'</strong></td>';
-                echo '</tr>';
-                echo '<tr>';
-                        echo '<td colspan="2">'.$dataOneRule[0]['descriptionSpecialRules'].'</td>';
-                    echo '</tr>';
-                    echo '<tr>';
-                        echo '<td>Prix : '.$dataOneRule[0]['price'].'</td>';
-                        echo '<td>Valid : '.$this->yes[$dataOneRule[0]['valid']].'</td>';
-                    echo '</tr>';
-            echo '</table>';
-        echo '</article>';
+        $value = $dataOneRule[0];
+        echo '<aside class="borderDataSheetWeapon">';
+        echo '<h3>Règles spéciales imprimable</h3>';
+            echo'<ul class="SpecialRules">
+                <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
+                <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
+             </ul>';
+        echo '</aside>';
     }
     public function displaySpecialRulesForChoose ($typeRS, $valid, $idWeapon, $idNav, $type = 0) {
         $dataSpecialsRules = $this->getAllRSforAffectation ($typeRS, $valid, $idWeapon);
@@ -416,8 +409,6 @@ Texte ?
             echo '<h4>Pas de règles spéciales</h4>';
         }
     }
-
-
     public function printSpecialRulesVehicle ($idVehicle) {
         $dataRSforVehicle = $this->getAssignedSpecialRuleVehicle ($idVehicle);
          if(!empty($dataRSforVehicle)) {
@@ -434,7 +425,7 @@ Texte ?
          } else {
             echo '<h4>Pas de règles spéciales</h4>';
          }
-
     }
+
  
 }

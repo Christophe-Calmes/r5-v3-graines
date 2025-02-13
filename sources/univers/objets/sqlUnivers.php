@@ -67,5 +67,13 @@ class SQLUnivers
         $update = "UPDATE `univers` SET `nameUnivers`=:nameUnivers,`nt`=:nt WHERE `id`=:id AND `idAuthor`=:idUser;";
         return ActionDB::access($update, $param, 1);
     }
-
+    public function universOwner ($idUnivers) {
+        $select = "SELECT COUNT(`id`) AS `nbrUnivers` 
+                    FROM `univers` 
+                    WHERE `id` = :idUnivers AND `idAuthor` = :idUser;";
+              $param = [['prep'=>':idUnivers', 'variable'=>$idUnivers],
+              ['prep'=>':idUser', 'variable'=>$this->checkUserID ()]];
+        $checkUnivers = ActionDB::select($select, $param, 1);
+        return $checkUnivers[0]['nbrUnivers'];
+    }
 }
