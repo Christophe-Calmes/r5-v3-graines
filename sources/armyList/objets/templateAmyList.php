@@ -50,7 +50,12 @@ class TemplateAmyList extends SQLArmyList
                     echo '<td>'.$value['nameArmyList'].'</td>';
                     echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
                     echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
-                    echo '<td>'.$this->numbreOfVehicle ($value['id']).'</td>';
+                    if($value['skirmich'] == 1) {
+                        $message =  $this->numbreOfVehicle ($value['id']);
+                    } else {
+                        $message = 'Pas de véhicule';
+                    }
+                    echo '<td>'.$message.'</td>';
                     echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                     echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
                     echo '<td>Effacer</td>';
@@ -79,7 +84,12 @@ class TemplateAmyList extends SQLArmyList
                 echo '<td>'.$value['nameArmyList'].'</td>';
                 echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
                 echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
-                echo '<td>'.$this->numbreOfVehicle ($value['id']).'</td>';
+                if($value['skirmich'] == 1) {
+                    $message =  $this->numbreOfVehicle ($value['id']);
+                } else {
+                    $message = 'Pas de véhicule';
+                }
+                echo '<td>'.$message.'</td>';
                 echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                 echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
                 echo '<td>Effacer</td>';
