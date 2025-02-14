@@ -6,10 +6,9 @@ $checkFaction = new CUDFactions ();
 $creatArmyList = new SQLArmyList ();
 $arrayKeys = ['nameArmyList','idFaction','skirmich' ];
 $controle_POST = array();
-$mark = array();
+$mark = [0];
 if(checkPostFields($arrayKeys, $_POST)){
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[0]]), 60));
-    array_push($mark, 0);
     array_push($controle_POST, $checkFaction->factionOwner (filter($_POST[$arrayKeys[1]])));
     array_push($mark, 1);
     array_push($controle_POST, $creatArmyList->checkYes (filter($_POST[$arrayKeys[2]])));

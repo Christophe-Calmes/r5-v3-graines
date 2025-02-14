@@ -1,6 +1,8 @@
 <?php
 require('sources/armyList/objets/sqlArmyList.php');
 require ('sources/weapons/objects/TemplateWeaponsPublic.php');
+require_once ('sources/miniatures/objets/templatesMiniatures.php');
+require_once ('sources/vehicles/objets/TemplatesVehicles.php');
 class TemplateAmyList extends SQLArmyList 
 {
     private function globalSelect ($label, $fields, $array, $nameFields) {
@@ -49,8 +51,8 @@ class TemplateAmyList extends SQLArmyList
                     echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
                     echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
                     echo '<td>'.$this->numbreOfVehicle ($value['id']).'</td>';
-                    echo '<td>'.$this->listPrice ($value['id']).'</td>';
-                    echo '<td>Administration</td>';
+                    echo '<td>'.$this->listPrice ($value['id']).' $</td>';
+                    echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
                     echo '<td>Effacer</td>';
              echo '</tr>';
              }
@@ -58,5 +60,34 @@ class TemplateAmyList extends SQLArmyList
         } else {
             echo '<article><a href="'.findTargetRoute(198).'">Ajouter une compagnie</a></article>';
         }
-    } 
+    }
+    public function oneArmyListDashboard ($idArmyList) {
+        $value = $this->getOneArmyList ($idArmyList)[0];
+
+        echo '<article class="flex-center">';
+            echo '<table  class="tableWebSite">';
+            echo '<tr>';
+                echo '<th>Nom</th>';
+                echo '<th>Escarmouche</th>';
+                echo '<th>Nombre de figurine</th>';
+                echo '<th>Nombre de véhicule</th>';
+                echo '<th>Prix</th>';
+                echo '<th>Administration</th>';
+                echo '<th>Effacer</th>';
+            echo '</tr>';
+            echo '<tr>';
+                echo '<td>'.$value['nameArmyList'].'</td>';
+                echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
+                echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
+                echo '<td>'.$this->numbreOfVehicle ($value['id']).'</td>';
+                echo '<td>'.$this->listPrice ($value['id']).' $</td>';
+                echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
+                echo '<td>Effacer</td>';
+            echo '</tr>';
+            echo '</table>';
+        echo '</article>';
+        echo '<article class="flex-center">';
+
+        echo '</article>';
+    }
 }

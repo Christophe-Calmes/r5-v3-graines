@@ -1,7 +1,7 @@
 <?php
 require('sources/miniatures/objets/sqlMiniatures.php');
-require ('sources/weapons/objects/TemplateWeaponsPublic.php');
-require ('sources/specialRules/objects/TemplatesSpecialRules.php');
+require_once ('sources/weapons/objects/TemplateWeaponsPublic.php');
+require_once ('sources/specialRules/objects/TemplatesSpecialRules.php');
 class templatesMiniatures extends sqlMiniatures
 {
     private function globalSelect ($label, $fields, $array, $nameFields) {
@@ -371,6 +371,34 @@ class templatesMiniatures extends sqlMiniatures
                 echo '</details>';
             echo '</article>';
         }
+    }
+    private function formAddMiniatureInArmyList ($idMiniature, $idArmyList, $idNav, $nameMiniature) {
+        echo '<form action="'.encodeRoutage(122).'" method="post">';
+        echo '<h4>Ajouter '.$nameMiniature.'</h4>';
+        echo '<label for="nbr">Nombre</label>';
+        echo '<select name="nbr">';
+        for ($i=1; $i <=12 ; $i++) { 
+                echo '<option value="'.$i.'">'.$i.'</option>';
+        }
+        echo '</select>';
+        echo '<input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
+            <input type="hidden" name="idArmyList" value="'.$idArmyList.'"/>
+            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
+        </form>';
+    }
+
+    public function affectedMiniatureArmyList ($idFaction, $idArmyList, $idNav) {
+        $dataMiniature = $this->getAllIdMiniatureOfFactionForArmyList ($idFaction);
+        echo '<details>';
+        echo '<summary class="titleSite">';
+            echo 'Ajouter Figurines';
+        echo '</summary>';
+        echo '<h4>Ajouter des figurines</h4>';
+        foreach ($dataMiniature as  $value) {
+            $this->formAddMiniatureInArmyList ($value['id'], $idArmyList, $idNav, $value['nameMiniature'] );
+            $this->displayOneMiniatureDatasheet ($value['id'], $value['valid'], $value['stick']);
+        }
+        echo '</details>';
     }
 
 }

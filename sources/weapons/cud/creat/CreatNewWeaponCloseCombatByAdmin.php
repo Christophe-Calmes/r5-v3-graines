@@ -5,10 +5,9 @@ require ('../sources/weapons/objects/PriceOfWeapon.php');
 $creatNewWeapon = new SQLWeapons ();
 $arrayKeys =  ['nameWeapon', 'power', 'overPower', 'heavy', 'spell'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [0];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[0]]), 60));
-    array_push($mark, 0);
     array_push($controle_POST, $creatNewWeapon->checkTypePower (filter($_POST[$arrayKeys[1]])));
     array_push($mark, 1);
     for ($i=2; $i <=4 ; $i++) { 

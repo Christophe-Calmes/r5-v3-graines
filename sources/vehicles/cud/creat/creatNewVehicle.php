@@ -8,10 +8,9 @@ $addVehicle = new SQLvehicles ();
 
 $arrayKeys = ['idFaction','nameVehicle', 'dqm','dc', 'armor' ,'structurePoint', 'sizeVehicle' ,'typeVehicle', 'moving', 'fligt', 'stationnaryFligt'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $chekFaction->checkFactionCreatNewWeaponByUser (filter($_POST[$arrayKeys[0]])));
-    array_push($mark, 1);
     array_push($controle_POST, $addVehicle->controleMovingVehicle(filter($_POST[$arrayKeys[8]])));
     array_push($mark, 1);
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[1]]), 60));

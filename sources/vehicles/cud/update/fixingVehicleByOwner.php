@@ -4,11 +4,10 @@ require ('../sources/vehicles/objets/SQLvehicles.php');
 $vehicleMiniatureTraitement = new SQLvehicles ();
 $arrayKeys = ['idVehicle'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [1];
 
 if(checkPostFields ($arrayKeys, $_POST)) {
  array_push($controle_POST, $vehicleMiniatureTraitement -> checkVehicleOwner(filter($_POST[$arrayKeys[0]])));
- array_push($mark, 1);
 }
 
 if($mark == $controle_POST) {

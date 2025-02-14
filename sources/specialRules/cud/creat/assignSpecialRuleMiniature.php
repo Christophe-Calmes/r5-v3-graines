@@ -6,10 +6,9 @@ $affectedNewSpecialRule = new SQLspecialRules ();
 $miniatureCheck = new sqlMiniatures ();
 $arrayKeys = ['idMiniature', 'idSpecialRules'];
 $controle_POST = array();
-$mark  = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST))  {
     array_push($controle_POST, $affectedNewSpecialRule->checkSRexist (filter($_POST[$arrayKeys[1]])));
-    array_push($mark, 1);
     array_push($controle_POST, $miniatureCheck ->checkMiniatureOwner((filter($_POST[$arrayKeys[0]]))));
     array_push($mark, 1);
 }

@@ -364,4 +364,12 @@ class SQLvehicles
         ActionDB::access($update, $param, 1);
         return $this->factionVehicle ($param);
     }
+
+    protected function getAllVehicleOfFactionForArmyList ($idFaction) {
+        $select = "SELECT `id`, `idAuthor`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`, `price`, `namePicture`, `valid`, `fix` 
+        FROM `vehicle` 
+        WHERE `idFaction` = :idFaction AND `fix` = 3;";
+        $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

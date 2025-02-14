@@ -387,5 +387,13 @@ class sqlMiniatures
         }
         return false;
     }
-
+    protected function getAllIdMiniatureOfFactionForArmyList ($idFaction) {
+        $select = "SELECT `id`,`valid`, `stick`, `nameMiniature` 
+                    FROM `miniatures` 
+                    WHERE `idFaction` = :idFaction 
+                    AND `valid` = 1 
+                    AND `stick` = 2;";
+            $param =[['prep'=>':idFaction', 'variable'=>$idFaction]];
+            return ActionDB::select($select, $param, 1);
+    }
 }

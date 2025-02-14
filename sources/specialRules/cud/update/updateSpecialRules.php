@@ -4,10 +4,9 @@ require('../sources/specialRules/objects/SQLspecialRules.php');
 $UpdateSR = new SQLspecialRules ();
 $arrayKeys = [ 'idRS', 'typeSpecialRules', 'nameSpecialRules', 'descriptionSpecialRules', 'price', 'valid'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $UpdateSR->checkSRexist (filter($_POST[$arrayKeys[0]])));
-    array_push($mark, 1);
     array_push($controle_POST, $UpdateSR ->checkTypeRule (filter($_POST[$arrayKeys[1]])));
     array_push($mark, 1);
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[2]]), 80));

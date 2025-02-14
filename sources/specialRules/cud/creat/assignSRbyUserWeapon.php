@@ -6,10 +6,9 @@ $affectedNewSpecialRule = new SQLspecialRules ();
 $weaponCheck = new SQLWeapons ();
 $arrayKeys = ['idWeapon', 'idSpecialRules'];
 $controle_POST = array();
-$mark  = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST))  {
     array_push($controle_POST, $affectedNewSpecialRule->checkSRexist (filter($_POST[$arrayKeys[1]])));
-    array_push($mark, 1);
     array_push($controle_POST, $weaponCheck->checkWeaponExist (filter($_POST[$arrayKeys[0]])));
     array_push($mark, 1);
     array_push($controle_POST, $weaponCheck->checkWeaponOwner (filter($_POST[$arrayKeys[0]])));

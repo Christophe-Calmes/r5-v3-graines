@@ -4,7 +4,6 @@ require('sources/miniatures/objets/templatesMiniatures.php');
 $displayMiniature = new templatesMiniatures ();
 $idFaction = filter($_GET['idFaction']);
 $checkFaction = new SQLFactions ();
-$idFaction = filter($_GET['idFaction']);
 switch ($checkFaction->factionOwner ($idFaction)) {
     case 1:
         $displayMiniature->displayMiniatureOfOneFactionInService ($idFaction, 1, $idNav);

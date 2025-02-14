@@ -6,10 +6,9 @@ $miniatureTraitement = new sqlMiniatures ();
 $checkWeaponExist = new SQLWeapons ();
 $arrayKeys = ['idWeapon', 'idMiniature'];
 $controle_POST = array();
-$mark = array();
+$mark = [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $miniatureTraitement->checkOwnerMiniature(filter($_POST[$arrayKeys[1]])));
-    array_push($mark, 1);
     array_push($controle_POST, $checkWeaponExist->checkWeaponExist (filter($_POST[$arrayKeys[0]])));
     array_push($mark, 1);
 }

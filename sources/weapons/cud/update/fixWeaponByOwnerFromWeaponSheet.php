@@ -4,10 +4,9 @@ require('../sources/weapons/objects/SQLWeapons.php');
 $fixWeapon = new SQLWeapons ();
 $arrayKeys = ['idWeapon'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $fixWeapon->checkWeaponOwner (filter($_POST[$arrayKeys[0]])));
-    array_push($mark, 1);
 }
 if($mark == $controle_POST) {
     $parametre = new Preparation ();

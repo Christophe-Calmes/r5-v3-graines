@@ -7,10 +7,9 @@ $deleteVehicle = new SQLvehicles ();
 $checkWeaponExist = new SQLWeapons ();
 $arrayKeys = ['idWeapon', 'idVehicle'];
 $controle_POST = array();
-$mark = array();
+$mark  =  [1];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $deleteVehicle->checkVehicleOwner(filter($_POST[$arrayKeys[1]])));
-    array_push($mark, 1);
     array_push($controle_POST, $checkWeaponExist->checkWeaponExist (filter($_POST[$arrayKeys[0]])));
     array_push($mark, 1);
 }

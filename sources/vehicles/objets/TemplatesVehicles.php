@@ -1,7 +1,7 @@
 <?php
 require ('sources/vehicles/objets/SQLvehicles.php');
-require ('sources/weapons/objects/TemplateWeaponsPublic.php');
-require ('sources/specialRules/objects/TemplatesSpecialRules.php');
+require_once ('sources/weapons/objects/TemplateWeaponsPublic.php');
+require_once ('sources/specialRules/objects/TemplatesSpecialRules.php');
 class TemplatesVehicles extends SQLvehicles 
 {
     private function movingSolveVehicle ($move) {
@@ -372,6 +372,33 @@ class TemplatesVehicles extends SQLvehicles
         else {
             $this->printingOnServiceOneVehicle ($dataVehicle);
         }
+    }
+    private function formAddVehicleInArmyList ($idVehicle, $idArmyList, $idNav, $nameVehicle) {
+        echo '<form action="'.encodeRoutage(123).'" method="post">';
+        echo '<h4>Ajouter '.$nameVehicle.'</h4>';
+        echo '<label for="nbr">Nombre</label>';
+        echo '<select name="nbr">';
+        for ($i=1; $i <=4 ; $i++) { 
+                echo '<option value="'.$i.'">'.$i.'</option>';
+        }
+        echo '</select>';
+        echo '<input type="hidden" name="idVehicle" value="'.$idVehicle.'"/>
+            <input type="hidden" name="idArmyList" value="'.$idArmyList.'"/>
+            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
+        </form>';
+    }
+    public function affectedVehicleArmyList ($idFaction, $idArmyList, $idNav) {
+        $dataVehicle = $this->getAllVehicleOfFactionForArmyList ($idFaction);
+        echo '<details>';
+        echo '<summary class="titleSite">';
+            echo 'Ajouter Véhicules';
+        echo '</summary>';
+        echo '<h4>Ajouter des véhicules</h4>';
+        foreach ($dataVehicle  as $dataOneVehicle) {
+            $this->formAddVehicleInArmyList ($dataOneVehicle['id'], $idArmyList, $idNav, $dataOneVehicle['nameVehicle']);
+            $this-> printingOnServiceOneVehicle ($dataVehicle[0]);
+        }
+        echo '</details>';
     }
 
 }
