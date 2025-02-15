@@ -268,7 +268,11 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<div class="Type">
                         <div class="titlePrintDataSheet">Type</div>
                         <div class="dataSheetInfoPrint"> '.$this->getArray($this->typesTroupe, $dataMiniature['typeTroop'], 'nameTroupe').'</div>
+                        <div class="titlePrintDataSheet">Taille</div>
+                        <div class="dataSheetInfoPrint"> '.$this->getArray ($this->miniatureSize, $dataMiniature['miniatureSize'], 'NameSize') .'</div>
                     </div>';
+
+                    // 
                 echo '<div class="DQM"><div class="titlePrintDataSheet">DQM</div>
                         <div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataMiniature['dqm'], 'nameDice').$bonus.'</div>
                      </div>';
@@ -399,6 +403,13 @@ class templatesMiniatures extends sqlMiniatures
             $this->displayOneMiniatureDatasheet ($value['id'], $value['valid'], $value['stick']);
         }
         echo '</details>';
+    }
+    public function displayAffectedInListMiniature ($idList) {
+        $dataMiniatureOfOneList = $this->getAllMiniatureOfOneList ($idList);
+        print_r($dataMiniatureOfOneList);
+        //  [idMiniature] => 20 [nameMiniature] => Fusilier Ork [dc] => 2 [dqm] => 1 [moving] => 6 [fligt] => 1 [stationnaryFligt] => 1 [armor] => 2 [healtPoint] => 3 [price] => 444.84 [namePicture] => ElVkl2025orkSpace.webp [nbr] => 6 
+            
+        
     }
 
 }

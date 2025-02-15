@@ -269,7 +269,10 @@ class TemplatesVehicles extends SQLvehicles
                 <div class="titlePrintDataSheet">Prix</div><div class="dataSheetInfoPrint">'.$dataVehicle['price'].' $</div>    
                 </div>
                 <div class="Type"><div class="titlePrintDataSheet">Type</div>
-                <div class="dataSheetInfoPrint"> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div></div>
+                <div class="dataSheetInfoPrint"> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div>
+                <div class="titlePrintDataSheet">Type</div>
+                <div class="dataSheetInfoPrint"> '.$this->getArray($this->sizeVehicle, $dataVehicle['sizeVehicle'], 'NameSize').'</div>
+                </div>
                 <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
                 <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div class="dataSheetInfoPrint">'.$structurePoint.'</div></div>
                 <div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div><div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
@@ -285,6 +288,7 @@ class TemplatesVehicles extends SQLvehicles
                 </div>
                 </div>
                 </div>';
+                // '.$this->getArray($this->sizeVehicle, $value['sizeVehicle'], 'NameSize').'
                 $this->StructurePoint ($structurePoint);
                 $specialRulesVehicle = new TemplatesSpecialRules ();
                 $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);

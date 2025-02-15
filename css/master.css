@@ -977,7 +977,8 @@ nav {
   border-radius: var(--main-radius);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 15vh;
+  grid-template-rows: 20vh;
+  grid-template-columns: 25%;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas: "Picture Name Type DQM Structure Armor Move";
@@ -1142,6 +1143,7 @@ nav {
 
 
 @media only screen and (max-width: 768px) {
+  .Picture { display: none; }
   .smartPhone {
     display: block;
   }

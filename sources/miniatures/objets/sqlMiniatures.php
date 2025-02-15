@@ -396,4 +396,12 @@ class sqlMiniatures
             $param =[['prep'=>':idFaction', 'variable'=>$idFaction]];
             return ActionDB::select($select, $param, 1);
     }
+    protected function getAllMiniatureOfOneList ($idList) {
+        $select = "SELECT  `id` AS `idMiniature`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `armor`, `healtPoint`, `price`, `namePicture`, `nbr` 
+                    FROM `armyListLinkMiniature`
+                    INNER JOIN `miniatures` ON `id` = `idminiature`
+                    WHERE `idArmyList`= :idArmyList;";
+        $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

@@ -97,7 +97,6 @@ class TemplateAmyList extends SQLArmyList
             echo '</table>';
         echo '</article>';
         echo '<article class="flex-center">';
-
         echo '</article>';
     }
 }
