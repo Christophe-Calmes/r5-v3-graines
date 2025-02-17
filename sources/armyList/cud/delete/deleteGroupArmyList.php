@@ -7,7 +7,6 @@ $deleteMiniatureArmyList = new SQLArmyList ();
 $arrayKeys = ['idMiniature', 'idList', 'idJoinMiniatureArmyList'];
 $controle_POST = array();
 $mark = [1];
-print_r($_POST);
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $checkMiniature ->checkMiniatureOwner(filter($_POST[$arrayKeys[0]])));
     array_push($controle_POST, $deleteMiniatureArmyList->armyListOwner(filter($_POST[$arrayKeys[1]])));

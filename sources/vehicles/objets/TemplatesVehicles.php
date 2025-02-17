@@ -397,7 +397,7 @@ class TemplatesVehicles extends SQLvehicles
         echo '<summary class="titleSite">';
             echo 'Ajouter Véhicules';
         echo '</summary>';
-        echo '<h4>Ajouter des véhicules</h4>';
+       // echo '<h4>Ajouter des véhicules</h4>';
         foreach ($dataVehicle  as $dataOneVehicle) {
             $this->formAddVehicleInArmyList ($dataOneVehicle['id'], $idArmyList, $idNav, $dataOneVehicle['nameVehicle']);
             $this-> printingOnServiceOneVehicle ($dataVehicle[0]);
@@ -412,15 +412,16 @@ class TemplatesVehicles extends SQLvehicles
                     <input type="hidden" name="idJoinMiniatureArmyList" value="'.$data[2].'"/>
                     <button class="buttonForm" type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
                 </form>';
-        echo '</div>';
-}
-
-
-
+        echo '</div>';  
+    }
     public function displayAffectedInListVehicle ($idList, $idNav) {
        $dataVehicles = $this->getAllVehicleOfOneArmyList ($idList);
        if(!empty($dataVehicles)) {
-        echo '<h3>Détails des véhicules de la liste</h3>';
+        echo '<details>';
+        echo '<summary class="titleSite">';
+        echo 'Groupes de Véhicules';
+        echo '</summary>';
+        echo '<h3>Les véhicules</h3>';
        }
        foreach ($dataVehicles as $dataVehicle) {
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
@@ -444,13 +445,15 @@ class TemplatesVehicles extends SQLvehicles
         </div>
         <div class="Nbr">
         <div>Nombre '.$dataVehicle['nbr'].'</div>
-        <div>Prix du groupe  '.$groupPrice.' $</div>
-        <div>Prix individuel '.$dataVehicle['price'].' $</div>
+        <div>Prix du groupe  '.round($groupPrice, 0).' $</div>
+        <div>Prix individuel '.round($dataVehicle['price'], 0).' $</div>
         </div>';
         $dataForm = [$idList, $dataVehicle['idVehicle'], $dataVehicle['idGroup'], $idNav];
         $this->deleteGroupForm ($dataForm);
     echo '</div>';  
        }
+       echo '</details>';
+
     }
 
 }

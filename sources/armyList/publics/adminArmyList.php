@@ -17,7 +17,7 @@ function miniature ($parametreFunction, $miniatureList) {
     }
     //$miniatureList = new templatesMiniatures ();
     echo '<h3>Administration de la compagnie : '. $parametreFunction[5].' - '.$parametreFunction[1]->getNameArmyList ($parametreFunction[0]).' - '.$type.' </h3>';
-    $parametreFunction[1]->oneArmyListDashboard ($parametreFunction[0]);
+    $parametreFunction[1]->oneArmyListDashboard ($parametreFunction[0], $parametreFunction[2]);
     $miniatureList->affectedMiniatureArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2]);
 }
 function vehicle ($parametreFunction, $vehicleList) {

@@ -30,7 +30,13 @@ class TemplateAmyList extends SQLArmyList
         echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
         echo '</form>';
     }
-    public function ArmyListOfOneFaction ($idFaction) {
+    private function formDeleteList ($data) {
+        echo '<form action="'.encodeRoutage($data[2]).'" method="post">
+                <input type="hidden" name="idList" value="'.$data[0].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$data[1].'">Surpression liste</button>
+            </form>';
+}
+    public function ArmyListOfOneFaction ($idFaction, $idNav) {
         $dataList = $this->getArmyListOfOneFaction ($idFaction);
         if(!empty($dataList)) {
             echo '<h3>Liste des compagnies</h3>';
@@ -58,7 +64,9 @@ class TemplateAmyList extends SQLArmyList
                     echo '<td>'.$message.'</td>';
                     echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                     echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
-                    echo '<td>Effacer</td>';
+                    echo '<td>';
+                        $this->formDeleteList ([$value['id'], $idNav, 127]);
+                    echo'</td>';
              echo '</tr>';
              }
              echo '</table>'; 
@@ -66,9 +74,10 @@ class TemplateAmyList extends SQLArmyList
             echo '<article><a href="'.findTargetRoute(198).'">Ajouter une compagnie</a></article>';
         }
     }
-    public function oneArmyListDashboard ($idArmyList) {
-        $value = $this->getOneArmyList ($idArmyList)[0];
 
+    public function oneArmyListDashboard ($idArmyList, $idNav) {
+
+        $value = $this->getOneArmyList ($idArmyList)[0];
         echo '<article class="flex-center">';
             echo '<table  class="tableWebSite">';
             echo '<tr>';
@@ -77,7 +86,6 @@ class TemplateAmyList extends SQLArmyList
                 echo '<th>Nombre de figurine</th>';
                 echo '<th>Nombre de véhicule</th>';
                 echo '<th>Prix</th>';
-                echo '<th>Administration</th>';
                 echo '<th>Effacer</th>';
             echo '</tr>';
             echo '<tr>';
@@ -91,8 +99,9 @@ class TemplateAmyList extends SQLArmyList
                 }
                 echo '<td>'.$message.'</td>';
                 echo '<td>'.$this->listPrice ($value['id']).' $</td>';
-                echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
-                echo '<td>Effacer</td>';
+                echo '<td>';
+                    $this->formDeleteList ([$value['id'], $idNav, 126]);
+                echo '</td>';
             echo '</tr>';
             echo '</table>';
         echo '</article>';

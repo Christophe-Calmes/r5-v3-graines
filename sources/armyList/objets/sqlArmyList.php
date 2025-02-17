@@ -125,5 +125,21 @@ class SQLArmyList
         $param = [['prep'=>':id', 'variable'=>$idJoinArmyListMiniature]];
         return ActionDB::access($delete, $param, 1);
     }
-    
+    public function deleteVehicleGroupe ($idJoinArmyListVehicle) {
+        $delete = "DELETE FROM `armyListLinkVehicle` WHERE `id` = :id;";
+        $param = [['prep'=>':id', 'variable'=>$idJoinArmyListVehicle]];
+        return ActionDB::access($delete, $param, 1);
+    }
+    public function deleteList ($param) {
+        $delete = "DELETE FROM `armyListLinkMiniature` WHERE `idArmyList` = :idList;
+        DELETE FROM `armyListLinkSpecialRules` WHERE `idArmyList` = :idList;
+        DELETE FROM `armyListLinkMiniature` WHERE `idArmyList` = :idList;
+        DELETE FROM `armyList` WHERE `id` = :idList;";
+        
+        return ActionDB::access($delete, $param, 1);
+    }
+    public function getFactionOfOneArmy ($param) {
+        $select = "SELECT  `idFaction` FROM `armyList` WHERE `id` = :idList;";
+        return ActionDB::select($select, $param, 1)[0]['idFaction'];
+    }
 }

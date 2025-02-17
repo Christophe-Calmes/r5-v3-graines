@@ -397,7 +397,7 @@ class templatesMiniatures extends sqlMiniatures
         echo '<summary class="titleSite">';
             echo 'Ajouter Figurines';
         echo '</summary>';
-        echo '<h4>Ajouter des figurines</h4>';
+       // echo '<h4>Ajouter des figurines</h4>';
         foreach ($dataMiniature as  $value) {
             $this->formAddMiniatureInArmyList ($value['id'], $idArmyList, $idNav, $value['nameMiniature'] );
             $this->displayOneMiniatureDatasheet ($value['id'], $value['valid'], $value['stick']);
@@ -418,8 +418,13 @@ class templatesMiniatures extends sqlMiniatures
     public function displayAffectedInListMiniature ($idList, $idNav) {
         $dataMiniatureOfOneList = $this->getAllMiniatureOfOneList ($idList);
         if(!empty($dataMiniatureOfOneList)) {
+            echo '<details>';
+            echo '<summary class="titleSite">';
+            echo 'Groupes de Figurines';
+            echo '</summary>';
             echo '<h3>Détails des figurines de la liste</h3>';
            }
+
         foreach ($dataMiniatureOfOneList as $value) {
             $dataForm = [$idList, $value['idMiniature'], $value['idJoinMinitureArmyList'] ,$idNav];
             $moving = $this->movingSolve ($value['moving']);
@@ -451,12 +456,13 @@ class templatesMiniatures extends sqlMiniatures
                     </div>
                     <div class="Nbr">
                     <div>Nombre '.$value['nbr'].'</div>
-                    <div>Prix du groupe  '.$groupPrice.' $</div>
-                    <div>Prix individuel '.$value['price'].' $</div>
+                    <div>Prix du groupe  '.round($groupPrice, 0).' $</div>
+                    <div>Prix individuel '.round($value['price'], 0).' $</div>
                     </div>';
                         $this->deleteGroupForm ($dataForm);
                 echo '</div>';   
         }
+        echo '</details>';
     }
 
 }

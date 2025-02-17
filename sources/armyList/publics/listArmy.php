@@ -7,7 +7,7 @@ $armyList = new TemplateAmyList ();
 switch ($checkFaction->factionOwner ($idFaction)) {
     case 1:
         echo '<h3>Liste des compagnies '.$checkFaction->getNameFaction ($idFaction)[0]['nomFaction'].'</h3>';
-        $armyList->ArmyListOfOneFaction ($idFaction);
+        $armyList->ArmyListOfOneFaction ($idFaction, $idNav);
         break;
     
     default:

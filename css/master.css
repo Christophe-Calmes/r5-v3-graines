@@ -541,7 +541,8 @@ select:disabled {
 
 /*Grid*/
 
-.displayElementOfList {  display: grid;
+.displayElementOfList {  
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
@@ -550,23 +551,42 @@ select:disabled {
     "Identity Stat Move Nbr IndividualPrice";
 }
 
-.Identity { grid-area: Identity;
+.Identity { 
+  grid-area: Identity;
+  padding: 0.3em;
   border: var(--main-border);
-  border-radius: var(--main-radius); }
+  border-radius: var(--main-radius); 
+}
 
-.Stat { grid-area: Stat; 
+.Stat { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-area: Stat; 
   border: var(--main-border);
   border-radius: var(--main-radius);}
 
-.Move { grid-area: Move;     
+.Move {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  grid-area: Move;     
   border: var(--main-border);
   border-radius: var(--main-radius);}
 
-.Nbr { grid-area: Nbr;     
+.Nbr { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-area: Nbr;     
   border: var(--main-border);
   border-radius: var(--main-radius);}
 
-.IndividualPrice { grid-area: IndividualPrice; 
+.IndividualPrice { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-area: IndividualPrice; 
   border: var(--main-border);
   border-radius: var(--main-radius);}
 
