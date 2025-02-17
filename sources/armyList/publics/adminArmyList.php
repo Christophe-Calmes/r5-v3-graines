@@ -21,24 +21,24 @@ function miniature ($parametreFunction, $miniatureList) {
     $miniatureList->affectedMiniatureArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2]);
 }
 function vehicle ($parametreFunction, $vehicleList) {
-    
     $vehicleList->affectedVehicleArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2]);
 }
-function displayAffecterMiniature () {
 
-}
 $miniatureList = new templatesMiniatures ();
 switch ($cases) {
     case [1, 1]:
         // Battle
         $vehicleList = new TemplatesVehicles ();
-        $miniatureList->displayAffectedInListMiniature ($idArmyList);
-        miniature ($parametreFunction, $miniatureList);
-        vehicle ($parametreFunction, $vehicleList);
+            $miniatureList->displayAffectedInListMiniature ($idArmyList, $idNav);
+            $vehicleList->displayAffectedInListVehicle ($idArmyList, $idNav);
+            miniature ($parametreFunction, $miniatureList);
+            vehicle ($parametreFunction, $vehicleList);
+            
         break;
     case [1, 2] :
            // Skirmich
-        miniature ($parametreFunction, $miniatureList);
+           $miniatureList->displayAffectedInListMiniature ($idArmyList, $idNav);
+           miniature ($parametreFunction, $miniatureList);
         break;
     default:
    

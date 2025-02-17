@@ -285,9 +285,9 @@ class templatesMiniatures extends sqlMiniatures
                     <div class="titlePrintDataSheet">Mouvement</div>
                     <div class="dataSheetInfoPrint">
                     <ul class="listClass">
-                        <li><strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
+                        <li>Mouvement : <strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
                         <li>Vol :  <strong>'.$this->getArray($this->yes, $dataMiniature['fligt'], 'name').'</strong></li>
-                        <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataMiniature['stationnaryFligt'], 'name').'<strong></li>
+                        <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataMiniature['stationnaryFligt'], 'name').'</strong></li>
                     </ul>
                     </div>
                     </div>
@@ -404,13 +404,59 @@ class templatesMiniatures extends sqlMiniatures
         }
         echo '</details>';
     }
-    public function displayAffectedInListMiniature ($idList) {
+    private function deleteGroupForm ($data) {
+            echo '<div class="IndividualPrice">';
+                echo '<form action="'.encodeRoutage(124).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$data[1].'"/>
+                        <input type="hidden" name="idList" value="'.$data[0].'"/>
+                        <input type="hidden" name="idJoinMiniatureArmyList" value="'.$data[2].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
+                    </form>';
+            echo '</div>';
+    }
+
+    public function displayAffectedInListMiniature ($idList, $idNav) {
         $dataMiniatureOfOneList = $this->getAllMiniatureOfOneList ($idList);
-        print_r($dataMiniatureOfOneList);
-        //  [idMiniature] => 20 [nameMiniature] => Fusilier Ork [dc] => 2 [dqm] => 1 [moving] => 6 [fligt] => 1 [stationnaryFligt] => 1 [armor] => 2 [healtPoint] => 3 [price] => 444.84 [namePicture] => ElVkl2025orkSpace.webp [nbr] => 6 
-            
-        
+        if(!empty($dataMiniatureOfOneList)) {
+            echo '<h3>Détails des figurines de la liste</h3>';
+           }
+        foreach ($dataMiniatureOfOneList as $value) {
+            $dataForm = [$idList, $value['idMiniature'], $value['idJoinMinitureArmyList'] ,$idNav];
+            $moving = $this->movingSolve ($value['moving']);
+            $bonus = null;
+            $bonusSVG = null;
+            if($value['typeTroop']>3) {
+                $bonus = '++';
+            }
+            if($value['typeTroop']==5) {
+                $bonusSVG = '+';
+            }
+            $groupPrice = $value['nbr'] * $value['price'];
+            echo '<div class="displayElementOfList">
+                    <div class="Identity">
+                
+                    <div> <img class="imgMini" src="sources/pictures/miniaturesPictures/'.$value['namePicture'].'" alt="'.$value['nameMiniature'].'"/></div>
+                    <div>'.$value['nameMiniature'].'</div>
+                    </div>
+                    <div class="Stat">
+                        <div>DQM '.$this->getArray($this->dice, $value['dqm'], 'nameDice').$bonus.'</div>
+                        <div>DC '.$this->getArray ($this->dice, $value['dc'], 'nameDice') .'</div>
+                        <div>Svg '.$this->getArray($this->armour, $value['armor'], 'nameArmour').$bonusSVG.'</div>
+                        <div>PdV '.$this->getArray($this->healtPoint, $value['healtPoint'], 'healtPoint').'</div>
+                    </div>
+                    <div class="Move">
+                        <div>Mouvement <strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></div>
+                        <div>Vol <strong>'.$this->getArray($this->yes, $value['fligt'], 'name').'</strong></div>
+                        <div>Vol stationnaire <strong>'.$this->getArray($this->yes, $value['stationnaryFligt'], 'name').'</strong></div>
+                    </div>
+                    <div class="Nbr">
+                    <div>Nombre '.$value['nbr'].'</div>
+                    <div>Prix du groupe  '.$groupPrice.' $</div>
+                    <div>Prix individuel '.$value['price'].' $</div>
+                    </div>';
+                        $this->deleteGroupForm ($dataForm);
+                echo '</div>';   
+        }
     }
 
 }
-

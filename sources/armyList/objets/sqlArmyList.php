@@ -35,22 +35,28 @@ class SQLArmyList
         return ActionDB::select($select, $param, 1);
     }
     private function collectPriceMiniatureList ($idList) {
-        $select = "SELECT SUM(`price`) AS `totalMiniaturePrice`
+        $select = "SELECT `nbr`, `price` 
                     FROM `armyListLinkMiniature`
-                    INNER JOIN `miniatures` ON `idminiature` = `id`
-                    WHERE `idArmyList` = :idArmyList AND `stick` = 2;";
-        $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
-        $price = ActionDB::select($select, $param, 1);
-        return $price[0]['totalMiniaturePrice'];
+                    INNER JOIN `miniatures` ON `miniatures`.`id` = `idminiature`
+                    WHERE `idArmyList` = :idArmyList;";
+                $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+                $ListMiniaturePrice = ActionDB::select($select, $param, 1);
+                $priceList = array_sum(array_map(function ($value) {
+                    return $value['nbr'] * $value['price'];
+                }, $ListMiniaturePrice));
+        return $priceList;
     }
     private function collectPriceVehicleList ($idList) {
-        $select = "SELECT SUM(`price`) AS `totalVehiclePrice`
-            FROM `armyListLinkVehicle`
-            INNER JOIN `vehicle` ON `idVehicle` = `id`
-            WHERE `idArmyList` = :idArmyList AND `fix` = 3;";
+        $select  = "SELECT `nbr`, `price` 
+                    FROM `armyListLinkVehicle` 
+                    INNER JOIN `vehicle` ON  `vehicle`.`id` = `idVehicle`
+                    WHERE `idArmyList` = :idArmyList;";
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
-        $price = ActionDB::select($select, $param, 1);
-        return $price[0]['totalVehiclePrice'];
+        $ListVehiclesPrice = ActionDB::select($select, $param, 1);
+        $priceList = array_sum(array_map(function ($value) {
+            return $value['nbr'] * $value['price'];
+        }, $ListVehiclesPrice));
+        return $priceList;
     }
     private function collectPriceRSList ($idList) {
         $select = "SELECT SUM(`price`) AS `totalRSPrice` FROM `armyListLinkSpecialRules`
@@ -114,6 +120,10 @@ class SQLArmyList
         VALUES (:idVehicle, :idArmyList, :nbr);";
         return ActionDB::access($insert, $param, 1);
     }
-
+    public function deleteMiniatureGroupe ($idJoinArmyListMiniature) {
+        $delete = "DELETE FROM `armyListLinkMiniature` WHERE `id` = :id;";
+        $param = [['prep'=>':id', 'variable'=>$idJoinArmyListMiniature]];
+        return ActionDB::access($delete, $param, 1);
+    }
     
 }

@@ -372,4 +372,12 @@ class SQLvehicles
         $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
         return ActionDB::select($select, $param, 1);
     }
+    protected function getAllVehicleOfOneArmyList ($idList) {
+        $select = "SELECT `vehicle`.`id` AS `idVehicle`, `armyListLinkVehicle`.`id` AS `idGroup`, `idAuthor`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`, `price`, `namePicture`, `valid`, `fix`, `nbr`
+            FROM `armyListLinkVehicle` 
+            INNER JOIN `vehicle` ON `vehicle`.`id` = `armyListLinkVehicle`.`idVehicle`
+            WHERE `idArmyList` = :idArmyList;";
+            $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

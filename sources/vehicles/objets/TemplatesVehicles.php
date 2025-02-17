@@ -404,5 +404,53 @@ class TemplatesVehicles extends SQLvehicles
         }
         echo '</details>';
     }
+    private function deleteGroupForm ($data) {
+        echo '<div class="IndividualPrice">';
+            echo '<form action="'.encodeRoutage(125).'" method="post">
+                    <input type="hidden" name="idVehicle" value="'.$data[1].'"/>
+                    <input type="hidden" name="idList" value="'.$data[0].'"/>
+                    <input type="hidden" name="idJoinMiniatureArmyList" value="'.$data[2].'"/>
+                    <button class="buttonForm" type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
+                </form>';
+        echo '</div>';
+}
+
+
+
+    public function displayAffectedInListVehicle ($idList, $idNav) {
+       $dataVehicles = $this->getAllVehicleOfOneArmyList ($idList);
+       if(!empty($dataVehicles)) {
+        echo '<h3>Détails des véhicules de la liste</h3>';
+       }
+       foreach ($dataVehicles as $dataVehicle) {
+        $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+        $groupPrice = $dataVehicle['nbr'] * $dataVehicle['price'];
+        echo '<div class="displayElementOfList">
+        <div class="Identity">
+    
+        <div> <img class="imgMini" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></div>
+        <div>'.$dataVehicle['nameVehicle'].'</div>
+        </div>
+        <div class="Stat">
+            <div>DQM '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div>
+            <div>DC '.$this->getArray ($this->dice, $dataVehicle['dc'], 'nameDice') .'</div>
+            <div>Svg '.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div>
+            <div>PdV '.$this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure').'</div>
+        </div>
+        <div class="Move">
+            <div>Mouvement <strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></div>
+            <div>Vol <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></div>
+            <div>Vol stationnaire <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</strong></div>
+        </div>
+        <div class="Nbr">
+        <div>Nombre '.$dataVehicle['nbr'].'</div>
+        <div>Prix du groupe  '.$groupPrice.' $</div>
+        <div>Prix individuel '.$dataVehicle['price'].' $</div>
+        </div>';
+        $dataForm = [$idList, $dataVehicle['idVehicle'], $dataVehicle['idGroup'], $idNav];
+        $this->deleteGroupForm ($dataForm);
+    echo '</div>';  
+       }
+    }
 
 }
