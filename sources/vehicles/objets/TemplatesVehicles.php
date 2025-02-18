@@ -393,16 +393,17 @@ class TemplatesVehicles extends SQLvehicles
     }
     public function affectedVehicleArmyList ($idFaction, $idArmyList, $idNav) {
         $dataVehicle = $this->getAllVehicleOfFactionForArmyList ($idFaction);
-        echo '<details>';
-        echo '<summary class="titleSite">';
-            echo 'Ajouter Véhicules';
-        echo '</summary>';
-       // echo '<h4>Ajouter des véhicules</h4>';
-        foreach ($dataVehicle  as $dataOneVehicle) {
-            $this->formAddVehicleInArmyList ($dataOneVehicle['id'], $idArmyList, $idNav, $dataOneVehicle['nameVehicle']);
-            $this-> printingOnServiceOneVehicle ($dataVehicle[0]);
+        if(!empty($dataVehicle)){
+            echo '<details>';
+            echo '<summary class="titleSite">';
+                echo 'Ajouter Véhicules';
+            echo '</summary>';
+            foreach ($dataVehicle  as $dataOneVehicle) {
+                $this->formAddVehicleInArmyList ($dataOneVehicle['id'], $idArmyList, $idNav, $dataOneVehicle['nameVehicle']);
+                $this-> printingOnServiceOneVehicle ($dataVehicle[0]);
+            }
+            echo '</details>';
         }
-        echo '</details>';
     }
     private function deleteGroupForm ($data) {
         echo '<div class="IndividualPrice">';

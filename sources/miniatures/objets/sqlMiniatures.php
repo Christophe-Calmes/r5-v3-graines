@@ -281,7 +281,8 @@ class sqlMiniatures
         return $this->getFactionForOneMiniature ($idMiniature);
     }
     public function outOfServicingMiniature ($idMiniature) {
-        $update = "UPDATE `miniatures` SET  `stick`= 1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;";
+        $update = "UPDATE `miniatures` SET  `stick`= 1 WHERE `id` = :idMiniature AND `idAuthor` = :idUser;
+        DELETE FROM `armyListLinkMiniature` WHERE `idminiature` = :idMiniature;";
         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature], 
                     ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
         ActionDB::access($update, $param, 1);

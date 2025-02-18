@@ -298,6 +298,15 @@ class SQLWeapons
                 ['prep'=>':globalWeapon', 'variable'=>$global]];
         return ActionDB::select($select, $param, 1);
     }
+    protected function getWeaponNoFaction ($firstPage, $WeaponByPage) {
+        $select = "SELECT * 
+        FROM `weapons`
+        LEFT JOIN `factionsLinkWeapon` ON `weapons`.`id` = `idWeapon`
+        WHERE `idWeapon` IS NULL AND `globalWeapon` = 0
+        ORDER BY `typeWeapon`, `nameWeapon`
+        LIMIT {$firstPage}, {$WeaponByPage}";
+        return ActionDB::select($select, [], 1);
+    }
     protected function getOneWeaponAdmin ($idWeapon) {
         $select = "SELECT `id`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, `heavy`, `assault`, 
         `saturation`, `rateOfFire`, `templateType`, `rangeWeapon`, `blastDice`, 
@@ -382,5 +391,19 @@ class SQLWeapons
         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon],
                 ['prep'=>':idUser', 'variable'=>$checkUser->idUser($_SESSION)]];
         return ActionDB::select($select, $param, 1);      
+    }
+    public function nbrNoFactionWeapon () {
+        $select = "SELECT COUNT(`id`)AS `nbrWeaponNoFaction`
+            FROM `weapons`
+            LEFT JOIN `factionsLinkWeapon` ON `weapons`.`id` = `idWeapon`
+            WHERE `idWeapon` IS NULL AND `idAuthor` = :idUser AND `globalWeapon` = 0;";
+            $idUser = new Controles ();
+            $idUser = $idUser->idUser($_SESSION);
+            $param = [['prep'=>':idUser', 'variable'=>$idUser]];
+            return ActionDB::select($select, $param, 1)[0]['nbrWeaponNoFaction'];
+    }
+    public function affectedFactionAtWeapon ($param) {
+        $insert = "INSERT INTO `factionsLinkWeapon`(`idWeapon`, `idFaction`) VALUES (:idWeapon, :idFaction);";
+        ActionDB::access($insert, $param, 1);
     }
 }

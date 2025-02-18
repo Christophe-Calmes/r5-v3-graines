@@ -419,6 +419,56 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</article>';
        
     }
+    private function formAffectedFactionAtWeapon ($data) {
+        echo '<div class="flex-rows-simple borderDataSheetWeapon ">';
+        echo '<form action="'.encodeRoutage(128).'" method="post">';
+                    $this->factionSelect ();
+            echo'<input type="hidden" name="idWeapon" value="'.$data[1].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$data[0].'">Affecter faction</button>
+            </form>';
+            echo '<form action="'.encodeRoutage(85).'" method="post">
+                    <input type="hidden" name="idWeapon" value="'.$data[1].'"/>
+                    <button class="buttonForm" type="submit" name="idNav" value="'.$data[0].'">Effacer</button>
+                </form>';
+    echo '</div>';
+    }
+
+    public function displayWeaponNoFactaion ($firstPage, $WeaponByPage, $idNav)  {
+        $dataWeapon = $this->getWeaponNoFaction ($firstPage, $WeaponByPage);
+        if(!empty($dataWeapon)) {
+            echo '<article class="flex-center">';
+            echo '<table class="tableWebSite">';
+                echo '<tr>';
+                    echo '<th>Nom</th>';
+                    echo '<th>Puissance</th>';
+                    echo '<th>Type</th>';
+                    echo '<th>Prix</th>';
+                    echo '<th>Administration</th>';
+                echo '</tr>';
+                foreach ($dataWeapon as $value) {
+                    $overPower = null;
+                    if($value['overPower'] == 1) {
+                        $overPower = '+';
+                    }
+                    echo '<tr>';
+                    echo '<td>'.$value['nameWeapon'].'</td>';
+                    echo '<td>'.$this->powerType[$value['power']].$overPower.'</td>';
+                    echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
+                    echo '<td>'.$value['price'].'</td>';
+                    echo '<td>';
+                    $this->formAffectedFactionAtWeapon ([$idNav, $value['id']]);
+                    echo '</td>';
+                echo '</td>';
+                echo '</tr>';
+                }
+            echo '</table>';
+            echo '</article>';
+        } else {
+            echo '<h3>Pas de données actuellement dans la base.</h3>';
+        }
+     
+       
+    }
 
     public function listWeaponForChoiceUserGlobal ($typeWeapon, $id, $idNav, $vehicle) {
         $dataWeapon = $this->getWeaponByType ($typeWeapon);

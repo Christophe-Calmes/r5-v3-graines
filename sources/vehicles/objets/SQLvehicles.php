@@ -360,7 +360,8 @@ class SQLvehicles
         $this->recordNewPrice ($param[0]['variable'], $newPrice);
         $this->cleanSRVehicle ($param);
         $this->cleanWeaponVehicle ($param);
-        $update = "UPDATE `vehicle` SET `fix`=1 WHERE `id` = :idVehicle;";
+        $update = "UPDATE `vehicle` SET `fix`=0 WHERE `id` = :idVehicle;
+        DELETE FROM `armyListLinkVehicle` WHERE `idVehicle` = :idVehicle;";
         ActionDB::access($update, $param, 1);
         return $this->factionVehicle ($param);
     }

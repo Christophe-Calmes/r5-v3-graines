@@ -192,6 +192,7 @@ a {
 .flex-rows-simple {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .flex-center {
   display: flex;
