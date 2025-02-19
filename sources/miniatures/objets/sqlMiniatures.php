@@ -405,4 +405,21 @@ class sqlMiniatures
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
         return ActionDB::select($select, $param, 1);
     }
+    public function numbreMiniatureCommandPoint ($idList) {
+        $select = "SELECT `typeTroop` 
+                    FROM `armyListLinkMiniature`
+                    INNER JOIN `miniatures`ON `miniatures`.`id` = `idminiature`
+                    WHERE `idArmyList` = :idArmyList;";
+        $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        $dataType = ActionDB::select($select, $param, 1);
+        $result = 0;
+        foreach ($dataType as $value) {
+           $result += $this->typesTroupe[$value['typeTroop']]['commandePoint'];
+        }
+        $message = ' point';
+        if($result > 1) {
+            $message = ' points';
+        }
+        return round($result, 0).$message;
+    }
 }

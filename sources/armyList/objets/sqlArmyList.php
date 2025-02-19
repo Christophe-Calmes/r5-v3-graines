@@ -142,4 +142,16 @@ class SQLArmyList
         $select = "SELECT  `idFaction` FROM `armyList` WHERE `id` = :idList;";
         return ActionDB::select($select, $param, 1)[0]['idFaction'];
     }
+    protected function getIdMiniatureList ($idList) {
+        $select = "SELECT  `idminiature`, `nbr` 
+        FROM `armyListLinkMiniature` 
+        WHERE `idArmyList` = :idArmyList;";
+        $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        return ActionDB::select($select, $param, 1);
+    }
+    protected function getIdVehicleList($idList) {
+        $select = "SELECT `idVehicle`, `nbr` FROM `armyListLinkVehicle` WHERE `idArmyList` = :idArmyList;";
+        $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        return ActionDB::select($select, $param, 1);
+    }
 }

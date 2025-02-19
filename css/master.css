@@ -493,6 +493,9 @@ select:disabled {
 .buttonForm {
   margin: 0.5em;
 }
+.printingButton {
+  text-align: right;
+}
 /*Fin formulaire*/
 /*Titre et sousTitre*/
 .hautPage {
@@ -1034,7 +1037,7 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 20vh;
-  grid-template-columns: 25%;
+  /*grid-template-columns: 25%;*/
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas: "Picture Name Type DQM Structure Armor Move";
@@ -1330,3 +1333,34 @@ font-size: 0.8em;
   }
 }
 /*Burger Menu*/
+@media print {
+  @page {
+    margin: 2cm; 
+  }
+
+  .centrale {
+    display: none;
+  }
+  header {
+    display: none;
+  }
+  button {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  section {
+    width: auto;
+    font-size: 0.7em;
+    page-break-after: always;
+
+  }.dataSheetBox {
+    width: 100em;
+    background-color: #817f7f;
+  }
+  .printVehicle {
+    width: auto;
+    font-size: 0.7em;
+  }
+}

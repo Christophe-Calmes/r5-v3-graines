@@ -271,8 +271,6 @@ class templatesMiniatures extends sqlMiniatures
                         <div class="titlePrintDataSheet">Taille</div>
                         <div class="dataSheetInfoPrint"> '.$this->getArray ($this->miniatureSize, $dataMiniature['miniatureSize'], 'NameSize') .'</div>
                     </div>';
-
-                    // 
                 echo '<div class="DQM"><div class="titlePrintDataSheet">DQM</div>
                         <div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataMiniature['dqm'], 'nameDice').$bonus.'</div>
                      </div>';
@@ -281,7 +279,7 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div>
                         <div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataMiniature['armor'], 'nameArmour').$bonusSVG.'</div>
                     </div>';
-                echo '               <div class="Move">
+                echo '<div class="Move">
                     <div class="titlePrintDataSheet">Mouvement</div>
                     <div class="dataSheetInfoPrint">
                     <ul class="listClass">

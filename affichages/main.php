@@ -19,7 +19,7 @@ class ControlerAffichage {
 
       }
       // Debug true => chemin / False Prod
-      $dev = true;
+      $dev = false;
       if (isset($data['idNav'])) {
           $idNav = filter($data['idNav']);
           $readNav = new PrintNavigation();
@@ -49,5 +49,5 @@ echo '<main>';
   // Affichage message
   if (isset($_GET['message'])) {echo '<h3>'.filter($_GET['message']).'</h3>';}
   $idNav = ControlerAffichage::displayNav($_GET, $_SESSION);
-echo '</section>';
+  echo '</section>';
 echo '</main>';

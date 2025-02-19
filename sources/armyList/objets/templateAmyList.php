@@ -63,7 +63,10 @@ class TemplateAmyList extends SQLArmyList
                     }
                     echo '<td>'.$message.'</td>';
                     echo '<td>'.$this->listPrice ($value['id']).' $</td>';
-                    echo '<td><a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a></td>';
+                    echo '<td>
+                            <a href="'.findTargetRoute(201).'&idArmyList='.$value['id'].'">Administrer</a>
+                            <a href="'.findTargetRoute(203).'&idArmyList='.$value['id'].'">Imprimer la liste</a>
+                        </td>';
                     echo '<td>';
                         $this->formDeleteList ([$value['id'], $idNav, 127]);
                     echo'</td>';
@@ -86,7 +89,7 @@ class TemplateAmyList extends SQLArmyList
                 echo '<th>Nombre de figurine</th>';
                 echo '<th>Nombre de véhicule</th>';
                 echo '<th>Prix</th>';
-                echo '<th>Effacer</th>';
+                echo '<th>Administration</th>';
             echo '</tr>';
             echo '<tr>';
                 echo '<td>'.$value['nameArmyList'].'</td>';
@@ -101,11 +104,51 @@ class TemplateAmyList extends SQLArmyList
                 echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                 echo '<td>';
                     $this->formDeleteList ([$value['id'], $idNav, 126]);
+                    echo '<a href="'.findTargetRoute(203).'&idArmyList='.$value['id'].'">Imprimer la liste</a>';
                 echo '</td>';
             echo '</tr>';
             echo '</table>';
         echo '</article>';
         echo '<article class="flex-center">';
         echo '</article>';
+    }
+    public function printingIntroduction ($idList, $type) {
+        // $type = true => battle / $type = false => shirmish
+        $miniature = new templatesMiniatures ();
+        echo '<aside class="dataSheetBox">';
+            echo '<h4>'.$this->getNameArmyList ($idList).'</h4>';
+            echo '<ul class="listeProfil">';
+                echo '<strong><li>Prix '.$this->listPrice ($idList).' $</li>';
+                echo '<li>Commandement '.$miniature->numbreMiniatureCommandPoint ($idList).'</li>';
+                echo '<li>Nombre de figurine '.$this->numbreOfMiniature ($idList).'</li>';
+                if($type) {
+                    echo '<li>Nombre de véhicle '.$this->numbreOfVehicle ($idList).'</li></<strong>';
+                }
+            echo '</ul>';
+        echo '</aside>';
+    }
+    public function printMiniatures ($idList) {
+        $dataMiniatures = $this->getIdMiniatureList ($idList);
+        if(!empty($dataMiniature)) {
+            echo '<h3>Liste de figurines</h3>';
+        }
+        $miniature = new templatesMiniatures ();
+        foreach ($dataMiniatures as $value) {
+            echo '<article>';
+            echo '<p>Nombre : '.$value['nbr'].'</p>';
+                $miniature->displayOneMiniatureDatasheet ($value['idminiature'], 1, 2);
+            echo '</article>';
+        }
+    }
+    public function printVehicle ($idList) {
+        $dataVehicles = $this->getIdVehicleList($idList);
+        if(!empty($dataVehicle)) {
+            echo '<h3>Liste de véhicules</h3>';
+        }
+        $vehicle = new  TemplatesVehicles ();
+        foreach ($dataVehicles as $value) {
+                echo '<p>Nombre : '.$value['nbr'].'</p>';
+                    $vehicle->printingOneVehicleDatasheet ($value['idVehicle']);
+        }
     }
 }

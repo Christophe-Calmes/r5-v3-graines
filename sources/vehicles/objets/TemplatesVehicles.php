@@ -300,7 +300,51 @@ class TemplatesVehicles extends SQLvehicles
      
       echo '</section>';      
     }
+    public function printingOneVehicleDatasheet ($idVehicle) {
+        $dataVehicle = $this->getOneVehicle ($idVehicle)[0];
+        $moving = $this->movingSolveVehicle($dataVehicle['moving']);
+        $structurePoint = $this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure');
+        echo '<section class="centerDatasheet">';
+            echo '<article class="dataSheetBox">';
+                echo '<div class="printVehicle">';
+                    echo'<div class="Picture">';
+                           echo'<img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/>';
+                    echo '</div>';
+                     echo '<div class="Name"><div class="titlePrintDataSheet">Nom</div>
+                        <div class="dataSheetInfoPrint">'.$dataVehicle['nameVehicle'].'</div>
+                        <div class="titlePrintDataSheet">Prix</div><div class="dataSheetInfoPrint">'.$dataVehicle['price'].' $</div>    
+                    </div>';
+                    echo'<div class="Type"><div class="titlePrintDataSheet">Type</div>
+                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div>
+                        <div class="titlePrintDataSheet">Type</div>
+                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->sizeVehicle, $dataVehicle['sizeVehicle'], 'NameSize').'</div>
+                        </div>';
+                        echo'<div class="DQM"><div class="titlePrintDataSheet">DQM</div><div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>';
+                        echo'<div class="Structure"><div class="titlePrintDataSheet">Structure </div><div class="dataSheetInfoPrint">'.$structurePoint.'</div></div>';
+                        echo'<div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div><div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>';
+                       echo '<div class="Move">
+                                <div class="titlePrintDataSheet">Mouvement</div>
+                                    <div class="dataSheetInfoPrint">
+                                        <ul class="listClass">
+                                            <li><strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
+                                            <li>Vol :  <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></li>
+                                            <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'<strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>';
+                    echo'</div>';
+                        $this->StructurePoint ($structurePoint);
+                        $specialRulesVehicle = new TemplatesSpecialRules ();
+                        $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);
+                        $listWeapon = new TemplateWeaponsPublic ();
+                        $face = $this->getArray($this->dice, $dataVehicle['dc'], 'faces');
+                        $listWeapon->printVehicleWeaponDatasheet ($dataVehicle['id'],  $face);       
+        echo '</article>';
+      echo '</section>';     
 
+    }
 
     public function printOneVehicle ($idVehicle, $idNav) {
         $dataVehicle = $this->getOneVehicle ($idVehicle);

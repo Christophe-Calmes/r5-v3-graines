@@ -87,11 +87,6 @@ final class TemplateWeaponsPublic extends SQLWeapons
     }
     private function displayResumeSRDataSheet ($idWeapon) {
         $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
-        $specialRules = null;
-            foreach ($dataSR as $value) {
-                $specialRules = $specialRules.$value['nameSpecialRules'].'.';
-            }
-        if(!empty($specialRules) ) {
             if(!empty($dataSR)) {
             foreach ($dataSR as $value) {
             echo'<ul class="SpecialRules">
@@ -100,9 +95,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                  </ul>';
                 }
             } else {
-                echo '<h4>Pas de données</h4>';
+                echo '<h4>Pas de règle spéciales</h4>';
             }
-        }
      
     }
 
@@ -561,7 +555,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 echo '<h3>Armes</h3>';
                 foreach ($dataListWeapons  as $dataWeapon) {
                     //echo '<aside class="borderDataSheetWeapon">';
-                    echo '<aside>';
+                echo '<aside>';
                     $overPower = null;
                     $damage = 1;
                     if($dataWeapon['overPower'] == 1) {
