@@ -118,11 +118,11 @@ class TemplateAmyList extends SQLArmyList
         echo '<aside class="dataSheetBox">';
             echo '<h4>'.$this->getNameArmyList ($idList).'</h4>';
             echo '<ul class="listeProfil">';
-                echo '<strong><li>Prix '.$this->listPrice ($idList).' $</li>';
-                echo '<li>Commandement '.$miniature->numbreMiniatureCommandPoint ($idList).'</li>';
-                echo '<li>Nombre de figurine '.$this->numbreOfMiniature ($idList).'</li>';
+                echo '<li><strong>Prix '.$this->listPrice ($idList).' $</strong></li>';
+                echo '<li><strong>Commandement '.$miniature->numbreMiniatureCommandPoint ($idList).'</strong></li>';
+                echo '<li><strong>Nombre de figurine '.$this->numbreOfMiniature ($idList).'</strong></li>';
                 if($type) {
-                    echo '<li>Nombre de véhicle '.$this->numbreOfVehicle ($idList).'</li></<strong>';
+                    echo '<li><strong>Nombre de véhicle '.$this->numbreOfVehicle ($idList).'</strong></li>';
                 }
             echo '</ul>';
         echo '</aside>';

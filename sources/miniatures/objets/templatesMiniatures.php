@@ -289,7 +289,6 @@ class templatesMiniatures extends sqlMiniatures
                     </ul>
                     </div>
                     </div>
-                    </div>
                     </div>';
             $specialRulesVehicle = new TemplatesSpecialRules ();
             $specialRulesVehicle->printSpecialRulesMiniature ($idMiniature);

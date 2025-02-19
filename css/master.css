@@ -1335,9 +1335,9 @@ font-size: 0.8em;
 /*Burger Menu*/
 @media print {
   @page {
-    margin: 2cm; 
+    margin: 2cm;
+    size: landscape;
   }
-
   .centrale {
     display: none;
   }
@@ -1356,6 +1356,7 @@ font-size: 0.8em;
     page-break-after: always;
 
   }.dataSheetBox {
+    height: auto !important;
     width: 100em;
     background-color: #817f7f;
   }
