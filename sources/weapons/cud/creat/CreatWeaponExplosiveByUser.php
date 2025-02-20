@@ -5,7 +5,7 @@ require ('../sources/weapons/objects/PriceOfWeapon.php');
 $creatNewWeapon = new SQLWeapons ();
 $arrayKeys =  ['nameWeapon', 'idFaction', 'power', 'overPower','heavy', 'spell', 'assault', 'saturation', 'rateOfFire', 'rangeWeapon', 'templateType', 'blastDice'];
 $controle_POST = array();
-$mark  =  [1];
+$mark  =  [0];
 
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[0]]), 60));
@@ -26,8 +26,10 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $creatNewWeapon->checkBlastDice (filter($_POST[$arrayKeys[11]])));
     array_push($mark, 1);
 }
+
 if($controle_POST == $mark) {
-    $_POST['typeWeapon'] = 2;
+
+   $_POST['typeWeapon'] = 2;
     $idFaction = filter($_POST['idFaction']);
     $calculatingPriceWeapon = new PriceOfWeapon ();
     $dataWeapon = array();
@@ -44,5 +46,6 @@ if($controle_POST == $mark) {
     $creatNewWeapon->recordFactionOfWeapon ($param[13]['variable'], $idFaction);
     header('location:../index.php?message=New weapon success to record&idNav='.$idNav);
 } else {
-    header('location:../index.php?message=New weapon fail to record&idNav='.$idNav);
+
+   header('location:../index.php?message=New weapon fail to record&idNav='.$idNav);
 }

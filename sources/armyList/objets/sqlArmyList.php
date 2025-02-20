@@ -70,6 +70,11 @@ class SQLArmyList
         $select = "SELECT SUM(`nbr`) AS `nbrVehicles` 
         FROM `armyListLinkVehicle` WHERE `idArmyList` = :idArmyList;";
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
+        $numberOfVehicle = ActionDB::select($select, $param, 1)[0]['nbrVehicles'];
+        if($numberOfVehicle == 0) {
+            return ': Pas de véhicule';
+        }
+
         return ActionDB::select($select, $param, 1)[0]['nbrVehicles'];
     }
     protected function numbreOfMiniature ($idList) {

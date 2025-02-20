@@ -23,6 +23,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, $creatNewWeapon->checkBlastDice (filter($_POST[$arrayKeys[10]])));
     array_push($mark, 1);
 }
+
 if($controle_POST == $mark) {
     $_POST['typeWeapon'] = 2;
     $calculatingPriceWeapon = new PriceOfWeapon ();
