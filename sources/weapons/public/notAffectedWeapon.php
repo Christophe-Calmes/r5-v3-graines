@@ -1,8 +1,4 @@
 <?php
-/* SELECT *
-FROM weapons
-LEFT JOIN factionsLinkWeapon ON weapons.id = `idWeapon`
-WHERE `idWeapon` IS NULL AND `idAuthor` = 59; */
     require ('sources/weapons/objects/TemplateWeaponsPublic.php');
     $weapons = new TemplateWeaponsPublic ();
     if(isset($_GET['page']) && (!empty($_GET['page']))) {
@@ -10,7 +6,7 @@ WHERE `idWeapon` IS NULL AND `idAuthor` = 59; */
     } else {
         $currentPage = 1;
     }
-    $WeaponByPage = 10;
+    $WeaponByPage = 1;
     $nbrWeaponNoFaction = $weapons->nbrNoFactionWeapon ();
     $pages = ceil($nbrWeaponNoFaction/$WeaponByPage);
     $firstPage = ($currentPage * $WeaponByPage) - $WeaponByPage;

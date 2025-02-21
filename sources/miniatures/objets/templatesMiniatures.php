@@ -300,11 +300,11 @@ class templatesMiniatures extends sqlMiniatures
     }
     public function updateMiniatureByUser ($idMiniature, $valid, $idNav, $stick) {
         $data =  $this->getOneMiniature ($idMiniature, $valid, $stick);
-        $data = $data[0];
+       $data = $data[0];
         $factionMiniature = new TemplateWeaponsPublic ();
         echo '<form class="customerForm" action="'.encodeRoutage(99).'" method="post" enctype="multipart/form-data">';
         echo '<h3>Mettre à jour : '.$data['nameMiniature'].'</h3>';
-        $factionMiniature->factionSelected ($data['idFaction']); 
+            $factionMiniature->factionSelected ($data['idFaction']); 
         echo '<label for="nameMiniature">Nom</label>';
         echo '<input id="nameMiniature" name="nameMiniature" value="'.$data['nameMiniature'].'"/>';
         echo '<label for="move">Mouvement</label>';
@@ -394,7 +394,6 @@ class templatesMiniatures extends sqlMiniatures
         echo '<summary class="titleSite">';
             echo 'Ajouter Figurines';
         echo '</summary>';
-       // echo '<h4>Ajouter des figurines</h4>';
         foreach ($dataMiniature as  $value) {
             $this->formAddMiniatureInArmyList ($value['id'], $idArmyList, $idNav, $value['nameMiniature'] );
             $this->displayOneMiniatureDatasheet ($value['id'], $value['valid'], $value['stick']);
@@ -460,6 +459,49 @@ class templatesMiniatures extends sqlMiniatures
                 echo '</div>';   
         }
         echo '</details>';
+    }
+    public function displayWeaponNoFaction ($firstPage, $MiniatureByPage, $idNav) {
+        $nbrMiniature =  $this->numberOfNotAffectedMiniatureInFaction ();
+        if($nbrMiniature > 0) {
+        $data = $this->miniatureNoFactionOnePage ($firstPage, $MiniatureByPage);
+            $factionMiniature = new TemplateWeaponsPublic ();
+            echo '<form class="customerForm" action="'.encodeRoutage(99).'" method="post" enctype="multipart/form-data">';
+            echo '<div> <img class="imgMini" src="sources/pictures/miniaturesPictures/'.$data['namePicture'].'" alt="'.$data['nameMiniature'].'"/></div>';
+            echo '<h3>Mettre à jour : '.$data['nameMiniature'].'</h3>';
+                $factionMiniature->factionSelect ($data['idFaction']); 
+            echo '<label for="nameMiniature">Nom</label>';
+            echo '<input id="nameMiniature" name="nameMiniature" value="'.$data['nameMiniature'].'"/>';
+            echo '<label for="move">Mouvement</label>';
+            echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+            echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.round($data['moving']*1.45).'</span> " + 1D4"</div>';
+            echo '<script>
+                const updateRangeValue = () => {
+                    let moveValue = document.getElementById("move").value;
+                    let arrayMove = moveValue
+                    document.getElementById("moveValue").textContent = moveValue;
+                    document.getElementById("runValue").textContent = Math.round(moveValue * 1.45);
+                }
+            </script>';
+            $this->globalSelected ('DQM', 'dqm', $this->dice, 'nameDice', $data['dqm']);
+            $this->globalSelected ('DC', 'dc', $this->dice, 'nameDice', $data['dc']);
+            $this->globalSelected ('PdV', 'healtPoint', $this->healtPoint, 'healtPoint', $data['healtPoint']);
+            $this->globalSelected ('Sauvegarde / D6', 'armor', $this->armour, 'nameArmour', $data['armor']);
+            $this->globalSelected ('Type', 'typeTroop', $this->typesTroupe, 'nameTroupe', $data['typeTroop']);
+            $this->globalSelected ('Taille', 'miniatureSize', $this->miniatureSize, 'NameSize', $data['miniatureSize']);
+            $this->globalSelected ('Vol', 'fligt', $this->yes, 'name', $data['fligt']);
+            $this->globalSelected ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
+            echo '<input type="hidden" name="idMiniature" value="'.$data['idMiniature'].'"/>';
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
+            echo '</form>';
+            echo ' <form action="'.encodeRoutage(97).'" method="post">
+                        <input type="hidden" name="idMiniature" value="'.$data['idMiniature'].'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                    </form>';
+       
+        } else {
+            echo '<h3>Aucune figurines sans faction dans la base</h3>';
+        }
+
     }
 
 }
