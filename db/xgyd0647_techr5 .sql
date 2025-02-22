@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 19 fév. 2025 à 23:03
+-- Généré le : sam. 22 fév. 2025 à 22:23
 -- Version du serveur : 8.0.41-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -77,7 +77,17 @@ CREATE TABLE `journaux` (
 INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`, `dateHeure`, `okConnexion`) VALUES
 (1, '::1', 59, 'Aresh', '0', '2025-02-19 13:18:29', 1),
 (2, '::1', 59, 'Aresh', '0', '2025-02-19 20:22:59', 1),
-(3, '::1', 59, 'Aresh', '0', '2025-02-19 23:19:01', 1);
+(3, '::1', 59, 'Aresh', '0', '2025-02-19 23:19:01', 1),
+(4, '::1', 59, 'Aresh', '0', '2025-02-20 22:35:29', 1),
+(5, '::1', 58, 'Gestionnaire', '0', '2025-02-20 22:36:58', 1),
+(6, '::1', 59, 'Aresh', '0', '2025-02-20 22:44:23', 1),
+(7, '::1', 59, 'Aresh', '0', '2025-02-21 22:39:19', 1),
+(8, '::1', 1, 'Admin', '0', '2025-02-21 22:39:27', 1),
+(9, '::1', 59, 'Aresh', '0', '2025-02-21 22:42:33', 1),
+(10, '::1', 59, 'Aresh', '0', '2025-02-22 21:54:10', 1),
+(11, '::1', 1, 'Admin', '0', '2025-02-22 22:09:52', 1),
+(12, '::1', 59, 'Aresh', '0', '2025-02-22 22:10:54', 1),
+(13, '::1', 59, 'Aresh', '0', '2025-02-22 23:11:03', 1);
 
 -- --------------------------------------------------------
 
@@ -245,7 +255,9 @@ INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMe
 (200, 'Listes de compagnie', 'sources/armyList/publics/listFactions.php', 1, 28, 2, 1, 1, 0, '6505446757923195', 15),
 (201, 'AdminArmyList', 'sources/armyList/publics/adminArmyList.php', 0, 0, 3, 1, 1, 0, '1746593516442494', 15),
 (202, 'Armes sans faction', 'sources/weapons/public/notAffectedWeapon.php', 0, 25, 5, 1, 1, 25, '15148594774059654153', 12),
-(203, 'printList.php', 'sources/armyList/publics/printArmyList.php', 0, 0, 5, 1, 1, 0, '7799553415471712', 15);
+(203, 'printList.php', 'sources/armyList/publics/printArmyList.php', 0, 0, 5, 1, 1, 0, '7799553415471712', 15),
+(204, 'Figurines sans faction', 'sources/miniatures/publics/listOfNFactionMiniature.php', 1, 26, 5, 1, 1, 0, '96464741610876130676', 13),
+(205, 'Vehicules sans faction', 'sources/vehicles/publics/listOfNoFactionVehicle.php', 1, 27, 3, 1, 1, 0, '6448319790839342', 14);
 
 -- --------------------------------------------------------
 
@@ -401,10 +413,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(1, 'wZKa3f6x0L', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
+(1, '7FAeLctPp9', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
 (57, 'w2jbaXpwin', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Membre', '$2y$10$XyTgD4YJUyRXmYb5rJ7IGeCw5c..lxXVGNCEw2XdpS6GOtOfzvGfW', 1, 1, '2024-05-15 14:33:10'),
-(58, 'dwCdyxZD6Z', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
-(59, 'I1fRstkRWGo2PhQR', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
+(58, '1zX9qlqFKv', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
+(59, 'PkJsvLODzokISaqW', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
 
 --
 -- Index pour les tables déchargées
@@ -486,7 +498,7 @@ ALTER TABLE `dataSite`
 -- AUTO_INCREMENT pour la table `journaux`
 --
 ALTER TABLE `journaux`
-  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `menuNav`
@@ -504,7 +516,7 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT pour la table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT pour la table `roles`

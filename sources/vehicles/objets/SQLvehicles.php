@@ -381,4 +381,22 @@ class SQLvehicles
             $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
         return ActionDB::select($select, $param, 1);
     }
+    public function numberOfNotAffectedVehicleInFaction () {
+        $select = "SELECT COUNT(`id`) AS `nbrVehicle` FROM `vehicle` 
+        WHERE `idFaction` 
+        NOT IN (SELECT `id` FROM `factions`) AND `idAuthor` = :idUser;";
+        $idUser = new Controles ();
+        $param = [['prep'=>':idUser', 'variable'=>$idUser->idUser($_SESSION)],];
+        return ActionDB::select($select, $param, 1)[0]['nbrVehicle'];
+    }
+    protected function vehicleNoFactionOnePage ($firstPage, $MiniatureByPage) {
+        $select = "SELECT `id` AS `idVehicle`, `nameVehicle`, `idFaction`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor`, `price`, `namePicture`, `valid`, `fix`
+        FROM `vehicle` 
+         WHERE `idFaction` NOT IN (SELECT `id` FROM `factions`) AND `idAuthor` = :idUser
+          ORDER BY `nameVehicle`
+            LIMIT {$firstPage}, {$MiniatureByPage};";
+        $checkId = new Controles ();
+        $param = [['prep'=>':idUser', 'variable'=> $checkId->idUser($_SESSION)]];
+        return ActionDB::select ($select, $param, 1)[0];
+    }
 }

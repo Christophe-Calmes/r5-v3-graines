@@ -435,7 +435,7 @@ class sqlMiniatures
         $select = "SELECT `id` AS `idMiniature`, `idAuthor`, `idFaction`, `nameMiniature`, `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid`, `stick` 
         FROM `miniatures` WHERE `idFaction` NOT IN ( SELECT `id` FROM `factions`) AND `idAuthor` = :idUser
         ORDER BY `nameMiniature`
-        LIMIT {$firstPage}, {$MiniatureByPage}";
+        LIMIT {$firstPage}, {$MiniatureByPage};";
                 $checkId = new Controles ();
                 $param = [['prep'=>':idUser', 'variable'=> $checkId->idUser($_SESSION)]];
         return ActionDB::select ($select, $param, 1)[0];

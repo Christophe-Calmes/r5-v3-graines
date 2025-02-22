@@ -500,5 +500,46 @@ class TemplatesVehicles extends SQLvehicles
        echo '</details>';
 
     }
+    public function updateVehicleNoFactionAffected ($firstPage, $MiniatureByPage, $idNav) {
+        $nbrVehicle = $this->numberOfNotAffectedVehicleInFaction ();
+        if ($nbrVehicle > 0) {
+            $data = $this->vehicleNoFactionOnePage ($firstPage, $MiniatureByPage);
+            $factionMiniature = new TemplateWeaponsPublic ();
+            echo '<form class="customerForm"  action="'.encodeRoutage(110).'" method="post" enctype="multipart/form-data">';
+            echo '<div> <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$data['namePicture'].'" alt="'.$data['nameVehicle'].'"/></div>';
+            echo '<h3>Mettre à jour '.$data['nameVehicle'].' véhicule</h3>';
+            $factionMiniature->factionSelect (); 
+            echo '<label for="nameVehicle">Nom</label>';
+            echo '<input id="nameVehicle" name="nameVehicle" value="'.$data['nameVehicle'].'"/>';
+            $this->globalSelected ('DQM', 'dqm', $this->dice, 'nameDice', $data['dqm']);
+            $this->globalSelected ('DC', 'dc', $this->dice, 'nameDice', $data['dc']);
+            $this->globalSelected ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour', $data['armor']);
+            $this->globalSelected ('PdS', 'structurePoint', $this->structurePoint, 'Structure', $data['structurePoint']);
+            $this->globalSelected ('Taille du véhicule', 'sizeVehicle', $this->sizeVehicle, 'NameSize', $data['sizeVehicle']);
+            $this->globalSelected ('Type du véhicule', 'typeVehicle', $this->typeVehicle, 'NameType', $data['typeVehicle']);
+            echo '<label for="move">Mouvement tactique</label>';
+            echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+            echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.$this->movingSolveVehicle ($data['moving'])[1].'</span> " + 1D6"</div>';
+            echo '<script>
+                const updateRangeValue = () => {
+                    let moveValue = document.getElementById("move").value;
+                    let arrayMove = moveValue
+                    document.getElementById("moveValue").textContent = moveValue;
+                    document.getElementById("runValue").textContent = Math.round(moveValue * 2);
+                }
+            </script>';
+            $this->globalSelected ('Vol', 'fligt', $this->yes, 'name', $data['fligt']);
+            $this->globalSelected ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
+            echo '<label for="picture">Image du véhicule</label>';
+            echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
+            echo '<input type="hidden" name="idVehicle" value="'.$data['idVehicle'].'"/>';
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
+            echo '</form>';
+        } else {
+            echo '<h3>Aucun véhicule sans faction dans la base</h3>';
+        }
+       
+}
+
 
 }
