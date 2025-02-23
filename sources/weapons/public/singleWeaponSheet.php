@@ -12,7 +12,7 @@ switch ($check) {
         $dataSR = new TemplatesSpecialRules ();
         echo '<article class="flex-rows">';
         echo '<div>';
-        echo '<h3>Administration et affichage</h3>';
+        echo '<h3>Administration</h3>';
         $dataFix = $displayWeapon->displayOneWeapon ($idWeapon);
         echo '<br/>';
         if($dataFix[0] == 0) {
@@ -50,7 +50,7 @@ switch ($check) {
             $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
         
         } else {
-            $dataSR->displaySpecialRules ($idWeapon, 0);
+            //$dataSR->displaySpecialRules ($idWeapon, 0);
         }
         echo '</article>';
         break;

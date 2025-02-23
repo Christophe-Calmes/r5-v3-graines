@@ -51,3 +51,6 @@ function optionSelect($status) {
       echo '<option value="'.$value['value'].'" '.$selected.'>'.$value['label'].'</option>';
   }
 }
+function printingPage () {
+  echo '<div class="printingButton"><button class="printingButton" onclick="window.print()">Imprimer</button></div>';
+}

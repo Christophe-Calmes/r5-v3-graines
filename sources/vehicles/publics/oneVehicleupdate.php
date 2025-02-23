@@ -5,6 +5,7 @@ $idVehicle = filter($_GET['idVehicle']);
 $vehicleUpdate = new TemplatesVehicles ();
 switch ($vehicleUpdate->checkVehicleOwner ($idVehicle)) {
     case 1:
+        printingPage ();
         $vehicleUpdate->printOneVehicle ($idVehicle, $idNav);
         break;
     

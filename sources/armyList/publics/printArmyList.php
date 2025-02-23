@@ -4,7 +4,7 @@ require ('sources/armyList/objets/templateAmyList.php');
 $idArmyList = filter($_GET['idArmyList']);
 $armyList = new  TemplateAmyList ();
 $cases = [$armyList-> armyListOwner ($idArmyList), $armyList-> getSkirmichArmyList ($idArmyList)];
-echo '<div class="printingButton"><button class="printingButton" onclick="window.print()">Imprimer</button></div>';
+printingPage ();
 switch ($cases) {
     case [1, 1]:
         // Battle

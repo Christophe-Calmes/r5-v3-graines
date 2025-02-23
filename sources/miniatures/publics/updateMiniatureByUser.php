@@ -5,7 +5,7 @@ require ('sources/miniatures/objets/templatesMiniatures.php');
     $listWeapon = new TemplateWeaponsPublic ();
     $idMiniature = filter($_GET['idMiniature']);
     $fixMiniature = $displayMiniatureForm->miniatureFix ($idMiniature);
- 
+
 
     switch ($displayMiniatureForm->checkMiniatureOwner($idMiniature)) {
         case 1:
@@ -25,6 +25,7 @@ require ('sources/miniatures/objets/templatesMiniatures.php');
                     $displayMiniatureForm->listMiniatureChoiceFactionWeapon ($idMiniature, $idNav, $idFaction);
                     break;
                 case 2:
+                    printingPage ();
                     $displayMiniatureForm->displayOneMiniatureDatasheet ($idMiniature, 1, $fixMiniature);
         
                     break;
