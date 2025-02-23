@@ -56,11 +56,7 @@ class TemplateAmyList extends SQLArmyList
                     echo '<td>'.$value['nameArmyList'].'</td>';
                     echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
                     echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
-                    if($value['skirmich'] == 1) {
-                        $message =  $this->numbreOfVehicle ($value['id']);
-                    } else {
-                        $message = 'Pas de véhicule';
-                    }
+                            $message =  $this->numbreOfVehicle ($value['id']);
                     echo '<td>'.$message.'</td>';
                     echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                     echo '<td>
@@ -95,11 +91,8 @@ class TemplateAmyList extends SQLArmyList
                 echo '<td>'.$value['nameArmyList'].'</td>';
                 echo '<td>'.$this->getArray ($this->yes, $value['skirmich'], 'name') .'</td>';
                 echo '<td>'.$this->numbreOfMiniature ($value['id']).'</td>';
-                if($value['skirmich'] == 1) {
                     $message =  $this->numbreOfVehicle ($value['id']);
-                } else {
-                    $message = 'Pas de véhicule';
-                }
+      
                 echo '<td>'.$message.'</td>';
                 echo '<td>'.$this->listPrice ($value['id']).' $</td>';
                 echo '<td>';

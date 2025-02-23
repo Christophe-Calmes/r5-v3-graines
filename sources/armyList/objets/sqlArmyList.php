@@ -72,7 +72,7 @@ class SQLArmyList
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
         $numberOfVehicle = ActionDB::select($select, $param, 1)[0]['nbrVehicles'];
         if($numberOfVehicle == 0) {
-            return ': Pas de véhicule';
+            return 'Pas de véhicule';
         }
 
         return ActionDB::select($select, $param, 1)[0]['nbrVehicles'];

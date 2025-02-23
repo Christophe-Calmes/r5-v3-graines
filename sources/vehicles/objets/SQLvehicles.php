@@ -34,8 +34,8 @@ class SQLvehicles
         ['id'=>2, 'valueSize'=> 8, 'NameSize'=>'Standard'],
         ['id'=>3, 'valueSize'=> 16, 'NameSize'=>'Large'],
         ['id'=>4, 'valueSize'=> 32, 'NameSize'=>'Giant']];
-        $this->typeVehicle = [['id'=>1, 'valueType'=>1, 'NameType'=>'Civilian'],
-                ['id'=>2, 'valueType'=>2, 'NameType'=>'Military']];
+        $this->typeVehicle = [['id'=>1, 'valueType'=>1, 'NameType'=>'Civil'],
+                ['id'=>2, 'valueType'=>2, 'NameType'=>'Militaire']];
     }
     public function checkYes ($id) {
         $index = array_search($id, array_column($this->dice, 'id'));

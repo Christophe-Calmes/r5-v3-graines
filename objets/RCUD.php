@@ -3,7 +3,7 @@ class RCUD {
   protected $serverName = "localhost:3306";
   protected $userName = "r5v3";
   protected $password = "camille";
-  protected $dbName = ["xgyd0647_techr5", "xgyd0647_r5business"];
+  protected $dbName = ["xgyd0647_techr5", "xgyd0647_r5business", "xgyd0647_blog"];
   private $sql;
   private $param;
   public function __construct($sql, $param) {
