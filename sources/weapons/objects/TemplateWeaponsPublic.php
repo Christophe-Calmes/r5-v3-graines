@@ -214,6 +214,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     echo '<th>Saturation</th>';
                     echo '<th>Cadence de tir</th>';
                     echo '<th>Prix</th>';
+                    echo '<th>Arme affecté</th>';
                     echo '<th>Admin</th>';
                     echo '<th>Fix</th>';
                     echo '<th>Effacer</th>';
@@ -229,6 +230,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     } else {
                         $range = $value['rangeWeapon'].'"';
                     }
+                    if($this->WeaponAllReadyAffected ([['prep'=>':idWeapon', 'variable'=>$value['idWeapon']]])) {
+                        $affected = 'Oui';
+                        $affectedStatus = true;
+                    } else {
+                        $affected = 'Non';
+                        $affectedStatus= false;
+                    }
                     echo '<tr>';
                         echo '<td>'.$value['nameWeapon'].'</td>';
                         echo '<td class="green">'.$range.'</td>';
@@ -238,14 +246,19 @@ final class TemplateWeaponsPublic extends SQLWeapons
                         echo '<td>'.$this->yes[$value['saturation']].'</td>';
                         echo '<td>'.$this->rateOfFire ($value['rateOfFire']).'</td>';
                         echo '<td>'.$value['price'].'</td>';
+                        echo '<td>'.$affected.'</td>';
                         echo '<td><a href="'.findTargetRoute(182).'&idWeapon='.$value['idWeapon'].'">Voir</a></td>';
                         echo '<td>'.fixingWeapon($value['idWeapon'], $value['fixe'], $idNav).'</td>';
-                        echo '<td>
-                        <form action="'.encodeRoutage(85).'" method="post">
-                            <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
-                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
-                        </form>
-                    </td>';
+                        if(!$affectedStatus) {
+                            echo '<td>
+                            <form action="'.encodeRoutage(85).'" method="post">
+                                <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
+                                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                            </form>
+                        </td>';
+                        } else {
+                        echo '<td><div class="fakeButton">Effacer</div></td>';
+                }
                 echo '</tr>';
                 }
                 echo '</table>';

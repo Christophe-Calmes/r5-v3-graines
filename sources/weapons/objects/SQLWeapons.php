@@ -256,16 +256,19 @@ class SQLWeapons
         ActionDB::access($delete, $param, 1);
         return $idFaction[0]['idFaction'];
     }
-    private function WeaponAllReadyAffected ($param) {
-        $select = "SELECT COUNT(`idWeapon`) AS `affected` FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon;";
-        $isAffected = ActionDB::select($select, $param, 1);
-        if($isAffected[0]['affected'] == 0) {
+   public function WeaponAllReadyAffected ($param) {
+        $array_Affected = array();
+        $select = "SELECT COUNT(`idWeapon`) AS `miniatureAffected` FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon;";
+        array_push($array_Affected, ActionDB::select($select, $param, 1)[0]['miniatureAffected']);
+        $select = "SELECT COUNT(`idWeapon`) AS `vehicleAffected` FROM `vehicleLinkWeapon` WHERE `idWeapon` = :idWeapon;";
+        array_push($array_Affected, ActionDB::select($select, $param, 1)[0]['vehicleAffected']);
+        if(in_array(1, $array_Affected)) {
             return true;
         }
         return false;
     }
     public function fixOrNoFixWeaponByAdmin ($param) {
-        if($this->WeaponAllReadyAffected ($param)) {
+        if(!$this->WeaponAllReadyAffected ($param)) {
             $update = "UPDATE `weapons` SET `fixe`= `fixe` ^1 WHERE `id`= :idWeapon;";
             ActionDB::access($update, $param, 1);
             return true;
@@ -405,5 +408,10 @@ class SQLWeapons
     public function affectedFactionAtWeapon ($param) {
         $insert = "INSERT INTO `factionsLinkWeapon`(`idWeapon`, `idFaction`) VALUES (:idWeapon, :idFaction);";
         ActionDB::access($insert, $param, 1);
+    }
+    public function statusWeapon ($idWeapon) {
+        $select="SELECT  `fixe`, `globalWeapon` FROM `weapons` WHERE `id` = :idWeapon AND `valid` = 1;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        return array_values(ActionDB::select($select, $param, 1)[0]);
     }
 }

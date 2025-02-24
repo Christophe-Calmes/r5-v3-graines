@@ -757,6 +757,19 @@ a {
   cursor: var(--main-cursor);
   margin: var(--main-marginButton);
 }
+.fakeButton {
+  background-color: var(--color-red);
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  color: var(--main-color);
+  padding: var(--main-padding);
+  text-align: var(--main-text-align);
+  display: var(--main-display);
+  font-size: var(--main-font-size);
+  cursor: var(--main-cursor);
+  margin: var(--main-marginButton);
+  text-decoration: line-through;
+}
 .buttonClosingModal {
   font-size: 0.9em;
 }

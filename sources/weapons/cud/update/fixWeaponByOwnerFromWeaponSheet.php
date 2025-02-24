@@ -13,7 +13,7 @@ if($mark == $controle_POST) {
     $param = $parametre->creationPrep ($_POST);
     $isAffected = $fixWeapon->fixOrNoFixWeaponByAdmin ($param);
     $idFaction = $fixWeapon->factionOfOneWeapon (filter($_POST[$arrayKeys[0]]));
-    print_r($isAffected);
+
     if($isAffected) {
         header('location:../index.php?message=Fix weapon success&idNav='.$idNav.'&idWeapon='.filter($_POST['idWeapon']));
     } else {
