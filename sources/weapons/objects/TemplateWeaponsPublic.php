@@ -253,6 +253,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
     }
       public function displayOneWeapon ($idWeapon) {
         $dataWeapon = $this->getOneWeaponAdmin ($idWeapon);
+        
         $overPower = null;
         if($dataWeapon['overPower'] == 1) {
             $overPower = "+";

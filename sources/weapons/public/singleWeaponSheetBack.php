@@ -51,12 +51,11 @@ switch ($check) {
             $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
         
         } else {
-            $dataSR->displaySpecialRules ($idWeapon, 0);
+            //$dataSR->displaySpecialRules ($idWeapon, 0);
         }
         echo '</article>';
         break;
     case [0, 1]:
-        // Global weapon only
         echo '<article class="flex-center ">';
         echo '<aside class="dataSheetWeapon">';
         echo '<h3>Arme global : Fiche imprimable</h3>';
