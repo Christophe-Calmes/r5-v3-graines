@@ -16,7 +16,6 @@ if($mark == $controle_POST) {
         unlink($pathPictureToDelete);
         header('location:../index.php?idNav='.$idNav.'&message=Delete miniature&idFaction='.$pictureName[1]);
     }
-    $deleteVehicle->deleteVehicleByOwner(filter($_POST[$arrayKeys[0]]));
     header('location:../index.php?message=Delete vehicle');
 } else {
     header('location:../index.php?message=Delete vehicle');

@@ -437,6 +437,7 @@ class TemplatesVehicles extends SQLvehicles
     }
     public function affectedVehicleArmyList ($idFaction, $idArmyList, $idNav) {
         $dataVehicle = $this->getAllVehicleOfFactionForArmyList ($idFaction);
+        print_r($dataVehicle);
         if(!empty($dataVehicle)){
             echo '<details>';
             echo '<summary class="titleSite">';
@@ -444,7 +445,7 @@ class TemplatesVehicles extends SQLvehicles
             echo '</summary>';
             foreach ($dataVehicle  as $dataOneVehicle) {
                 $this->formAddVehicleInArmyList ($dataOneVehicle['id'], $idArmyList, $idNav, $dataOneVehicle['nameVehicle']);
-                $this-> printingOnServiceOneVehicle ($dataVehicle[0]);
+                $this-> printingOnServiceOneVehicle ($dataOneVehicle);
             }
             echo '</details>';
         }

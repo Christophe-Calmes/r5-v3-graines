@@ -208,10 +208,19 @@ class SQLvehicles
         }
         return false;
     }
+    private function deleteVehicleByOwner($param) {
+        $delete="DELETE FROM `vehicle` WHERE `id` = :idVehicle;
+                DELETE FROM `vehicleLinkSpecialRules` WHERE `idVehicle` = :idVehicle;
+                DELETE FROM `vehicleLinkWeapon` WHERE `idVehicle` = :idVehicle;
+                DELETE FROM `armyListLinkVehicle` WHERE `idVehicle`=:idVehicle;";
+        ActionDB::access($delete, $param, 1);
+        return true;
+    }
     public function getPictureVehicleName ($idVehicle) {
         $select = "SELECT `namePicture` FROM `vehicle` WHERE `id` = :idVehicle;";
         $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
         $dataNamePictureVehicle = ActionDB::select($select, $param, 1);
+        $this->deleteVehicleByOwner($param);
         return $dataNamePictureVehicle[0]['namePicture'];
     }
     protected function getVehicle ($data) {
@@ -311,11 +320,7 @@ class SQLvehicles
         }
         $this->recordNewPrice ($param[0]['variable'], round($newPrice, 0));
     }
-    public function deleteVehicleByOwner($idVehicle) {
-        $delete="DELETE FROM `vehicle` WHERE `id` = :idVehicle;";
-        $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
-        ActionDB::access($delete, $param, 1);
-    }
+
     private function updateVehiclePriceAddWeapon ($idVehicle, $weaponPrice) {
         $price = $this->getVehicleDirectPrice ($idVehicle);
         $newPrice = $price * $weaponPrice;
