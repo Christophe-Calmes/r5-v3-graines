@@ -179,7 +179,10 @@ class sqlMiniatures
         return false;
     }
     private function deleteMiniature($param) {
-        $delete = "DELETE FROM `miniatures` WHERE `idAuthor` = :idUser AND `id` = :id;";
+        $delete = "DELETE FROM `miniatures` WHERE `idAuthor` = :idUser AND `id` = :id;
+        DELETE FROM `miniatureLinkWeapons` WHERE `idminiature` = :id;
+        DELETE FROM `miniatureLinkSpecialRules` WHERE `idMiniature` = :id;
+        DELETE FROM `armyListLinkMiniature` WHERE `idminiature` = :id;";
         ActionDB::access($delete, $param, 1);
         return true;
     }

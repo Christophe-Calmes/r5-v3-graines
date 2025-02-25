@@ -88,6 +88,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
     private function displayResumeSRDataSheet ($idWeapon) {
         $dataSR = $this->getSpecialRuleOfOneWeapon ($idWeapon);
             if(!empty($dataSR)) {
+                echo '<h4>Règles spéciales</h4>';
             foreach ($dataSR as $value) {
             echo'<ul class="SpecialRules">
                     <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
@@ -95,7 +96,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                  </ul>';
                 }
             } else {
-                echo '<h4>Pas de règle spéciales</h4>';
+                //echo '<h4>Pas de règle spéciales</h4>';
             }
      
     }
@@ -188,12 +189,12 @@ final class TemplateWeaponsPublic extends SQLWeapons
             if($fix) {
                 return '<form action="'.encodeRoutage(88).'" method="post">
                 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
+                <button class="buttonForm greenButton" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
             </form>';
             } else {
                 return '<form action="'.encodeRoutage(88).'" method="post">
                 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+                <button class="buttonForm greenButton" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
             </form>';
             }
         }
@@ -248,16 +249,18 @@ final class TemplateWeaponsPublic extends SQLWeapons
                         echo '<td>'.$value['price'].'</td>';
                         echo '<td>'.$affected.'</td>';
                         echo '<td><a href="'.findTargetRoute(182).'&idWeapon='.$value['idWeapon'].'">Voir</a></td>';
-                        echo '<td>'.fixingWeapon($value['idWeapon'], $value['fixe'], $idNav).'</td>';
+                        
                         if(!$affectedStatus) {
+                            echo '<td>'.fixingWeapon($value['idWeapon'], $value['fixe'], $idNav).'</td>';
                             echo '<td>
                             <form action="'.encodeRoutage(85).'" method="post">
                                 <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
-                                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                                <button class="buttonForm redButton" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
                             </form>
                         </td>';
                         } else {
-                        echo '<td><div class="fakeButton">Effacer</div></td>';
+                        echo '<td><div class="fakeButton greenButton">Arme fixé</div></td>';
+                        echo '<td><div class="fakeButton unoptionalForFakeButton">Effacer</div></td>';
                 }
                 echo '</tr>';
                 }
@@ -569,7 +572,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 echo '<h3>Armes</h3>';
                 foreach ($dataListWeapons  as $dataWeapon) {
                     //echo '<aside class="borderDataSheetWeapon">';
-                echo '<aside>';
+                echo '<aside class="borderDataSheetWeapon">';
                     $overPower = null;
                     $damage = 1;
                     if($dataWeapon['overPower'] == 1) {

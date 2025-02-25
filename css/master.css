@@ -157,6 +157,7 @@ a {
   margin-top: 15vh;
  }
  .borderDataSheetWeapon {
+  background-color: #bebebe;
   border: var(--main-border);
   border-radius: var(--main-radius);
   padding: 0.5em;
@@ -768,8 +769,17 @@ a {
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
   margin: var(--main-marginButton);
+}
+.greenButton {
+  background-color: var(--color-green);
+}
+.redButton {
+  background-color: var(--color-red);
+}
+.unoptionalForFakeButton {
   text-decoration: line-through;
 }
+
 .buttonClosingModal {
   font-size: 0.9em;
 }
