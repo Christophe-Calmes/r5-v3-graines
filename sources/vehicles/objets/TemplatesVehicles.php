@@ -437,7 +437,6 @@ class TemplatesVehicles extends SQLvehicles
     }
     public function affectedVehicleArmyList ($idFaction, $idArmyList, $idNav) {
         $dataVehicle = $this->getAllVehicleOfFactionForArmyList ($idFaction);
-        print_r($dataVehicle);
         if(!empty($dataVehicle)){
             echo '<details>';
             echo '<summary class="titleSite">';
