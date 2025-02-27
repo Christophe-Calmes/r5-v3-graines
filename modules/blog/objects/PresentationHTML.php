@@ -10,7 +10,16 @@ class PresentationHTML extends SQLBlog
         'p'=>'p-class', 
         'h2'=>'titleSite', 
         'h3'=>'subTitleSite', 
-        'h4'=>'titleEventItem'];
+        'h4'=>'titleEventItem',
+        'a'=>'link'];
+    }
+    private function link ($data, $class) {
+        //*ea*[urlLink]*nameLink*ca*
+        $html = str_replace('*ea*', '<a class="'.$class.'" href=', $data);
+        $html = str_replace('[', '"', $html);
+        $html= str_replace(']', '">', $html);
+        $html=str_replace('*ca*','</a>', $html);
+        return $html;
     }
     private function listHTML ($data, $class) {
         $StepUL = str_replace('*sl*','<ul class="'.$class.'">',$data);
@@ -54,6 +63,7 @@ class PresentationHTML extends SQLBlog
         $html = $this-> title2  ($html, $this->classCSS['h2']);
         $html = $this-> title3  ($html, $this->classCSS['h3']);
         $html = $this-> title4  ($html, $this->classCSS['h4']);
+        $html = $this->link ($html, $this->classCSS['a']);
         $html = $this->lineBreak ($html);
         return $html;
     }

@@ -2,30 +2,34 @@
     <label for="title">Titre article</label>
     <input id="title" type="text" name="title" placeholder="Titre"/>
     <label for="article">Texte de votre article</label>
-    <div class="flex-rows">
-
-        <p class="link" onclick="insererMarqueur('sh2')">&lt;h2&gt;</p>
-        <p class="link" onclick="insererMarqueur('eh2')">&lt;/h2&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sh3')">&lt;h3&gt;</p>
-        <p class="link" onclick="insererMarqueur('eh3')">&lt;/h3&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sh4')">&lt;h4&gt;</p>
-        <p class="link" onclick="insererMarqueur('eh4')">&lt;/h4&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sArt')">&lt;article&gt;</p>
-        <p class="link" onclick="insererMarqueur('eArt')">&lt;/article&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sl')">&lt;ul&gt;</p>
-        <p class="link" onclick="insererMarqueur('el')">&lt;/ul&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sli')">&lt;li&gt;</p>
-        <p class="link" onclick="insererMarqueur('eli')">&lt;/li&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('sP')">&lt;p&gt;</p>
-        <p class="link" onclick="insererMarqueur('eP')">&lt;/p&gt;</p>
-        |
-        <p class="link" onclick="insererMarqueur('*')">&lt;br/&gt;</p>
+    <div class="flex-clos">
+        <div>
+            <p class="link" onclick="insererMarqueur('sh2')">&lt;h2&gt;</p>
+            <p class="link" onclick="insererMarqueur('eh2')">&lt;/h2&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sh3')">&lt;h3&gt;</p>
+            <p class="link" onclick="insererMarqueur('eh3')">&lt;/h3&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sh4')">&lt;h4&gt;</p>
+            <p class="link" onclick="insererMarqueur('eh4')">&lt;/h4&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sArt')">&lt;article&gt;</p>
+            <p class="link" onclick="insererMarqueur('eArt')">&lt;/article&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sP')">&lt;p&gt;</p>
+            <p class="link" onclick="insererMarqueur('eP')">&lt;/p&gt;</p>
+        </div>
+        <div>
+            <p class="link" onclick="insererMarqueur('sl')">&lt;ul&gt;</p>
+            <p class="link" onclick="insererMarqueur('el')">&lt;/ul&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sli')">&lt;li&gt;</p>
+            <p class="link" onclick="insererMarqueur('eli')">&lt;/li&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('*')">&lt;br/&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('link')">&lt;a href="[urlLink]"&gt;name_Link&lt;a&gt;</p>
+        </div>
     </div>
     <textarea id="article" name="article" rows="10" cols="70"></textarea>
     <label for="publish">Publication ?</label>
@@ -35,11 +39,6 @@
     </select>
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Créer</button>
 </form>
-<?php
-require('modules/blog/objects/templateBlog.php');
-$displayArticle = new TemplateBlog ();
-$displayArticle->displayLastArticle ();
-?>
 <script>
         function insererMarqueur(marqueur) {
             let textarea = document.getElementById("article");
@@ -90,6 +89,9 @@ $displayArticle->displayLastArticle ();
                 case 'eh4':
                     nouveauTexte = texte.substring(0, position) + "*eh4*" + texte.substring(position);
                     break;
+                case 'link':
+                nouveauTexte = texte.substring(0, position) + "*ea*[urlLink]*nameLink*ca*" + texte.substring(position);
+                break;
                 case '*':
                     nouveauTexte = texte.substring(0, position) + "*" + texte.substring(position);
                     break;
