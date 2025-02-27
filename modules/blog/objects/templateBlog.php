@@ -26,6 +26,7 @@ class TemplateBlog extends PresentationHTML
     public function displayLastArticle () {
         $data = $this->getLastArticle ();
         echo '<h2>'.$data['title'].'</h2>';
+        echo '<h5>Catégorie : '.$data['subject'].'</h5>';
         echo '<p>'.brassageDate($data['creat_date']).'</p>';
         echo $this->htmlText ($data['article']);
     }
@@ -51,6 +52,18 @@ class TemplateBlog extends PresentationHTML
                 echo $title;
                 echo'<h5>No data</h5>';
             }
+    }
+    public function selectSubject () {  
+        $dataCategorie = $this->getAllCategories (1);
+        if(!empty($dataCategorie)) {
+            echo '<label for="id_subject">Catégorie</label>';
+            echo '<select id="id_subject" name="id_subject">';
+                foreach ($dataCategorie as $value) {
+                    echo '<option value="'.$value['id'].'">'.$value['subject'].'</option>';
+                }
+            echo ' </select>';
+        }
+       
     }
        
 }

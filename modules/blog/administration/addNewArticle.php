@@ -1,3 +1,7 @@
+<?php 
+require ('modules/blog/objects/templateBlog.php');
+$formNewArticle = new TemplateBlog ();
+?>
 <form class="customerForm" action="<?php echo encodeRoutage(129); ?>" method="post" enctype="multipart/form-data">
     <label for="title">Titre article</label>
     <input id="title" type="text" name="title" placeholder="Titre"/>
@@ -37,8 +41,14 @@
         <option value="0">En rédaction</option>
         <option value="1">publier</option>
     </select>
+    <?php
+        $formNewArticle->selectSubject ();
+    ?>
+
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Créer</button>
 </form>
+
+
 <script>
         function insererMarqueur(marqueur) {
             let textarea = document.getElementById("article");

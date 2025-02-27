@@ -1,9 +1,14 @@
 <?php
 class SQLBlog 
 {
-    public function creatNewArticle ($param) {
+    public function creatNewArticle ($param, $id_subject) {
         $insert = "INSERT INTO `articles`(`author`, `title`, `article`,`publish`) VALUES (:idUser, :title, :article, :publish);";
-        return ActionDB::access($insert, $param, 2);
+        ActionDB::access($insert, $param, 2);
+        $id_article = $this->getLastArticle ()['id'];
+        $insert ="INSERT INTO `link_subject_article`(`id_subject`, `id_article`) VALUES (:id_subject, :id_article);";
+        $param = [['prep'=>':id_subject', 'variable'=>$id_subject],
+                    ['prep'=>':id_article', 'variable'=>$id_article]];
+        ActionDB::access($insert, $param, 2);
     }
     public function creatNewCategorie ($param) {
         $insert = "INSERT INTO `subjects`( `subject`) VALUES (:subject);";
@@ -24,9 +29,11 @@ class SQLBlog
         return ActionDB::access($update, $param, 2);
     }
     protected function getLastArticle () {
-        $select = "SELECT `id`, `author`, `title`, `article`, `valid`, `publish`, `creat_date`, `update_date` 
-        FROM `articles` 
-        ORDER BY `id` DESC LIMIT 1;";
+        $select = "SELECT `id_subject`, `id_article`, `author`, `title`, `article`, `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`, `subject`
+                    FROM `link_subject_article` 
+                    INNER JOIN `articles` ON `id_article` = `articles`.`id`
+                    INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
+                    ORDER BY `articles`.`id` DESC LIMIT 1;";
         return ActionDB::select($select, [], 2)[0];
     }
     protected function getAllCategories ($valid) {
