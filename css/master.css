@@ -148,6 +148,7 @@ a {
 .alignLi {
   display: block ruby;
 }
+
 /*Date*/
 .displayDate::first-letter{
   text-transform: uppercase;
