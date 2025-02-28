@@ -269,4 +269,20 @@ echo '<form class="formulaireClassique" action="'.encodeRoutage(21).'" method="p
       <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
     </form>';
   }
+  public function infoNav() {
+    $dataNav = $this->countIdNavAndIdForm ();
+
+    echo '<table class="tableWebSite">';
+      echo '<tr>';
+        echo '<th>Nombre idNav</th>';
+        echo '<th>Nombre idForm</th>';
+        echo '<th>Total</th>';
+      echo '</tr>';
+      echo '<tr>';
+        echo '<td>'.$dataNav[0]['idNav'].'</td>';
+        echo '<td>'.$dataNav[1]['idForm'].'</td>';
+        echo '<td>'.$dataNav[2]['total'].'</td>';
+      echo '</tr>';
+    echo '</table>';
+  }
 }

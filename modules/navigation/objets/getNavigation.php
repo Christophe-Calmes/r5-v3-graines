@@ -60,4 +60,13 @@ Class GetNavigation {
     $param = [['prep'=>':valide', 'variable'=>$valide]];
     return ActionDB::select($select, $param);
   }
+  protected function countIdNavAndIdForm () {
+    $statRouting = [];
+    $select = "SELECT COUNT(`idNav`) AS `nbrOfIdNav` FROM `navigation`;";
+    array_push($statRouting, ['idNav'=>ActionDB::select($select, [], 0)[0]['nbrOfIdNav']]);
+    $select = "SELECT COUNT(`idForm`) AS `nbrIdForm` FROM `routageForm`;";
+    array_push($statRouting, ['idForm'=>ActionDB::select($select, [], 0)[0]['nbrIdForm']]);
+    array_push($statRouting, ['total'=>$statRouting[0]['idNav'] + $statRouting[1]['idForm']]);
+    return $statRouting;
+  }
 }

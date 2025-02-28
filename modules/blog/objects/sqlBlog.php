@@ -56,5 +56,45 @@ class SQLBlog
         $param = [['prep'=>':valid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2);
     }
+    public function numberOfArticle ($idSubject) {
+        $select = "SELECT COUNT(`id_article`) AS `nbrArticle` 
+        FROM `link_subject_article`  WHERE `id_subject` = :idSubject";
+        $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
+        return ActionDB::select($select, $param, 2)[0]['nbrArticle'];
+    }
+    public function nameSubject ($idSubject) {
+        $select = "SELECT `subject` FROM `subjects` WHERE `id` = :idSubject;";
+        $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
+        return ActionDB::select($select, $param, 2)[0]['subject'];
+    }
+    protected function getArticlePagination($firstPage, $parPage, $idSubject) {
+        $select = "SELECT 
+        `articles`.`id` AS `idArticle`, 
+        `author`, 
+        `title`, 
+        `article`, 
+        `articles`.`valid` AS `validArticle`, 
+        `publish`, 
+        `articles`.`creat_date` AS `creatArticleDate`, 
+        `articles`.`update_date` AS `updateArticleDate`,
+        `subject`
+        FROM `link_subject_article`
+        INNER JOIN `articles` ON `articles`.`id` = `id_article`
+        INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
+        WHERE `id_subject` = :idSubject
+        LIMIT {$firstPage}, {$parPage};";
+        $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
+        return ActionDB::select($select, $param, 2);
+    }
+    protected function getOneArticle ($idArticle, $valid) {
+        $select = "SELECT `articles`.`id` AS `idArticle`, `author`, `title`, `article`, `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`,  `subject`
+                FROM `articles`
+                INNER JOIN `link_subject_article` ON `articles`.`id` = `id_article`
+                INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
+                WHERE `articles`.`id` = :idArticle AND `articles`.`valid` = :idValid;";
+        $param = [['prep'=>':idArticle', 'variable'=>$idArticle],
+                    ['prep'=>':idValid', 'variable'=>$valid]];
+        return ActionDB::select($select, $param, 2)[0];
 
+    }
 }

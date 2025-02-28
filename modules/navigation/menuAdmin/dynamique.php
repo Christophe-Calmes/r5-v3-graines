@@ -3,6 +3,9 @@
 <button type="submit" name="button">Changer les serrures</button>
 </form>
 <?php
+$readNav->infoNav();
+
+
 function doublon ($select) {
 
   $doublon = ActionDB::select($select, []);

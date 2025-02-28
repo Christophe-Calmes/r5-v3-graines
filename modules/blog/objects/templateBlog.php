@@ -24,12 +24,43 @@ class TemplateBlog extends PresentationHTML
         echo '</form>';
     }
     private function displayOneArticleBlog ($data) {
-        echo '<article class="sectionBlog">';
-        echo '<h2>'.$data['title'].'</h2>';
-        echo '<h5>Catégorie : '.$data['subject'].'</h5>';
-        echo '<p>Le '.brassageDate($data['creat_date']).'</p>';
-        echo $this->htmlText ($data['article']);
-        echo '</article>';
+        echo '<aside class="sectionBlog">';
+            echo '<h2>'.$data['title'].'</h2>';
+                echo '<h5>Catégorie : '.$data['subject'].'</h5>';
+                    echo '<p>Le '.brassageDate($data['creat_date']).'</p>';
+                        echo $this->htmlText ($data['article']);
+        echo '</aside>';
+    }
+    private function redirectionPage () {
+        if(!empty($_SESSION)) {
+            switch ($_SESSION['role']) {
+                case 0:
+                    return 214;
+                    break;
+                case 1:
+                    return 215;
+                    break;
+                case 2:
+                    return 216;
+                    break;
+                case 3:
+                    return 217;
+                break;
+                default:
+                    return 214;
+                    break;
+            }
+        } else {
+            return 214;
+        }
+    }
+    private function displayPreviweArticleBlog ($data) {
+            echo '<aside class="sectionBlog">';
+                echo '<h2><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">'.$data['title'].'</a></h2>';
+                echo '<h5>Catégorie : '.$data['subject'].'</h5>';
+                    echo '<p>Le '.brassageDate($data['creatArticleDate']).'</p>';
+                        echo substr($this->htmlText ($data['article']), 0, 550).' <strong><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">[..]</a></strong>';
+            echo '</aside>';
     }
     public function displayLastArticle () {
         $data = $this->getLastArticle ();
@@ -105,5 +136,20 @@ class TemplateBlog extends PresentationHTML
             echo '</ul>';
         }
     }
-       
+    public function displayPreloadArticle ($firstPage, $parPage, $idSubject) {
+        $getArticles = $this->getArticlePagination($firstPage, $parPage, $idSubject);
+        if(!empty($getArticles)) {
+            echo '<div>';
+            foreach ($getArticles as $value) {
+                    $this->displayPreviweArticleBlog ($value); 
+            }
+            echo '<div>';
+        } else {
+            echo '<h5>No article in database</h5>';
+        }
+    }
+    public function displayOneArticleOfBlog ($idArticle, $valid) {
+        $data = $this->getOneArticle ($idArticle, $valid);
+        $this->displayOneArticleBlog ($data);
+    }
 }
