@@ -412,8 +412,26 @@ a {
   color: #ffffff;
   font-weight: bold;
  }
-
-
+ /* Blog */
+.sectionBlog {
+  display: flex;
+  background-color: var(--main-background-navBar);
+  border-radius: var(--main-radius);
+  border: var(--main-border);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  flex-direction: column;
+  align-content: center;
+  align-items: flex-start;
+  padding: 1em;
+  margin: 2em;
+  text-align: left;
+}
+.articleBlog {
+  padding-left: 2em;
+  padding-right: 1em;
+  text-align: justify;
+}
+ /* Blog */
 /*Color table*/
 
 

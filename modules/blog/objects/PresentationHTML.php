@@ -6,7 +6,7 @@ class PresentationHTML extends SQLBlog
     public function __construct () {
         $this->classCSS = ['strong'=>'titlePrintDataSheet', 
         'ul'=>'listClass', 
-        'article'=>'textAreaNew', 
+        'article'=>'articleBlog', 
         'p'=>'p-class', 
         'h2'=>'titleSite', 
         'h3'=>'subTitleSite', 

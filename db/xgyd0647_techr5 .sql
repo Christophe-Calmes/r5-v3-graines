@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : sam. 22 fév. 2025 à 22:23
+-- Généré le : ven. 28 fév. 2025 à 00:53
 -- Version du serveur : 8.0.41-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -75,19 +75,37 @@ CREATE TABLE `journaux` (
 --
 
 INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`, `dateHeure`, `okConnexion`) VALUES
-(1, '::1', 59, 'Aresh', '0', '2025-02-19 13:18:29', 1),
-(2, '::1', 59, 'Aresh', '0', '2025-02-19 20:22:59', 1),
-(3, '::1', 59, 'Aresh', '0', '2025-02-19 23:19:01', 1),
-(4, '::1', 59, 'Aresh', '0', '2025-02-20 22:35:29', 1),
-(5, '::1', 58, 'Gestionnaire', '0', '2025-02-20 22:36:58', 1),
-(6, '::1', 59, 'Aresh', '0', '2025-02-20 22:44:23', 1),
-(7, '::1', 59, 'Aresh', '0', '2025-02-21 22:39:19', 1),
-(8, '::1', 1, 'Admin', '0', '2025-02-21 22:39:27', 1),
-(9, '::1', 59, 'Aresh', '0', '2025-02-21 22:42:33', 1),
-(10, '::1', 59, 'Aresh', '0', '2025-02-22 21:54:10', 1),
-(11, '::1', 1, 'Admin', '0', '2025-02-22 22:09:52', 1),
-(12, '::1', 59, 'Aresh', '0', '2025-02-22 22:10:54', 1),
-(13, '::1', 59, 'Aresh', '0', '2025-02-22 23:11:03', 1);
+(1, '::1', 59, 'Aresh', '0', '2025-02-26 10:14:02', 1),
+(2, '::1', 1, 'Admin', '0', '2025-02-26 16:52:50', 1),
+(3, '::1', 59, 'Aresh', '0', '2025-02-26 16:53:35', 1),
+(4, '::1', 59, 'Aresh', '0', '2025-02-26 16:56:12', 1),
+(5, '::1', 59, 'Aresh', '0', '2025-02-26 16:58:16', 1),
+(6, '::1', 1, 'Admin', '0', '2025-02-26 17:12:22', 1),
+(7, '::1', 58, 'Gestionnaire', '0', '2025-02-26 17:13:37', 1),
+(8, '::1', 58, 'Gestionnaire', '0', '2025-02-27 09:30:24', 1),
+(9, '::1', 1, 'Admin', '0', '2025-02-27 10:33:44', 1),
+(10, '::1', 58, 'Gestionnaire', '0', '2025-02-27 10:36:15', 1),
+(11, '::1', 58, 'Gestionnaire', '0', '2025-02-27 17:43:37', 1),
+(12, '::1', 59, 'Aresh', '0', '2025-02-27 18:12:59', 1),
+(13, '::1', 1, 'Admin', '0', '2025-02-27 18:13:58', 1),
+(14, '::1', 58, 'Gestionnaire', '0', '2025-02-27 18:14:52', 1),
+(15, '::1', 1, 'Admin', '0', '2025-02-27 18:15:46', 1),
+(16, '::1', 58, 'Gestionnaire', '0', '2025-02-27 18:28:18', 1),
+(17, '::1', 58, 'Gestionnaire', '0', '2025-02-27 19:46:48', 1),
+(18, '::1', 58, 'Gestionnaire', '0', '2025-02-27 23:14:51', 1),
+(19, '::1', 1, 'Admin', '0', '2025-02-27 23:17:13', 1),
+(20, '::1', 58, 'Gestionnaire', '0', '2025-02-27 23:20:37', 1),
+(21, '::1', 58, 'Gestionnaire', '0', '2025-02-28 00:46:37', 1),
+(22, '::1', 1, 'Admin', '0', '2025-02-28 01:29:23', 1),
+(23, '::1', 1, 'Admin', '0', '2025-02-28 01:37:47', 1),
+(24, '::1', 1, 'Admin', '0', '2025-02-28 01:44:10', 1),
+(25, '::1', 1, 'Admin', '0', '2025-02-28 01:48:11', 1),
+(26, '::1', 1, 'Admin', '0', '2025-02-28 01:51:16', 1),
+(27, '::1', 59, 'Aresh', '0', '2025-02-28 01:51:23', 1),
+(28, '::1', 58, 'Gestionnaire', '0', '2025-02-28 01:51:41', 1),
+(29, '::1', 1, 'Admin', '0', '2025-02-28 01:52:05', 1),
+(30, '::1', 59, 'Aresh', '0', '2025-02-28 01:52:35', 1),
+(31, '::1', 58, 'Gestionnaire', '0', '2025-02-28 01:52:44', 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +138,8 @@ INSERT INTO `menuNav` (`idMenuDeroulant`, `titreMenu`) VALUES
 (25, 'Weapons Membre'),
 (26, 'miniatures'),
 (27, 'Vehicles'),
-(28, 'Compagnies');
+(28, 'Compagnies'),
+(29, 'Admin blog');
 
 -- --------------------------------------------------------
 
@@ -146,7 +165,8 @@ INSERT INTO `modules` (`id`, `module`, `valide`) VALUES
 (12, 'Weapons', 1),
 (13, 'Miniatures', 1),
 (14, 'vehicles', 1),
-(15, 'armyList', 1);
+(15, 'armyList', 1),
+(16, 'Blog', 1);
 
 -- --------------------------------------------------------
 
@@ -173,91 +193,99 @@ CREATE TABLE `navigation` (
 --
 
 INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMenu`, `ordre`, `niveau`, `valide`, `deroulant`, `targetRoute`, `idModule`) VALUES
-(72, 'connexion', 'modules/connexion/connexion.php', 1, 0, 10, 0, 1, 0, '1565194586', 1),
-(73, 'inscription', 'modules/users/inscription.php', 0, 0, 0, 0, 1, 0, '555885558543', 1),
-(74, 'Deconnexion', 'modules/securiter/deconnexion.php', 1, 0, 20, 2, 1, 0, '46807525655198140446', 1),
-(75, 'Deconnexion', 'modules/securiter/deconnexion.php', 1, 0, 20, 1, 1, 0, '882281902164', 1),
-(76, 'Administration du site', 'modules/navigation/erreurNav.php', 1, 0, 1, 2, 1, 1, '69440180746174', 1),
-(77, 'Ajout lien de nav', 'modules/navigation/menuAdmin/creationNouveuMenu.php', 1, 1, 1, 2, 1, 0, '6093671644115', 1),
-(78, 'Titres et SEO', 'modules/dataSite/titreInfo.php', 1, 1, 2, 2, 1, 0, '777355583690413', 1),
-(81, 'Brassage des liens', 'modules/navigation/menuAdmin/dynamique.php', 1, 1, 2, 2, 1, 0, '0150345566183', 1),
-(82, 'Ajout menu déroulant', 'modules/navigation/menuAdmin/ajoutMenuDeroulant.php', 1, 1, 2, 2, 1, 1, '55904568550680656184', 1),
-(85, 'Administration User', 'modules/navigation/erreurNav.php', 1, 0, 1, 2, 1, 6, '67774478890', 1),
-(86, 'Users Actif', 'modules/users/administration/droitUser.php', 1, 6, 1, 2, 1, 6, '4054525055924', 1),
-(87, 'Route Form', 'modules/navigation/menuAdmin/ajoutRouteForm.php', 1, 1, 2, 2, 1, 0, '45855796677602', 1),
-(88, 'Users Anciens ', 'modules/users/administration/droitUserNonValide.php', 1, 6, 2, 2, 1, 0, '4681550475356578', 1),
-(89, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 19, 1, 1, 0, '5217919368676', 1),
-(90, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 1, 2, 1, 0, '86358463715682', 1),
-(91, 'Journeaux de log', 'modules/journaux/journaux.php', 1, 20, 1, 2, 1, 0, '12188491468', 1),
-(92, 'Admin nav', 'modules/navigation/menuAdmin/adminMenu.php', 1, 1, 2, 2, 1, 0, '6663537599806362', 1),
-(93, 'modification lien nav', 'modules/navigation/menuAdmin/modificationNav.php', 0, 0, 0, 2, 1, 0, '154661158454534', 1),
-(95, 'Admin modules', 'modules/navigation/menuAdmin/administrationModules.php', 1, 1, 7, 2, 1, 1, '67805564814644567685', 1),
+(72, 'connexion', 'modules/connexion/connexion.php', 1, 0, 10, 0, 1, 0, '6372504347627357', 1),
+(73, 'inscription', 'modules/users/inscription.php', 0, 0, 0, 0, 1, 0, '565410240884045', 1),
+(74, 'Deconnexion', 'modules/securiter/deconnexion.php', 1, 0, 20, 2, 1, 0, '6089706480448336', 1),
+(75, 'Deconnexion', 'modules/securiter/deconnexion.php', 1, 0, 20, 1, 1, 0, '586340582554618', 1),
+(76, 'Administration du site', 'modules/navigation/erreurNav.php', 1, 0, 1, 2, 1, 1, '87665057044416', 1),
+(77, 'Ajout lien de nav', 'modules/navigation/menuAdmin/creationNouveuMenu.php', 1, 1, 1, 2, 1, 0, '196945540001', 1),
+(78, 'Titres et SEO', 'modules/dataSite/titreInfo.php', 1, 1, 2, 2, 1, 0, '324846642858283', 1),
+(81, 'Brassage des liens', 'modules/navigation/menuAdmin/dynamique.php', 1, 1, 2, 2, 1, 0, '2466705896624676', 1),
+(82, 'Ajout menu déroulant', 'modules/navigation/menuAdmin/ajoutMenuDeroulant.php', 1, 1, 2, 2, 1, 1, '72487448693', 1),
+(85, 'Administration User', 'modules/navigation/erreurNav.php', 1, 0, 1, 2, 1, 6, '96844888666456', 1),
+(86, 'Users Actif', 'modules/users/administration/droitUser.php', 1, 6, 1, 2, 1, 6, '3436154602661', 1),
+(87, 'Route Form', 'modules/navigation/menuAdmin/ajoutRouteForm.php', 1, 1, 2, 2, 1, 0, '4986043009072184', 1),
+(88, 'Users Anciens ', 'modules/users/administration/droitUserNonValide.php', 1, 6, 2, 2, 1, 0, '53854522864', 1),
+(89, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 19, 1, 1, 0, '95342643342', 1),
+(90, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 1, 2, 1, 0, '06012158343733', 1),
+(91, 'Journeaux de log', 'modules/journaux/journaux.php', 1, 20, 1, 2, 1, 0, '079485487488242', 1),
+(92, 'Admin nav', 'modules/navigation/menuAdmin/adminMenu.php', 1, 1, 2, 2, 1, 0, '269462251366', 1),
+(93, 'modification lien nav', 'modules/navigation/menuAdmin/modificationNav.php', 0, 0, 0, 2, 1, 0, '00781474713', 1),
+(95, 'Admin modules', 'modules/navigation/menuAdmin/administrationModules.php', 1, 1, 7, 2, 1, 1, '93624108749685', 1),
 (99, 'Add roles', 'modules/users/administration/addRole.php', 1, 6, 3, 2, 0, 0, '07235456649081059126', 1),
-(100, 'Deco', 'modules/securiter/deconnexion.php', 1, 0, 20, 3, 1, 0, '36441916765', 1),
-(101, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 19, 3, 1, 0, '84960654576032', 1),
-(104, 'cgu', 'modules/cgu/cgu.php', 0, 0, 0, 1, 1, 0, '659021474489478', 1),
-(136, 'cgu', 'modules/cgu/cgu.php', 0, 0, 0, 0, 1, 0, '36653756061565', 1),
-(137, 'cguUser', 'modules/cgu/cgu.php', 0, 0, 0, 1, 1, 0, '26555860318', 1),
-(138, 'cguUser', 'modules/cgu/cgu.php', 0, 0, 0, 3, 1, 0, '57483869926646', 1),
-(140, 'Lost Password', 'modules/users/administration/lostPassword.php', 0, 0, 0, 0, 1, 0, '68410065056796', 1),
+(100, 'Deco', 'modules/securiter/deconnexion.php', 1, 0, 20, 3, 1, 0, '193607056288446', 1),
+(101, 'Profil', 'modules/users/administration/profilUser.php', 1, 0, 19, 3, 1, 0, '3825934659', 1),
+(104, 'cgu', 'modules/cgu/cgu.php', 0, 0, 0, 1, 1, 0, '708515458885', 1),
+(136, 'cgu', 'modules/cgu/cgu.php', 0, 0, 0, 0, 1, 0, '58426484229537', 1),
+(137, 'cguUser', 'modules/cgu/cgu.php', 0, 0, 0, 1, 1, 0, '831878500366', 1),
+(138, 'cguUser', 'modules/cgu/cgu.php', 0, 0, 0, 3, 1, 0, '37599479220799', 1),
+(140, 'Lost Password', 'modules/users/administration/lostPassword.php', 0, 0, 0, 0, 1, 0, '477631668859693', 1),
 (141, 'Inscription', 'modules/users/inscription.php', 1, 0, 1, 0, 0, 0, '46902325427385654690', 1),
-(148, 'Firewall', 'modules/navigation/erreurNav.php', 1, 0, 2, 2, 1, 20, '6312947533960', 1),
-(150, 'IP ban panel', 'modules/journaux/ipBanPanel.php', 1, 20, 2, 2, 1, 0, '67530688257', 1),
-(151, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 0, 1, 0, '95264662844574', 1),
-(152, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 1, 1, 0, '4403984985634', 1),
-(153, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 2, 1, 0, '91086114671', 1),
-(154, 'Univers', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 21, 'fZBrAi6kAa9rlaQk', 9),
-(155, 'Ajouter un univers', 'sources/univers/publics/addUnivers.php', 1, 21, 1, 1, 1, 0, '08643690665015465908', 9),
-(156, 'updateFormUnivers.php', 'sources/univers/publics/updateFormUnivers.php', 0, 0, 1, 1, 1, 0, '2646620714544162', 9),
-(157, 'Ajouter une faction', 'sources/factions/publics/addFactions.php', 1, 21, 2, 1, 1, 0, '4568135656558876', 10),
-(158, 'Effacer une faction', 'sources/factions/publics/deleteFaction.php', 1, 21, 3, 1, 1, 0, '1959797048499693', 10),
-(159, 'Mettre à jour factions', 'sources/factions/publics/updateFaction.php', 1, 21, 2, 1, 1, 0, '4554074583654453', 10),
-(160, 'Regles speciales', 'modules/navigation/erreurNav.php', 1, 0, 0, 3, 1, 22, 'cnLYNNWN8gyCLODc', 11),
-(161, 'Ajouter regle speciale', 'sources/specialRules/gestionnaires/addSpecialRules.php', 1, 22, 1, 3, 1, 0, '1512832805135157', 11),
-(162, 'Special rules', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 23, '50464340780468567410', 11),
-(163, 'Armes', 'sources/specialRules/publics/displaySpecialRulesWeapon.php', 1, 23, 1, 1, 1, 23, '9394861501575964', 11),
-(164, 'Administration armes', 'sources/specialRules/administration/displaySpecialRulesWeapon.php', 1, 22, 1, 3, 1, 0, '6872056930426466', 11),
-(165, 'Mettre a jour regles speciales', 'sources/specialRules/administration/updateSpecialRules.php', 0, 0, 0, 3, 1, 0, '9242658115487373', 11),
-(166, 'Admi figurines', 'sources/specialRules/administration/displaySpecialRulesMiniature.php', 1, 22, 3, 3, 1, 0, '4408677515754443', 11),
-(167, 'Admin vehicules', 'sources/specialRules/administration/displaySpecialRulesVehicle.php', 0, 22, 4, 3, 1, 0, '4923846657032525', 11),
-(168, 'Admi liste armee', 'sources/specialRules/administration/displaySpecialRulesArmyList.php', 1, 22, 5, 3, 1, 0, '3248701917145756', 11),
-(169, 'diplaySRPublic', 'sources/specialRules/publics/diplayPublicOneSpecialRules.php', 0, 0, 0, 1, 1, 0, '29476616024126165458', 11),
-(170, 'Figurines', 'sources/specialRules/publics/displaySpecialRulesMiniature.php', 1, 23, 2, 1, 1, 0, '0364011360004074', 11),
-(171, 'Vehicules', 'sources/specialRules/publics/displaySpecialRulesVehicle.php', 1, 23, 3, 1, 1, 0, '6542060055461854', 11),
-(172, 'Liste armee', 'sources/specialRules/publics/displaySpecialRulesArmyList.php', 1, 23, 4, 1, 1, 0, '5086545857664781', 11),
-(173, 'Gestion des armes', 'modules/navigation/erreurNav.php', 1, 0, 0, 3, 1, 24, '778L8UMd1lXMzoff', 12),
-(174, 'Armes des univers', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 25, '57068033811403485525', 12),
-(175, 'Ajouter arme', 'sources/weapons/administration/formWeapon.php', 1, 24, 1, 3, 1, 0, '5117585423662607', 12),
-(176, 'Arme non fixe', 'sources/weapons/administration/displayWeaponNoFixe.php', 1, 24, 2, 3, 1, 0, '1046536824545657', 12),
-(177, 'DisplayOneWeaponAdmin', 'sources/weapons/administration/displayOneWeapon.php', 0, 0, 0, 3, 1, 0, '0663794161145329', 12),
-(178, 'Arme fix', '/var/www/html/r5v3local.com/sources/weapons/administration/displayWeaponFix.php', 1, 24, 3, 3, 1, 0, '5884847114209434', 12),
-(179, 'Ajouter arme', 'sources/weapons/public/addWeaponPublic.php', 1, 25, 1, 1, 1, 0, '0444594487559108', 12),
-(180, 'Liste des armes de faction', 'sources/weapons/public/listWeaponFactions.php', 0, 0, 1, 1, 1, 0, '6891421351096506', 12),
-(181, 'Arme de faction', 'sources/weapons/public/listFaction.php', 1, 25, 1, 1, 1, 25, '4978943442460908', 12),
-(182, 'Single weapon sheet', 'sources/weapons/public/singleWeaponSheet.php', 0, 0, 1, 1, 1, 0, '4714734841117745', 12),
-(183, 'Global Weapon', 'sources/weapons/public/globalWeapon.php', 0, 25, 3, 1, 1, 0, '4563324376485038', 12),
-(184, 'Figurines', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 26, 'eopHoO595kkjHfrU', 13),
-(185, 'Ajouter une figurine', 'sources/miniatures/publics/miniaturesForm.php', 1, 26, 1, 1, 1, 0, '4227463269001830', 13),
-(186, 'Regles speciales figurines', 'sources/miniatures/publics/listFactions.php', 1, 26, 2, 1, 1, 0, '12566850376544813427', 13),
-(187, 'liste miniature of faction', 'sources/miniatures/publics/listMiniatureOfFaction.php', 0, 0, 1, 1, 1, 0, '0132687536557494', 13),
-(188, 'Update miniature', 'sources/miniatures/publics/updateMiniatureByUser.php', 0, 0, 3, 1, 1, 0, '7248606504159220', 13),
-(189, 'Arme figurines', 'sources/miniatures/publics/listFactionsWeaponManagement.php', 1, 26, 3, 1, 1, 0, '0741209405650843', 13),
-(190, 'Figurine en service actif', 'sources/miniatures/publics/listFactionMiniatureInService.php', 1, 26, 4, 1, 1, 0, '5064638201451655', 13),
-(191, 'liste Miniature in service', 'sources/miniatures/publics/listMiniatureInService.php', 0, 0, 0, 1, 1, 0, '4103040345146687', 13),
-(192, 'Vehicules', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 27, 'd9nrwN4fguHarqPf', 14),
-(193, 'Ajouter vehicule', 'sources/vehicles/publics/addVehicle.php', 1, 27, 1, 1, 1, 0, '3324069662444065', 14),
-(194, 'Liste des vehicules', 'sources/vehicles/publics/listFactions.php', 0, 27, 2, 1, 1, 0, '6076545076167253', 14),
-(195, 'listVehicleFaction', 'sources/vehicles/publics/listVehicleUnfix.php', 0, 0, 1, 1, 1, 0, '5596471246036524', 14),
-(196, 'oneVehicleUpdate', 'sources/vehicles/publics/oneVehicleupdate.php', 0, 0, 7, 1, 1, 0, '1577943582432318', 14),
-(197, 'Compagnies', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 28, 'YHFEHkViUYKT02ax', 15),
-(198, 'Creer une compagnie', 'sources/armyList/publics/creatArmyList.php', 1, 28, 1, 1, 1, 0, '0055363702599578', 15),
-(199, 'Armylist', 'sources/armyList/publics/listArmy.php', 0, 0, 1, 1, 1, 0, '6342682848627932', 15),
-(200, 'Listes de compagnie', 'sources/armyList/publics/listFactions.php', 1, 28, 2, 1, 1, 0, '6505446757923195', 15),
-(201, 'AdminArmyList', 'sources/armyList/publics/adminArmyList.php', 0, 0, 3, 1, 1, 0, '1746593516442494', 15),
-(202, 'Armes sans faction', 'sources/weapons/public/notAffectedWeapon.php', 0, 25, 5, 1, 1, 25, '15148594774059654153', 12),
-(203, 'printList.php', 'sources/armyList/publics/printArmyList.php', 0, 0, 5, 1, 1, 0, '7799553415471712', 15),
-(204, 'Figurines sans faction', 'sources/miniatures/publics/listOfNFactionMiniature.php', 1, 26, 5, 1, 1, 0, '96464741610876130676', 13),
-(205, 'Vehicules sans faction', 'sources/vehicles/publics/listOfNoFactionVehicle.php', 1, 27, 3, 1, 1, 0, '6448319790839342', 14);
+(148, 'Firewall', 'modules/navigation/erreurNav.php', 1, 0, 2, 2, 1, 20, '35405419665', 1),
+(150, 'IP ban panel', 'modules/journaux/ipBanPanel.php', 1, 20, 2, 2, 1, 0, '23007260540243', 1),
+(151, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 0, 1, 0, '651838760306', 1),
+(152, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 1, 1, 0, '3696448525004387', 1),
+(153, 'Accueil', 'modules/navigation/pageGeneral.php', 1, 0, 0, 2, 1, 0, '594508275540', 1),
+(154, 'Univers', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 21, '506646363644763', 9),
+(155, 'Ajouter un univers', 'sources/univers/publics/addUnivers.php', 1, 21, 1, 1, 1, 0, '7738847345', 9),
+(156, 'updateFormUnivers.php', 'sources/univers/publics/updateFormUnivers.php', 0, 0, 1, 1, 1, 0, '7534520466', 9),
+(157, 'Ajouter une faction', 'sources/factions/publics/addFactions.php', 1, 21, 2, 1, 1, 0, '6063440236849', 10),
+(158, 'Effacer une faction', 'sources/factions/publics/deleteFaction.php', 1, 21, 3, 1, 1, 0, '878245559558', 10),
+(159, 'Mettre à jour factions', 'sources/factions/publics/updateFaction.php', 1, 21, 2, 1, 1, 0, '614120958325', 10),
+(160, 'Regles speciales', 'modules/navigation/erreurNav.php', 1, 0, 6, 3, 1, 22, '04065627473', 11),
+(161, 'Ajouter regle speciale', 'sources/specialRules/gestionnaires/addSpecialRules.php', 1, 22, 1, 3, 1, 0, '426636658726485', 11),
+(162, 'Special rules', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 23, '7599302893', 11),
+(163, 'Armes', 'sources/specialRules/publics/displaySpecialRulesWeapon.php', 1, 23, 1, 1, 1, 23, '894047885606', 11),
+(164, 'Administration armes', 'sources/specialRules/administration/displaySpecialRulesWeapon.php', 1, 22, 1, 3, 1, 0, '4352662462464', 11),
+(165, 'Mettre a jour regles speciales', 'sources/specialRules/administration/updateSpecialRules.php', 0, 0, 0, 3, 1, 0, '7710393464', 11),
+(166, 'Admi figurines', 'sources/specialRules/administration/displaySpecialRulesMiniature.php', 1, 22, 3, 3, 1, 0, '6841475526432', 11),
+(167, 'Admin vehicules', 'sources/specialRules/administration/displaySpecialRulesVehicle.php', 0, 22, 4, 3, 1, 0, '7834457566', 11),
+(168, 'Admi liste armee', 'sources/specialRules/administration/displaySpecialRulesArmyList.php', 1, 22, 5, 3, 1, 0, '8845450721660', 11),
+(169, 'diplaySRPublic', 'sources/specialRules/publics/diplayPublicOneSpecialRules.php', 0, 0, 0, 1, 1, 0, '4648886873399434', 11),
+(170, 'Figurines', 'sources/specialRules/publics/displaySpecialRulesMiniature.php', 1, 23, 2, 1, 1, 0, '8155312775162703', 11),
+(171, 'Vehicules', 'sources/specialRules/publics/displaySpecialRulesVehicle.php', 1, 23, 3, 1, 1, 0, '2849062514529920', 11),
+(172, 'Liste armee', 'sources/specialRules/publics/displaySpecialRulesArmyList.php', 1, 23, 4, 1, 1, 0, '289488584823', 11),
+(173, 'Gestion des armes', 'modules/navigation/erreurNav.php', 1, 0, 5, 3, 1, 24, '678746465312785', 12),
+(174, 'Armes des univers', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 25, '4526056451647587', 12),
+(175, 'Ajouter arme', 'sources/weapons/administration/formWeapon.php', 1, 24, 1, 3, 1, 0, '5125841919', 12),
+(176, 'Arme non fixe', 'sources/weapons/administration/displayWeaponNoFixe.php', 1, 24, 2, 3, 1, 0, '726613968434927', 12),
+(177, 'DisplayOneWeaponAdmin', 'sources/weapons/administration/displayOneWeapon.php', 0, 0, 0, 3, 1, 0, '4564627666955', 12),
+(178, 'Arme fix', '/var/www/html/r5v3local.com/sources/weapons/administration/displayWeaponFix.php', 1, 24, 3, 3, 1, 0, '45953910326', 12),
+(179, 'Ajouter arme', 'sources/weapons/public/addWeaponPublic.php', 1, 25, 1, 1, 1, 0, '97660623033200', 12),
+(180, 'Liste des armes de faction', 'sources/weapons/public/listWeaponFactions.php', 0, 0, 1, 1, 1, 0, '8436106155', 12),
+(181, 'Arme de faction', 'sources/weapons/public/listFaction.php', 1, 25, 1, 1, 1, 25, '66754435920665', 12),
+(182, 'Single weapon sheet', 'sources/weapons/public/singleWeaponSheet.php', 0, 0, 1, 1, 1, 0, '7226835309', 12),
+(183, 'Global Weapon', 'sources/weapons/public/globalWeapon.php', 0, 25, 3, 1, 1, 0, '9614511895080', 12),
+(184, 'Figurines', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 26, '165451964244', 13),
+(185, 'Ajouter une figurine', 'sources/miniatures/publics/miniaturesForm.php', 1, 26, 1, 1, 1, 0, '54468840128', 13),
+(186, 'Regles speciales figurines', 'sources/miniatures/publics/listFactions.php', 1, 26, 2, 1, 1, 0, '704797453468', 13),
+(187, 'liste miniature of faction', 'sources/miniatures/publics/listMiniatureOfFaction.php', 0, 0, 1, 1, 1, 0, '1548580538', 13),
+(188, 'Update miniature', 'sources/miniatures/publics/updateMiniatureByUser.php', 0, 0, 3, 1, 1, 0, '446912045237334', 13),
+(189, 'Arme figurines', 'sources/miniatures/publics/listFactionsWeaponManagement.php', 1, 26, 3, 1, 1, 0, '7476567624', 13),
+(190, 'Figurine en service actif', 'sources/miniatures/publics/listFactionMiniatureInService.php', 1, 26, 4, 1, 1, 0, '7758547441685', 13),
+(191, 'liste Miniature in service', 'sources/miniatures/publics/listMiniatureInService.php', 0, 0, 0, 1, 1, 0, '23121556734', 13),
+(192, 'Vehicules', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 27, '41615548607977', 14),
+(193, 'Ajouter vehicule', 'sources/vehicles/publics/addVehicle.php', 1, 27, 1, 1, 1, 0, '17898655574', 14),
+(194, 'Liste des vehicules', 'sources/vehicles/publics/listFactions.php', 0, 27, 2, 1, 1, 0, '4466967668053', 14),
+(195, 'listVehicleFaction', 'sources/vehicles/publics/listVehicleUnfix.php', 0, 0, 1, 1, 1, 0, '96254740689', 14),
+(196, 'oneVehicleUpdate', 'sources/vehicles/publics/oneVehicleupdate.php', 0, 0, 7, 1, 1, 0, '9523968197355', 14),
+(197, 'Compagnies', 'modules/navigation/erreurNav.php', 1, 0, 0, 1, 1, 28, '5413912463550', 15),
+(198, 'Creer une compagnie', 'sources/armyList/publics/creatArmyList.php', 1, 28, 1, 1, 1, 0, '444856144421884', 15),
+(199, 'Armylist', 'sources/armyList/publics/listArmy.php', 0, 0, 1, 1, 1, 0, '5949664824', 15),
+(200, 'Listes de compagnie', 'sources/armyList/publics/listFactions.php', 1, 28, 2, 1, 1, 0, '7660411168674509', 15),
+(201, 'AdminArmyList', 'sources/armyList/publics/adminArmyList.php', 0, 0, 3, 1, 1, 0, '698813430834', 15),
+(202, 'Armes sans faction', 'sources/weapons/public/notAffectedWeapon.php', 0, 25, 5, 1, 1, 25, '62180162610', 12),
+(203, 'printList.php', 'sources/armyList/publics/printArmyList.php', 0, 0, 5, 1, 1, 0, '002541849884246', 15),
+(204, 'Figurines sans faction', 'sources/miniatures/publics/listOfNFactionMiniature.php', 1, 26, 5, 1, 1, 0, '44640733552935', 13),
+(205, 'Vehicules sans faction', 'sources/vehicles/publics/listOfNoFactionVehicle.php', 1, 27, 3, 1, 1, 0, '374563759996571', 14),
+(206, 'Admin blog', 'modules/navigation/erreurNav.php', 1, 0, 3, 3, 1, 29, '355708278691566', 16),
+(207, 'Add new article', 'modules/blog/administration/addNewArticle.php', 1, 29, 1, 3, 1, 0, '41432640897869', 16),
+(208, 'Add Categories', 'modules/blog/administration/addCategorie.php', 1, 29, 2, 3, 1, 0, '447085629450', 16),
+(209, 'Acceuil', 'modules/navigation/pageGeneral.php', 1, 0, 1, 3, 1, 0, '0652570414', 1),
+(210, 'paginationArticle', 'modules/blog/public/paginationArticles.php', 0, 0, 0, 0, 1, 0, '261984400954489', 16),
+(211, 'paginationArticle', 'modules/blog/public/paginationArticles.php', 0, 0, 0, 1, 1, 0, '254399544636566', 16),
+(212, 'paginationArticle', 'modules/blog/public/paginationArticles.php', 0, 0, 0, 2, 1, 0, '6544605862', 16),
+(213, 'paginationArticle', 'modules/blog/public/paginationArticles.php', 0, 0, 0, 3, 1, 0, '4592909404', 16);
 
 -- --------------------------------------------------------
 
@@ -387,7 +415,10 @@ INSERT INTO `routageForm` (`idForm`, `chemin`, `securiter`, `valide`, `route`, `
 (125, 'sources/armyList/cud/delete/deleteGroupArmyListVehicle.php', 1, 1, '12606552036650915484', 15),
 (126, 'sources/armyList/cud/delete/deleteArmyList.php', 1, 1, '64667028683456637550', 15),
 (127, 'sources/armyList/cud/delete/deleteArmyListFaction.php', 1, 1, '05648604666647642793', 15),
-(128, 'sources/weapons/cud/update/affectedFactionOfOneWeapon.php', 1, 1, '62624798012655489575', 12);
+(128, 'sources/weapons/cud/update/affectedFactionOfOneWeapon.php', 1, 1, '62624798012655489575', 12),
+(129, 'modules/blog/CUD/creat/addNewArticle.php', 3, 1, '53641618697764862565', 16),
+(130, 'modules/blog/CUD/creat/addCategorie.php', 3, 1, '87475205487380568083', 16),
+(131, 'modules/blog/CUD/update/updateCategorie.php', 3, 1, '41625541378585255526', 16);
 
 -- --------------------------------------------------------
 
@@ -413,10 +444,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(1, '7FAeLctPp9', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
+(1, 'asc0WFtBao', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
 (57, 'w2jbaXpwin', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Membre', '$2y$10$XyTgD4YJUyRXmYb5rJ7IGeCw5c..lxXVGNCEw2XdpS6GOtOfzvGfW', 1, 1, '2024-05-15 14:33:10'),
-(58, '1zX9qlqFKv', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
-(59, 'PkJsvLODzokISaqW', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
+(58, '16FloCicojVhfCym', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
+(59, 'vjfS1Gruok', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
 
 --
 -- Index pour les tables déchargées
@@ -498,25 +529,25 @@ ALTER TABLE `dataSite`
 -- AUTO_INCREMENT pour la table `journaux`
 --
 ALTER TABLE `journaux`
-  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `menuNav`
 --
 ALTER TABLE `menuNav`
-  MODIFY `idMenuDeroulant` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idMenuDeroulant` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT pour la table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -528,7 +559,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `routageForm`
 --
 ALTER TABLE `routageForm`
-  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT pour la table `users`

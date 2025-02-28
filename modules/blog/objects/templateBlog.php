@@ -23,12 +23,20 @@ class TemplateBlog extends PresentationHTML
         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update</button>';
         echo '</form>';
     }
-    public function displayLastArticle () {
-        $data = $this->getLastArticle ();
+    private function displayOneArticleBlog ($data) {
+        echo '<article class="sectionBlog">';
         echo '<h2>'.$data['title'].'</h2>';
         echo '<h5>Catégorie : '.$data['subject'].'</h5>';
-        echo '<p>'.brassageDate($data['creat_date']).'</p>';
+        echo '<p>Le '.brassageDate($data['creat_date']).'</p>';
         echo $this->htmlText ($data['article']);
+        echo '</article>';
+    }
+    public function displayLastArticle () {
+        $data = $this->getLastArticle ();
+        if(!empty($data)) {
+            $this->displayOneArticleBlog ($data);
+        }
+        
     }
     public function displayUpdateCategorie ($valid, $idNav) {
         $dataCategorie = $this->getAllCategories ($valid);
@@ -52,6 +60,7 @@ class TemplateBlog extends PresentationHTML
                 echo $title;
                 echo'<h5>No data</h5>';
             }
+        
     }
     public function selectSubject () {  
         $dataCategorie = $this->getAllCategories (1);
@@ -63,7 +72,38 @@ class TemplateBlog extends PresentationHTML
                 }
             echo ' </select>';
         }
-       
+    }
+    public function menuCategorieBlog () {
+        if(!empty($_SESSION)) {
+            switch ($_SESSION['role']) {
+                case 0:
+                    $route = 210;
+                    break;
+                case 1:
+                    $route = 211;
+                    break;
+                case 2:
+                    $route = 212;
+                    break;
+                case 3:
+                    $route = 213;
+                break;
+                default:
+                    $route = 210;
+                    break;
+            }
+        } else {
+            $route = 210;
+        }
+
+        $dataCategorie = $this->getAllCategories (1);
+        if(!empty($dataCategorie)) {
+            echo '<ul class="flex-rows-simple margingLeft">';
+                foreach ($dataCategorie as $value) {
+                    echo '<li><a href="'.findTargetRoute($route).'">'.$value['subject'].'</a></li>';
+                }
+            echo '</ul>';
+        }
     }
        
 }
