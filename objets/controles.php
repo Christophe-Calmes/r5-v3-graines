@@ -35,6 +35,7 @@ class Controles {
       return false;
     }
   }
+  
   function __destruct() {
   }
 

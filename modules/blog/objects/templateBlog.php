@@ -100,7 +100,7 @@ class TemplateBlog extends PresentationHTML
         if(!empty($dataCategorie)) {
             echo '<ul class="flex-rows-simple margingLeft">';
                 foreach ($dataCategorie as $value) {
-                    echo '<li><a href="'.findTargetRoute($route).'">'.$value['subject'].'</a></li>';
+                    echo '<li><a href="'.findTargetRoute($route).'&idSubject='.$value['id'].'">'.$value['subject'].'</a></li>';
                 }
             echo '</ul>';
         }
