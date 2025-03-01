@@ -2,7 +2,7 @@
 // encodeRoutage(131)
 require ('../modules/blog/objects/sqlBlog.php');
 $updateCategorie = new SQLBlog ();
-$arrayKeys = ['subject', 'id', 'valid'];
+$arrayKeys = ['subject', 'id', 'valid', 'occurance'];
 $controle_POST = array();;
 $mark = [0];
 if(checkPostFields($arrayKeys, $_POST)) {

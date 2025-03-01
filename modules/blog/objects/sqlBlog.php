@@ -32,7 +32,7 @@ class SQLBlog
     }
     public function updateCategorie ($param) {
         $update = "UPDATE `subjects` 
-        SET `subject`=:subject,`update_date`= NOW(),`valid`=:valid 
+        SET `subject`=:subject,`update_date`= NOW(),`valid`=:valid, `occurance`= :occurance 
         WHERE `id`=:id;";
         return ActionDB::access($update, $param, 2);
     }
@@ -49,10 +49,10 @@ class SQLBlog
         return false;
     }
     protected function getAllCategories ($valid) {
-        $select ="SELECT `id`, `subject`, `creat_date`, `update_date`, `valid` 
+        $select ="SELECT `id`, `subject`, `creat_date`, `update_date`, `valid`, `occurance` 
         FROM `subjects` 
         WHERE `valid` = :valid
-        ORDER BY `subject`;";
+        ORDER BY `occurance`;";
         $param = [['prep'=>':valid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2);
     }

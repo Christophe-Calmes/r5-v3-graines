@@ -5,22 +5,24 @@ class TemplateBlog extends PresentationHTML
 {
     private function updateSubject ($data, $idNav) {
         echo '<form class="listRow" action="'.encodeRoutage(131).'" method="post">';
-        echo '<label for="subject">Categorie</label>';
-        echo '<input id="subject" type="text" name="subject" value="'.$data['subject'].'"/>';
-        echo '<input type="hidden" name="id" value="'.$data['id'].'"/>';
-        echo '<label for="valid">Valid</label>';
-            echo '<select name="valid">';
-                $array_valid = ['No valid', 'Valid'];
-                for ($i=0; $i <=1 ; $i++) { 
-                    if($data['valid'] == $i) {
-                        echo '<option value="'.$i.'" selected>'. $array_valid[$i].'</option>';
-                    } else {
-                        echo '<option value="'.$i.'">'. $array_valid[$i].'</option>';
+            echo '<label for="subject">Categorie</label>';
+                echo '<input id="subject" type="text" name="subject" value="'.$data['subject'].'"/>';
+            echo '<input type="hidden" name="id" value="'.$data['id'].'"/>';
+            echo '<label for="valid">Valid</label>';
+                echo '<select name="valid">';
+                    $array_valid = ['No valid', 'Valid'];
+                    for ($i=0; $i <=1 ; $i++) { 
+                        if($data['valid'] == $i) {
+                            echo '<option value="'.$i.'" selected>'. $array_valid[$i].'</option>';
+                        } else {
+                            echo '<option value="'.$i.'">'. $array_valid[$i].'</option>';
+                        }
+                        
                     }
-                    
-                }
-            echo '</select>';
-        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update</button>';
+                echo '</select>';
+            echo '<lable for="occurance">Ordre apparition</label>';
+                echo '<input type="number" id="occurance" name="occurance" min="0" max="15" value="'.$data['occurance'].'"/>';
+            echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Update</button>';
         echo '</form>';
     }
     private function displayOneArticleBlog ($data) {
