@@ -97,4 +97,9 @@ class SQLBlog
         return ActionDB::select($select, $param, 2)[0];
 
     }
+    public function updateArticle ($param) {
+        $update = "UPDATE `articles` SET `title`= :title,`article`= :article,`publish`=:publish,`update_date`=NOW() WHERE `id` = :idArticle AND `author`=:idUser;
+        UPDATE `link_subject_article` SET `id_subject`= :id_subject  WHERE `id_article` = :idArticle;";
+        return ActionDB::access($update, $param, 2);
+    }
 }

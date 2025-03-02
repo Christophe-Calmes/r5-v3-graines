@@ -59,6 +59,9 @@ class TemplateBlog extends PresentationHTML
     private function displayPreviweArticleBlog ($data) {
             echo '<aside class="sectionBlog">';
                 echo '<h2><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">'.$data['title'].'</a></h2>';
+                if((!empty($_SESSION))&&($_SESSION['role'] == 3)) {
+                    echo '<h2><a class="link" href="'.findTargetRoute(218).'&idArticle='.$data['idArticle'].'">Administrer</a></h2>';
+                }
                 echo '<h5>Catégorie : '.$data['subject'].'</h5>';
                     echo '<p>Le '.brassageDate($data['creatArticleDate']).'</p>';
                         echo substr($this->htmlText ($data['article']), 0, 550).' <strong><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">[..]</a></strong>';
@@ -153,5 +156,9 @@ class TemplateBlog extends PresentationHTML
     public function displayOneArticleOfBlog ($idArticle, $valid) {
         $data = $this->getOneArticle ($idArticle, $valid);
         $this->displayOneArticleBlog ($data);
+    }
+
+    public function admiArticleOfBlog ($idArticle, $valid, $idNav) {
+        return $this->getOneArticle ($idArticle, $valid);
     }
 }

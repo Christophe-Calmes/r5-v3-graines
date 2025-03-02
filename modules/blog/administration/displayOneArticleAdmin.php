@@ -1,11 +1,17 @@
-<?php 
-require ('modules/blog/objects/templateBlog.php');
-$formNewArticle = new TemplateBlog ();
+<?php
+// findTargetRoute(214, 215, 216, 215)
+require('modules/blog/objects/templateBlog.php');
+$idArticle = filter($_GET['idArticle']);
+$blog = new TemplateBlog ();
+$blog->menuCategorieBlog ();
+$blog->displayOneArticleOfBlog ($idArticle, 1);
+$dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
 ?>
-<form class="customerForm" action="<?php echo encodeRoutage(129); ?>" method="post" enctype="multipart/form-data">
-    <label for="title">Titre article</label>
-    <input id="title" type="text" name="title" placeholder="Titre"/>
-    <label for="article">Texte de votre article</label>
+
+<form class="customerForm" action="<?php echo encodeRoutage(132);?>" method="post" enctype="multipart/form-data">
+    <label for="title">Title</label>
+    <input id="title" type="text" name="title" value="<?php echo $dataArticle['title']; ?>"/>
+    <label for="article">Article</label>
     <div class="flex-clos">
         <div>
             <p class="link" onclick="insererMarqueur('sh2')">&lt;h2&gt;</p>
@@ -35,17 +41,17 @@ $formNewArticle = new TemplateBlog ();
             <p class="link" onclick="insererMarqueur('link')">&lt;a href="[urlLink]"&gt;name_Link&lt;a&gt;</p>
         </div>
     </div>
-    <textarea id="article" name="article" rows="10" cols="70"></textarea>
-    <label for="publish">Publication ?</label>
+    <textarea id="article" name="article" rows="20" cols="140"><?php echo $dataArticle['article'];?></textarea>
+    <label for="publish">Publish ?</label>
     <select id="status" name="publish">
-        <option value="0">En rédaction</option>
-        <option value="1">publier</option>
+        <option value="0">In writing</option>
+        <option value="1">Publish</option>
     </select>
     <?php
-        $formNewArticle->selectSubject ();
+        $blog->selectSubject ();
     ?>
-
-    <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Submit</button>
+    <input type="hidden" name="idArticle" value="<?php echo $dataArticle['idArticle'];?>"/>
+    <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Update</button>
 </form>
 
 
