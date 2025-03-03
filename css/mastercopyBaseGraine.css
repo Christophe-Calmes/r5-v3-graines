@@ -6,13 +6,13 @@
 /* CSS HEX */
 
 /* SCSS HEX */
-/*--field-drab: #5F501Fff;
---saffron: #ECBC2Dff;
---eerie-black: #1A1A1Aff;
---black: #000000ff;
---platinum: #E8E8E8ff;*/
-
-
+/*$ash-gray: #A4A39Aff;
+$madder: #A3091Aff;
+$burgundy: #7B0E23ff;
+$eerie-black: #1E1E1Eff;
+$night: #161616ff;
+$space-cadet: #20213Dff;
+*/
 
 
 /* SCSS Gradient */
@@ -28,31 +28,26 @@ $gradient-radial: radial-gradient(#A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #1
 */
 :root {
   /*Variables Button*/
-  --body-color:#1A1A1Aff;
-  --main-background-color: #5F501Fff;
-  --main-color: #E8E8E8ff;
+  --main-background-color: rgb(196, 196, 196);
   --main-background-MagicForm: #c2c2c2;
-  --main-background-navBar: #1E1E1Eff;
+  --main-background-navBar: #d6d6d6;
   --color-select: #1A8921ff;
   --color-selected: #f0f0f0;
-  --main-border: 1px solid #ECBC2Dff;
-  --main-radius: 5px;
+  --main-border: 1px solid #817f7f;
+  --main-radius:20px;
   --main-radiusInput: 5px;
-  /*print variable*/
-  --main-printBorder: #9e9e9e solid 1px;
-  --main-PrintBackGround: var(--color-neutralBone);
-  --main-Printcolor: #0000;
-
- 
+  --main-color: rgb(29, 29, 29);
+  --body-color:rgb(235, 235, 235);
   --main-padding: 15px 32px;
   --main-text-align: center;
   --main-text-decoration: none;
   --main-display: inline-block;
-  --main-font-size: 1.2em;
+  --main-font-size: 16px;
   --main-cursor: pointer;
   --main-marginButton: 0.2em;
   /*Variables global*/
-  --main-shadow: linear-gradient(135deg, #A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #161616ff, #20213Dff);
+  --main-radius: 0.5em;
+  --main-shadow: 2px 4px 5px 1px #151515;
   /*--font-family: "Bebas Neue", sans-serif;*/
   --font-family: "IBM Plex Mono", monospace;;
   --font-family-titleEvent: "IBM Plex Mono", monospace;
@@ -125,11 +120,6 @@ h2 {
 }
 h3 {
   font-size: 1.5em;
-  color:var(--main-background-color);
-}
-h4 {
-  font-size: 1.2em;
-  color:var(--body-color);
 }
 .message {
   margin-left: 0.5em;
@@ -319,7 +309,6 @@ a {
   font-weight:600;
 }
 .tableWebSite {
-  background-color: var(--main-background-color);
   border: #151515 solid 1px;
   margin-left: 1em;
   margin-right: 1em;
@@ -327,7 +316,6 @@ a {
 }
 .tableWebVehicle {
   border: var(--main-border);
-  font-size: var(--main-font-size);
   margin-left: 1em;
   margin-right: 1em;
   width: auto;
@@ -336,8 +324,6 @@ a {
   text-align: center;
 }
 .tableWebSite th {
-  background-color: var(--main-background-color);
-  color: var(--main-color);
   text-align: center;
   padding-left: 0.3em;
   padding-right: 0.3em;
@@ -348,7 +334,7 @@ a {
   padding: 1em 0.5em 0.5em 0.5em;
 }
 .tableWebSite tr:nth-child(odd) {
-  background-color: var(--main-background-color);
+  background-color: #d6d6d6;
   font-weight:600;
 }
 .tableSR {
@@ -469,8 +455,8 @@ a {
   align-items: flex-start;
   justify-content: center;
   margin-bottom: 0.5em;
-  border-radius: var(--main-radius);
-  border: var(--main-border);
+  border-radius: 5px;
+  border: #151515 solid 1px;
   flex-wrap: nowrap;
   width: fit-content;
   margin-left: auto;
@@ -1098,6 +1084,8 @@ nav {
 .printVehicle { 
   width: 100%;
   background-color: var(--main-background-navBar);
+  border: var(--main-border);
+  border-radius: var(--main-radius);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 20vh;
@@ -1160,7 +1148,7 @@ nav {
 .checkbox-no-Reactive {
   width: 20px;
   height: 20px;
-  border: var(--main-border);
+  border: 1px solid #202020;
   margin: 2px;
   display: flex;
   align-items: center;
@@ -1175,8 +1163,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;  
-}
+  align-items: center;  }
 
 .DQM { grid-area: DQM;
   border: var(--main-border);
@@ -1243,7 +1230,6 @@ nav {
   border: var(--main-border);
   border-radius: var(--main-radius);
   background-color: var(--main-background-navBar);
-  color:var(--color-neutralBone);
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -1426,66 +1412,10 @@ font-size: 0.8em;
   }.dataSheetBox {
     height: auto !important;
     width: 100em;
-    background-color: none;
-    border: var(--main-printBorder);
+    background-color: #817f7f;
   }
   .printVehicle {
-    font-weight:bolder;
-    width: 100%;
+    width: auto;
     font-size: 0.7em;
-    height: 20vh;
   }
-  .Name { 
-    border: var(--main-printBorder);
-  }
-
-  .Type { 
-    border: var(--main-printBorder); 
-  }
-  
-  .DQM { 
-    border: var(--main-printBorder);
-  }
-  
-  .Structure { 
-    border: var(--main-printBorder);
-  }
-  
-  .Armor { 
-    border: var(--main-printBorder);
-   }
-  
-  .Move {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border: var(--main-printBorder);
-    width: 30em;
-  }
-  
-  .SpecialRules {  
-    border: var(--main-printBorder);
-  }
-  
-  .NameRS {   
-    border: var(--main-printBorder);
-  }
-  .TextRS {  
-    border: var(--main-printBorder);
-  }
-  
-  .dataSheetWeapon {
-    border: var(--main-printBorder);
-    }
-    .dataSheetWeapon div {
-      border: var(--main-printBorder);
-    }
-  .borderDataSheetWeapon {
-    border: var(--main-printBorder);
-  }
-  .imgCarouselAuto {
-    border: var(--main-printBorder);
-    filter: grayscale(100%);
-  }
-
 }

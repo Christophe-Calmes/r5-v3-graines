@@ -208,8 +208,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '<table class="tableWebSite">';
                 echo '<tr>';
                     echo '<th>Nom</th>';
-                    echo '<th class="green">Portée</th>';
-                    echo '<th class="red">Puissance</th>';
+                    echo '<th>Portée</th>';
+                    echo '<th>Puissance</th>';
                     echo '<th>Type</th>';
                     echo '<th>Assaut</th>';
                     echo '<th>Saturation</th>';
@@ -240,7 +240,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     }
                     echo '<tr>';
                         echo '<td>'.$value['nameWeapon'].'</td>';
-                        echo '<td class="green">'.$range.'</td>';
+                        echo '<td>'.$range.'</td>';
                         echo '<td class="red">'.$this->powerType[$value['power']].$overPower.'</td>';
                         echo '<td>'.$this->weaponTypes[$value['typeWeapon']].'</td>';
                         echo '<td>'.$this->yes[$value['assault']].'</td>';
@@ -289,7 +289,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 if($dataWeapon['typeWeapon'] > 0) {
                     $rangeSI = floor($dataWeapon['rangeWeapon'] * 2.54);
                     echo '<tr>';
-                        echo '<td class="green">Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                        echo '<td>Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
                         echo '<td>Assaut : '. $this->yes[$dataWeapon['assault']].'</td>';
                         echo '<td>Saturation : '. $this->yes[$dataWeapon['saturation']].'</td>';
                         echo '<td>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
@@ -297,8 +297,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 }
                 if($dataWeapon['typeWeapon'] > 1) {
                     echo '<tr>';
-                        echo '<td class="orange" colspan="2">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                        echo '<td class="red" colspan="2">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                        echo '<td colspan="2">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                        echo '<td colspan="2">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                     echo'</tr>';
                 }
             
@@ -342,8 +342,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                     echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                                     echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
                                     echo '<td>Lourde : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                                    echo '<td class="red">Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
-                                    echo '<td class="green">Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                                    echo '<td>Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
+                                    echo '<td>Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
                                 echo '</tr>';
                                 echo '<tr>';
                                     echo '<td colspan="2">Assaut : '. $this->yes[$dataWeapon['assault']].'</td>';
@@ -359,8 +359,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                     echo '<td>'.$dataWeapon['nameWeapon'].'</td>';
                                     echo '<td>Type : '.$this->weaponTypes[ $dataWeapon['typeWeapon']].'</td>';
                                     echo '<td>Lourde : '. $this->yes[$dataWeapon['heavy']].'</td>';
-                                    echo '<td class="red">Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
-                                    echo '<td class="green">Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
+                                    echo '<td>Puissance : '.$this->powerType[$dataWeapon['power']].$overPower.' - Dammage/hit : '.$dammage.'</td>';
+                                    echo '<td>Portée : '.$dataWeapon['rangeWeapon'].' " / '.$rangeSI.' cm</td>';
                                    
                                 echo '</tr>';
                                 echo '<tr>';
@@ -369,8 +369,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                                 echo '<td colspan="2">Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</td>';
                             echo'</tr>';
                                 echo '<tr>';
-                                    echo '<td class="orange" colspan="4">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
-                                    echo '<td class="red" colspan="1">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
+                                    echo '<td colspan="4">Gabarit : '.$this->gabaritType[$dataWeapon['templateType']].'</td>';
+                                    echo '<td colspan="1">Dé de souffle : '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</td>';
                                 echo'</tr>';
                         break;
                     default:

@@ -351,7 +351,7 @@ Texte ?
         if(!empty($dataSRAssigned)) {
         echo '<article>';
         echo '<h4 class="titleSite">Règle spéciale assigné</h4>';
-            echo '<table class="tableWebSite green">';
+            echo '<table class="tableWebSite">';
         foreach ($dataSRAssigned as $value) {
             echo '<tr>';
                 echo '<td>Nom : '.$value['nameSpecialRules'].'</strong></td>';
@@ -379,7 +379,7 @@ Texte ?
         if(!empty($dataSRAssigned)) {
         echo '<article>';
         echo '<h4 class="titleSite">Règle spéciales assignées</h4>';
-            echo '<table class="tableWebSite green">';
+            echo '<table class="tableWebSite">';
         foreach ($dataSRAssigned as $value) {
             echo '<tr>';
                 echo '<td>Nom : '.$value['nameSpecialRules'].'</strong></td>';
@@ -416,7 +416,7 @@ Texte ?
             echo '<aside class="borderDataSheetWeapon">';
             echo '<h3>Règles spéciales du véhicule </h3>';
             foreach($dataRSforVehicle as $value) {
-                echo'<ul class="SpecialRules">
+            echo'<ul class="SpecialRules">
                     <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
                     <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
                  </ul>';
