@@ -11,7 +11,8 @@ class PresentationHTML extends SQLBlog
         'h2'=>'titleSite', 
         'h3'=>'subTitleSite', 
         'h4'=>'titleEventItem',
-        'a'=>'link'];
+        'a'=>'link',
+        'img'=>'pictureBlog'];
     }
     private function link ($data, $class) {
         //*ea*[urlLink]*nameLink*ca*
@@ -19,6 +20,16 @@ class PresentationHTML extends SQLBlog
         $html = str_replace('[', '"', $html);
         $html= str_replace(']', '">', $html);
         $html=str_replace('*ca*','</a>', $html);
+        return $html;
+    }
+    private function img ($data, $class) {
+        // *oimg* {src} (alt) *cmig*
+        $html = str_replace('OpenPicture', '<img class="'.$class.'"', $data);
+        $html = str_replace('{', 'src="modules/blog/blogPictures/', $html);
+        $html = str_replace('}', '"', $html);
+        $html = str_replace('(', 'alt ="', $html);
+        $html = str_replace(')', '"', $html);
+        $html= str_replace('ClosePicture', "/>", $html);
         return $html;
     }
     private function listHTML ($data, $class) {
@@ -57,6 +68,7 @@ class PresentationHTML extends SQLBlog
     }
     protected function htmlText ($data) {
         $html = $this->article ($data, $this->classCSS['article']);
+        
         $html = $this->paragraphe ($html, $this->classCSS['p']);
         $html = $this->strong ($html, $this->classCSS['strong']);
         $html = $this->listHTML ($html, $this->classCSS['ul']);
@@ -64,6 +76,7 @@ class PresentationHTML extends SQLBlog
         $html = $this-> title3  ($html, $this->classCSS['h3']);
         $html = $this-> title4  ($html, $this->classCSS['h4']);
         $html = $this->link ($html, $this->classCSS['a']);
+        $html = $this->img ($html, $this->classCSS['img']);
         $html = $this->lineBreak ($html);
         return $html;
     }

@@ -161,4 +161,16 @@ class TemplateBlog extends PresentationHTML
     public function admiArticleOfBlog ($idArticle, $valid, $idNav) {
         return $this->getOneArticle ($idArticle, $valid);
     }
+    public function displayImgCode ($valid) {
+        $dataPictures = $this->getAllPictureBlog ($valid);
+        echo '<div class="gallery">';
+        foreach ($dataPictures as $value) {
+            echo '<aside class="itemPictureMini">';
+                echo '<img class="miniPictureBlog" src="modules/blog/blogPictures/'.$value['name_picture'].'" alt="'.$value['altImg'].'"/>';
+                echo '<figcaption>OpenPicture {'.$value['name_picture'].'} ('.$value['altImg'].') ClosePicture</figcaption>';
+                echo '<p>alt = '.$value['altImg'].'</p>';
+            echo '</aside>';
+        }
+        echo '</div>';
+    }
 }

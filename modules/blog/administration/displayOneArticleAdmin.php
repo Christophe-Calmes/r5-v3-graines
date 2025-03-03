@@ -7,6 +7,10 @@ $blog->menuCategorieBlog ();
 $blog->displayOneArticleOfBlog ($idArticle, 1);
 $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
 ?>
+<form action="<?php echo encodeRoutage(133);?>" method="post" enctype="multipart/form-data">
+<input type="hidden" name="idArticle" value="<?php echo $dataArticle['idArticle'];?>"/>
+    <button class="buttonForm redButton" type="submit" name="idNav" value="<?php echo $idNav; ?>">Delete</button>
+</form>
 
 <form class="customerForm" action="<?php echo encodeRoutage(132);?>" method="post" enctype="multipart/form-data">
     <label for="title">Title</label>
@@ -53,6 +57,7 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
     <input type="hidden" name="idArticle" value="<?php echo $dataArticle['idArticle'];?>"/>
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Update</button>
 </form>
+
 
 
 <script>

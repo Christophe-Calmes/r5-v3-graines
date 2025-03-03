@@ -37,7 +37,8 @@ class SQLBlog
         return ActionDB::access($update, $param, 2);
     }
     protected function getLastArticle () {
-        $select = "SELECT `id_subject`, `id_article`, `articles`.`id` AS `idArticle`, `author`, `title`, `article`, `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`, `subject`
+        $select = "SELECT `id_subject`, `id_article`, `articles`.`id` AS `idArticle`, `author`, `title`, `article`, 
+        `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`, `subject`
                     FROM `link_subject_article` 
                     INNER JOIN `articles` ON `id_article` = `articles`.`id`
                     INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
@@ -101,5 +102,27 @@ class SQLBlog
         $update = "UPDATE `articles` SET `title`= :title,`article`= :article,`publish`=:publish,`update_date`=NOW() WHERE `id` = :idArticle AND `author`=:idUser;
         UPDATE `link_subject_article` SET `id_subject`= :id_subject  WHERE `id_article` = :idArticle;";
         return ActionDB::access($update, $param, 2);
+    }
+    public function checkIdArticle ($idArticle) {
+        $select = "SELECT COUNT(`id`) AS `nbrArticle` FROM `articles` WHERE `id` = :idArticle;";
+        $param = [['prep'=>':idArticle', 'variable'=>$idArticle]];
+        $checkArticle = ActionDB::select($select, $param, 2)[0]['nbrArticle'];
+        if($checkArticle == 1) {
+            return true;
+        }
+        return false;
+    }
+    public function deleteArticleByOwner ($param) {
+        $delete = "DELETE FROM `articles` WHERE `id` = :idArticle AND `author`=:idUser;";
+        return ActionDB::access($delete, $param, 2);
+    }
+    public function recordPictureBlog($param) {
+        $insert = "INSERT INTO `pictures`(`name_picture`, `altImg`, `author`) VALUES (:name_picture, :altImg, :idUser);";
+        return ActionDB::access($insert, $param, 2);
+    }
+    protected function getAllPictureBlog ($valid) {
+        $select = "SELECT * FROM  `pictures` WHERE `valid` = :valid";
+        $param = [['prep'=>':valid', 'variable'=>$valid]];
+        return ActionDB::select($select, $param, 2);
     }
 }

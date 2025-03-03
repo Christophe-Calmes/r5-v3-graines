@@ -1,6 +1,5 @@
 <?php
 // encodeRoutage(132)
-
 require ('../modules/blog/objects/sqlBlog.php');
 $addNewArticle = new SQLBlog ();
 $arrayKeys = ['title', 'article', 'publish', 'id_subject', 'idArticle'];
