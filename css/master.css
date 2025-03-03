@@ -33,8 +33,8 @@ $gradient-radial: radial-gradient(#A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #1
   --main-color: #E8E8E8ff;
   --main-background-MagicForm: #1A1A1Aff;
   --main-background-navBar: #1E1E1Eff;
-  --color-select: #1A8921ff;
-  --color-selected: #f0f0f0;
+  --color-select: #ECBC2Dff;
+  --color-selected: #ECBC2Dff;
   --main-border: 1px solid #ECBC2Dff;
   --main-radius: 5px;
   --main-radiusInput: 5px;
@@ -72,6 +72,7 @@ $gradient-radial: radial-gradient(#A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #1
   --color-darkGreen: #03470D;
   --color-orange: #cc3915;
   --color-neutralBone: #fdfdf8;
+  --color-yellowAlternate: #ccb21dd3;
 
 }
 /*Presentation basique*/
@@ -125,7 +126,7 @@ h2 {
 }
 h3 {
   font-size: 1.5em;
-  color:var(--main-background-color);
+  color: var(--color-yellowAlternate);
 }
 h4 {
   font-size: 1.2em;
@@ -319,6 +320,7 @@ a {
   font-weight:600;
 }
 .tableWebSite {
+  border-radius: var(--main-radius);
   background-color: var(--main-background-color);
   border: #151515 solid 1px;
   margin-left: 1em;
@@ -507,7 +509,7 @@ input, textarea {
 select {
   padding-top: 0.3em;
   padding-bottom: 0.3em;
-  background-color: var(--main-background-MagicForm);
+  /*background-color: var(--main-background-MagicForm);*/
   border-radius: var(--main-radiusInput);
 }
 select:hover {
@@ -726,7 +728,7 @@ select:disabled {
     min-height: auto;
     min-width: max-content;
     padding: 0.5em;
-    background: var(--color-chair);
+    background: var(--color-yellowAlternate);
     color: rgb(32, 32, 32);
     border-radius: var(--main-radiusInput);
     display: inline;
