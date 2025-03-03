@@ -9,6 +9,8 @@ $status = $displayWeapon->statusWeapon ($idWeapon);
     $check = array();
     array_push($check, $displayWeapon->checkWeaponOwner ($idWeapon));
     array_push($check, $displayWeapon->checkGlobalWeapon ($idWeapon));
+    
+
 switch ($check) {
     case [1,0]:
         $dataSR = new TemplatesSpecialRules ();
@@ -43,6 +45,7 @@ switch ($check) {
                 $displayWeapon->printOneWeaponDatasheet ($idWeapon);
                 echo '</aside>';
             echo '</div>';
+            echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0])[0]['price'].' $</h3>';
             echo '</article>';
             echo '<article class="flex-colonne-center">';
         if($status[0] == 0) {
@@ -60,6 +63,7 @@ switch ($check) {
         $displayWeapon->printOneWeaponDatasheet ($idWeapon);
         echo '</aside>';
         echo '</article>';
+        echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0])[0]['price'].' $</h3>';
         break;
 
     default:

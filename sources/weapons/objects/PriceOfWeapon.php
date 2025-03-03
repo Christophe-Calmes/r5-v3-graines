@@ -10,15 +10,15 @@ class PriceOfWeapon
         $price =  $this->power[$arrayWeapon[0]];
         /* overPower */
         if($arrayWeapon[1] == 1) {
-            $price = $price * 2.5;
+            $price = $price + 2.1;
         }
         /* Spell */
         if($arrayWeapon[3] == 1) {
-            $price = $price * 1.1;
+            $price = $price + 0.5;
         }
         /* Heavy weapon */
         if($arrayWeapon[2] == 1) {
-            $price = $price + 0.3;
+            $price = $price + 0.5;
         }
         return $price;
     }
@@ -33,7 +33,7 @@ class PriceOfWeapon
         }
         /* Saturation*/
         if($arrayWeapon[5] == 1) {
-            $price = $price * 1.2;
+            $price = $price + 1.2;
         }
         /* Rate of fire */
         //$price = $price + ($arrayWeapon[6]/12); 
@@ -50,7 +50,7 @@ class PriceOfWeapon
         ['1"(BA)', '2"(BA)', '3"(BA / GW)', 'Blast(GW)', '4"(BA)', '5"(GW)'];
         $blastDicePrice = [0.2, 0.4, 0.8, 1.6, 2.5];
         /* templateType & blastDice */
-        $price = $price + ($arrayWeapon[8] * $arrayWeapon[9]);
+        $price = $price + ($blastSurface[$arrayWeapon[8]] * $blastDicePrice[$arrayWeapon[9]]);
         return $price;
     }
     public function specialRulesPrice ($idWeapon, $rawPrice) {
