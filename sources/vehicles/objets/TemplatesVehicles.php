@@ -535,6 +535,7 @@ class TemplatesVehicles extends SQLvehicles
             echo '<input type="hidden" name="idVehicle" value="'.$data['idVehicle'].'"/>';
             echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
             echo '</form>';
+            $this->formDeleteVehicleByOwner ($data['idVehicle'], $idNav);
         } else {
             echo '<h3>Aucun véhicule sans faction dans la base</h3>';
         }

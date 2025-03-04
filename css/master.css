@@ -132,6 +132,10 @@ h4 {
   font-size: 1.2em;
   color:var(--body-color);
 }
+.page {
+  color: var(--main-background-color);
+  font-size: 2em;
+}
 .message {
   margin-left: 0.5em;
   margin-right: 0.5em;
@@ -167,8 +171,9 @@ a {
   margin-top: 15vh;
  }
  .borderDataSheetWeapon {
-  background-color: #bebebe;
-  border: var(--main-border);
+  width: fit-content;
+  background-color: var(--main-background-color);
+  /*border: var(--main-border);*/
   border-radius: var(--main-radius);
   padding: 0.5em;
  }
@@ -843,9 +848,8 @@ a {
   text-align: center;
 }
 .lienTab {
-  background-color: #ffffff;
-
-  color: black;
+  background-color: #4b4a4a;
+  color: rgb(226, 226, 226);
   padding: 0 0 0 0;
   text-align: left;
   text-decoration: none;
@@ -1213,9 +1217,10 @@ nav {
   align-items: center;  }
 
 .SpecialRules {  
+  padding:0;
   display: flex;
   width: fit-content;
-  border: var(--main-border);
+  /*border: var(--main-border);*/
   border-radius: var(--main-radius);
   background-color: var(--main-background-navBar);
   /*padding: 0.5em;*/
@@ -1242,7 +1247,7 @@ nav {
 .dataSheetWeapon {
   width: fit-content;
   display: flex;
-  border: var(--main-border);
+  /*border: var(--main-border);*/
   border-radius: var(--main-radius);
   background-color: var(--main-background-navBar);
   color:var(--color-neutralBone);
@@ -1425,7 +1430,12 @@ font-size: 0.8em;
     font-size: 0.7em;
     page-break-after: always;
 
-  }.dataSheetBox {
+  }
+  h2, h3, h4, h5, h6 {
+    color:#151515;
+  }
+  
+  .dataSheetBox {
     height: auto !important;
     width: 100em;
     background-color: none;
@@ -1464,11 +1474,6 @@ font-size: 0.8em;
     border: var(--main-printBorder);
     width: 30em;
   }
-  
-  .SpecialRules {  
-    border: var(--main-printBorder);
-  }
-  
   .NameRS {   
     border: var(--main-printBorder);
   }
@@ -1476,11 +1481,8 @@ font-size: 0.8em;
     border: var(--main-printBorder);
   }
   
-  .dataSheetWeapon {
-    border: var(--main-printBorder);
-    }
-    .dataSheetWeapon div {
-      border: var(--main-printBorder);
+  .dataSheetWeapon div {
+     border: var(--main-printBorder);
     }
   .borderDataSheetWeapon {
     border: var(--main-printBorder);

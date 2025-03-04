@@ -10,9 +10,9 @@ $MiniatureByPage = 1;
 $nbrMiniature = $miniature->numberOfNotAffectedMiniatureInFaction ();
 $pages = ceil($nbrMiniature/$MiniatureByPage);
 $firstPage = ($currentPage * $MiniatureByPage) - $MiniatureByPage;
-echo '<h4>Figurine sans faction</h4>';
-echo '<p>Page : '.$currentPage.'</p>';
-    $miniature->displayWeaponNoFaction ($firstPage, $MiniatureByPage, $idNav);
+echo '<h4 class="page">Figurine sans faction</h4>';
+echo '<p class="page">Page : '.$currentPage.'</p>';
+    $miniature->displayMiniatureNoFaction ($firstPage, $MiniatureByPage, $idNav);
 for ($page=1; $page <= $pages ; $page++ ) {
     echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';
   }

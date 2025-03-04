@@ -6,10 +6,8 @@ $checkFaction = new SQLFactions ();
 $listVehicleFaction = new TemplatesVehicles ();
 switch ($checkFaction->factionOwner ($idFaction)) {
     case 1:
-        echo 'Coucou le Q';
         $listVehicleFaction->printListVehicle ([$idFaction, 1], $idNav);
         break;
-    
     default:
          header('location:index.php?message=Navigation error !');
         break;

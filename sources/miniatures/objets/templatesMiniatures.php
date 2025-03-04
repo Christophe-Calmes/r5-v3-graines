@@ -460,7 +460,7 @@ class templatesMiniatures extends sqlMiniatures
         }
         echo '</details>';
     }
-    public function displayWeaponNoFaction ($firstPage, $MiniatureByPage, $idNav) {
+    public function displayMiniatureNoFaction ($firstPage, $MiniatureByPage, $idNav) {
         $nbrMiniature =  $this->numberOfNotAffectedMiniatureInFaction ();
         if($nbrMiniature > 0) {
         $data = $this->miniatureNoFactionOnePage ($firstPage, $MiniatureByPage);

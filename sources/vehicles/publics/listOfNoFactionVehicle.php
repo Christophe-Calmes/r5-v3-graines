@@ -10,8 +10,8 @@ $VehicleByPage = 1;
 $nbrVehicle = $vehicle->numberOfNotAffectedVehicleInFaction ();
 $pages = ceil($nbrVehicle/$VehicleByPage);
 $firstPage = ($currentPage * $VehicleByPage) - $VehicleByPage;
-echo '<h4>Figurine sans faction</h4>';
-echo '<p>Page : '.$currentPage.'</p>';
+echo '<h4 class="page">Figurine sans faction</h4>';
+echo '<h4 class="page">Page : '.$currentPage.'</h4>';
     $vehicle->updateVehicleNoFactionAffected ($firstPage, $VehicleByPage, $idNav);
 for ($page=1; $page <= $pages ; $page++ ) {
     echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';

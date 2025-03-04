@@ -10,6 +10,8 @@ function DisplaySpecialsRules ($specialRulesType, $idNav) {
       $nbrRS = $adminSpecialRules->numberOfRS ($specialRulesType);
       $pages = ceil($nbrRS/$RSbyPage);
       $firstPage = ($currentPage * $RSbyPage) - $RSbyPage;
+      echo '<h4 class="page">Règles spéciales</h4>';
+      echo '<h4 class="page">Page : '.$currentPage.'</h4>';
       echo '<h4>'.$adminSpecialRules->setTypeRules($specialRulesType).' specials rules</h4>';
       $adminSpecialRules->displaySRTitle ($firstPage,  $RSbyPage, $specialRulesType );
       for ($page=1; $page <= $pages ; $page++ ) {
