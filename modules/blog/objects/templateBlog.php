@@ -77,9 +77,9 @@ class TemplateBlog extends PresentationHTML
     public function displayUpdateCategorie ($valid, $idNav) {
         $dataCategorie = $this->getAllCategories ($valid);
         if($valid ==1) {
-            $title = '<h4>Catégorie valide</h4>';
+            $title = '<h4 class="page">Catégorie valide</h4>';
         } else {
-            $title = '<h4>Catégorie non valide</h4>';
+            $title = '<h4 class="page">Catégorie non valide</h4>';
         }
         if(!empty($dataCategorie)) {
                 echo $title;

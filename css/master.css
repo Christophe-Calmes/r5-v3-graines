@@ -576,6 +576,7 @@ select:disabled {
   width: auto;
   height: 100%;
 }
+
 .imgMini {
   border-radius: var(--main-radius);
   border: var(--main-border);
@@ -740,7 +741,7 @@ select:disabled {
     align-items: center;
     justify-content: center;
     border: var(--color-blueOneChair) solid 1px;
-  }
+  }  
 .itemSR {
   display: flex;
   min-height: auto;
