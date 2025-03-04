@@ -441,9 +441,8 @@ a {
   flex-direction: column;
   align-content: center;
   align-items: flex-start;
-  padding: 1em;
+  padding: 1.2em;
   margin: 2em;
-  text-align: left;
 }
 .articleBlog {
   padding-left: 2em;
@@ -1269,12 +1268,22 @@ nav {
 .pictureBlog {
   border-radius: var(--main-radius);
   border: var(--main-border);
-  width: 50vw;
+  margin: 0;
+  padding: 0;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
 .miniPictureBlog {
   border-radius: var(--main-radius);
   border: var(--main-border);
   width: 100%;
+}
+.centerBlog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20em;
 }
 
 @media only screen and (max-width: 768px) {

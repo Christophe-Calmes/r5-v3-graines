@@ -32,6 +32,9 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
             |
             <p class="link" onclick="insererMarqueur('sP')">&lt;p&gt;</p>
             <p class="link" onclick="insererMarqueur('eP')">&lt;/p&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sSt')">&lt;strong&gt;</p>
+            <p class="link" onclick="insererMarqueur('eSt')">&lt;/strong&gt;</p>
         </div>
         <div>
             <p class="link" onclick="insererMarqueur('sl')">&lt;ul&gt;</p>
@@ -43,6 +46,9 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
             <p class="link" onclick="insererMarqueur('*')">&lt;br/&gt;</p>
             |
             <p class="link" onclick="insererMarqueur('link')">&lt;a href="[urlLink]"&gt;name_Link&lt;a&gt;</p>
+            |
+            <p class="link" onclick="insererMarqueur('sCenter')">&lt;center&gt;</p>
+            <p class="link" onclick="insererMarqueur('eCenter')">&lt;/center&gt;</p>
         </div>
     </div>
     <textarea id="article" name="article" rows="20" cols="140"><?php echo $dataArticle['article'];?></textarea>
@@ -57,9 +63,6 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
     <input type="hidden" name="idArticle" value="<?php echo $dataArticle['idArticle'];?>"/>
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Update</button>
 </form>
-
-
-
 <script>
         function insererMarqueur(marqueur) {
             let textarea = document.getElementById("article");
@@ -110,6 +113,18 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
                 case 'eh4':
                     nouveauTexte = texte.substring(0, position) + "*eh4*" + texte.substring(position);
                     break;
+                case 'sSt':
+                    nouveauTexte = texte.substring(0, position) + "*sSt*" + texte.substring(position);
+                break;
+                case 'eSt':
+                    nouveauTexte = texte.substring(0, position) + "*eSt*" + texte.substring(position);
+                break;
+                case 'sCenter':
+                    nouveauTexte = texte.substring(0, position) + "*sCenter*" + texte.substring(position);
+                break;
+                case 'eCenter':
+                    nouveauTexte = texte.substring(0, position) + "*eCenter*" + texte.substring(position);
+                break;
                 case 'link':
                 nouveauTexte = texte.substring(0, position) + "*ea*[urlLink]*nameLink*ca*" + texte.substring(position);
                 break;

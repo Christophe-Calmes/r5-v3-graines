@@ -12,7 +12,8 @@ class PresentationHTML extends SQLBlog
         'h3'=>'subTitleSite', 
         'h4'=>'titleEventItem',
         'a'=>'link',
-        'img'=>'pictureBlog'];
+        'img'=>'pictureBlog',
+        'center'=>'centerBlog'];
     }
     private function link ($data, $class) {
         //*ea*[urlLink]*nameLink*ca*
@@ -20,6 +21,11 @@ class PresentationHTML extends SQLBlog
         $html = str_replace('[', '"', $html);
         $html= str_replace(']', '">', $html);
         $html=str_replace('*ca*','</a>', $html);
+        return $html;
+    }
+    private function center ($data, $class) {
+        $html = str_replace('*sCenter*', '<aside class="'.$class.'">', $data);
+        $html = str_replace('*eCenter*', '</aside>', $html);
         return $html;
     }
     private function img ($data, $class) {
@@ -77,6 +83,7 @@ class PresentationHTML extends SQLBlog
         $html = $this-> title4  ($html, $this->classCSS['h4']);
         $html = $this->link ($html, $this->classCSS['a']);
         $html = $this->img ($html, $this->classCSS['img']);
+        $html = $this->center ($html, $this->classCSS['center']);
         $html = $this->lineBreak ($html);
         return $html;
     }
