@@ -111,7 +111,6 @@ class SQLvehicles
             $valueMove = 1;
         }
         $valueDQM = $this->getDiceValue($data['dqm']);
-        $valueDQM = $this->getDiceValue ($data['dqm']);
         $valueDC = $this->getDiceValue ($data['dc']);
         $coefArmor = $this->getArrayValue(0, $data['armor']) ;
         $valueStruture = $this->getArrayValue(1, $data['structurePoint']) ;
@@ -403,5 +402,42 @@ class SQLvehicles
         $checkId = new Controles ();
         $param = [['prep'=>':idUser', 'variable'=> $checkId->idUser($_SESSION)]];
         return ActionDB::select ($select, $param, 1)[0];
+    }
+    private function getIdAllVehicle () {
+        $select = "SELECT  `id`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor` FROM `vehicle`;";
+        return ActionDB::select($select, [], 1);
+    }
+    private function getPriceOfOneRS ($param, $rawPrice) {
+        $select = "SELECT `price`
+                    FROM `vehicleLinkSpecialRules` 
+                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                    WHERE `idVehicle` = :idVehicle;";
+        $dataPriceRS = ActionDB::select($select, $param, 1);
+        foreach ($dataPriceRS  as $value) {
+
+            $rawPrice = $rawPrice * (1 + ($value['price']));
+        }
+        return $rawPrice;
+    }
+    private function getOriceOfWeapon ($param, $SRPrice) {
+        $select = "SELECT `price` 
+                    FROM `vehicleLinkWeapon` 
+                    INNER JOIN `weapons` ON `id` = `idWeapon`
+                    WHERE `idVehicle` = :idVehicle;";
+        $dataPriceWeapon = ActionDB::select($select, $param, 1);
+        foreach ($dataPriceWeapon as $value) {
+            $SRPrice = $SRPrice * $value['price'];
+        }
+        return $SRPrice;
+    }
+    public function updateAllVehicle () {
+        $dataVehicle = $this->getIdAllVehicle ();
+        foreach ($dataVehicle as $data) {
+            $rawPrice = $this->solveVehiclePrice($data);
+            $param = [['prep'=>':idVehicle', 'variable'=>$data['id']]];
+            $SRPrice = $this->getPriceOfOneRS ($param, $rawPrice);
+            $resultPrice = $this->getOriceOfWeapon ($param, $SRPrice);
+            $this->recordNewPrice ($data['id'], $resultPrice);
+        }
     }
 }

@@ -255,7 +255,7 @@ class sqlMiniatures
         $param = [['prep'=>':idminiature', 'variable'=>$idMiniature]];
         return ActionDB::access($deleteStuffMinitature, $param, 1);
     }
-    private function solveRawMiniaturePrice ($idMiniature) {
+    public function solveRawMiniaturePrice ($idMiniature) {
         $select = "SELECT  `dc`, `dqm`, `moving`, `fligt`, `stationnaryFligt`, `miniatureSize`, `typeTroop`, `armor`, `healtPoint` 
                 FROM `miniatures` 
                 WHERE `id` = :idMiniature;";
@@ -443,4 +443,37 @@ class sqlMiniatures
                 $param = [['prep'=>':idUser', 'variable'=> $checkId->idUser($_SESSION)]];
         return ActionDB::select ($select, $param, 1)[0];
     }
+    public function getIdAllMiniature () {
+        $select = "SELECT `id` FROM `miniatures`;";
+        return ActionDB::select($select, [], 1);
+    }
+    private function updatePriceByAdmin ($idMiniature, $price) {
+        $update = "UPDATE `miniatures` SET `price` = :price WHERE `id` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature],
+                    ['prep'=>':price', 'variable'=>$price]];
+        return ActionDB::access($update, $param, 1);
+    }
+    public function getRSMiniaturePrice ($idMiniature, $MiniaturePrice) {
+        $select = "SELECT  `price` 
+                FROM `miniatureLinkSpecialRules` 
+                INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                WHERE `idMiniature` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $dataSRPrice = ActionDB::select($select, $param, 1);
+        
+        foreach ($dataSRPrice as $value) {
+            $MiniaturePrice = ($value['price'] + 1) * $MiniaturePrice;
+        }
+        $select = "SELECT `price`
+                    FROM `miniatureLinkWeapons`
+                    INNER JOIN `weapons` ON `idWeapon` = `id`
+                    WHERE `idminiature` = :idMiniature;";
+        $dataWeaponPrice = ActionDB::select($select, $param, 1);
+        foreach ($dataWeaponPrice as $value) {
+            $MiniaturePrice = $value['price'] * $MiniaturePrice;
+        }
+        $this->updatePriceByAdmin ($idMiniature, $MiniaturePrice);
+        return true;
+    }
+
 }

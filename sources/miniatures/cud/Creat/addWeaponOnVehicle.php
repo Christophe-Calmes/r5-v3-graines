@@ -17,7 +17,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
-    $weaponPrice = $checkWeapon->getPriceWeapon (filter($_POST[$arrayKeys[0]]));
+    $weaponPrice = $checkWeapon->getPriceWeapon (filter($_POST[$arrayKeys[0]]), 1);
     $vehicleTraitement->addWeaponOnVehicle ($param, $weaponPrice);
     return header('location:../index.php?idNav='.$idNav.'&message=Weapon Affected sucess !&idVehicle='.filter($_POST[$arrayKeys[1]]));
 } else {

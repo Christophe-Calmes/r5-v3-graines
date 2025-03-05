@@ -14,7 +14,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($mark, 1);
 }
 if($controle_POST == $mark) {
-    $_POST['price'] = $checkWeaponExist->getPriceWeapon (filter($_POST[$arrayKeys[0]]));
+    $_POST['price'] = $checkWeaponExist->getPriceWeapon (filter($_POST[$arrayKeys[0]]), 1);
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
     $deleteVehicle->substractWeaponVehicle ($param);

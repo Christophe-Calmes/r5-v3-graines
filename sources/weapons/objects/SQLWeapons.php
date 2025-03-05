@@ -368,8 +368,7 @@ class SQLWeapons
         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon],
                     ['prep'=>':fixe', 'variable'=>$fix]];
         $select = "SELECT `price` FROM `weapons` WHERE `id` = :idWeapon AND `valid` = 1 AND `fixe` = :fixe;";
-        //$price = ActionDB::select($select, $param, 1);
-        return  ActionDB::select($select, $param, 1);
+        return  ActionDB::select($select, $param, 1)[0]['price'];
     }
     protected function getWeaponOfOneVehicle($idVehicle) {
         $select = "SELECT `idWeapon`, `nameWeapon`, `idAuthor`, `nt`, `power`, `overPower`, `typeWeapon`, 

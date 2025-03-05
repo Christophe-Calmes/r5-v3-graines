@@ -10,7 +10,7 @@ foreach ($idAllWeapon as $value) {
     $SRPrice = $calculatingPriceWeapon->getSpecialRulesPrice ($value['id']);
     switch ($value['typeWeapon']) {
         case 0:
-            $price = $calculatingPriceWeapon->closeWeaponPrice ($calculatingPriceWeapon->getAllParamCloseWeapon ($value['id']))+ $SRPrice;
+            $price = $calculatingPriceWeapon->closeWeaponPrice ($calculatingPriceWeapon->getAllParamCloseWeapon ($value['id'])) + $SRPrice;
             break;
         case 1:
             $price = $calculatingPriceWeapon->shootingWeaponPrice($calculatingPriceWeapon->getAllParamShootWeapon ($value['id'])) + $SRPrice;

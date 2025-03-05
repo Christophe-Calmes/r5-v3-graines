@@ -84,9 +84,10 @@ class templatesFactions extends SQLFactions
                 $listFactionOfOneUnivers = $this->listOfFaction ($value['idUnivers']);
                 echo '<ul class="listeProfil">';
                     foreach ($listFactionOfOneUnivers as $value) {
+                        echo '<li><strong>'.$value['nomFaction'].'</strong></li>';
                         echo '<li>
                                 <a href="'.findTargetRoute($adress).'&idFaction='.$value['idFaction'].'">'.$message.'</a>
-                                <strong>'.$value['nomFaction'].'</strong>
+                                
                             </li>';
                     }
                 echo '</ul>';

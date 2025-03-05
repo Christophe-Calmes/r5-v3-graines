@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 05 mars 2025 à 00:43
+-- Généré le : mer. 05 mars 2025 à 14:14
 -- Version du serveur : 8.0.41-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -89,7 +89,26 @@ INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`,
 (12, '::1', 1, 'Admin', '0', '2025-03-05 00:45:13', 1),
 (13, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:45:51', 1),
 (14, '::1', 1, 'Admin', '0', '2025-03-05 00:47:01', 1),
-(15, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:47:47', 1);
+(15, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:47:47', 1),
+(16, '::1', 58, 'Gestionnaire', '0', '2025-03-05 01:47:00', 1),
+(17, '::1', 59, 'Aresh', '0', '2025-03-05 01:47:05', 1),
+(18, '::1', 58, 'Gestionnaire', '0', '2025-03-05 01:49:23', 1),
+(19, '::1', 1, 'Admin', '0', '2025-03-05 01:49:48', 1),
+(20, '::1', 58, 'Gestionnaire', '0', '2025-03-05 01:50:14', 1),
+(21, '::1', 1, 'Admin', '0', '2025-03-05 01:52:35', 1),
+(22, '::1', 58, 'Gestionnaire', '0', '2025-03-05 01:53:41', 1),
+(23, '::1', 59, 'Aresh', '0', '2025-03-05 02:13:51', 1),
+(24, '::1', 58, 'Gestionnaire', '0', '2025-03-05 02:14:55', 1),
+(25, '::1', 59, 'Aresh', '0', '2025-03-05 02:15:31', 1),
+(26, '::1', 58, 'Gestionnaire', '0', '2025-03-05 02:23:49', 1),
+(27, '::1', 59, 'Aresh', '0', '2025-03-05 02:24:08', 1),
+(28, '::1', 59, 'Aresh', '0', '2025-03-05 02:25:20', 1),
+(29, '::1', 58, 'Gestionnaire', '0', '2025-03-05 02:25:28', 1),
+(30, '127.0.0.1', 59, 'Aresh', '0', '2025-03-05 02:34:26', 1),
+(31, '::1', 58, 'Gestionnaire', '0', '2025-03-05 14:03:00', 1),
+(32, '127.0.0.1', 59, 'Aresh', '0', '2025-03-05 14:04:54', 1),
+(33, '::1', 1, 'Admin', '0', '2025-03-05 14:46:14', 1),
+(34, '::1', 58, 'Gestionnaire', '0', '2025-03-05 15:00:09', 1);
 
 -- --------------------------------------------------------
 
@@ -281,7 +300,7 @@ INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMe
 (220, 'Administration R5', 'modules/navigation/erreurNav.php', 1, 0, 4, 3, 1, 30, '84857445907526034875', 17),
 (221, 'Picture of Miniature', 'sources/administration/public/administrationImage.php', 1, 30, 1, 3, 1, 0, '0723957994194934', 17),
 (222, 'Picture of vehicles', 'sources/administration/public/administrationImageVehicles.php', 1, 30, 2, 3, 1, 0, '5777054249243418', 17),
-(223, 'Update weapon', 'sources/administration/public/updateWeapon.php', 1, 30, 3, 3, 1, 0, '5581586645590426', 17);
+(223, 'Update database R5', 'sources/administration/public/updateWeapon.php', 1, 30, 3, 3, 1, 0, '6331090521829751825', 17);
 
 -- --------------------------------------------------------
 
@@ -420,7 +439,9 @@ INSERT INTO `routageForm` (`idForm`, `chemin`, `securiter`, `valide`, `route`, `
 (134, 'modules/blog/CUD/creat/addPictureBlog.php', 3, 1, '59211903761656954476', 16),
 (135, 'sources/administration/CUD/Delete/deleteMiniature.php', 3, 1, '56854489072126741460', 17),
 (136, 'sources/administration/CUD/Delete/deleteVehicle.php', 3, 1, '52897063606013891873', 17),
-(137, 'sources/administration/CUD/update/updateWeapon.php', 3, 1, '56076042062844796374', 17);
+(137, 'sources/administration/CUD/update/updateWeapon.php', 3, 1, '56076042062844796374', 17),
+(138, 'sources/administration/CUD/update/updateMiniatures.php', 3, 1, '76465753891463660503', 17),
+(139, 'sources/administration/CUD/update/updateVehicles.php', 3, 1, '28054983075574802655', 17);
 
 -- --------------------------------------------------------
 
@@ -446,10 +467,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(1, 'ed7Bz4L9YI', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
+(1, 'UNFsr15V5p', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
 (57, 'w2jbaXpwin', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Membre', '$2y$10$XyTgD4YJUyRXmYb5rJ7IGeCw5c..lxXVGNCEw2XdpS6GOtOfzvGfW', 1, 1, '2024-05-15 14:33:10'),
-(58, 'WtEdcfnNiHuAmmcU', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
-(59, 'XnojoZziFi', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
+(58, 'yFl23PfdPriH1um1', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
+(59, 'ULwXLJjz8C9JrAbZ', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
 
 --
 -- Index pour les tables déchargées
@@ -531,7 +552,7 @@ ALTER TABLE `dataSite`
 -- AUTO_INCREMENT pour la table `journaux`
 --
 ALTER TABLE `journaux`
-  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT pour la table `menuNav`
@@ -561,7 +582,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `routageForm`
 --
 ALTER TABLE `routageForm`
-  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT pour la table `users`
