@@ -415,4 +415,15 @@ class SQLWeapons
         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
         return array_values(ActionDB::select($select, $param, 1)[0]);
     }
+    public function getIdAllWeapon () {
+        $select = "SELECT `id`, `typeWeapon`  FROM `weapons`;";
+        return ActionDB::select($select, [], 1);
+    }
+    public function updatePriceByGestionnaire ($idWeapon, $price) {
+        $update = "UPDATE `weapons` SET `price`=:price WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon],
+                    ['prep'=>':price', 'variable'=>$price]];
+        return ActionDB::access($update, $param, 1);
+    }
+
 }

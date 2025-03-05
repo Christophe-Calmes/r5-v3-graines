@@ -10,15 +10,15 @@ class PriceOfWeapon
         $price =  $this->power[$arrayWeapon[0]];
         /* overPower */
         if($arrayWeapon[1] == 1) {
-            $price = $price + 2.1;
+            $price = $price + 2.15;
         }
         /* Spell */
         if($arrayWeapon[3] == 1) {
-            $price = $price + 0.5;
+            $price = $price * 1.2;
         }
         /* Heavy weapon */
         if($arrayWeapon[2] == 1) {
-            $price = $price + 0.5;
+            $price = $price * 1.5;
         }
         return $price;
     }
@@ -61,5 +61,32 @@ class PriceOfWeapon
         $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
         $dataModPrice = ActionDB::select($select, $param, 1);
         return round($dataModPrice[0]['modWeaponPrice'] + $rawPrice, 3);
+    }
+    public function getSpecialRulesPrice ($idWeapon) {
+        $select = "SELECT SUM(`price`) AS `modWeaponPrice`
+                    FROM `specialeRulesLinkWeapon`
+                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                    WHERE `idWeapon` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        $dataModPrice = ActionDB::select($select, $param, 1);
+        return round($dataModPrice[0]['modWeaponPrice'], 3);
+    }
+    public function getAllParamCloseWeapon ($idWeapon) {
+        $select = "SELECT  `power`, `overPower`, `heavy`,  `spell` FROM `weapons` WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        return array_values(ActionDB::select($select, $param, 1)[0]);
+
+    }
+    public function getAllParamShootWeapon ($idWeapon) {
+        $select = "SELECT `power`, `overPower`, `heavy`, `spell`, `assault`, `saturation`, `rateOfFire`, `rangeWeapon` 
+        FROM `weapons` WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        return array_values(ActionDB::select($select, $param, 1)[0]);
+    }
+    public function getAllParamExplosiveWeapon ($idWeapon) {
+        $select = "SELECT `power`, `overPower`, `heavy`, `spell`, `assault`, `saturation`, `rateOfFire`, `rangeWeapon`, `templateType`, `blastDice` 
+        FROM `weapons` WHERE `id` = :idWeapon;";
+        $param = [['prep'=>':idWeapon', 'variable'=>$idWeapon]];
+        return array_values(ActionDB::select($select, $param, 1)[0]);
     }
 }

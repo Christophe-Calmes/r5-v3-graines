@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 04 mars 2025 à 23:41
+-- Généré le : mer. 05 mars 2025 à 00:43
 -- Version du serveur : 8.0.41-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -85,7 +85,11 @@ INSERT INTO `journaux` (`idConnexion`, `ipUser`, `idUser`, `login`, `mdpHacker`,
 (8, '::1', 58, 'Gestionnaire', '0', '2025-03-04 13:29:16', 1),
 (9, '::1', 58, 'Gestionnaire', '0', '2025-03-04 23:58:22', 1),
 (10, '::1', 59, 'Aresh', '0', '2025-03-05 00:05:19', 1),
-(11, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:40:02', 1);
+(11, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:40:02', 1),
+(12, '::1', 1, 'Admin', '0', '2025-03-05 00:45:13', 1),
+(13, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:45:51', 1),
+(14, '::1', 1, 'Admin', '0', '2025-03-05 00:47:01', 1),
+(15, '::1', 58, 'Gestionnaire', '0', '2025-03-05 00:47:47', 1);
 
 -- --------------------------------------------------------
 
@@ -276,7 +280,8 @@ INSERT INTO `navigation` (`idNav`, `nomNav`, `cheminNav`, `menuVisible`, `zoneMe
 (219, 'Add picture for blog', 'modules/blog/administration/addPictureBlog.php', 1, 29, 3, 3, 1, 0, '2733530154135364', 16),
 (220, 'Administration R5', 'modules/navigation/erreurNav.php', 1, 0, 4, 3, 1, 30, '84857445907526034875', 17),
 (221, 'Picture of Miniature', 'sources/administration/public/administrationImage.php', 1, 30, 1, 3, 1, 0, '0723957994194934', 17),
-(222, 'Picture of vehicles', 'sources/administration/public/administrationImageVehicles.php', 1, 30, 2, 3, 1, 0, '5777054249243418', 17);
+(222, 'Picture of vehicles', 'sources/administration/public/administrationImageVehicles.php', 1, 30, 2, 3, 1, 0, '5777054249243418', 17),
+(223, 'Update weapon', 'sources/administration/public/updateWeapon.php', 1, 30, 3, 3, 1, 0, '5581586645590426', 17);
 
 -- --------------------------------------------------------
 
@@ -414,7 +419,8 @@ INSERT INTO `routageForm` (`idForm`, `chemin`, `securiter`, `valide`, `route`, `
 (133, 'modules/blog/CUD/Delete/deleteArticle.php', 3, 1, '56095996566170514055', 16),
 (134, 'modules/blog/CUD/creat/addPictureBlog.php', 3, 1, '59211903761656954476', 16),
 (135, 'sources/administration/CUD/Delete/deleteMiniature.php', 3, 1, '56854489072126741460', 17),
-(136, 'sources/administration/CUD/Delete/deleteVehicle.php', 3, 1, '52897063606013891873', 17);
+(136, 'sources/administration/CUD/Delete/deleteVehicle.php', 3, 1, '52897063606013891873', 17),
+(137, 'sources/administration/CUD/update/updateWeapon.php', 3, 1, '56076042062844796374', 17);
 
 -- --------------------------------------------------------
 
@@ -440,9 +446,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `token`, `email`, `prenom`, `nom`, `login`, `mdp`, `valide`, `role`, `dateCreation`) VALUES
-(1, 'pXRQeEsapO', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
+(1, 'ed7Bz4L9YI', 'christophe.calmes2020@laposte.net', 'Christophe', 'Calmes', 'Admin', '$2y$10$oADkGPsXhTD1m1.vawEEJevfSC1BwODMOuCHCntUrBQgpV5TmLy6S', 1, 2, '2022-06-12 14:26:13'),
 (57, 'w2jbaXpwin', 'christophe.calmes22@gmail.com', 'Christophe', 'Calmes', 'Membre', '$2y$10$XyTgD4YJUyRXmYb5rJ7IGeCw5c..lxXVGNCEw2XdpS6GOtOfzvGfW', 1, 1, '2024-05-15 14:33:10'),
-(58, 'qfHSnkG6tMYYZC2F', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
+(58, 'WtEdcfnNiHuAmmcU', 'gestionnaire@gmail.com', 'Christophe', 'Calmes', 'Gestionnaire', '$2y$10$gIj/T1GuebPFWQwoR0GBcueEDa6Rc30/03E7.WE/Qp6rnbaZUy132', 1, 3, '2024-05-15 16:28:55'),
 (59, 'XnojoZziFi', 'aresh@gmail.com', 'Christophe', 'Calmes', 'Aresh', '$2y$10$gt8CLzPRNbKJDBkuMl3DY.etNoPWYRxs/0ll.XgQ6xdIzkzD2GGRS', 1, 1, '2024-06-17 17:19:46');
 
 --
@@ -525,7 +531,7 @@ ALTER TABLE `dataSite`
 -- AUTO_INCREMENT pour la table `journaux`
 --
 ALTER TABLE `journaux`
-  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idConnexion` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `menuNav`
@@ -543,7 +549,7 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT pour la table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -555,7 +561,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `routageForm`
 --
 ALTER TABLE `routageForm`
-  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `idForm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT pour la table `users`
