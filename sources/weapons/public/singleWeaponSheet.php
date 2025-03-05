@@ -45,7 +45,7 @@ switch ($check) {
                 $displayWeapon->printOneWeaponDatasheet ($idWeapon);
                 echo '</aside>';
             echo '</div>';
-            echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0])[0]['price'].' $</h3>';
+            echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0]).' $</h3>';
             echo '</article>';
             echo '<article class="flex-colonne-center">';
         if($status[0] == 0) {
@@ -63,7 +63,7 @@ switch ($check) {
         $displayWeapon->printOneWeaponDatasheet ($idWeapon);
         echo '</aside>';
         echo '</article>';
-        echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0])[0]['price'].' $</h3>';
+        echo '<h3>Coefficient de prix : '.$displayWeapon->getPriceWeapon ($idWeapon, $status[0]).' $</h3>';
         break;
 
     default:

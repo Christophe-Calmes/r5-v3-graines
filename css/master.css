@@ -1451,15 +1451,18 @@ font-size: 0.8em;
     width: 100em;
     background-color: none;
     border: var(--main-printBorder);
+    color:#0e0d0d;
   }
   .printVehicle {
     font-weight:bolder;
     width: 100%;
     font-size: 0.7em;
     height: 20vh;
+    color:#0e0d0d;
   }
   .Name { 
     border: var(--main-printBorder);
+    color:#0e0d0d;
   }
 
   .Type { 
@@ -1487,20 +1490,31 @@ font-size: 0.8em;
   }
   .NameRS {   
     border: var(--main-printBorder);
+    color:#0e0d0d;
   }
   .TextRS {  
     border: var(--main-printBorder);
+    color:#0e0d0d;
   }
   
   .dataSheetWeapon div {
      border: var(--main-printBorder);
+     color:#0e0d0d;
     }
   .borderDataSheetWeapon {
     border: var(--main-printBorder);
   }
-  .imgCarouselAuto {
+  .Picture {
     border: var(--main-printBorder);
     filter: grayscale(100%);
+    max-width: 50%;
+    max-height: 50%;
+  }
+  .imgCarouselAuto {
+    border: var(--main-printBorder);
+  }
+  .checkbox-no-Reactive {
+    border: var(--main-printBorder);
   }
 
 }

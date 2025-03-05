@@ -11,7 +11,7 @@ switch ($cases) {
         echo '<h3>Bataille</h3>';
         $armyList->printingIntroduction($idArmyList, true);
         $armyList->printMiniatures ($idArmyList);
-        $armyList-> printVehicle ($idArmyList);
+        $armyList->printVehicle ($idArmyList);
         break;
     case [1, 2] :
            // Skirmich

@@ -537,7 +537,9 @@ final class TemplateWeaponsPublic extends SQLWeapons
     private function closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face) {
         echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
+                Sort: '.$this->yes[$dataWeapon['spell']].'    
+        </div>
         <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
         <div>Dommage '.$damage.'</div>
     </div>';
@@ -545,10 +547,14 @@ final class TemplateWeaponsPublic extends SQLWeapons
     private function shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face) {
         echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>
+                Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
+                Sort: '.$this->yes[$dataWeapon['spell']].'
+        </div>
         <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
         <div>Dommage '.$damage.'</div>
-        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
+        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'<br/>
+            Assaut: '. $this->yes[$dataWeapon['assault']].'</div>
         <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
         <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
     </div>';
@@ -556,10 +562,14 @@ final class TemplateWeaponsPublic extends SQLWeapons
     private function explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face) {
         echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
-        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'</div>
+        <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
+                Sort: '.$this->yes[$dataWeapon['spell']].'    </div>
         <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
         <div>Dommage '.$damage.'</div>
-        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
+        <div class="flex-colonne-left">
+            <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
+            <div>Assaut: '. $this->yes[$dataWeapon['assault']].'</div>
+        </div>
         <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
         <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>  
         <div>Gabarit: '.$this->gabaritType[$dataWeapon['templateType']].'</div>

@@ -44,6 +44,10 @@ Class PrintNavigation extends GetNavigation {
           echo '</div>';
         }
       }
+      // dev R5 spécifique
+      if(empty($_SESSION)) {
+        echo '<li><a href="sources/librarie/R5V3_2025.zip">Obtenir R5</a></li>';
+      }
       echo '</ul>
     </nav>';
     include 'javaScript/magicBurger.php';
