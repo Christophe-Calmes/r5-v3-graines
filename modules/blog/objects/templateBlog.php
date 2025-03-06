@@ -71,6 +71,8 @@ class TemplateBlog extends PresentationHTML
         $data = $this->getLastArticle ();
         if(!empty($data)) {
             $this->displayOneArticleBlog ($data);
+        } else {
+            echo '<h3>There are no new articles yet.</h3>';
         }
         
     }
@@ -139,6 +141,8 @@ class TemplateBlog extends PresentationHTML
                     echo '<li><a href="'.findTargetRoute($route).'&idSubject='.$value['id'].'">'.$value['subject'].'</a></li>';
                 }
             echo '</ul>';
+        } else {
+            echo "<h3>The blog isn't up and running yet.</h3>";
         }
     }
     public function displayPreloadArticle ($firstPage, $parPage, $idSubject) {
