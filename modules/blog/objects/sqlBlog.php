@@ -19,7 +19,7 @@ class SQLBlog
         return true;
     }
     public function creatNewCategorie ($param) {
-        $insert = "INSERT INTO `subjects`( `subject`) VALUES (:subject);";
+        $insert = "INSERT INTO `subjects`( `subject`, `occurance`) VALUES (:subject, :occurance);";
         return ActionDB::access($insert, $param, 2);
     }
     public function idCategorieExist ($id) {

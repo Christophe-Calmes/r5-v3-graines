@@ -13,6 +13,7 @@ if(checkPostFields($arrayKeys, $_POST)) {
 if($mark == $controle_POST) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);
+    print_r($param);
     $addNewCategorie->creatNewCategorie ($param);
     header('location:../index.php?message=New subject success to record&idNav='.$idNav);
 } else {
