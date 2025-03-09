@@ -113,6 +113,9 @@ h1 {
 h2 {
   font-size: 1.2em;
 }
+.center {
+  display: inline-block;
+}
 .subTitleSite{
   font-family: var(--font-family);
   font-weight: var(--font-weight);
@@ -171,6 +174,9 @@ a {
   margin-top: 15vh;
  }
  .borderDataSheetWeapon {
+  margin-top: 1em;
+  margin-left: 0;
+  margin-right: auto;
   width: fit-content;
   background-color: var(--main-background-color);
   /*border: var(--main-border);*/
@@ -1426,11 +1432,14 @@ font-size: 0.8em;
 /*Burger Menu*/
 @media print {
   @page {
-    margin: 2cm;
+    margin: 5cm;
     size: landscape;
   }
   .centrale {
     display: none;
+  }
+  body {
+    margin:0;
   }
   header {
     display: none;
@@ -1447,6 +1456,9 @@ font-size: 0.8em;
     page-break-after: always;
 
   }
+  main {
+    margin-top: 2em;
+  }
   h2, h3, h4, h5, h6 {
     color:#151515;
   }
@@ -1459,6 +1471,7 @@ font-size: 0.8em;
     color:#0e0d0d;
   }
   .printVehicle {
+    margin-top: 2em;
     font-weight:bolder;
     width: 100%;
     font-size: 0.7em;
@@ -1508,15 +1521,12 @@ font-size: 0.8em;
     }
   .borderDataSheetWeapon {
     border: var(--main-printBorder);
-  }
-  .Picture {
-    border: var(--main-printBorder);
-    filter: grayscale(100%);
-    max-width: 50%;
-    max-height: 50%;
+    margin-left:0;
+    margin-right: auto;
   }
   .imgCarouselAuto {
     border: var(--main-printBorder);
+    filter: grayscale();
   }
   .checkbox-no-Reactive {
     border: var(--main-printBorder);

@@ -182,7 +182,7 @@ Texte ?
     public function PublicDisplayOneRS ($idRS, $idNav) {
         $dataOneRule = $this-> getOneRS ($idRS);
         $value = $dataOneRule[0];
-        echo '<aside class="borderDataSheetWeapon">';
+        echo '<aside class="borderDataSheetWeapon center">';
         echo '<h3>Règles spéciales imprimable</h3>';
             echo'<ul class="SpecialRules">
                 <li class="NameRS fontWeigth dataSheetInfoPrint">'.$value['nameSpecialRules'].'</li>
