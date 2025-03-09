@@ -258,19 +258,12 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<div class="Picture">
                         <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataMiniature['namePicture'].'" alt="'.$dataMiniature['nameMiniature'].'"/>
                         </div>';
-                echo '<div class="Name">
-                        <div class="titlePrintDataSheet">Nom</div>
-                        <div class="dataSheetInfoPrint">'.$dataMiniature['nameMiniature'].'
-                    </div>
-                    <div class="titlePrintDataSheet">Prix</div>
-                        <div class="dataSheetInfoPrint">'.round($dataMiniature['price'], 0).' $</div>    
-                </div>';
+                echo '<div class="Name titlePrintDataSheet">'.$dataMiniature['nameMiniature'].'</div>
+                    <div class="PriceTT titlePrintDataSheet">Prix : '.round($dataMiniature['price'], 0).' $   </div>';
                 echo '<div class="Type">
                         <div class="titlePrintDataSheet">Type</div>
-                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->typesTroupe, $dataMiniature['typeTroop'], 'nameTroupe').'</div>
-                        <div class="titlePrintDataSheet">Taille</div>
-                        <div class="dataSheetInfoPrint"> '.$this->getArray ($this->miniatureSize, $dataMiniature['miniatureSize'], 'NameSize') .'</div>
-                    </div>';
+                        <div class="dataSheetInfoPrint"> '.$this->getArray($this->typesTroupe, $dataMiniature['typeTroop'], 'nameTroupe').'</div></div>';
+                echo '<div class="Size dataSheetInfoPrint">Taille : '.$this->getArray ($this->miniatureSize, $dataMiniature['miniatureSize'], 'NameSize') .'</div>';
                 echo '<div class="DQM"><div class="titlePrintDataSheet">DQM</div>
                         <div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataMiniature['dqm'], 'nameDice').$bonus.'</div>
                      </div>';
@@ -279,16 +272,9 @@ class templatesMiniatures extends sqlMiniatures
                 echo '<div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div>
                         <div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataMiniature['armor'], 'nameArmour').$bonusSVG.'</div>
                     </div>';
-                echo '<div class="Move">
-                    <div class="titlePrintDataSheet">Mouvement</div>
-                    <div class="dataSheetInfoPrint">
-                    <ul class="listClass">
-                        <li>Mouvement : <strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></li>
-                        <li>Vol :  <strong>'.$this->getArray($this->yes, $dataMiniature['fligt'], 'name').'</strong></li>
-                        <li>Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataMiniature['stationnaryFligt'], 'name').'</strong></li>
-                    </ul>
-                    </div>
-                    </div>
+                echo '<div class="Move titlePrintDataSheet">Mouvement :<strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></div>
+                    <div class="Fligth">Vol :  <strong>'.$this->getArray($this->yes, $dataMiniature['fligt'], 'name').'</strong></div>
+                    <div class="StationnaryFlight">Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataMiniature['stationnaryFligt'], 'name').'</strong></div>
                     </div>';
             $specialRulesVehicle = new TemplatesSpecialRules ();
             $specialRulesVehicle->printSpecialRulesMiniature ($idMiniature);

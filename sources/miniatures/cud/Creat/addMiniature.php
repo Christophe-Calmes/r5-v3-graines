@@ -47,7 +47,8 @@ if($controle_POST == $mark) {
             $miniatureTraitement->creatMiniaturesByUser ($param);
             return header('location:../index.php?message=Record new miniature sucess.&idNav='.$idNav);
         } else {
-            return header('location:../index.php?message=The target file is not found.');
+            print_r($_FILES);
+            //return header('location:../index.php?message=The target file is not found.');
         }
 
     } else {

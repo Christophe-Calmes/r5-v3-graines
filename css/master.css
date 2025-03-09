@@ -1108,21 +1108,67 @@ nav {
   filter: grayscale(100%);
 }
 /*GRID*/
-.printVehicle { 
+/*.printVehicle { 
   width: 100%;
   background-color: var(--main-background-navBar);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 20vh;
   /*grid-template-columns: 25%;*/
-  gap: 0px 0px;
+  /*gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas: "Picture Name Type DQM Structure Armor Move";
   font-size: 0.8em;
   padding: 0.5em;
 
+}*/
+.printVehicle {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 3px 3px; 
+  grid-template-areas: 
+    "Picture Name Type DQM Armor Structure"
+    "Picture PriceTT Size Move Fligth StationnaryFlight"; 
+  justify-content: center; 
+  justify-items: stretch; 
 }
-
+.Fligth { 
+  grid-area: Fligth; 
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+}
+.StationnaryFlight { 
+  grid-area: StationnaryFlight; 
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+}
+.Size { 
+  grid-area: Size; 
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+}
+.PriceTT { 
+  grid-area: PriceTT; 
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+}
 
 .Picture { grid-area: Picture; }
 
@@ -1477,6 +1523,8 @@ font-size: 0.8em;
     font-size: 0.7em;
     height: 20vh;
     color:#0e0d0d;
+    border: var(--main-printBorder);
+    color:#0e0d0d;
   }
   .Name { 
     border: var(--main-printBorder);
@@ -1498,19 +1546,31 @@ font-size: 0.8em;
   .Armor { 
     border: var(--main-printBorder);
    }
-  
-  .Move {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+   .Move {
     border: var(--main-printBorder);
-    width: 30em;
+    color:#0e0d0d;
   }
   .NameRS {   
     border: var(--main-printBorder);
     color:#0e0d0d;
   }
   .TextRS {  
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .PriceTT {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .Size {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .Fligth {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .StationnaryFlight {
     border: var(--main-printBorder);
     color:#0e0d0d;
   }
