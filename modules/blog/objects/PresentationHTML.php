@@ -10,7 +10,7 @@ class PresentationHTML extends SQLBlog
         'p'=>'p-class', 
         'h2'=>'titleSite', 
         'h3'=>'subTitleSite', 
-        'h4'=>'titleEventItem',
+        'h4'=>'subTitleSite',
         'a'=>'link',
         'img'=>'pictureBlog',
         'center'=>'centerBlog'];

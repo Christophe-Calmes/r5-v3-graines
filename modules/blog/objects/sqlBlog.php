@@ -59,7 +59,7 @@ class SQLBlog
     }
     public function numberOfArticle ($idSubject) {
         $select = "SELECT COUNT(`id_article`) AS `nbrArticle` 
-        FROM `link_subject_article`  WHERE `id_subject` = :idSubject";
+        FROM `link_subject_article`  WHERE `id_subject` = :idSubject;";
         $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
         return ActionDB::select($select, $param, 2)[0]['nbrArticle'];
     }
@@ -83,6 +83,7 @@ class SQLBlog
         INNER JOIN `articles` ON `articles`.`id` = `id_article`
         INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
         WHERE `id_subject` = :idSubject
+        ORDER BY `articles`.`creat_date` DESC
         LIMIT {$firstPage}, {$parPage};";
         $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
         return ActionDB::select($select, $param, 2);
