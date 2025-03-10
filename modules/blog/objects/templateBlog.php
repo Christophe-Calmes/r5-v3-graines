@@ -145,8 +145,20 @@ class TemplateBlog extends PresentationHTML
             echo "<h3>The blog isn't up and running yet.</h3>";
         }
     }
-    public function displayPreloadArticle ($firstPage, $parPage, $idSubject) {
-        $getArticles = $this->getArticlePagination($firstPage, $parPage, $idSubject);
+    public function displayPreloadArticle ($firstPage, $parPage, $idSubject, $publish) {
+        $getArticles = $this->getArticlePagination($firstPage, $parPage, $idSubject, $publish);
+        if(!empty($getArticles)) {
+            echo '<div>';
+            foreach ($getArticles as $value) {
+                    $this->displayPreviweArticleBlog ($value); 
+            }
+            echo '<div>';
+        } else {
+            echo '<h5>No article in database</h5>';
+        }
+    }
+    public function adminDisplayPreloadArticle ($firstPage, $parPage, $publish) {
+        $getArticles = $this->getArticlePaginationAdmin($firstPage, $parPage, $publish);
         if(!empty($getArticles)) {
             echo '<div>';
             foreach ($getArticles as $value) {

@@ -57,10 +57,13 @@ class SQLBlog
         $param = [['prep'=>':valid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2);
     }
-    public function numberOfArticle ($idSubject) {
+    public function numberOfArticle ($idSubject, $publish) {
         $select = "SELECT COUNT(`id_article`) AS `nbrArticle` 
-        FROM `link_subject_article`  WHERE `id_subject` = :idSubject;";
-        $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
+        FROM `link_subject_article`
+        INNER JOIN `articles` ON `articles`.`id` = `id_article`
+        WHERE `id_subject` = :idSubject AND `articles`.`publish` = :publish;";
+        $param = [['prep'=>':idSubject', 'variable'=>$idSubject],
+                ['prep'=>':publish', 'variable'=>$publish]];
         return ActionDB::select($select, $param, 2)[0]['nbrArticle'];
     }
     public function nameSubject ($idSubject) {
@@ -68,7 +71,7 @@ class SQLBlog
         $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
         return ActionDB::select($select, $param, 2)[0]['subject'];
     }
-    protected function getArticlePagination($firstPage, $parPage, $idSubject) {
+    protected function getArticlePagination($firstPage, $parPage, $idSubject, $publish) {
         $select = "SELECT 
         `articles`.`id` AS `idArticle`, 
         `author`, 
@@ -82,10 +85,31 @@ class SQLBlog
         FROM `link_subject_article`
         INNER JOIN `articles` ON `articles`.`id` = `id_article`
         INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
-        WHERE `id_subject` = :idSubject
+        WHERE `id_subject` = :idSubject AND `articles`.`publish` = :publish
         ORDER BY `articles`.`creat_date` DESC
         LIMIT {$firstPage}, {$parPage};";
-        $param = [['prep'=>':idSubject', 'variable'=>$idSubject]];
+        $param = [['prep'=>':idSubject', 'variable'=>$idSubject],
+                    ['prep'=>':publish', 'variable'=>$publish]];
+        return ActionDB::select($select, $param, 2);
+    }
+    protected function getArticlePaginationAdmin($firstPage, $parPage, $publish) {
+        $select = "SELECT 
+        `articles`.`id` AS `idArticle`, 
+        `author`, 
+        `title`, 
+        `article`, 
+        `articles`.`valid` AS `validArticle`, 
+        `publish`, 
+        `articles`.`creat_date` AS `creatArticleDate`, 
+        `articles`.`update_date` AS `updateArticleDate`,
+        `subject`
+        FROM `link_subject_article`
+        INNER JOIN `articles` ON `articles`.`id` = `id_article`
+        INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
+        WHERE  `articles`.`publish` = :publish
+        ORDER BY `articles`.`creat_date` DESC, `id_subject`
+        LIMIT {$firstPage}, {$parPage};";
+        $param = [['prep'=>':publish', 'variable'=>$publish]];
         return ActionDB::select($select, $param, 2);
     }
     protected function getOneArticle ($idArticle, $valid) {
@@ -125,5 +149,17 @@ class SQLBlog
         $select = "SELECT * FROM  `pictures` WHERE `valid` = :valid";
         $param = [['prep'=>':valid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2);
+    }
+    public function getLastSubject () {
+        $select = "SELECT `id` FROM `subjects` ORDER BY`id` LIMIT 1;";
+        $idSubject = ActionDB::select($select, [], 2);
+        if(!empty($idSubject)) {
+            return $idSubject[0]['id'];
+        }
+        return false;
+    }
+    public function numberOfArticleAllSubject () {
+        $select = "SELECT COUNT(`id`) AS `nbrArticle` FROM `articles`;";
+        return ActionDB::select($select, [], 2)[0]['nbrArticle'];
     }
 }
