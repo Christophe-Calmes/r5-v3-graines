@@ -133,7 +133,7 @@ class sqlMiniatures
         `miniatureSize`, `typeTroop`, `armor`, `healtPoint`, `price`, `namePicture`, `valid`, `stick` 
         FROM `miniatures` 
         WHERE `idFaction`= :idFaction AND `valid` = :valid AND `idAuthor` = :idUser AND `stick` = 2
-        ORDER BY `nameMiniature`, `price`;";
+        ORDER BY `price`,`nameMiniature`;";
       
         $param = [['prep'=>':idFaction', 'variable'=>$idFaction], 
         ['prep'=>':valid', 'variable'=>$valid], 
