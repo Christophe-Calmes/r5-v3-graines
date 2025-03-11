@@ -12,12 +12,12 @@ class sqlMiniatures
         ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8', 'faces'=>8],
         ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10', 'faces'=>10],
         ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12', 'faces'=>12]];
-        $this->armour = [['id'=>1, 'valueArmour' => 0.5, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 0.8, 'nameArmour'=> '6+'],
-        ['id'=>3, 'valueArmour' => 1.6, 'nameArmour'=> '5+'],
-        ['id'=>4, 'valueArmour' => 2, 'nameArmour'=> '4+'],
-        ['id'=>5, 'valueArmour' => 4, 'nameArmour'=> '3+'],
-        ['id'=>6, 'valueArmour' => 6, 'nameArmour'=> '2+'],];
+        $this->armour = [['id'=>1, 'valueArmour' => 0.2, 'nameArmour'=> 'No armour'],
+        ['id'=>2, 'valueArmour' => 0.4, 'nameArmour'=> '6+'],
+        ['id'=>3, 'valueArmour' => 1, 'nameArmour'=> '5+'],
+        ['id'=>4, 'valueArmour' => 4, 'nameArmour'=> '4+'],
+        ['id'=>5, 'valueArmour' => 8, 'nameArmour'=> '3+'],
+        ['id'=>6, 'valueArmour' => 20, 'nameArmour'=> '2+'],];
         $this->healtPoint = [['id'=>1, 'valueHealtPoint'=>1, 'healtPoint'=> 1],
         ['id'=>2, 'valueHealtPoint'=>2, 'healtPoint'=> 2],
         ['id'=>3, 'valueHealtPoint'=> 4, 'healtPoint'=> 3],
@@ -348,14 +348,27 @@ class sqlMiniatures
             return false;
         }
         return true;
-   }
+    }
+    private function addRSRawPrice ($idMiniature, $rawPrice) {
+        $select = "SELECT  `price`, `idMiniature`
+        FROM `miniatureLinkSpecialRules` 
+        INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+        WHERE `idMiniature` = :idMiniature;";
+        $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
+        $dataSRPrice = ActionDB::select($select, $param, 1);
+        foreach ($dataSRPrice as $value) {
+            $rawPrice = ($value['price'] + 1) * $rawPrice;
+        }
+        return $rawPrice;
+    }
     public function addWeaponOnMiniature ($param) {
         if($this->checkAffectedWeaponOnMiniature ($param)) {
             $idMiniature = $param[1]['variable'];
             $paramWeapon = [$param[0]];
             $paramMiniature =  [$param[1]];
             $priceWeapon = $this->priceWeapon ($paramWeapon);
-            $rawPrice = $this->solveRawMiniaturePrice ($idMiniature);
+            $rawPrice1 = $this->solveRawMiniaturePrice ($idMiniature);
+            $rawPrice = $this-> addRSRawPrice ($idMiniature, $rawPrice1);
             $priceActualMiniature = $this->priceMiniature ($paramMiniature);
             $newPrice = $priceActualMiniature + ($rawPrice * $priceWeapon);
             $this->addNewPrice ($paramMiniature, $newPrice);
@@ -371,8 +384,11 @@ class sqlMiniatures
         $paramWeapon = [$param[0]];
         $priceWeapon = $this->priceWeapon ($paramWeapon);
         $priceMiniature = $this->priceMiniature ($paramMiniature);
-        $rawPrice = $this->solveRawMiniaturePrice ($param[1]['variable']);
+        $rawPrice1 = $this->solveRawMiniaturePrice ($param[1]['variable']);
+        $rawPrice = $this-> addRSRawPrice ($param[1]['variable'], $rawPrice1);
         $newPrice = $priceMiniature - ($rawPrice * $priceWeapon);
+        $arrayDebug = ['$priceWeapon'=>$priceWeapon, '$rawPrice1'=>$rawPrice1, '$rawPrice'=>$rawPrice, '$newPrice'=>$newPrice];
+        print_r($arrayDebug);
         $this->addNewPrice ($paramMiniature, $newPrice);
         $delete = "DELETE FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
         return ActionDB::Access($delete, $param, 1);
@@ -450,25 +466,30 @@ class sqlMiniatures
         return ActionDB::access($update, $param, 1);
     }
     public function getRSMiniaturePrice ($idMiniature, $MiniaturePrice) {
-        $select = "SELECT  `price` 
+        $select = "SELECT  `price`, `idMiniature`
                 FROM `miniatureLinkSpecialRules` 
                 INNER JOIN `specialRules` ON `idSpecialRules` = `id`
                 WHERE `idMiniature` = :idMiniature;";
         $param = [['prep'=>':idMiniature', 'variable'=>$idMiniature]];
         $dataSRPrice = ActionDB::select($select, $param, 1);
-        
         foreach ($dataSRPrice as $value) {
             $MiniaturePrice = ($value['price'] + 1) * $MiniaturePrice;
         }
-        $select = "SELECT `price`
+        $select = "SELECT `price` AS `priceWeapon`
                     FROM `miniatureLinkWeapons`
                     INNER JOIN `weapons` ON `idWeapon` = `id`
                     WHERE `idminiature` = :idMiniature;";
         $dataWeaponPrice = ActionDB::select($select, $param, 1);
+        $newPrice = 0;
         foreach ($dataWeaponPrice as $value) {
-            $MiniaturePrice = $value['price'] * $MiniaturePrice;
+            $newPrice = $newPrice + ($value['priceWeapon'] * $MiniaturePrice);
         }
-        $this->updatePriceByAdmin ($idMiniature, $MiniaturePrice);
+        if($newPrice == 0) {
+            $newPrice = $MiniaturePrice;
+        }
+        echo '<br/>';
+        print_r($newPrice);
+        $this->updatePriceByAdmin ($idMiniature, $newPrice);
         return true;
     }
 

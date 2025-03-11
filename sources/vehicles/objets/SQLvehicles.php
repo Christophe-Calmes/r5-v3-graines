@@ -14,12 +14,12 @@ class SQLvehicles
         ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8', 'faces'=>8],
         ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10', 'faces'=>10],
         ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12', 'faces'=>12]];
-        $this->armour = [['id'=>1, 'valueArmour' => 1.15, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 1.30, 'nameArmour'=> '6+'],
-        ['id'=>3, 'valueArmour' => 1.45, 'nameArmour'=> '5+'],
-        ['id'=>4, 'valueArmour' => 1.90, 'nameArmour'=> '4+'],
-        ['id'=>5, 'valueArmour' => 4, 'nameArmour'=> '3+'],
-        ['id'=>6, 'valueArmour' => 8, 'nameArmour'=> '2+'],];
+        $this->armour = [['id'=>1, 'valueArmour' => 0.2, 'nameArmour'=> 'No armour'],
+        ['id'=>2, 'valueArmour' => 0.4, 'nameArmour'=> '6+'],
+        ['id'=>3, 'valueArmour' => 1, 'nameArmour'=> '5+'],
+        ['id'=>4, 'valueArmour' => 4, 'nameArmour'=> '4+'],
+        ['id'=>5, 'valueArmour' => 8, 'nameArmour'=> '3+'],
+        ['id'=>6, 'valueArmour' => 20, 'nameArmour'=> '2+'],];
         $this->structurePoint = [['id'=>1, 'valueStructurePoint'=>1, 'Structure'=> 1],
         ['id'=>2, 'valueStructurePoint'=>2, 'Structure'=> 2],
         ['id'=>3, 'valueStructurePoint'=>4, 'Structure'=> 4],
@@ -257,9 +257,6 @@ class SQLvehicles
         ActionDB::access($update, $param, 1);
         return $this->factionVehicle ($param);
     }
-
-
-
     private function factionVehicle ($param) {
         $select = "SELECT `idFaction` FROM `vehicle` WHERE `id` = :idVehicle;";
         $idFaction =  ActionDB::select($select, $param, 1);
@@ -326,9 +323,22 @@ class SQLvehicles
                 ['prep'=>':price', 'variable'=>round($newPrice, 0)]];
         ActionDB::access($update, $param, 1);
     }
+    private function getPriceOfOneRS ($param, $rawPrice) {
+        $select = "SELECT `price`
+                    FROM `vehicleLinkSpecialRules` 
+                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
+                    WHERE `idVehicle` = :idVehicle;";
+        $dataPriceRS = ActionDB::select($select, $param, 1);
+        foreach ($dataPriceRS  as $value) {
+
+            $rawPrice = $rawPrice * (1 + ($value['price']));
+        }
+        return $rawPrice;
+    }
     public function addWeaponOnVehicle ($param, $weaponPrice) {
         $dataVehicle = $this->getVehicleSolvePrice ([$param[1]]);
-        $rawPrice = $this->solveVehiclePrice($dataVehicle[0]);
+        $rawPrice1 = $this->solveVehiclePrice($dataVehicle[0]);
+        $rawPrice = $this->getPriceOfOneRS ([$param[1]], $rawPrice1);
         $actualPrice = $this->getVehicleDirectPrice ($param[1]['variable']);
         $newPrice = $actualPrice + ($rawPrice * $weaponPrice);
         $insert = "INSERT INTO `vehicleLinkWeapon`(`idVehicle`, `idWeapon`) VALUES (:idVehicle, :idWeapon);";
@@ -350,14 +360,18 @@ class SQLvehicles
     }
     public function substractWeaponVehicle ($param) {
         $numberOfSameWeapon = $this->numberOfSameWeapon ($param);
-        $vhehiclePrice =  $this->getVehicleDirectPrice($param[1]['variable']);
+        $vehiclePrice =  $this->getVehicleDirectPrice($param[1]['variable']);
         $dataVehicle = $this->getVehicleSolvePrice ([$param[1]]);
-        $rawPrice = $this->solveVehiclePrice($dataVehicle[0]);
+        $rawPrice1 = $this->solveVehiclePrice($dataVehicle[0]);
+        $rawPrice = $this->getPriceOfOneRS ([$param[1]], $rawPrice1);
         $WeaponPrice = 0;
         for ($i=1; $i <= $numberOfSameWeapon; $i++) { 
             $WeaponPrice = $WeaponPrice + $param[2]['variable'] * $rawPrice;
         }
-        $newPrice = $vhehiclePrice - $WeaponPrice;
+        $newPrice = $vehiclePrice - $WeaponPrice;
+        $arrayDebug = ['$numberOfSameWeapon'=>$numberOfSameWeapon, '$vehiclePrice'=>$vehiclePrice,
+        '$rawPrice1'=>$rawPrice1, '$rawPrice'=>$rawPrice, '$newPrice'=>$newPrice];
+        print_r($arrayDebug);
         $this->recordNewPrice ($param[1]['variable'], round($newPrice, 0));
         $this->unequipWeaponVehicle ($param);
         return true;
@@ -421,28 +435,18 @@ class SQLvehicles
         $select = "SELECT  `id`, `sizeVehicle`, `typeVehicle`, `dqm`, `dc`, `moving`, `fligt`, `stationnaryFligt`, `structurePoint`, `armor` FROM `vehicle`;";
         return ActionDB::select($select, [], 1);
     }
-    private function getPriceOfOneRS ($param, $rawPrice) {
-        $select = "SELECT `price`
-                    FROM `vehicleLinkSpecialRules` 
-                    INNER JOIN `specialRules` ON `idSpecialRules` = `id`
-                    WHERE `idVehicle` = :idVehicle;";
-        $dataPriceRS = ActionDB::select($select, $param, 1);
-        foreach ($dataPriceRS  as $value) {
 
-            $rawPrice = $rawPrice * (1 + ($value['price']));
-        }
-        return $rawPrice;
-    }
     private function getOriceOfWeapon ($param, $SRPrice) {
         $select = "SELECT `price` 
                     FROM `vehicleLinkWeapon` 
                     INNER JOIN `weapons` ON `id` = `idWeapon`
                     WHERE `idVehicle` = :idVehicle;";
         $dataPriceWeapon = ActionDB::select($select, $param, 1);
+        $newPrice = $SRPrice;
         foreach ($dataPriceWeapon as $value) {
-            $SRPrice = $SRPrice * $value['price'];
+            $newPrice = $newPrice + ($SRPrice * $value['price']);
         }
-        return $SRPrice;
+        return $newPrice;
     }
     public function updateAllVehicle () {
         $dataVehicle = $this->getIdAllVehicle ();
@@ -453,5 +457,6 @@ class SQLvehicles
             $resultPrice = $this->getOriceOfWeapon ($param, $SRPrice);
             $this->recordNewPrice ($data['id'], $resultPrice);
         }
+        return true;
     }
 }
