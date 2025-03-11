@@ -12,12 +12,12 @@ class sqlMiniatures
         ['id'=>2, 'valueDice'=> 4, 'nameDice'=> 'D8', 'faces'=>8],
         ['id'=>3, 'valueDice'=> 6, 'nameDice'=> 'D10', 'faces'=>10],
         ['id'=>4, 'valueDice'=> 8, 'nameDice'=> 'D12', 'faces'=>12]];
-        $this->armour = [['id'=>1, 'valueArmour' => 0.8, 'nameArmour'=> 'No armour'],
-        ['id'=>2, 'valueArmour' => 1.15, 'nameArmour'=> '6+'],
-        ['id'=>3, 'valueArmour' => 1.40, 'nameArmour'=> '5+'],
-        ['id'=>4, 'valueArmour' => 1.50, 'nameArmour'=> '4+'],
-        ['id'=>5, 'valueArmour' => 1.70, 'nameArmour'=> '3+'],
-        ['id'=>6, 'valueArmour' => 2, 'nameArmour'=> '2+'],];
+        $this->armour = [['id'=>1, 'valueArmour' => 0.5, 'nameArmour'=> 'No armour'],
+        ['id'=>2, 'valueArmour' => 0.8, 'nameArmour'=> '6+'],
+        ['id'=>3, 'valueArmour' => 1.6, 'nameArmour'=> '5+'],
+        ['id'=>4, 'valueArmour' => 2, 'nameArmour'=> '4+'],
+        ['id'=>5, 'valueArmour' => 4, 'nameArmour'=> '3+'],
+        ['id'=>6, 'valueArmour' => 6, 'nameArmour'=> '2+'],];
         $this->healtPoint = [['id'=>1, 'valueHealtPoint'=>1, 'healtPoint'=> 1],
         ['id'=>2, 'valueHealtPoint'=>2, 'healtPoint'=> 2],
         ['id'=>3, 'valueHealtPoint'=> 4, 'healtPoint'=> 3],
@@ -279,7 +279,7 @@ class sqlMiniatures
                     ['prep'=>':idUser', 'variable'=> $this->getIdUser ()]];
         ActionDB::access($update, $param, 1);
         $this->eraseAllStuffOfMiniature ($idMiniature);
-        $this->setNewPriceFixingMiniature ($idMiniature) ;
+        $this->setNewPriceFixingMiniature ($idMiniature);
         $this->updateMiniaturePrice ($idMiniature);
         return $this->getFactionForOneMiniature ($idMiniature);
     }
@@ -332,16 +332,7 @@ class sqlMiniatures
         $price = ActionDB::select($selectWeaponPrice, $param, 1 );
         return $price[0]['price'];
     }
-    private function addNewPrice ($param, $priceWeapon, $priceMiniature) {
-        $newPrice = $priceWeapon * $priceMiniature;
-        array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
-        $updatePrice = "UPDATE `miniatures` 
-        SET `price` = :price 
-        WHERE `id` = :idMiniature AND `valid` = 1 AND `stick` = 1;";
-        ActionDB::Access($updatePrice, $param, 1);
-    }
-    private function deleteNewPrice ($param, $priceWeapon, $priceMiniature) {
-        $newPrice = $priceMiniature / $priceWeapon ;
+    private function addNewPrice ($param, $newPrice) {
         array_push($param, ['prep'=>':price', 'variable'=> $newPrice]);
         $updatePrice = "UPDATE `miniatures` 
         SET `price` = :price 
@@ -360,11 +351,14 @@ class sqlMiniatures
    }
     public function addWeaponOnMiniature ($param) {
         if($this->checkAffectedWeaponOnMiniature ($param)) {
-            $paramMiniature =  [$param[1]];
+            $idMiniature = $param[1]['variable'];
             $paramWeapon = [$param[0]];
+            $paramMiniature =  [$param[1]];
             $priceWeapon = $this->priceWeapon ($paramWeapon);
-            $priceMiniature = $this->priceMiniature ($paramMiniature);
-            $this->addNewPrice ($paramMiniature, $priceWeapon, $priceMiniature);
+            $rawPrice = $this->solveRawMiniaturePrice ($idMiniature);
+            $priceActualMiniature = $this->priceMiniature ($paramMiniature);
+            $newPrice = $priceActualMiniature + ($rawPrice * $priceWeapon);
+            $this->addNewPrice ($paramMiniature, $newPrice);
             $insert = "INSERT INTO `miniatureLinkWeapons`(`idWeapon`, `idminiature`) 
             VALUES (:idWeapon, :idMiniature)";
             ActionDB::Access($insert, $param, 1);
@@ -377,7 +371,9 @@ class sqlMiniatures
         $paramWeapon = [$param[0]];
         $priceWeapon = $this->priceWeapon ($paramWeapon);
         $priceMiniature = $this->priceMiniature ($paramMiniature);
-        $this->deleteNewPrice ($paramMiniature, $priceWeapon, $priceMiniature);
+        $rawPrice = $this->solveRawMiniaturePrice ($param[1]['variable']);
+        $newPrice = $priceMiniature - ($rawPrice * $priceWeapon);
+        $this->addNewPrice ($paramMiniature, $newPrice);
         $delete = "DELETE FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
         return ActionDB::Access($delete, $param, 1);
     }

@@ -32,8 +32,6 @@ if(checkPostFields ($arrayKeys, $_POST)) {
         array_push($mark, 1);
     }
 }
-
-
 if($controle_POST == $mark) {
     $_POST['price'] = $miniatureTraitement->solveMiniaturePrice($_POST);
     $namePicture = genToken (5).date('Y').filter($_FILES['namePicture']['name']);
@@ -48,7 +46,7 @@ if($controle_POST == $mark) {
             return header('location:../index.php?message=Record new miniature sucess.&idNav='.$idNav);
         } else {
             print_r($_FILES);
-            //return header('location:../index.php?message=The target file is not found.');
+            return header('location:../index.php?message=The target file is not found.');
         }
 
     } else {

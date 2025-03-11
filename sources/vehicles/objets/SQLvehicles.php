@@ -320,18 +320,20 @@ class SQLvehicles
         $this->recordNewPrice ($param[0]['variable'], round($newPrice, 0));
     }
 
-    private function updateVehiclePriceAddWeapon ($idVehicle, $weaponPrice) {
-        $price = $this->getVehicleDirectPrice ($idVehicle);
-        $newPrice = $price * $weaponPrice;
+    private function updateVehiclePriceAddWeapon ($idVehicle, $newPrice) {
         $update = "UPDATE `vehicle` SET `price` = :price WHERE `id` = :idVehicle;";
         $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle], 
-        ['prep'=>':price', 'variable'=>round($newPrice, 0)]];
+                ['prep'=>':price', 'variable'=>round($newPrice, 0)]];
         ActionDB::access($update, $param, 1);
     }
     public function addWeaponOnVehicle ($param, $weaponPrice) {
+        $dataVehicle = $this->getVehicleSolvePrice ([$param[1]]);
+        $rawPrice = $this->solveVehiclePrice($dataVehicle[0]);
+        $actualPrice = $this->getVehicleDirectPrice ($param[1]['variable']);
+        $newPrice = $actualPrice + ($rawPrice * $weaponPrice);
         $insert = "INSERT INTO `vehicleLinkWeapon`(`idVehicle`, `idWeapon`) VALUES (:idVehicle, :idWeapon);";
         ActionDB::access($insert, $param, 1);
-        $this->updateVehiclePriceAddWeapon ($param[1]['variable'], $weaponPrice);
+        $this->updateVehiclePriceAddWeapon ($param[1]['variable'], $newPrice);
     }
     private function unequipWeaponVehicle ($param) {
         array_pop($param);
@@ -340,10 +342,22 @@ class SQLvehicles
         ActionDB::access($delete, $param, 1);
         return true;
     }
+    private function numberOfSameWeapon ($param) {
+        array_pop($param);
+        $select = "SELECT COUNT(`idWeapon`) AS `numberOfSameWeapon` FROM `vehicleLinkWeapon` WHERE `idVehicle` = :idVehicle AND `idWeapon` = :idWeapon;";
+        return ActionDB::select($select, $param, 1)[0]['numberOfSameWeapon'];
 
+    }
     public function substractWeaponVehicle ($param) {
+        $numberOfSameWeapon = $this->numberOfSameWeapon ($param);
         $vhehiclePrice =  $this->getVehicleDirectPrice($param[1]['variable']);
-        $newPrice =   $vhehiclePrice / $param[2]['variable'];
+        $dataVehicle = $this->getVehicleSolvePrice ([$param[1]]);
+        $rawPrice = $this->solveVehiclePrice($dataVehicle[0]);
+        $WeaponPrice = 0;
+        for ($i=1; $i <= $numberOfSameWeapon; $i++) { 
+            $WeaponPrice = $WeaponPrice + $param[2]['variable'] * $rawPrice;
+        }
+        $newPrice = $vhehiclePrice - $WeaponPrice;
         $this->recordNewPrice ($param[1]['variable'], round($newPrice, 0));
         $this->unequipWeaponVehicle ($param);
         return true;
