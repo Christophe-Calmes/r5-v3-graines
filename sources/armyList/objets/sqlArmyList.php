@@ -159,4 +159,13 @@ class SQLArmyList
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
         return ActionDB::select($select, $param, 1);
     }
+    public function limitOfSkirmich($param) {
+        $idList = $param[2]['variable'];
+        $nbrAdd = $param[0]['variable'];
+        $numberOfMiniature = $this->numbreOfMiniature ($idList);
+        if(($nbrAdd + $numberOfMiniature)>12) {
+            return false;
+        }
+        return true;
+    }
 }

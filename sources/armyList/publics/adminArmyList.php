@@ -10,7 +10,7 @@ $dataFaction  = $armyList->getNameOfFactionArmyList ($idArmyList);
         $nameFaction = $dataFaction['nomFaction'];
 $parametreFunction = [$idArmyList, $armyList, $idNav, $cases[1], $idFaction, $nameFaction];
 
-function miniature ($parametreFunction, $miniatureList) {
+function miniature ($parametreFunction, $miniatureList, $cases) {
     $type = 'Escarmouche';
     if($parametreFunction[3]==1) {
         $type = 'Bataille';
@@ -18,7 +18,7 @@ function miniature ($parametreFunction, $miniatureList) {
     //$miniatureList = new templatesMiniatures ();
     echo '<h3>Administration de la compagnie : '. $parametreFunction[5].' - '.$parametreFunction[1]->getNameArmyList ($parametreFunction[0]).' - '.$type.' </h3>';
     $parametreFunction[1]->oneArmyListDashboard ($parametreFunction[0], $parametreFunction[2]);
-    $miniatureList->affectedMiniatureArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2]);
+    $miniatureList->affectedMiniatureArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2], $cases[1]);
 }
 function vehicle ($parametreFunction, $vehicleList) {
     $vehicleList->affectedVehicleArmyList ($parametreFunction[4], $parametreFunction[0], $parametreFunction[2]);
@@ -31,14 +31,14 @@ switch ($cases) {
         $vehicleList = new TemplatesVehicles ();
             $miniatureList->displayAffectedInListMiniature ($idArmyList, $idNav);
             $vehicleList->displayAffectedInListVehicle ($idArmyList, $idNav);
-            miniature ($parametreFunction, $miniatureList);
+            miniature ($parametreFunction, $miniatureList, $cases);
             vehicle ($parametreFunction, $vehicleList);
             
         break;
     case [1, 2] :
            // Skirmich
            $miniatureList->displayAffectedInListMiniature ($idArmyList, $idNav);
-           miniature ($parametreFunction, $miniatureList);
+           miniature ($parametreFunction, $miniatureList, $cases);
         break;
     default:
    

@@ -359,12 +359,18 @@ class templatesMiniatures extends sqlMiniatures
             echo '</article>';
         }
     }
-    private function formAddMiniatureInArmyList ($idMiniature, $idArmyList, $idNav, $nameMiniature) {
-        echo '<form action="'.encodeRoutage(122).'" method="post">';
+    private function formAddMiniatureInArmyList ($idMiniature, $idArmyList, $idNav, $nameMiniature, $typeList) {
+        $routeForm = 122;
+        $numberOfMiniature = 24;
+        if($typeList == 2) {
+            $routeForm = 140;
+            $numberOfMiniature = 3;
+        }
+        echo '<form action="'.encodeRoutage($routeForm).'" method="post">';
         echo '<h4>Ajouter '.$nameMiniature.'</h4>';
         echo '<label for="nbr">Nombre</label>';
         echo '<select name="nbr">';
-        for ($i=1; $i <=12 ; $i++) { 
+        for ($i=1; $i <=$numberOfMiniature; $i++) { 
                 echo '<option value="'.$i.'">'.$i.'</option>';
         }
         echo '</select>';
@@ -374,14 +380,14 @@ class templatesMiniatures extends sqlMiniatures
         </form>';
     }
 
-    public function affectedMiniatureArmyList ($idFaction, $idArmyList, $idNav) {
+    public function affectedMiniatureArmyList ($idFaction, $idArmyList, $idNav, $typeList) {
         $dataMiniature = $this->getAllIdMiniatureOfFactionForArmyList ($idFaction);
         echo '<details>';
         echo '<summary class="titleSite">';
             echo 'Ajouter Figurines';
         echo '</summary>';
         foreach ($dataMiniature as  $value) {
-            $this->formAddMiniatureInArmyList ($value['id'], $idArmyList, $idNav, $value['nameMiniature'] );
+            $this->formAddMiniatureInArmyList ($value['id'], $idArmyList, $idNav, $value['nameMiniature'], $typeList );
             $this->displayOneMiniatureDatasheet ($value['id'], $value['valid'], $value['stick']);
         }
         echo '</details>';
@@ -396,7 +402,6 @@ class templatesMiniatures extends sqlMiniatures
                     </form>';
             echo '</div>';
     }
-
     public function displayAffectedInListMiniature ($idList, $idNav) {
         $dataMiniatureOfOneList = $this->getAllMiniatureOfOneList ($idList);
         if(!empty($dataMiniatureOfOneList)) {
