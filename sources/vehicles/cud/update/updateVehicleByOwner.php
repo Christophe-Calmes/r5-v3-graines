@@ -5,7 +5,6 @@ require ('../sources/vehicles/objets/SQLvehicles.php');
 require('../functions/functionToken.php');
 $chekFaction = new SQLWeapons ();
 $updateVehicle = new SQLvehicles ();
-
 $arrayKeys = ['idFaction','nameVehicle', 'dqm','dc', 'armor' ,'structurePoint', 'sizeVehicle' ,'typeVehicle', 'moving', 'fligt', 'stationnaryFligt', 'idVehicle'];
 $controle_POST = array();
 $mark = array();
@@ -41,7 +40,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($mark, 1);
 }
 if($_FILES['namePicture']['error'] == 0) {
-    $namePicture = $updateVehicle->getPictureVehicleName (filter($_POST[$arrayKeys[11]]));
+    $namePicture = $updateVehicle->getPictureVehicleName (filter($_POST[$arrayKeys[11]]), false);
     $pathPictureToDelete = '../sources/pictures/miniaturesPictures/'.$namePicture;
     if(file_exists($pathPictureToDelete)) {
         unlink($pathPictureToDelete);
@@ -55,6 +54,7 @@ if($_FILES['namePicture']['error'] == 0) {
         }
     }
     $picture = true;
+
 }
 
 

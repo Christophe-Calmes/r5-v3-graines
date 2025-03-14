@@ -10,7 +10,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
  array_push($controle_POST, $deleteVehicle->checkVehicleOwner(filter($_POST[$arrayKeys[0]])));
 }
 if($mark == $controle_POST) {
-    $pictureName = $deleteVehicle->getPictureVehicleName (filter($_POST[$arrayKeys[0]]));
+    $pictureName = $deleteVehicle->getPictureVehicleName (filter($_POST[$arrayKeys[0]]), true);
     $pathPictureToDelete = '../sources/pictures/miniaturesPictures/'.$pictureName;
     if(file_exists($pathPictureToDelete)) {
         unlink($pathPictureToDelete);

@@ -215,11 +215,14 @@ class SQLvehicles
         ActionDB::access($delete, $param, 1);
         return true;
     }
-    public function getPictureVehicleName ($idVehicle) {
+    public function getPictureVehicleName ($idVehicle, $delete) {
         $select = "SELECT `namePicture` FROM `vehicle` WHERE `id` = :idVehicle;";
         $param = [['prep'=>':idVehicle', 'variable'=>$idVehicle]];
         $dataNamePictureVehicle = ActionDB::select($select, $param, 1);
-        $this->deleteVehicleByOwner($param);
+        if($delete) {
+            $this->deleteVehicleByOwner($param);
+        }
+        
         return $dataNamePictureVehicle[0]['namePicture'];
     }
     protected function getVehicle ($data) {
