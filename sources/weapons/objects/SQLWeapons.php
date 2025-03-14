@@ -262,7 +262,7 @@ class SQLWeapons
         array_push($array_Affected, ActionDB::select($select, $param, 1)[0]['miniatureAffected']);
         $select = "SELECT COUNT(`idWeapon`) AS `vehicleAffected` FROM `vehicleLinkWeapon` WHERE `idWeapon` = :idWeapon;";
         array_push($array_Affected, ActionDB::select($select, $param, 1)[0]['vehicleAffected']);
-        if(in_array(1, $array_Affected)) {
+        if(array_sum($array_Affected)>=1) {
             return true;
         }
         return false;
