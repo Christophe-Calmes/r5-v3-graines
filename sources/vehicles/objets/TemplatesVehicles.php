@@ -298,23 +298,23 @@ class TemplatesVehicles extends SQLvehicles
         echo '<section class="centerDatasheet">';
             echo '<article class="dataSheetBox">';
             echo '<div class="printVehicle">
-            <div class="Picture"><img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/></div>
-                    <div class="Name"><div class="titlePrintDataSheet">Nom</div>
-                        <div class="dataSheetInfoPrint">'.$dataVehicle['nameVehicle'].'</div>
-                        </div>
+                    <div class="Picture">
+                        <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/>
+                    </div>
+                    <div class="Name titlePrintDataSheet">'.$dataVehicle['nameVehicle'].'</div>
                         <div class="titlePrintDataSheet PriceTT">Prix : '.$dataVehicle['price'].' $</div>    
                         <div class="Type titlePrintDataSheet">Type '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div>
                         <div class="titlePrintDataSheet Size">Taille : '.$this->getArray($this->sizeVehicle, $dataVehicle['sizeVehicle'], 'NameSize').'</div>
                 
-                        <div class="DQM"><div class="titlePrintDataSheet">DQM</div><div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
+                        <div class="DQM"><div class="titlePrintDataSheet">DQM</div>
+                            <div class="dataSheetInfoPrint"> '.$this->getArray($this->dice, $dataVehicle['dqm'], 'nameDice').'</div></div>
                         <div class="Structure"><div class="titlePrintDataSheet">Structure </div><div class="dataSheetInfoPrint">'.$structurePoint.'</div></div>
                         <div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div><div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
                         <div class="titlePrintDataSheet Move">Mouvement :<strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></div>
                         <div class="Fligth titlePrintDataSheet">Vol :  <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></div>
-                        <div class="StationnaryFlight titlePrintDataSheet">Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'<strong></div>
+                        <div class="StationnaryFlight titlePrintDataSheet">Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</strong></div>
                         </div>
-                    </div>
-            </div>';
+                    </div>';
                         $this->StructurePoint ($structurePoint);
                         $specialRulesVehicle = new TemplatesSpecialRules ();
                         $specialRulesVehicle->printSpecialRulesVehicle ($dataVehicle['id']);
