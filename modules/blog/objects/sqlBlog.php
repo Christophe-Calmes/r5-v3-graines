@@ -42,6 +42,7 @@ class SQLBlog
                     FROM `link_subject_article` 
                     INNER JOIN `articles` ON `id_article` = `articles`.`id`
                     INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
+                    WHERE  `publish` = 1
                     ORDER BY `articles`.`id` DESC LIMIT 1;";
         $lastArticle = ActionDB::select($select, [], 2);
         if(!empty($lastArticle)) {
@@ -117,7 +118,7 @@ class SQLBlog
                 FROM `articles`
                 INNER JOIN `link_subject_article` ON `articles`.`id` = `id_article`
                 INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`
-                WHERE `articles`.`id` = :idArticle AND `articles`.`valid` = :idValid;";
+                WHERE `articles`.`id` = :idArticle AND `articles`.`valid` = :idValid; AND ";
         $param = [['prep'=>':idArticle', 'variable'=>$idArticle],
                     ['prep'=>':idValid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2)[0];
