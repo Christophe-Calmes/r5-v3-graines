@@ -308,7 +308,14 @@ a {
 .listRow {
   display: inline-block;
 }
+.CarrouselPictureBlog {
+  position: relative;
+  Z-index:1;
+  width: 100%;
+  border-radius: var(--main-radius);
+  border: var(--main-border);
 
+}
 
 .listClass {
   list-style: none;
@@ -887,6 +894,7 @@ display: inline-block;
 position: absolute;
 display: none;
 min-width: 250px;
+z-index: 2;
 }
 
 .dropdown-child a {
@@ -1328,17 +1336,71 @@ nav {
   max-width: 100%;
   max-height: 100%;
 }
-.miniPictureBlog {
-  border-radius: var(--main-radius);
-  border: var(--main-border);
-  width: 100%;
-}
+
 .centerBlog {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 20em;
 }
+/*Carrousel*/
+.custom-slider { display: none; }
+.miniPictureBlog {
+  border-radius: var(--main-radius);
+  border: var(--main-border);
+  width: 100%;
+}
+.slide-text {
+  position:sticky;
+  color: var(--color-neutralBone);
+  font-size: 1.1em;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+.slide-container {
+    max-width: 800px;
+    position: relative;
+    margin: auto;
+}
+
+.slide-index {
+    color: #ffffff;
+    font-size: 13px;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+}
+.slide-img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+.slide-dot{ text-align: center; }
+.dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: var(--main-background-color);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.active, .dot:hover { background-color:var(--color-blueOneChair); }
+.fade {
+    animation-name: fade;
+    animation-duration: 1s;
+}
+@keyframes fade {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+/*Carrousel*/
+
 
 @media only screen and (max-width: 768px) {
   main {

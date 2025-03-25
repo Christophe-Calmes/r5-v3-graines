@@ -177,7 +177,13 @@ class TemplateBlog extends PresentationHTML
     public function admiArticleOfBlog ($idArticle, $valid, $idNav) {
         return $this->getOneArticle ($idArticle, $valid);
     }
-    public function displayImgCode ($valid) {
+    public function displayImgCode ($valid, $idNav) {
+        function carrousel ($data) {
+            if($data) {
+                return 'Oui';
+            }
+            return 'Non';
+        }
         $dataPictures = $this->getAllPictureBlog ($valid);
         echo '<div class="gallery">';
         foreach ($dataPictures as $value) {
@@ -185,8 +191,41 @@ class TemplateBlog extends PresentationHTML
                 echo '<img class="miniPictureBlog" src="modules/blog/blogPictures/'.$value['name_picture'].'" alt="'.$value['altImg'].'"/>';
                 echo '<figcaption>OpenPicture {'.$value['name_picture'].'} ('.$value['altImg'].') ClosePicture</figcaption>';
                 echo '<p>alt = '.$value['altImg'].'</p>';
+                echo '<p>Carrousel ? '.yes($value['carrouselPicture']).'</p>';
+                    echo '<form action="'.encodeRoutage(141).'" method="post">';
+                    echo '<input type="hidden" name="idPicture" value="'.$value['id'].'"/>';
+                    echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete picture</button>';
+                    echo '</form>';
             echo '</aside>';
+    
         }
         echo '</div>';
+    }
+    public function carrouselDisplayPicture ($valid, $carrousel, $limit) {
+        $dataPictures = $this->getCarouselPictures ($valid, $carrousel, $limit);
+        if(!empty($dataPictures)) {
+            $countPictures = count($dataPictures);
+            echo '<div class="slide-container">';
+            $numberPicture = 1;
+            foreach ($dataPictures as $value) {
+                echo '<div class="custom-slider fade">
+                    <img class="CarrouselPictureBlog" src="modules/blog/blogPictures/'.$value['name_picture'].'" alt="'.$value['altImg'].'"/>
+                    <div class="slide-text">'.$value['altImg'].'</div>
+                </div>';
+
+                $numberPicture +=1;
+            }
+            echo '</div>';
+            echo '<div class="slide-dot">';
+            for ($i=1; $i <= $countPictures ; $i++) { 
+                echo '<span class="dot" onclick="currentSlide('.$i.')"></span>';
+            }
+                
+            echo' </div>';
+        } else {
+            echo '<div class="slide-container">';
+            echo '<h3>No image available</h3>';
+            echo' </div>';
+        }
     }
 }

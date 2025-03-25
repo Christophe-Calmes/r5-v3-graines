@@ -3,12 +3,12 @@
 require ('../modules/blog/objects/sqlBlog.php');
 require('../functions/functionToken.php');
 $addPictureForBlog = new SQLBlog ();
-$arrayKeys = ['altImg'];
+$arrayKeys = ['altImg', 'carrousellePicture'];
 $controle_POST = array();
 $mark = [0];
 if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($controle_POST, sizePost(filter($_POST[$arrayKeys[0]]), 60));
-    array_push($controle_POST, controlePicture($_FILES, 50000, 'name_picture'));
+    array_push($controle_POST, controlePicture($_FILES, 120000, 'name_picture'));
     array_push($mark, 1);
 }
 if($controle_POST == $mark) {
@@ -19,6 +19,7 @@ if($controle_POST == $mark) {
             chmod($f, 0644);
             $parametre = new Preparation ();
             $param = $parametre->creationPrepIdUser ($_POST);
+            print_r($param);
             $addPictureForBlog->recordPictureBlog($param);
             return header('location:../index.php?message=Record new picture sucess.&idNav='.$idNav);
         } else {

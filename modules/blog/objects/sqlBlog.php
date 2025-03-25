@@ -143,7 +143,7 @@ class SQLBlog
         return ActionDB::access($delete, $param, 2);
     }
     public function recordPictureBlog($param) {
-        $insert = "INSERT INTO `pictures`(`name_picture`, `altImg`, `author`) VALUES (:name_picture, :altImg, :idUser);";
+        $insert = "INSERT INTO `pictures`(`altImg`, `carrouselPicture`, `name_picture`, `author`) VALUES (:altImg, :carrousellePicture, :name_picture,  :idUser);";
         return ActionDB::access($insert, $param, 2);
     }
     protected function getAllPictureBlog ($valid) {
@@ -162,5 +162,31 @@ class SQLBlog
     public function numberOfArticleAllSubject () {
         $select = "SELECT COUNT(`id`) AS `nbrArticle` FROM `articles`;";
         return ActionDB::select($select, [], 2)[0]['nbrArticle'];
+    }
+    protected function getCarouselPictures ($valid, $carrousel, $limit) {
+        $select = "SELECT `name_picture`, `altImg` FROM `pictures` WHERE `valid` = :valid AND `carrouselPicture` = :carrouselPicture ORDER BY `id` ASC LIMIT {$limit};";
+        $param = [['prep'=>':valid', 'variable'=>$valid], 
+                ['prep'=>':carrouselPicture', 'variable'=>$carrousel]];
+        return ActionDB::select($select, $param, 2);
+    }
+    public function checkPictureExist ($idPicture) {
+        $select = "SELECT COUNT(`id`) AS `nbrPicture` FROM `pictures` WHERE `id` = :idPicture;";
+        $param = [['prep'=>':idPicture', 'variable'=>$idPicture]];
+        $chekPicture = ActionDB::select($select, $param, 2)[0]['nbrPicture'];
+        if($chekPicture == 1) {
+            return true;
+        }
+        return false;
+    }
+    private function getNamePicture ($param) {
+        $select = "SELECT `name_picture` FROM `pictures` WHERE `id` = :idPicture;";
+        return ActionDB::select($select, $param, 2)[0]['name_picture'];
+    }
+    public function deletePicture ($idPicture) {
+        $param = [['prep'=>':idPicture', 'variable'=>$idPicture]];
+        $namePicture = $this->getNamePicture ($param);
+        $delete = "DELETE FROM `pictures` WHERE `id` = :idPicture;";
+        ActionDB::access($delete, $param, 2);
+        return $namePicture;
     }
 }
