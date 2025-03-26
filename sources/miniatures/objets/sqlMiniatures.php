@@ -24,13 +24,13 @@ class sqlMiniatures
         ['id'=>4, 'valueHealtPoint'=> 8, 'healtPoint'=> 4],
         ['id'=>5, 'valueHealtPoint'=> 16, 'healtPoint'=> 5],
         ['id'=>6, 'valueHealtPoint'=> 32, 'healtPoint'=> 6],];
-        $this->typesTroupe = [['id'=>1, 'valueTypeTroupe'=>1, 'nameTroupe'=>'Civile', 'commandePoint'=>0.10],
-        ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscrit', 'commandePoint'=>0.4],
-        ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Régulier', 'commandePoint'=>0.6],
-        ['id'=>4, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Elite', 'commandePoint'=>1.2],
-        ['id'=>5, 'valueTypeTroupe'=>16, 'nameTroupe'=>'Vétéran', 'commandePoint'=>1.4],
-        ['id'=>6, 'valueTypeTroupe'=>14, 'nameTroupe'=>'Officer', 'commandePoint'=>2],
-        ['id'=>7, 'valueTypeTroupe'=>18, 'nameTroupe'=>'Officier suppérieur', 'commandePoint'=>2.4],];
+        $this->typesTroupe = [['id'=>1, 'valueTypeTroupe'=>1, 'nameTroupe'=>'Civile', 'commandePoint'=>0.05],
+        ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscrit', 'commandePoint'=>0.1],
+        ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Régulier', 'commandePoint'=>0.12],
+        ['id'=>4, 'valueTypeTroupe'=>12, 'nameTroupe'=>'Elite', 'commandePoint'=>0.2],
+        ['id'=>5, 'valueTypeTroupe'=>16, 'nameTroupe'=>'Vétéran', 'commandePoint'=>0.23],
+        ['id'=>6, 'valueTypeTroupe'=>14, 'nameTroupe'=>'Officer', 'commandePoint'=>1],
+        ['id'=>7, 'valueTypeTroupe'=>18, 'nameTroupe'=>'Officier suppérieur', 'commandePoint'=>1.3]];
         $this->miniatureSize = [['id'=>1, 'valueSize'=> 2, 'NameSize'=>'Petit'],
         ['id'=>2, 'valueSize'=> 2.5, 'NameSize'=>'Standard'],
         ['id'=>3, 'valueSize'=> 4, 'NameSize'=>'Grande'],
@@ -421,15 +421,18 @@ class sqlMiniatures
         return ActionDB::select($select, $param, 1);
     }
     public function numbreMiniatureCommandPoint ($idList) {
-        $select = "SELECT `typeTroop` 
+        $select = "SELECT `typeTroop`, `nbr`
                     FROM `armyListLinkMiniature`
                     INNER JOIN `miniatures`ON `miniatures`.`id` = `idminiature`
                     WHERE `idArmyList` = :idArmyList;";
         $param = [['prep'=>':idArmyList', 'variable'=>$idList]];
         $dataType = ActionDB::select($select, $param, 1);
         $result = 0;
+        $nbrMiniature = 0;
         foreach ($dataType as $value) {
-           $result += $this->typesTroupe[$value['typeTroop']]['commandePoint'];
+            $index = array_search($value['typeTroop'], array_column($this->typesTroupe, 'id'));
+            $result += $this->typesTroupe[$index]['commandePoint'] * $value['nbr'];
+            $nbrMiniature += $value['nbr']; 
         }
         $message = ' point';
         if($result > 1) {
