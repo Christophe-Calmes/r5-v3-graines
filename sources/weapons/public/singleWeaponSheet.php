@@ -37,8 +37,6 @@ switch ($check) {
             <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
             </form>';
         }
-        //echo '</div>';
-        //echo '</div>';
         echo '<div class="flex-rows">';
                 echo '<aside class="dataSheetWeapon">';
                 echo '<h3>Fiche imprimable</h3>';
@@ -51,9 +49,9 @@ switch ($check) {
         if($status[0] == 0) {
             $dataSR->displayAssignSpecialRules ($idWeapon, $idNav, 1);
             $dataSR->displaySpecialRulesForChoose (0, 1, $idWeapon, $idNav, 1);
-        
-        } 
+         }
         echo '</article>';
+ 
         break;
     case [0, 1]:
         // Global weapon only

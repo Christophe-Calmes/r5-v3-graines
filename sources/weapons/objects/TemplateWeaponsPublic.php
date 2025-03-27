@@ -541,7 +541,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 Sort: '.$this->yes[$dataWeapon['spell']].'    
         </div>
         <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-        <div>Dommage '.$damage.'</div>
+        <div>Dommage : '.$damage.'</div>
     </div>';
     }
     private function shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face) {
