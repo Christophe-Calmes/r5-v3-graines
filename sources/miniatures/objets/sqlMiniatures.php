@@ -24,6 +24,12 @@ class sqlMiniatures
         ['id'=>4, 'valueHealtPoint'=> 8, 'healtPoint'=> 4],
         ['id'=>5, 'valueHealtPoint'=> 16, 'healtPoint'=> 5],
         ['id'=>6, 'valueHealtPoint'=> 32, 'healtPoint'=> 6],];
+        $this->healtPointSkirmich = [['id'=>1, 'healtPoint'=>'2 points<br/> Endurance 4+'],
+                                    ['id'=>2, 'healtPoint'=> '3 points<br/> Endurance 4+'],
+                                    ['id'=>3, 'healtPoint'=> '4 points<br/> Endurance 5+'],
+                                    ['id'=>4, 'healtPoint'=> '5 points<br/> Endurance 5+'],
+                                    ['id'=>5, 'healtPoint'=> '6 points<br/> Endurance 6+'],
+                                    ['id'=>6, 'healtPoint'=> '8 points<br/> Endurance 7+'],];
         $this->typesTroupe = [['id'=>1, 'valueTypeTroupe'=>1, 'nameTroupe'=>'Civile', 'commandePoint'=>0.05],
         ['id'=>2, 'valueTypeTroupe'=>4, 'nameTroupe'=>'Conscrit', 'commandePoint'=>0.1],
         ['id'=>3, 'valueTypeTroupe'=>6, 'nameTroupe'=>'Régulier', 'commandePoint'=>0.12],

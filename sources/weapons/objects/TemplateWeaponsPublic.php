@@ -534,41 +534,70 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '</div>';
         }
     }
-    private function closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face) {
-        echo '<div class="dataSheetWeapon">
+    private function closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face, $skirmich=false) {
+
+    echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
         <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
                 Sort: '.$this->yes[$dataWeapon['spell']].'    
         </div>
-        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-        <div>Dommage : '.$damage.'</div>
-    </div>';
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>';
+        if($skirmich) {
+            $damageTest = '6+';
+            if($dataWeapon['heavy']) {
+                $damage += 1;
+            }
+            $damage = $damage + 1;
+            echo '<div>Dommage : '.$damage.'D10</div>';
+        } else{
+            echo '<div>Dommage : '.$damage.'</div>';
+        }
+  
+    echo '</div>';
     }
-    private function shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face) {
+    private function shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face, $skirmich=false) {
         echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
         <div>
                 Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
                 Sort: '.$this->yes[$dataWeapon['spell']].'
         </div>
-        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-        <div>Dommage '.$damage.'</div>
-        <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'<br/>
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>';
+        if($skirmich) {
+            $damageTest = '5+';
+            if($dataWeapon['heavy']) {
+                $damage += 1;
+            }
+            $damage = $damage * 2;
+            echo '<div>Dommage : '.$damage.'D10</div>';
+        }else {
+            echo '<div>Dommage '.$damage.'</div>';
+        }
+        echo'<div>Saturation :'. $this->yes[$dataWeapon['saturation']].'<br/>
             Assaut: '. $this->yes[$dataWeapon['assault']].'</div>
         <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
         <div>Portée : '.$dataWeapon['rangeWeapon'].' "</div>
     </div>';
     }
-    private function explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face) {
+    private function explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face, $skirmich=false) {
         echo '<div class="dataSheetWeapon">
         <div class="titlePrintDataSheet fontWeigth">'.$dataWeapon['nameWeapon'].'</div>
         <div>Lourde : '. $this->yes[$dataWeapon['heavy']].'<br/>
                 Sort: '.$this->yes[$dataWeapon['spell']].'    </div>
-        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>
-        <div>Dommage '.$damage.'</div>
-        <div class="flex-colonne-left">
-            <div>Saturation :'. $this->yes[$dataWeapon['saturation']].'</div>
-            <div>Assaut: '. $this->yes[$dataWeapon['assault']].'</div>
+        <div>Puissance : '.$this->powerType[$dataWeapon['power']].$face.$overPower.'</div>';
+    if($skirmich) {
+        $damageTest = '6+';
+        if($dataWeapon['heavy']) {
+            $damage += 1;
+        }
+        $damage = $damage * 3;
+        echo '<div>Dommage : '.$damage.'D10</div>';
+    }  else {
+        echo '<div>Dommage '.$damage.'</div>';
+    }
+    echo'<div class="flex-colonne-left">
+            Saturation :'. $this->yes[$dataWeapon['saturation']].'<br/>
+            Assaut: '. $this->yes[$dataWeapon['assault']].'
         </div>
         <div>Cadence de tir : '. $this->rateOfFire ($dataWeapon['rateOfFire']).'</div>
         <div>Portée: '.$dataWeapon['rangeWeapon'].' "</div>  
@@ -576,7 +605,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
         <div>Dé de souffle: '.$this->PowerBlastDice[$dataWeapon['power']].$this->blastDice[$dataWeapon['blastDice']].'</div>
     </div>';
     }
-    private function displayWeaponDatasheet ($dataListWeapons, $face) {
+    private function displayWeaponDatasheet ($dataListWeapons, $face, $skirmich = false) {
         if($dataListWeapons) {
             echo '<article>';
                 echo '<h3>Armes</h3>';
@@ -597,13 +626,13 @@ final class TemplateWeaponsPublic extends SQLWeapons
         
                     switch ($dataWeapon['typeWeapon']) {
                         case 0:
-                            $this->closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face);
+                            $this->closeCombatDataSheet ($dataWeapon, $overPower, $damage, $face, $skirmich);
                             break;
                         case 1:
-                            $this->shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face);
+                            $this->shootWeaponDataSheet ($dataWeapon, $overPower, $damage, $face, $skirmich);
                             break;
                         case 2:
-                           $this->explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face);
+                           $this->explosiveWeaponDatasheet ($dataWeapon, $overPower, $damage, $face, $skirmich);
                             break;
         
                     }
@@ -613,17 +642,24 @@ final class TemplateWeaponsPublic extends SQLWeapons
         echo '</article>';
         }
     }
+
+
+
     public function printVehicleWeaponDatasheet ($idVehicle, $face) {
         $dataListWeapons = $this->getWeaponOfOneVehicle($idVehicle);
         $this->displayWeaponDatasheet ($dataListWeapons, $face);
        
     }
-    public function printMiniatureWeaponDatasheet ($idMiniature, $face) {
+    public function printMiniatureWeaponDatasheet ($idMiniature, $face, $skirmich) {
         $dataListWeapons = $this->getWeaponOfOneDataSheetMiniature ($idMiniature);
-        $this->displayWeaponDatasheet ($dataListWeapons, $face);
+        $this->displayWeaponDatasheet ($dataListWeapons, $face, $skirmich);
        
     }
     public function printOneWeaponDatasheet ($idWeapon) {
+        $dataWeapon = $this->getOneWeaponForDataSheet ($idWeapon);
+        $this->displayWeaponDatasheet ($dataWeapon, null);
+    }
+    public function printOneWeaponDataSheetSkrimich ($idWeapon) {
         $dataWeapon = $this->getOneWeaponForDataSheet ($idWeapon);
         $this->displayWeaponDatasheet ($dataWeapon, null);
     }

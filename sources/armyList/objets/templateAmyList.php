@@ -120,7 +120,7 @@ class TemplateAmyList extends SQLArmyList
             echo '</ul>';
         echo '</aside>';
     }
-    public function printMiniatures ($idList) {
+    public function printMiniatures ($idList, $skirmich) {
         $dataMiniatures = $this->getIdMiniatureList ($idList);
         if(!empty($dataMiniature)) {
             echo '<h3>Liste de figurines</h3>';
@@ -128,8 +128,7 @@ class TemplateAmyList extends SQLArmyList
         $miniature = new templatesMiniatures ();
         foreach ($dataMiniatures as $value) {
             echo '<article>';
-            echo '<p>Nombre : '.$value['nbr'].'</p>';
-                $miniature->displayOneMiniatureDatasheet ($value['idminiature'], 1, 2);
+                $miniature->displayOneMiniatureDatasheet ($value['idminiature'], 1, 2, $skirmich, $value['nbr']);
             echo '</article>';
         }
     }
@@ -140,8 +139,7 @@ class TemplateAmyList extends SQLArmyList
         }
         $vehicle = new  TemplatesVehicles ();
         foreach ($dataVehicles as $value) {
-                echo '<p>Nombre : '.$value['nbr'].'</p>';
-                    $vehicle->printingOneVehicleDatasheet ($value['idVehicle']);
+                    $vehicle->printingOneVehicleDatasheet ($value['idVehicle'], $value['nbr']);
         }
     }
 }

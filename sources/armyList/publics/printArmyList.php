@@ -10,14 +10,14 @@ switch ($cases) {
         // Battle
         echo '<h3>Bataille</h3>';
         $armyList->printingIntroduction($idArmyList, true);
-        $armyList->printMiniatures ($idArmyList);
+        $armyList->printMiniatures ($idArmyList,  false);
         $armyList->printVehicle ($idArmyList);
         break;
     case [1, 2] :
            // Skirmich
            echo '<h3>Escarmouche</h3>';
           $armyList->printingIntroduction($idArmyList, false);
-            $armyList->printMiniatures ($idArmyList);
+            $armyList->printMiniatures ($idArmyList, true);
 
         break;
     default:

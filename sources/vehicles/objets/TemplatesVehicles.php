@@ -291,7 +291,7 @@ class TemplatesVehicles extends SQLvehicles
      
       echo '</section>';      
     }
-    public function printingOneVehicleDatasheet ($idVehicle) {
+    public function printingOneVehicleDatasheet ($idVehicle, $nbr = null) {
         $dataVehicle = $this->getOneVehicle ($idVehicle)[0];
         $moving = $this->movingSolveVehicle($dataVehicle['moving']);
         $structurePoint = $this->getArray($this->structurePoint, $dataVehicle['structurePoint'], 'Structure');
@@ -301,8 +301,12 @@ class TemplatesVehicles extends SQLvehicles
                     <div class="Picture">
                         <img class="imgCarouselAuto" src="sources/pictures/miniaturesPictures/'.$dataVehicle['namePicture'].'" alt="'.$dataVehicle['nameVehicle'].'"/>
                     </div>
-                    <div class="Name titlePrintDataSheet">'.$dataVehicle['nameVehicle'].'</div>
-                        <div class="titlePrintDataSheet PriceTT">Prix : '.$dataVehicle['price'].' $</div>    
+                    <div class="Name titlePrintDataSheet">'.$dataVehicle['nameVehicle'];
+                    if($nbr != null) {
+                        echo '<br/>'.$nbr.' véhicules';
+                    }
+                    echo'</div>';
+                    echo'<div class="titlePrintDataSheet PriceTT">Prix : '.$dataVehicle['price'].' $</div>    
                         <div class="Type titlePrintDataSheet">Type '.$this->getArray($this->typeVehicle, $dataVehicle['typeVehicle'], 'NameType').'</div>
                         <div class="titlePrintDataSheet Size">Taille : '.$this->getArray($this->sizeVehicle, $dataVehicle['sizeVehicle'], 'NameSize').'</div>
                 
