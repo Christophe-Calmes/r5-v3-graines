@@ -7,7 +7,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
     public function factionSelect () {
         $FactionsUser = new SQLFactions ();
         $dataFactions = $FactionsUser->getUserFaction ();
-        echo '<div class="flex-rows">';
+        echo '<div class="flex-colonne-center">';
             echo '<label class="labelFirstLetter" for="idFaction">Factions</label>';
             echo '<select id="idFaction"name="idFaction">';
                 foreach ($dataFactions as  $value) {
@@ -19,9 +19,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
     public function factionSelected ($idFaction) {
         $FactionsUser = new SQLFactions ();
         $dataFactions = $FactionsUser->getUserFaction ();
-        echo '<div class="flex-rows">';
             echo '<label class="labelFirstLetter" for="idFaction">Factions</label>';
-            echo '<select id="idFaction"name="idFaction">';
+            echo '<select id="idFaction" name="idFaction">';
                 foreach ($dataFactions as  $value) {
                     if($idFaction == $value['idFaction']) {
                         echo '<option value="'.$value['idFaction'].'" selected>'.$value['nameUnivers'].' - '.$value['nomFaction'].' - LT'.$value['nt'].'</option>';
@@ -31,22 +30,21 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     
                 }
             echo '</select>';
-        echo '</div>';
     }
     private function globalSelect ($label, $fields, $array) {
-        echo '<div class="flex-rows">';
-            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+  
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                 for ($i=0; $i <count($array) ; $i++) { 
                     echo '<option value="'.$i.'">'.$array[$i].'</option>';
                 }
             echo '</select>';
-        echo '</div>';
+     
     }
 
     private function globalSelected ($label, $fields, $array, $selected) {
         echo '<div class="flex-rows">';
-            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.' :</label>';
+            echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                 for ($i=0; $i <count($array) ; $i++) { 
                     
@@ -95,9 +93,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     <li class="TextRS fontSize">'.$value['descriptionSpecialRules'].'</li>
                  </ul>';
                 }
-            } else {
-                //echo '<h4>Pas de règle spéciales</h4>';
-            }
+            } 
      
     }
 
@@ -109,14 +105,16 @@ final class TemplateWeaponsPublic extends SQLWeapons
             echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$typeOfWeapon]).'" method="post">';
                 echo '<label class="labelFirstLetter" for="nameWeapon">Nom</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" placeholder="Name of weapon"/>';
+                echo '<div class="flex-colonne">';
                 $this->factionSelect ();
                 $this->globalSelect ('Puissance','power', $this->powerType);
-                $this->globalSelect('Surpuissance ?', 'overPower',$this->yes);
-                $this->globalSelect('Lourde ?', 'heavy', $this->yes);
-                $this->globalSelect('Sort ?', 'spell',$this->yes);
+                $this->globalSelect('Surpuissance', 'overPower',$this->yes);
+                $this->globalSelect('Lourde', 'heavy', $this->yes);
+                $this->globalSelect('Sort', 'spell',$this->yes);
+               
                 if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
-                    $this->globalSelect('Assaut ?', 'assault',$this->yes);
-                    $this->globalSelect('Saturation ?', 'saturation',$this->yes);
+                    $this->globalSelect('Assaut', 'assault',$this->yes);
+                    $this->globalSelect('Saturation', 'saturation',$this->yes);
                     echo '<label for="rateOfFire">Cadence de tir</label>';
                     echo '<input type="number" id="rateOfFire" name="rateOfFire" value="1" min="1" max="12"/>';
                     echo '<label for="rangeWeapon'.$typeOfWeapon.'">Portée</label>';
@@ -133,7 +131,8 @@ final class TemplateWeaponsPublic extends SQLWeapons
                     $this->globalSelect('Gabarit ?', 'templateType',$this->gabaritType);
                     $this->globalSelect('dé de souffle ?', 'blastDice',$this->blastDice);
                 }
-            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+                echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+            echo '</div>';
             echo '</form>';
         echo '</article>';
        
@@ -149,18 +148,18 @@ final class TemplateWeaponsPublic extends SQLWeapons
            echo '<form class="customerForm" action="'.encodeRoutage($adressCreat[$dataWeapon['typeWeapon']]).'" method="post">';
                  echo '<label class="labelFirstLetter" for="nameWeapon">Nom</label>';
                 echo '<input id="nameWeapon" name="nameWeapon" value="'.$dataWeapon['nameWeapon'].'"/>';
-               
+                echo '<div class="flex-colonne">';
                 $this->globalSelected ('Puissance','power', $this->powerType, $dataWeapon['power']);
-                $this->globalSelected ('SurPuissance ?', 'overPower',$this->yes, $dataWeapon['overPower']);
-                $this->globalSelected ('Lourde ?', 'heavy', $this->yes, $dataWeapon['heavy']);
-                $this->globalSelected ('Sort ?', 'spell',$this->yes, $dataWeapon['spell']);
+                $this->globalSelected ('SurPuissance', 'overPower',$this->yes, $dataWeapon['overPower']);
+                $this->globalSelected ('Lourde', 'heavy', $this->yes, $dataWeapon['heavy']);
+                $this->globalSelected ('Sort', 'spell',$this->yes, $dataWeapon['spell']);
         
                 if(($typeOfWeapon == 1)||($typeOfWeapon == 2)) {
                     $this->globalSelected ('Assaut ?', 'assault',$this->yes, $dataWeapon['assault']);
                     $this->globalSelected ('Saturation ?', 'saturation',$this->yes, $dataWeapon['saturation']);
                     echo '<label for="rateOfFire">Cadence de tir</label>';
                     echo '<input type="number" id="rateOfFire" name="rateOfFire" value="'.$dataWeapon['rateOfFire'].'" min="1" max="12"/>';
-                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range :</label>';
+                    echo '<label for="rangeWeapon'.$typeOfWeapon.'">Weapon range</label>';
                     echo '<input type="range" id="rangeWeapon'.$typeOfWeapon.'" value="'.$dataWeapon['rangeWeapon'].'" name="rangeWeapon" min="0" max="120" step="2" oninput="updateRangeValue'.$typeOfWeapon.'()"/>';
                     echo '<div>Range max size : <span id="rangeValue'.$typeOfWeapon.'">'.$dataWeapon['rangeWeapon'].'</span> "</div>';
                     echo '<script>
@@ -176,6 +175,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                 }
             echo '<input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>';
             echo ' <button class="buttonForm green" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
+            echo '</div>';
             echo '</form>';
         echo '</article>';
     }

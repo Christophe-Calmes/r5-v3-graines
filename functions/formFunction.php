@@ -8,9 +8,9 @@ function encodeRoutage($id) {
 function formAction($id, $variable, $idNav, $button) {
   // Idnav On / off => $idNav = 0
   if($idNav == 0) {
-    $NavButton = '<button class="buttonForm" type="submit" name="idNav" value="0">'.$button.'</button>';
+    $NavButton = '<button type="submit" name="idNav" value="0">'.$button.'</button>';
   } else {
-    $NavButton = '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$button.'</button>';
+    $NavButton = '<button type="submit" name="idNav" value="'.$idNav.'">'.$button.'</button>';
   }
 $type =  ['text',  'date', 'time', 'email',
 'datetime-local', 'file', 'hidden',
@@ -26,9 +26,9 @@ $type =  ['text',  'date', 'time', 'email',
 function formModification($id, $variable, $idNav, $button) {
   // Idnav On / off => $idNav = 0
   if($idNav == 0) {
-    $NavButton = '<button class="buttonForm" type="submit" name="idNav" value="0">'.$button.'</button>';
+    $NavButton = '<button type="submit" name="idNav" value="0">'.$button.'</button>';
   } else {
-    $NavButton = '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$button.'</button>';
+    $NavButton = '<button type="submit" name="idNav" value="'.$idNav.'">'.$button.'</button>';
   }
 $type =  ['text',  'date', 'time', 'email',
 'datetime-local', 'file', 'hidden',

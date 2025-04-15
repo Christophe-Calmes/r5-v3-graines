@@ -34,7 +34,7 @@ Class PrintNavigation extends GetNavigation {
           echo '<li><a href="index.php?idNav='.$value['targetRoute'].'">'.$value['nomNav'].'</a></li>';
         } else {
             echo '<div class="dropdown">';
-              echo '<button class="buttonForm">'.$value['nomNav'].'</button>';
+              echo '<button class="buttonNav">'.$value['nomNav'].'</button>';
               $dataTraiter  = $this->AuthenticNav ($value);
               echo ' <div class="dropdown-child">';
               foreach ($dataTraiter as $valeur) {

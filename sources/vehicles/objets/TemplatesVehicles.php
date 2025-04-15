@@ -8,18 +8,16 @@ class TemplatesVehicles extends SQLvehicles
         return [$move, round($move * 2)];
     }
     private function globalSelect ($label, $fields, $array, $nameFields) {
-        echo '<div class="flex-rows">';
+  
             echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                 foreach ($array as $value) {
                     echo '<option value="'.$value['id'].'">'.$value[$nameFields].'</option>';
                 }
             echo '</select>';
-        echo '</div>';
+
     }
     private function globalSelected ($label, $fields, $array, $nameFields, $selected) {
-    
-        echo '<div class="flex-rows">';
             echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                foreach ($array as $value) {
@@ -30,40 +28,41 @@ class TemplatesVehicles extends SQLvehicles
                 }
                }
             echo '</select>';
-        echo '</div>';
     }
     public function formAddVehicle ($idNav) {
         // encodeRoutage(108)
         $factionMiniature = new TemplateWeaponsPublic ();
         echo '<form class="customerForm" action="'.encodeRoutage(108).'" method="post" enctype="multipart/form-data">';
-        echo '<h3>Nouveau véhicule</h3>';
-        $factionMiniature->factionSelect ();
-        echo '<label for="nameVehicle">Nom</label>';
-        echo '<input id="nameVehicle" name="nameVehicle" placeholder="Nom du véhicule"/>';
-        $this->globalSelect ('DQM', 'dqm', $this->dice, 'nameDice');
-        $this->globalSelect ('DC', 'dc', $this->dice, 'nameDice');
-        $this->globalSelect ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour');
-        $this->globalSelect('PdS', 'structurePoint', $this->structurePoint, 'Structure');
-        $this->globalSelect('Taille du véhicule', 'sizeVehicle', $this->sizeVehicle, 'NameSize');
-        $this->globalSelect('Type du véhicule', 'typeVehicle', $this->typeVehicle, 'NameType');
-        echo '<label for="move">Mouvement tactique</label>';
-        echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
-        echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">8</span> " + 1D6"</div>';
-        echo '<script>
-            const updateRangeValue = () => {
-                let moveValue = document.getElementById("move").value;
-                let arrayMove = moveValue
-                document.getElementById("moveValue").textContent = moveValue;
-                document.getElementById("runValue").textContent = Math.round(moveValue * 2);
-            }
-        </script>';
-        $this->globalSelect ('Vol', 'fligt', $this->yes, 'name');
-        $this->globalSelect ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name');
-  
-   
-        echo '<label for="picture">Image du véhicule</label>';
-        echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
-        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+        echo '<div class="flex-colonne">';
+            echo '<h3>Nouveau véhicule</h3>';
+            $factionMiniature->factionSelect ();
+            echo '<label for="nameVehicle">Nom</label>';
+            echo '<input id="nameVehicle" name="nameVehicle" placeholder="Nom du véhicule"/>';
+                $this->globalSelect ('DQM', 'dqm', $this->dice, 'nameDice');
+                $this->globalSelect ('DC', 'dc', $this->dice, 'nameDice');
+                $this->globalSelect ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour');
+                $this->globalSelect('PdS', 'structurePoint', $this->structurePoint, 'Structure');
+                $this->globalSelect('Taille du véhicule', 'sizeVehicle', $this->sizeVehicle, 'NameSize');
+                $this->globalSelect('Type du véhicule', 'typeVehicle', $this->typeVehicle, 'NameType');
+            echo '<label for="move">Mouvement tactique</label>';
+            echo '<input type="range" id="move" value="4" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+            echo '<div>Move : <span id="moveValue">4</span> " / <span id="runValue">8</span> " + 1D6"</div>';
+            echo '<script>
+                const updateRangeValue = () => {
+                    let moveValue = document.getElementById("move").value;
+                    let arrayMove = moveValue
+                    document.getElementById("moveValue").textContent = moveValue;
+                    document.getElementById("runValue").textContent = Math.round(moveValue * 2);
+                }
+            </script>';
+            $this->globalSelect ('Vol', 'fligt', $this->yes, 'name');
+            $this->globalSelect ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name');
+    
+    
+            echo '<label for="picture">Image du véhicule</label>';
+            echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+        echo '</div>';
         echo '</form>';
     }
     private function fixVehicleDataSheet ($idVehicle, $idNav) {
@@ -82,33 +81,35 @@ class TemplatesVehicles extends SQLvehicles
         $factionMiniature = new TemplateWeaponsPublic ();
         //$this->fixVehicleDataSheet ($data['id'], $idNav);
         echo '<form class="customerForm"  action="'.encodeRoutage(110).'" method="post" enctype="multipart/form-data">';
-        echo '<h3>Mettre à jour '.$data['nameVehicle'].' véhicule</h3>';
-        $factionMiniature->factionSelected ($data['idFaction']); 
-        echo '<label for="nameVehicle">Nom</label>';
-        echo '<input id="nameVehicle" name="nameVehicle" value="'.$data['nameVehicle'].'"/>';
-        $this->globalSelected ('DQM', 'dqm', $this->dice, 'nameDice', $data['dqm']);
-        $this->globalSelected ('DC', 'dc', $this->dice, 'nameDice', $data['dc']);
-        $this->globalSelected ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour', $data['armor']);
-        $this->globalSelected ('PdS', 'structurePoint', $this->structurePoint, 'Structure', $data['structurePoint']);
-        $this->globalSelected ('Taille du véhicule', 'sizeVehicle', $this->sizeVehicle, 'NameSize', $data['sizeVehicle']);
-        $this->globalSelected ('Type du véhicule', 'typeVehicle', $this->typeVehicle, 'NameType', $data['typeVehicle']);
-        echo '<label for="move">Mouvement tactique</label>';
-        echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
-        echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.$this->movingSolveVehicle ($data['moving'])[1].'</span> " + 1D6"</div>';
-        echo '<script>
-            const updateRangeValue = () => {
-                let moveValue = document.getElementById("move").value;
-                let arrayMove = moveValue
-                document.getElementById("moveValue").textContent = moveValue;
-                document.getElementById("runValue").textContent = Math.round(moveValue * 2);
-            }
-        </script>';
-        $this->globalSelected ('Vol', 'fligt', $this->yes, 'name', $data['fligt']);
-        $this->globalSelected ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
-        echo '<label for="picture">Image du véhicule</label>';
-        echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
-        echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';
-        echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
+        echo '<div class="flex-colonne">';
+            echo '<h3>Mettre à jour '.$data['nameVehicle'].' véhicule</h3>';
+            $factionMiniature->factionSelected ($data['idFaction']); 
+            echo '<label for="nameVehicle">Nom</label>';
+            echo '<input id="nameVehicle" name="nameVehicle" value="'.$data['nameVehicle'].'"/>';
+            $this->globalSelected ('DQM', 'dqm', $this->dice, 'nameDice', $data['dqm']);
+            $this->globalSelected ('DC', 'dc', $this->dice, 'nameDice', $data['dc']);
+            $this->globalSelected ('Sauvegarde / D6', 'armor',    $this->armour, 'nameArmour', $data['armor']);
+            $this->globalSelected ('PdS', 'structurePoint', $this->structurePoint, 'Structure', $data['structurePoint']);
+            $this->globalSelected ('Taille du véhicule', 'sizeVehicle', $this->sizeVehicle, 'NameSize', $data['sizeVehicle']);
+            $this->globalSelected ('Type du véhicule', 'typeVehicle', $this->typeVehicle, 'NameType', $data['typeVehicle']);
+            echo '<label for="move">Mouvement tactique</label>';
+            echo '<input type="range" id="move" value="'.$data['moving'].'" name="moving" min="0" max="18" step="1" oninput="updateRangeValue()"/>';
+            echo '<div>Move : <span id="moveValue">'.$data['moving'].'</span> " / <span id="runValue">'.$this->movingSolveVehicle ($data['moving'])[1].'</span> " + 1D6"</div>';
+            echo '<script>
+                const updateRangeValue = () => {
+                    let moveValue = document.getElementById("move").value;
+                    let arrayMove = moveValue
+                    document.getElementById("moveValue").textContent = moveValue;
+                    document.getElementById("runValue").textContent = Math.round(moveValue * 2);
+                }
+            </script>';
+            $this->globalSelected ('Vol', 'fligt', $this->yes, 'name', $data['fligt']);
+            $this->globalSelected ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name', $data['stationnaryFligt']);
+            echo '<label for="picture">Image du véhicule</label>';
+            echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
+            echo '<input type="hidden" name="idVehicle" value="'.$data['id'].'"/>';
+            echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour</button>';
+        echo '</div>';
         echo '</form>';
     }
     private function getArray ($array, $index, $exitValue) {

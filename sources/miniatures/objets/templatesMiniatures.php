@@ -5,18 +5,14 @@ require_once ('sources/specialRules/objects/TemplatesSpecialRules.php');
 class templatesMiniatures extends sqlMiniatures
 {
     private function globalSelect ($label, $fields, $array, $nameFields) {
-        echo '<div class="flex-rows">';
             echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                 foreach ($array as $value) {
                     echo '<option value="'.$value['id'].'">'.$value[$nameFields].'</option>';
                 }
             echo '</select>';
-        echo '</div>';
     }
     private function globalSelected ($label, $fields, $array, $nameFields, $selected) {
-    
-        echo '<div class="flex-rows">';
             echo '<label class="labelFirstLetter" for="'.$fields.'">'.$label.'</label>';
             echo '<select id="'.$fields.'"name="'.$fields.'">';
                foreach ($array as $value) {
@@ -27,7 +23,6 @@ class templatesMiniatures extends sqlMiniatures
                 }
                }
             echo '</select>';
-        echo '</div>';
     }
     private function getArray ($array, $index, $exitValue) {
         $index = $index - 1;
@@ -36,6 +31,7 @@ class templatesMiniatures extends sqlMiniatures
     public function miniatureForm ($idNav) {
     $factionMiniature = new TemplateWeaponsPublic ();
     echo '<form class="customerForm" action="'.encodeRoutage(96).'" method="post" enctype="multipart/form-data">';
+    echo '<div class="flex-colonne">';
     echo '<h3>Créer une nouvelle figurine</h3>';
     $factionMiniature->factionSelect (); 
     echo '<label for="nameMiniature">Nom</label>';
@@ -61,7 +57,8 @@ class templatesMiniatures extends sqlMiniatures
     $this->globalSelect ('Vol stationnaire', 'stationnaryFligt', $this->yes, 'name');
     echo '<label for="picture">Image de la figurine</label>';
     echo '<input id="picture" type="file" name="namePicture" accept="image/png, image/jpeg, image/webp"/>';
-    echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer une nouvelle figurine</button>';
+    echo ' <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+    echo '</div>';
     echo '</form>';
     }
     private function movingSolve ($move) {
@@ -298,6 +295,7 @@ class templatesMiniatures extends sqlMiniatures
        $data = $data[0];
         $factionMiniature = new TemplateWeaponsPublic ();
         echo '<form class="customerForm" action="'.encodeRoutage(99).'" method="post" enctype="multipart/form-data">';
+        echo '<div class="flex-colonne">';
         echo '<h3>Mettre à jour : '.$data['nameMiniature'].'</h3>';
             $factionMiniature->factionSelected ($data['idFaction']); 
         echo '<label for="nameMiniature">Nom</label>';
@@ -333,6 +331,7 @@ class templatesMiniatures extends sqlMiniatures
         echo '<form action="'.encodeRoutage(106).'" method="post">
                 <input type="hidden" name="idMiniature" value="'.$idMiniature.'"/>
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Bon pour le service</button>
+                </div>
             </form>';
     }
     public function listMiniatureChoiceGlobalWeapon ($idMiniature, $idNav)  {

@@ -54,7 +54,7 @@ if($test) {
   $subject = 'Valider votre compte';
   $message = 'Vous vous êtes inscrit à  le graines1901 le '.date('d-m-y').', rendez-vous à l\'adresse suivante : ***********.';
   $headers = 'From: no-reply@graines1901.fr';
-  //mail($to, $subject, $message, $headers);
+  mail($to, $subject, $message, $headers);
   header('location:../index.php?message=You have received an e-mail confirming your registration&idNav='.$idNav);
 } else {
   header('location:../index.php?message=Treatment concerns');

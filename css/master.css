@@ -519,30 +519,62 @@ input, label {
 label::first-letter {
   text-transform: capitalize;
 }
+label {
+  font-family: var(--font-family);
+  margin: 0.5em;
+}
+
 input, textarea {
-  background-color: var(--color-chair);
+  /*background-color: var(--color-neutralBone);*/
+  background-color: var(--body-color);
   border-radius: var(--main-radiusInput);
-
-}
-select {
-  padding-top: 0.3em;
-  padding-bottom: 0.3em;
-  /*background-color: var(--main-background-MagicForm);*/
-  border-radius: var(--main-radiusInput);
-}
-select:hover {
-  background-color: var(--color-select);
-}
-select:disabled {
-  color:var(--color-selected);
+  border: var(--main-border);
+  font-size: var(--main-font-size);
+  color:var(--color-chair);
 }
 
+
+select,
+select::picker(select) {
+  appearance: base-select;
+  background-color: var(--main-background-color);
+  color: var(--main-color);
+  border-radius: var(--main-radius);
+  border: var(--main-border);
+  font-size: var(--main-font-size);
+  padding: 0.5em;
+  
+}
+select::picker-icon {
+  color:var(--color-chair);
+  font-size: var(--main-font-size);
+  transform: rotate(270deg);
+  
+}
+select:open::picker-icon {
+  color: var(--color-selected);
+  transform: rotate(90deg);
+}
+option::checkmark {
+  padding: 8px;
+  font-size: 1.2em;
+  color: var(--color-chair);
+  border: var(--main-border);
+  border-radius: 50%;
+  background-color: var(--color-subTitle);
+}
 
 .textAreaNew {
   padding-top: 2vh;
   text-align: left;
 }
 .buttonForm {
+  margin-top: 0.5em;
+  margin-left: 60%;
+  text-align: justify;
+  width: auto;
+}
+.buttonNav {
   margin: 0.5em;
 }
 .printingButton {
@@ -807,7 +839,6 @@ button {
   cursor: var(--main-cursor);
   margin: var(--main-marginButton);
 }
-
 
 a {
   background-color: var(--main-background-color);
