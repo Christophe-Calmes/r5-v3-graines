@@ -92,7 +92,7 @@ class templatesMiniatures extends sqlMiniatures
                         echo '<td>
                         <form action="'.encodeRoutage(100).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+                        <button  type="submit" name="idNav" value="'.$idNav.'">Fix</button>
                         </form>
                     </td>';
                     break;
@@ -100,7 +100,7 @@ class templatesMiniatures extends sqlMiniatures
                         echo '<td>
                         <form action="'.encodeRoutage(100).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
+                        <button  type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
                         </form>
                     </td>';
                     break;
@@ -121,7 +121,7 @@ class templatesMiniatures extends sqlMiniatures
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                        <button type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
                         </form>
                     </td>';
              echo '</tr>';
@@ -173,13 +173,13 @@ class templatesMiniatures extends sqlMiniatures
                     echo '<td>
                         <form action="'.encodeRoutage(107).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Au repos</button>
+                        <button type="submit" name="idNav" value="'.$idNav.'">Au repos</button>
                         </form>
                     </td>';
                     echo '<td>
                         <form action="'.encodeRoutage(97).'" method="post">
                         <input type="hidden" name="idMiniature" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacere</button>
+                        <button type="submit" name="idNav" value="'.$idNav.'">Effacere</button>
                         </form>
                     </td>';
              echo '</tr>';
@@ -374,7 +374,7 @@ class templatesMiniatures extends sqlMiniatures
             $routeForm = 140;
             $numberOfMiniature = 3;
         }
-        echo '<form action="'.encodeRoutage($routeForm).'" method="post">';
+        echo '<form class="flex-rows" action="'.encodeRoutage($routeForm).'" method="post">';
         echo '<h4>Ajouter '.$nameMiniature.'</h4>';
         echo '<label for="nbr">Nombre</label>';
         echo '<select name="nbr">';
@@ -406,7 +406,7 @@ class templatesMiniatures extends sqlMiniatures
                         <input type="hidden" name="idMiniature" value="'.$data[1].'"/>
                         <input type="hidden" name="idList" value="'.$data[0].'"/>
                         <input type="hidden" name="idJoinMiniatureArmyList" value="'.$data[2].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
+                        <button type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
                     </form>';
             echo '</div>';
     }

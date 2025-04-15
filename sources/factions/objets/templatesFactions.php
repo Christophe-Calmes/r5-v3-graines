@@ -16,7 +16,7 @@ class templatesFactions extends SQLFactions
         echo '<label for="nomFaction">Nom de faction</label>';
         echo '<input id="nomFaction" name="nomFaction" placeholder="New name faction"/>';
         $this->selectUnivers ();
-        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Creat news faction</button>';
+        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
         echo '</form>';
         $this->displayListOfYourUnivers (1);
     }

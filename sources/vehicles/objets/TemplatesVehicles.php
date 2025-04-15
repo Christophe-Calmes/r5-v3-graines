@@ -119,7 +119,7 @@ class TemplatesVehicles extends SQLvehicles
     private function formDeleteVehicleByOwner ($idVehicle, $idNav) {
        echo '<td><form action="'.encodeRoutage(114).'" method="post">
                         <input type="hidden" name="idVehicle"  value="'.$idVehicle.'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                        <button type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
                         </form></td>';
     }
     public function printListVehicle ($data, $idNav) {
@@ -156,7 +156,7 @@ class TemplatesVehicles extends SQLvehicles
                         echo '<td>
                         <form action="'.encodeRoutage(109).'" method="post">
                         <input type="hidden" name="idVehicle" value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+                        <button  type="submit" name="idNav" value="'.$idNav.'">Fix</button>
                         </form>
                     </td>';
                         
@@ -165,7 +165,7 @@ class TemplatesVehicles extends SQLvehicles
                         echo '<td>
                         <form action="'.encodeRoutage(109).'" method="post">
                         <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
+                        <button  type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
                         </form>
                     </td>';
                         break;
@@ -173,7 +173,7 @@ class TemplatesVehicles extends SQLvehicles
                         echo '<td>
                         <form action="'.encodeRoutage(118).'" method="post">
                         <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre en service actif</button>
+                        <button  type="submit" name="idNav" value="'.$idNav.'">Mettre en service actif</button>
                         </form>
                     </td>';
                     break;
@@ -181,7 +181,7 @@ class TemplatesVehicles extends SQLvehicles
                     echo '<td>
                     <form action="'.encodeRoutage(119).'" method="post">
                         <input type="hidden" name="idVehicle"  value="'.$value['id'].'"/>
-                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Retirer du service actif</button>
+                        <button type="submit" name="idNav" value="'.$idNav.'">Retirer du service actif</button>
                         </form>
 
                     </td>';
@@ -277,7 +277,7 @@ class TemplatesVehicles extends SQLvehicles
                 <div class="Armor"><div class="titlePrintDataSheet">Sauvegarde</div><div class="dataSheetInfoPrint">'.$this->getArray($this->armour, $dataVehicle['armor'], 'nameArmour').'</div></div>
                 <div class="titlePrintDataSheet Move">Mouvement :<strong>'.$moving[0].'" / '.$moving[1].' " + 1D4"</strong></div>
                 <div class="Fligth titlePrintDataSheet">Vol :  <strong>'.$this->getArray($this->yes, $dataVehicle['fligt'], 'name').'</strong></div>
-                <div class="StationnaryFlight titlePrintDataSheet">Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'<strong></div>
+                <div class="StationnaryFlight titlePrintDataSheet">Vol stationnaire : <strong>'.$this->getArray($this->yes, $dataVehicle['stationnaryFligt'], 'name').'</strong></div>
                 </div>
                 </div>
                 </div>';
@@ -407,7 +407,7 @@ class TemplatesVehicles extends SQLvehicles
         }
     }
     private function formAddVehicleInArmyList ($idVehicle, $idArmyList, $idNav, $nameVehicle) {
-        echo '<form action="'.encodeRoutage(123).'" method="post">';
+        echo '<form class="flex-rows"  action="'.encodeRoutage(123).'" method="post">';
         echo '<h4>Ajouter '.$nameVehicle.'</h4>';
         echo '<label for="nbr">Nombre</label>';
         echo '<select name="nbr">';
@@ -440,7 +440,7 @@ class TemplatesVehicles extends SQLvehicles
                     <input type="hidden" name="idVehicle" value="'.$data[1].'"/>
                     <input type="hidden" name="idList" value="'.$data[0].'"/>
                     <input type="hidden" name="idJoinMiniatureArmyList" value="'.$data[2].'"/>
-                    <button class="buttonForm" type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
+                    <button type="submit" name="idNav" value="'.$data[3].'">Surpression du groupe</button>
                 </form>';
         echo '</div>';  
     }

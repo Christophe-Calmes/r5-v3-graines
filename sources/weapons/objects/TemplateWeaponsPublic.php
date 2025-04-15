@@ -189,12 +189,12 @@ final class TemplateWeaponsPublic extends SQLWeapons
             if($fix) {
                 return '<form action="'.encodeRoutage(88).'" method="post">
                 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-                <button class="buttonForm greenButton" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
+                <button class="greenButton" type="submit" name="idNav" value="'.$idNav.'">Unfix</button>
             </form>';
             } else {
                 return '<form action="'.encodeRoutage(88).'" method="post">
                 <input type="hidden" name="idWeapon" value="'.$idWeapon.'"/>
-                <button class="buttonForm greenButton" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
+                <button class="greenButton" type="submit" name="idNav" value="'.$idNav.'">Fix</button>
             </form>';
             }
         }
@@ -255,7 +255,7 @@ final class TemplateWeaponsPublic extends SQLWeapons
                             echo '<td>
                             <form action="'.encodeRoutage(85).'" method="post">
                                 <input type="hidden" name="idWeapon" value="'.$value['idWeapon'].'"/>
-                                <button class="buttonForm redButton" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+                                <button class="redButton" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
                             </form>
                         </td>';
                         } else {

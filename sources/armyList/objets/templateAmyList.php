@@ -33,7 +33,7 @@ class TemplateAmyList extends SQLArmyList
     private function formDeleteList ($data) {
         echo '<form action="'.encodeRoutage($data[2]).'" method="post">
                 <input type="hidden" name="idList" value="'.$data[0].'"/>
-                <button class="buttonForm" type="submit" name="idNav" value="'.$data[1].'">Surpression liste</button>
+                <button type="submit" name="idNav" value="'.$data[1].'">Surpression liste</button>
             </form>';
 }
     public function ArmyListOfOneFaction ($idFaction, $idNav) {

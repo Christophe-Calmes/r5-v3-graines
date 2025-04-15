@@ -204,6 +204,7 @@ a {
   flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
+  margin-top: 1em;
 }
 .flex-rows-carousel {
   display: flex;
@@ -556,8 +557,8 @@ select:open::picker-icon {
   transform: rotate(90deg);
 }
 option::checkmark {
-  padding: 8px;
-  font-size: 1.2em;
+  padding: 4px;
+  font-size: 0.8em;
   color: var(--color-chair);
   border: var(--main-border);
   border-radius: 50%;
@@ -575,7 +576,7 @@ option::checkmark {
   width: auto;
 }
 .buttonNav {
-  margin: 0.5em;
+  margin: 0.3em;
 }
 .printingButton {
   text-align: right;
@@ -1445,6 +1446,7 @@ nav {
   .smartPhone {
     display: block;
   }
+
   .hautPage {
     display: block;
   }
@@ -1454,7 +1456,7 @@ nav {
   .flex-rows-simple {
     flex-direction: column;
 }
-  .flex-rows{
+  .flex-rows {
     flex-direction: column;
     align-items: center;
   }
@@ -1573,6 +1575,10 @@ font-size: 0.8em;
   .flex-rows-carousel {
     flex-direction: column;
   }
+  .gallery {
+    grid-template-columns: auto;
+  }
+
 
 }
 /*Burger Menu*/

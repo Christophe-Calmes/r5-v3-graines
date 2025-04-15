@@ -29,9 +29,9 @@ class TemplateUnivers extends SQLUnivers
         echo '<article class="gallery">';
             foreach($dataUnivers as $value) {
                 echo '<div class="item">
-                <a href="'.findTargetRoute(156).'&idUnivers='.$value['idUnivers'].'">Name : '.$value['nameUnivers'].' - NT: '.$value['nt'].'</a>';
-                $dataFactions = $this->listOfFaction ($value['idUnivers']);
-                $this->displayFactionsOfOneUnivers ($dataFactions);
+                        <a href="'.findTargetRoute(156).'&idUnivers='.$value['idUnivers'].'">Name : '.$value['nameUnivers'].' - NT: '.$value['nt'].'</a>';
+                        $dataFactions = $this->listOfFaction ($value['idUnivers']);
+                        $this->displayFactionsOfOneUnivers ($dataFactions);
                 echo '</div>';
             }
         echo '</article>';
@@ -52,7 +52,7 @@ class TemplateUnivers extends SQLUnivers
             echo '</select>';
             echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
         echo '</form>';
-        echo '<article class="customerForm">';
+        echo '<article class="flex-colonne">';
         $this->numberOfUnivers(1);
         $this->displayListOfYourUnivers (1);
         echo '</article>';
@@ -76,11 +76,11 @@ class TemplateUnivers extends SQLUnivers
                 }
             echo '</select>';
             echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
-            echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Mettre à jour '.$dataUnivers[0]['nameUnivers'].'</button>';
+            echo '<button type="submit" name="idNav" value="'.$idNav.'">Mettre à jour '.$dataUnivers[0]['nameUnivers'].'</button>';
         echo '</form>';
         echo '<form class="customerForm" action="'.encodeRoutage(68).'" method="post">';
         echo '<input type="hidden" name="id" value="'.$dataUnivers[0]['idUnivers'].'"/>';
-        echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer '.$dataUnivers[0]['nameUnivers'].'</button>';
+        echo '<button type="submit" name="idNav" value="'.$idNav.'">Effacer '.$dataUnivers[0]['nameUnivers'].'</button>';
     echo '</form>';
     }
 }
