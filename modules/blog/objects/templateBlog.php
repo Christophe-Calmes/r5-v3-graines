@@ -111,6 +111,22 @@ class TemplateBlog extends PresentationHTML
             echo ' </select>';
         }
     }
+    public function selectedSubject ($idSubject) {
+        $dataCategorie = $this->getAllCategories (1);
+        if(!empty($dataCategorie)) {
+            echo '<label for="id_subject">Catégorie</label>';
+            echo '<select id="id_subject" name="id_subject">';
+                foreach ($dataCategorie as $value) {
+                    if($value['id'] == $idSubject) {
+                        echo '<option value="'.$value['id'].'" selected>'.$value['subject'].'</option>';
+                    } else {
+                        echo '<option value="'.$value['id'].'">'.$value['subject'].'</option>';
+                    }
+                    
+                }
+            echo ' </select>';
+        }
+    }
     public function menuCategorieBlog () {
         if(!empty($_SESSION)) {
             switch ($_SESSION['role']) {

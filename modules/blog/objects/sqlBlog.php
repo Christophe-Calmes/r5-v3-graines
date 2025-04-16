@@ -114,7 +114,7 @@ class SQLBlog
         return ActionDB::select($select, $param, 2);
     }
     protected function getOneArticle ($idArticle, $valid) {
-        $select = "SELECT `articles`.`id` AS `idArticle`, `author`, `title`, `article`, `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`,  `subject`
+        $select = "SELECT `articles`.`id` AS `idArticle`, `author`, `title`, `article`, `articles`.`valid`, `publish`, `articles`.`creat_date`, `articles`.`update_date`,  `subject`, `id_subject`
                 FROM `articles`
                 INNER JOIN `link_subject_article` ON `articles`.`id` = `id_article`
                 INNER JOIN `subjects` ON `id_subject` = `subjects`.`id`

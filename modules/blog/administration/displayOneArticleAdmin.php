@@ -1,5 +1,4 @@
 <?php
-// findTargetRoute(214, 215, 216, 215)
 require('modules/blog/objects/templateBlog.php');
 $idArticle = filter($_GET['idArticle']);
 $blog = new TemplateBlog ();
@@ -51,14 +50,26 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
             <p class="link" onclick="insererMarqueur('eCenter')">&lt;/center&gt;</p>
         </div>
     </div>
-    <textarea id="article" name="article" rows="20" cols="140"><?php echo $dataArticle['article'];?></textarea>
+    <textarea id="article" name="article" rows="20" cols="140"><?php echo $dataArticle['article'];
+    print_r($dataArticle);
+    
+    ?></textarea>
     <label for="publish">Publish ?</label>
     <select id="status" name="publish">
-        <option value="0">In writing</option>
-        <option value="1">Publish</option>
+        <?php
+        $type = ['In writing', 'Publish'];
+        for ($i=0; $i <=1 ; $i++) { 
+            if($i == $dataArticle['publish']) {
+                echo '<option value="'.$i.'" selected>'.$type[$i].'</option>';
+            } else {
+                echo '<option value="'.$i.'">'.$type[$i].'</option>';
+            }
+        }
+        ?>
+        
     </select>
     <?php
-        $blog->selectSubject ();
+        $blog->selectedSubject ($dataArticle['id_subject']);
     ?>
     <input type="hidden" name="idArticle" value="<?php echo $dataArticle['idArticle'];?>"/>
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Update</button>

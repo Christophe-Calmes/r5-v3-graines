@@ -2,7 +2,7 @@
     <label for="subject">Catégorie</label>
     <input id="subject" type="text" name="subject" placeholder="Nouvelle catégorie"/>
     <lable for="occurance">Ordre apparition</label>
-    <input type="number" id="occurance" name="occurance" min="0" max="15"/>
+    <input type="number" id="occurance" name="occurance" min="0" max="15" value="1"/>
     <button class="buttonForm" type="submit" name="idNav" value="<?php echo $idNav; ?>">Créer</button>
 </form>
 <?php

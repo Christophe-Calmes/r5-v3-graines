@@ -5,7 +5,7 @@ $condition = [['champs'=>'idDataSite', 'operator'=>'=', 'param'=>1]];
 $InfoSite = new PrintDataSite();
 $dataSite = $InfoSite->getElementSite($fields, $table, $condition);
 ?>
-<article class="textAreaNew buttonForm">
+<article class="textAreaNew">
 <h3>Conditions générales d’utilisation du site <?=$dataSite[0]['titre']?></h3>
 <h2>Article 1: Objet</h2>
 <p>Les présentes CGU ou Conditions Générales d’Utilisation encadrent juridiquement l’utilisation des services du site <?=$dataSite[0]['titre']?> (ci-après dénommé « le site »).

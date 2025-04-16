@@ -51,7 +51,7 @@ $yes = ['Non', 'Oui'];
              <td>
                <form class="flex-colonne" action="'.encodeRoutage(65).'" method="post">
                  <input type="hidden" name="BanIP" value="'.$value['ipUser'].'"/>
-                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Add IP ban</button>
+                 <button type="submit" name="idNav" value="'.$idNav.'">Add IP ban</button>
                </form>
              </td>
            </tr>';
