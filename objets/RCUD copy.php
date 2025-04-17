@@ -6,17 +6,28 @@ class RCUD {
   protected $dbName = ["graine1901", ""];
   private $sql;
   private $param;
+  private $sql;
+  private $param;
   public function __construct($sql, $param) {
     $this->sql = $sql;
     $this->param = $param;
   }
-  public function CUD($type) {
+  private function connexionDB($type) {
     try {
-      $conn = new PDO("mysql:host=$this->serverName;dbname=".$this->dbName[$type], $this->userName, $this->password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $connexionDB = new PDO(
+        "mysql:host=$this->serverName;dbname=" . $this->dbName[$type],
+        $this->userName,
+        $this->password
+      );
+      $connexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e) {
-     echo "Error: " . $e->getMessage();
+      error_log($e->getMessage());
+      echo "Error: " . $e->getMessage();
     }
+    return $connexionDB;
+  }
+  public function CUD($type) {
+    $conn = $this->connexionDB($type);
     $data = $conn->prepare($this->sql);
     foreach ($this->param as $key) {
       $data->bindParam($key['prep'],$key['variable']);
@@ -24,12 +35,7 @@ class RCUD {
     $data->execute();
   }
   public function READ($type) {
-    try {
-      $conn = new PDO("mysql:host=$this->serverName;dbname=".$this->dbName[$type], $this->userName, $this->password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-     echo "Error: " . $e->getMessage();
-    }
+    $conn = $this->connexionDB($type);
     $data = $conn->prepare($this->sql);
     foreach ($this->param as $key) {
       $data->bindParam($key['prep'],$key['variable']);
@@ -40,6 +46,6 @@ class RCUD {
     return $dataTraiter;
   }
   function __destruct() {
-
+    $this->conn = null;
   }
 }
