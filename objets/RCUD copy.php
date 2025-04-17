@@ -6,8 +6,6 @@ class RCUD {
   protected $dbName = ["graine1901", ""];
   private $sql;
   private $param;
-  private $sql;
-  private $param;
   public function __construct($sql, $param) {
     $this->sql = $sql;
     $this->param = $param;
