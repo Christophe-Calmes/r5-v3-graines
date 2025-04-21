@@ -31,8 +31,9 @@ if($controle_POST == $mark) {
     for ($i=1; $i <count($arrayKeys) ; $i++) { 
         array_push($dataWeapon, filter($_POST[$arrayKeys[$i]]));
     }
+    array_pop($dataWeapon);
     $rawPrice = $calculatingPriceWeapon->blastWeaponPrice ($dataWeapon);
-    $_POST['price'] = $calculatingPriceWeapon->specialRulesPrice(filter($_POST[$arrayKeys[9]]), $rawPrice);
+    $_POST['price'] = $calculatingPriceWeapon->specialRulesPrice(filter($_POST[$arrayKeys[11]]), $rawPrice);
     $parametre = new Preparation ();
     $param = $parametre-> creationPrepIdUser ($_POST);
     $updateNewWeapon->updateExplosiveWeapon ($param);

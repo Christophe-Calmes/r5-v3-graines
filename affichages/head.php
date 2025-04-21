@@ -6,7 +6,7 @@
     <meta name="description" content="<?php echo $description; ?>">
     <meta name="Cache-Control" content="max-age=31536000">
     <link rel="stylesheet" href="<?=$css?>" media="screen">
-    <link rel="stylesheet" href="<?=$css?>" media="print">
+    <link rel="stylesheet" href="<?=$printCSS?>" media="print">
     <title><?=$title?></title>
   </head>
   <body>

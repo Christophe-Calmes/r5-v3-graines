@@ -1442,14 +1442,6 @@ nav {
       text-indent: 0;
     }
   }
-  .printVehicle  {
-    display: flex;
-    flex-direction: column;
-  }
-  .dataSheetWeapon {
-    display: flex;
-    flex-direction: column;
-  }
   .Picture { display: none; }
   .smartPhone {
     display: block;
@@ -1587,5 +1579,123 @@ font-size: 0.8em;
     grid-template-columns: auto;
   }
 
+
+}
+/*Burger Menu*/
+@media print {
+  @page {
+    margin: 5cm;
+    size: landscape;
+  }
+  .centrale {
+    display: none;
+  }
+  body {
+    margin:0;
+  }
+  header {
+    display: none;
+  }
+  button {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  section {
+    width: auto;
+    font-size: 0.7em;
+    page-break-after: always;
+
+  }
+  main {
+    margin-top: 2em;
+  }
+  h2, h3, h4, h5, h6 {
+    color:#151515;
+  }
+  
+  .dataSheetBox {
+    height: auto !important;
+    width: 100em;
+    background-color: none;
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .printVehicle {
+    margin-top: 2em;
+    font-weight:bolder;
+    width: 100%;
+    font-size: 0.7em;
+    height: 20vh;
+    color:#0e0d0d;
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .Name { 
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+
+  .Type { 
+    border: var(--main-printBorder); 
+  }
+  
+  .DQM { 
+    border: var(--main-printBorder);
+  }
+  
+  .Structure { 
+    border: var(--main-printBorder);
+  }
+  
+  .Armor { 
+    border: var(--main-printBorder);
+   }
+   .Move {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .NameRS {   
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .TextRS {  
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .PriceTT {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .Size {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .Fligth {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  .StationnaryFlight {
+    border: var(--main-printBorder);
+    color:#0e0d0d;
+  }
+  
+  .dataSheetWeapon div {
+     border: var(--main-printBorder);
+     color:#0e0d0d;
+    }
+  .borderDataSheetWeapon {
+    border: var(--main-printBorder);
+    margin-left:0;
+    margin-right: auto;
+  }
+  .imgCarouselAuto {
+    border: var(--main-printBorder);
+    filter: grayscale();
+  }
+  .checkbox-no-Reactive {
+    border: var(--main-printBorder);
+  }
 
 }
