@@ -146,10 +146,16 @@ class SQLBlog
         $insert = "INSERT INTO `pictures`(`altImg`, `carrouselPicture`, `name_picture`, `author`) VALUES (:altImg, :carrousellePicture, :name_picture,  :idUser);";
         return ActionDB::access($insert, $param, 2);
     }
-    protected function getAllPictureBlog ($valid) {
-        $select = "SELECT * FROM  `pictures` WHERE `valid` = :valid";
+    protected function getPictureBlogPagination ($valid, $firstPage, $PictureByPage) {
+        $select = "SELECT * FROM  `pictures` 
+        WHERE `valid` = :valid
+        LIMIT {$firstPage}, {$PictureByPage};";
         $param = [['prep'=>':valid', 'variable'=>$valid]];
         return ActionDB::select($select, $param, 2);
+    }
+    public function nbrMiniaturePicture () {
+        $select = "SELECT COUNT(`id`) AS `nbrPicture` FROM `pictures`;";
+        return ActionDB::select($select, [], 2)[0]['nbrPicture'];
     }
     public function getLastSubject () {
         $select = "SELECT `id` FROM `subjects` ORDER BY`id` LIMIT 1;";

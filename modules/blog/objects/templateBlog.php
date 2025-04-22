@@ -27,7 +27,7 @@ class TemplateBlog extends PresentationHTML
     }
     private function displayOneArticleBlog ($data) {
         echo '<aside class="sectionBlog">';
-            echo '<h2>'.$data['title'].'</h2>';
+            echo '<h2 class="titleSite">'.$data['title'].'</h2>';
                 echo '<h5>Catégorie : '.$data['subject'].'</h5>';
                     echo '<p>Le '.brassageDate($data['creat_date']).'</p>';
                         echo $this->htmlText ($data['article']);
@@ -58,7 +58,7 @@ class TemplateBlog extends PresentationHTML
     }
     private function displayPreviweArticleBlog ($data) {
             echo '<aside class="sectionBlog">';
-                echo '<h2><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">'.$data['title'].'</a></h2>';
+                echo '<h2 class="titleSite"><a class="link" href="'.findTargetRoute($this->redirectionPage ()).'&idArticle='.$data['idArticle'].'">'.$data['title'].'</a></h2>';
                 if((!empty($_SESSION))&&($_SESSION['role'] == 3)) {
                     echo '<h2><a class="link" href="'.findTargetRoute(218).'&idArticle='.$data['idArticle'].'">Administrer</a></h2>';
                 }
@@ -193,14 +193,14 @@ class TemplateBlog extends PresentationHTML
     public function admiArticleOfBlog ($idArticle, $valid, $idNav) {
         return $this->getOneArticle ($idArticle, $valid);
     }
-    public function displayImgCode ($valid, $idNav) {
+    public function displayImgCode ($valid, $idNav, $firstPage, $PictureByPage) {
         function carrousel ($data) {
             if($data) {
                 return 'Oui';
             }
             return 'Non';
         }
-        $dataPictures = $this->getAllPictureBlog ($valid);
+        $dataPictures = $this->getPictureBlogPagination ($valid, $firstPage, $PictureByPage);
         echo '<div class="gallery">';
         foreach ($dataPictures as $value) {
             echo '<aside class="itemPictureMini">';

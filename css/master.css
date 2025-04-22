@@ -105,14 +105,13 @@ h1 {
 
 }
 .titleSite {
+  font-size: 2.2em;
   font-family: var(--font-family);
   font-weight: var(--font-weight);
   font-style: var(--font-style);
   color: var(--color-title);
 }
-h2 {
-  font-size: 1.2em;
-}
+
 .center {
   display: inline-block;
 }
