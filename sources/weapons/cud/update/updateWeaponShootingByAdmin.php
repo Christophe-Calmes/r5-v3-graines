@@ -1,5 +1,6 @@
 <?php
 // encodeRoutage(90)
+
 require ('../sources/weapons/objects/SQLWeapons.php');
 require ('../sources/weapons/objects/PriceOfWeapon.php');
 $updateNewWeapon = new SQLWeapons ();
@@ -20,13 +21,18 @@ if(checkPostFields ($arrayKeys, $_POST)) {
     array_push($mark, 1);
 
 }
+
+
 if($controle_POST == $mark) {
+    echo '<br/> Debug<br/>';
     $calculatingPriceWeapon = new PriceOfWeapon ();
     $dataWeapon = array();
     for ($i=1; $i <count($arrayKeys) ; $i++) { 
         array_push($dataWeapon, filter($_POST[$arrayKeys[$i]]));
     }
+    array_pop($dataWeapon);
     $rawPrice = $calculatingPriceWeapon->shootingWeaponPrice ($dataWeapon);
+
     $_POST['price'] = $calculatingPriceWeapon->specialRulesPrice(filter($_POST[$arrayKeys[9]]), $rawPrice);
     $parametre = new Preparation ();
     $param = $parametre-> creationPrep ($_POST);
