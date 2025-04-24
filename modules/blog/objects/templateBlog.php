@@ -28,7 +28,7 @@ class TemplateBlog extends PresentationHTML
     private function displayOneArticleBlog ($data) {
         echo '<aside class="sectionBlog">';
             echo '<h2 class="titleSite">'.$data['title'].'</h2>';
-                echo '<h5>Catégorie : '.$data['subject'].'</h5>';
+                echo '<h3>Catégorie : '.$data['subject'].'</h3>';
                     echo '<p>Le '.brassageDate($data['creat_date']).'</p>';
                         echo $this->htmlText ($data['article']);
         echo '</aside>';

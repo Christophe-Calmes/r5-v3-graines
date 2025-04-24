@@ -108,7 +108,7 @@ class TemplateAmyList extends SQLArmyList
     public function printingIntroduction ($idList, $type) {
         // $type = true => battle / $type = false => shirmish
         $miniature = new templatesMiniatures ();
-        echo '<aside class="dataSheetBox">';
+        echo '<aside class="headList">';
             echo '<h4>'.$this->getNameArmyList ($idList).'</h4>';
             echo '<ul class="listeProfil">';
                 echo '<li><strong>Prix '.$this->listPrice ($idList).' $</strong></li>';

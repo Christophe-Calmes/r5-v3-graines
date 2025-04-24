@@ -58,8 +58,8 @@ $gradient-radial: radial-gradient(#A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #1
   --font-family-titleEvent: "IBM Plex Mono", monospace;
   --font-weight: 500;
   --font-style: normal;
-  --color-title: #1A8921ff;;
-  --color-subTitle: #1A8921ff;;
+  --color-title: #2CD333;
+  --color-subTitle: #2CD333;
   /*Présentation*/
   --padding-sheddulingShop: 0.2em 0 0.2em 0;
   /*Variable color*/
@@ -1234,6 +1234,7 @@ nav {
   width: 60%;
   font-size: 0.8em;
 }
+
 .titlePrintDataSheet {
   font-weight: 500;
   text-align: left;
@@ -1621,6 +1622,15 @@ font-size: 0.8em;
     background-color: none;
     border: var(--main-printBorder);
     color:#0e0d0d;
+  }
+  .headList {
+    display: inline-block;
+    border: var(--main-border);
+    border: var(--main-printBorder);
+    margin-right:1em;
+    font-size: 1em;
+    margin-bottom: 1em;
+    width: 25%;
   }
   .printVehicle {
     margin-top: 2em;

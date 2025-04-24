@@ -58,8 +58,8 @@ $gradient-radial: radial-gradient(#A4A39Aff, #A3091Aff, #7B0E23ff, #1E1E1Eff, #1
   --font-family-titleEvent: "IBM Plex Mono", monospace;
   --font-weight: 500;
   --font-style: normal;
-  --color-title: #1A8921ff;;
-  --color-subTitle: #1A8921ff;;
+  --color-title: #2CD333;
+  --color-subTitle: #2CD333;
   /*Présentation*/
   --padding-sheddulingShop: 0.2em 0 0.2em 0;
   /*Variable color*/
@@ -105,7 +105,7 @@ h1 {
 
 }
 .titleSite {
-  font-size: 2.2em;
+  font-size: 2em;
   font-family: var(--font-family);
   font-weight: var(--font-weight);
   font-style: var(--font-style);
@@ -763,8 +763,8 @@ option::checkmark {
 }
 .styleListNews, ul {
   list-style: none;
-
 }
+
 /*Gallery Events*/
 .gallery {
     margin: 2vh auto 0;
@@ -1233,6 +1233,14 @@ nav {
   width: 60%;
   font-size: 0.8em;
 }
+.headList {
+  display: inline-block;
+  border: var(--main-border);
+  border-radius: var(--main-radius);
+  padding: 1.2em;
+  width: 60%;
+  font-size: 0.8em;
+}
 .titlePrintDataSheet {
   font-weight: 500;
   text-align: left;
@@ -1372,7 +1380,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 20em;
+  height: auto;
 }
 /*Carrousel*/
 .custom-slider { display: none; }
@@ -1440,6 +1448,9 @@ nav {
     .listClass {
       text-indent: 0;
     }
+  }
+  .centerBlog {
+    flex-direction: column;
   }
   .printVehicle  {
     display: flex;

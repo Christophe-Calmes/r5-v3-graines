@@ -166,7 +166,7 @@ class SQLBlog
         return false;
     }
     public function numberOfArticleAllSubject () {
-        $select = "SELECT COUNT(`id`) AS `nbrArticle` FROM `articles`;";
+        $select = "SELECT COUNT(`id`) AS `nbrArticle` FROM `articles` WHERE `publish` = 0;";
         return ActionDB::select($select, [], 2)[0]['nbrArticle'];
     }
     protected function getCarouselPictures ($valid, $carrousel, $limit) {
