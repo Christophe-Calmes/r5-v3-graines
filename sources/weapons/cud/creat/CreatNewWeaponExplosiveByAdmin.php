@@ -32,8 +32,6 @@ if($controle_POST == $mark) {
         array_push($dataWeapon, filter($_POST[$arrayKeys[$i]]));
     }
     $_POST['price'] = $calculatingPriceWeapon->blastWeaponPrice($dataWeapon);
-    echo '<br/>';
-    print_r(  $_POST['price']);
     $parametre = new Preparation ();
     $param = $parametre->creationPrepIdUser ($_POST);
     $creatNewWeapon->recordWeaponBlast ($param);

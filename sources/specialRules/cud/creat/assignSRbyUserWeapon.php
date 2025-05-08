@@ -15,9 +15,6 @@ if(checkPostFields ($arrayKeys, $_POST))  {
     array_push($mark, 1);
 
 }
-/*print_r($controle_POST);
-echo '<br/>';
-print_r($_POST);*/
 if($controle_POST == $mark) {
     $parametre = new Preparation ();
     $param = $parametre->creationPrep ($_POST);

@@ -7,7 +7,6 @@
   $update = "UPDATE `users` SET `token` = :token WHERE `idUser` = :idUser;";
   $param =  [['prep'=>':idUser', 'variable'=>$id->idUser($_SESSION)],
               ['prep'=>':token', 'variable'=>genToken(10)]];
-  //print_r($param);
   ActionDB::access($update, $param);
   session_destroy();
   $_SESSION = array();

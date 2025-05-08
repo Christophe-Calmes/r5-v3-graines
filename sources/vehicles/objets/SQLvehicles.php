@@ -374,7 +374,6 @@ class SQLvehicles
         $newPrice = $vehiclePrice - $WeaponPrice;
         $arrayDebug = ['$numberOfSameWeapon'=>$numberOfSameWeapon, '$vehiclePrice'=>$vehiclePrice,
         '$rawPrice1'=>$rawPrice1, '$rawPrice'=>$rawPrice, '$newPrice'=>$newPrice];
-        print_r($arrayDebug);
         $this->recordNewPrice ($param[1]['variable'], round($newPrice, 0));
         $this->unequipWeaponVehicle ($param);
         return true;

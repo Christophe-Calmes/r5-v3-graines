@@ -1,6 +1,5 @@
 <?php
 // encodeRoutage(20)
-//print_r($_POST);
 require '../functions/functionToken.php';
 $_POST['targetRoute'] = IntToken(20);
 $parametre = new Preparation();

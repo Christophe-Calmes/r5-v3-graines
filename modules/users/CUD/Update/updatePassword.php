@@ -22,11 +22,6 @@ if($AuthentificationUser->authentificationTwoFactor(filter($_POST['email']), fil
     array_push($security, 1);
 }
 if($stamp == $security) {
-    print_r($_POST);
-    echo '<br>';
-    print_r($security);
-    echo '<br>';
-    print_r($stamp);
     $AuthentificationUser->updatePassword(haschage(filter($_POST['mdp'])), filter($_POST['token']), filter($_POST['email']));
     $AuthentificationUser->updateToken(filter($_POST['email']), genToken(10));
     return header('location:../index.php?message=Votre nouveau mot de passe est opérationnel.&idNav='.$idNav);

@@ -394,7 +394,6 @@ class sqlMiniatures
         $rawPrice = $this-> addRSRawPrice ($param[1]['variable'], $rawPrice1);
         $newPrice = $priceMiniature - ($rawPrice * $priceWeapon);
         $arrayDebug = ['$priceWeapon'=>$priceWeapon, '$rawPrice1'=>$rawPrice1, '$rawPrice'=>$rawPrice, '$newPrice'=>$newPrice];
-        print_r($arrayDebug);
         $this->addNewPrice ($paramMiniature, $newPrice);
         $delete = "DELETE FROM `miniatureLinkWeapons` WHERE `idWeapon` = :idWeapon AND `idminiature` = :idMiniature;";
         return ActionDB::Access($delete, $param, 1);
@@ -496,8 +495,6 @@ class sqlMiniatures
         if($newPrice == 0) {
             $newPrice = $MiniaturePrice;
         }
-        echo '<br/>';
-        print_r($newPrice);
         $this->updatePriceByAdmin ($idMiniature, $newPrice);
         return true;
     }

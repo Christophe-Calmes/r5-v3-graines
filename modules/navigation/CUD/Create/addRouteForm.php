@@ -6,7 +6,6 @@ $_POST['route'] = IntToken(20);
 $insert = $request->requestInsert($_POST, 1);*/
 $request = new InsertRequest();
 $insert = $request->requestInsert($_POST, 1, 'routageForm');
-print_r($insert);
 $parametre = new Preparation();
 $param = $parametre->creationPrep ($_POST);
 ActionDB::access($insert, $param);

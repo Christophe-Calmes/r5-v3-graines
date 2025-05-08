@@ -40,7 +40,6 @@ class PriceOfWeapon
                 'spell'=>$arrayWeapon[3]];
             break;
         }
-        print_r($paramWeapon);
         return $paramWeapon;
      
     }
@@ -64,7 +63,6 @@ class PriceOfWeapon
     public function shootingWeaponPrice ($arrayWeapon) {
         $paramWeapon = $this->creatParamWeapon ($arrayWeapon);
         $price = $this->baseWeaponPrice ($paramWeapon );
-        print_r($price);
         if($paramWeapon['assault']  == 1) {
             $price = $price + 0.1;
         }
