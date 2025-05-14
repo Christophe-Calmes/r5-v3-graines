@@ -51,8 +51,6 @@ $dataArticle = $blog->admiArticleOfBlog ($idArticle, 1, $idNav);
         </div>
     </div>
     <textarea id="article" name="article" rows="20" cols="140"><?php echo $dataArticle['article'];
-    print_r($dataArticle);
-    
     ?></textarea>
     <label for="publish">Publish ?</label>
     <select id="status" name="publish">

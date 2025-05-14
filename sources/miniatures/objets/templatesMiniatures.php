@@ -372,7 +372,7 @@ class templatesMiniatures extends sqlMiniatures
         $numberOfMiniature = 24;
         if($typeList == 2) {
             $routeForm = 140;
-            $numberOfMiniature = 3;
+            $numberOfMiniature = 4;
         }
         echo '<form class="flex-rows" action="'.encodeRoutage($routeForm).'" method="post">';
         echo '<h4>Ajouter '.$nameMiniature.'</h4>';

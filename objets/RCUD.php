@@ -18,6 +18,7 @@ class RCUD {
         $this->password
       );
       $connexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $connexionDB->exec("SET NAMES 'utf8mb4'");
     } catch(PDOException $e) {
       error_log($e->getMessage());
       echo "Error: " . $e->getMessage();
