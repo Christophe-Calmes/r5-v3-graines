@@ -37,7 +37,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 
 if($controle_POST == $mark) {
     $_POST['price'] = $addVehicle->solveVehiclePrice($_POST);
-    $namePicture = genToken (5).date('Y').genRandomName (8);
+    $namePicture = genToken (5).date('Y').genRandomName (8).'.webp';
     $_POST['namePicture'] = $namePicture;
     if(file_exists('../sources/pictures/miniaturesPictures')) {
         if(move_uploaded_file($_FILES['namePicture']['tmp_name'], $f='../sources/pictures/miniaturesPictures/'.$namePicture)) {
