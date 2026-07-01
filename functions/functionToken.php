@@ -9,7 +9,6 @@ function genToken ($size) {
       $number = rand(0, strlen($alpha));
       $letter = substr($alpha, $number, 1);
       $token = $token.$letter;
-      //$token =  $token.substr($alpha, rand(0,strlen($alpha)));
     }
     return $token;
 }
@@ -23,13 +22,12 @@ function IntToken ($size) {
       $number = rand(0, strlen($alpha));
       $letter = substr($alpha, $number, 1);
       $token = $token.$letter;
-      //$token =  $token.substr($alpha, rand(0,strlen($alpha)));
     }
     return $token;
 }
 function genRandomName ($size) {
     $alpha = 'abcdefghijklmnopqrstuvwxyz';
-    for ($i=0; $i < 6 ; $i++) {
+    for ($i=0; $i < 2 ; $i++) {
         $alpha = str_shuffle($alpha).$alpha;
     }
     $token = NULL;
@@ -37,7 +35,6 @@ function genRandomName ($size) {
       $number = rand(0, strlen($alpha));
       $letter = substr($alpha, $number, 1);
       $token = $token.$letter;
-      //$token =  $token.substr($alpha, rand(0,strlen($alpha)));
     }
     return $token;
 }
