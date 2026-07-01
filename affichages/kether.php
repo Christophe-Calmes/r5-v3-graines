@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 require 'modules/dataSite/objets/getDataSite.php';
 require 'modules/dataSite/objets/printDataSite.php';
 $fields = ['titre'];

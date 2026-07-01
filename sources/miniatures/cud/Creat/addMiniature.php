@@ -34,7 +34,7 @@ if(checkPostFields ($arrayKeys, $_POST)) {
 }
 if($controle_POST == $mark) {
     $_POST['price'] = $miniatureTraitement->solveMiniaturePrice($_POST);
-    $namePicture = genToken (5).date('Y').filter($_FILES['namePicture']['name']);
+      $namePicture = genToken (5).date('Y').genRandomName (10).'.webp';
     $_POST['pictureName'] = $namePicture;
    if(file_exists('../sources/pictures/miniaturesPictures')) {
         if(move_uploaded_file($_FILES['namePicture']['tmp_name'], $f='../sources/pictures/miniaturesPictures/'.$namePicture)) {

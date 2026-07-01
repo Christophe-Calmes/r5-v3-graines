@@ -73,8 +73,8 @@ class PresentationHTML extends SQLBlog
         return str_replace('*eh4*', ' </h4>', $setp1);
     }
     protected function htmlText ($data) {
+        $data = html_entity_decode($data, ENT_QUOTES, 'UTF-8'); 
         $html = $this->article ($data, $this->classCSS['article']);
-        
         $html = $this->paragraphe ($html, $this->classCSS['p']);
         $html = $this->strong ($html, $this->classCSS['strong']);
         $html = $this->listHTML ($html, $this->classCSS['ul']);
